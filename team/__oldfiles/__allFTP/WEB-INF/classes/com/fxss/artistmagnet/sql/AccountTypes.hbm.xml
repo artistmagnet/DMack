@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated Dec 8, 2011 12:58:31 PM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.fxss.artistmagnet.sql.AccountTypes" table="account_types" catalog="artmag_db1">
+        <id name="accountTypeId" type="java.lang.Integer">
+            <column name="account_type_id" />
+            <generator class="identity" />
+        </id>
+        <property name="accountName" type="string">
+            <column name="account_name" length="32" not-null="true" />
+        </property>
+        <set name="userses" inverse="true">
+            <key>
+                <column name="account_type_id" />
+            </key>
+            <one-to-many class="com.fxss.artistmagnet.sql.Users" />
+        </set>
+    </class>
+</hibernate-mapping>

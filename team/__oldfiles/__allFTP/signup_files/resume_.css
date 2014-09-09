@@ -1,0 +1,164 @@
+/* REGSITER FORM
+*******************************************************************************/
+div.register-form {
+    margin-left: auto;
+    margin-right: auto;
+    width: 640px;
+}
+
+form.register-form {
+    width: 600px;
+}
+
+form.register-form label,
+form.register-form td.label {
+    height: 20px;
+    width: 100px;
+	font-size: 11px;
+}
+
+form.register-form td {
+}
+
+form.register-form input[type="text"],
+form.register-form input[type="password"] {
+    width: 120px;
+	height: 20px;
+	font-size: 12px;
+}
+
+form.register-form input[type="submit"] {
+    width: 100px;
+	height: 20px;
+	font-size: 13px;
+}
+
+form.register-form input[type="button"] {
+    width: 21px;
+	height: 21px;
+	font-size: 15px;
+	background: #D5DADD url('../images/form-button-background.jpg') no-repeat top left;
+}
+
+form.register-form select {
+    width: 292px;
+	height: 20px;
+	font-size: 13px;
+}
+form table, form tr{
+    text-align: left;
+    margin: 11px 0 0 0;
+	border: solid 1px #D4D4D4;
+}
+
+form label {
+    float: left;
+    margin: 0 0 0 0;
+    line-height: 20px;
+    text-align: left;
+}
+
+
+.resume_header_row span, .resume_header_row label {
+	font-size: 11px;
+}
+
+#enterValue {width: 277px;}
+#entercustom{width: 200px;line-height: 18px; height: 18px}
+#resume_representation_table td{
+	padding: 0 0 0 0 ;
+}
+
+#resume_options_table span {
+	font-size: 12px;
+}
+
+#resume_options_table p {
+	font-size: 14px;
+}
+
+#resume_visibility input {
+	font-size: 13px;
+	text-align: left;
+}
+#left1 {
+	font-size: 13px;
+	color: #4B4C4DB;
+	margin: 7px;
+}
+#left2 {
+	font-size: 13px;
+	color: #4880D3;
+	font-weight: bold;
+	margin: 7px;
+}
+#ptitle {
+	font-size: 13px;
+	color: #4880D3;
+	font-weight: bold;
+}
+#ptitle1 {
+	font-size: 13px;
+	color: #4880D3;
+	font-weight: bold;
+	width: 200px;
+
+}
+#ptitle2 {
+	font-size: 12px;
+	color: #4880D3;
+}
+#ptitle3 {
+	font-size: 12px;
+	color: #4880D3;
+	width: 140px;
+}
+#ptitle4 {
+	font-size: 12px;
+}
+#ptitle5 {
+	font-size: 12px;
+	color: #4880D3;
+	font-weight: bold;
+	width: 160px;
+}
+#ptitle6 {
+	font-size: 12px;
+	color: #4880D3;
+	font-weight: bold;
+	width: 190px;
+}
+#ptitle7 {
+	font-size: 12px;
+	color: #4880D3;
+	font-weight: bold;
+	text-align: right;
+}
+#ptitle8 {
+	font-size: 12px;
+	color: #E14B4C;
+	font-weight: bold;
+	width: 190px;
+}
+#ptitle9 {
+	font-size: 12px;
+	color: #E14B4C;
+	font-weight: bold;
+	text-align: right;
+}
+#note {
+	font-size: 12px;
+	color: grey;
+	width: 350px;
+}
+#note2 {
+	font-size: 12px;
+	color: grey;
+	width: 170px;
+}
+#pic {
+	font-size: 12px;
+	color: 000000;
+	text-align: center;
+}
+

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.1.xsd
+	http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+        <!--
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url" value="jdbc:postgresql://localhost/spring" />
+		<property name="username" value="postgres" />
+		<property name="password" value="" />
+	</bean> -->
+
+	
+	<bean id="myDataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+		destroy-method="close"> <property name="driverClassName" value="com.mysql.jdbc.Driver" 
+		/> <property name="url" value="jdbc:mysql://localhost:3306/artmag_db1?autoReconnect=true&amp;autoReconnectForPools=true" 
+		/> <property name="username" value="artmag_artmag1" /> <property name="password" 
+		value="Hyperlinking09" /> </bean>
+	
+        <bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="myDataSource" />
+	</bean>
+        
+        <bean id="mySessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="myDataSource" />
+		<property name="annotatedClasses">
+			<list>
+				<value>com.artistmagnet.domain.User</value>
+				<value>com.artistmagnet.domain.AccountType</value>
+				<value>com.artistmagnet.domain.Resume</value>
+				<value>com.artistmagnet.domain.ResumePhoto</value>
+				<value>com.artistmagnet.domain.ResumeSectionData</value>
+			</list>
+		</property>
+		<!-- <property name="hibernateProperties"> <props> <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> 
+			<prop key="hibernate.show_sql">true</prop> <prop key="hibernate.connection.pool_size">20</prop> 
+			<prop key="hibernate.dbcp.initialSize">5</prop> <prop key="hibernate.dbcp.maxWait">1000</prop> 
+			<prop key="hibernate.dbcp.validationQuery">select 1</prop> <prop key="hibernate.dbcp.testOnBorrow">true</prop> 
+			</props> </property> -->
+		<!--<property name="hibernateProperties"> <props> <prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop> 
+			<prop key="hibernate.c3p0.min_size">5</prop> <prop key="hibernate.c3p0.max_size">20</prop> 
+			<prop key="hibernate.c3p0.timeout">1800</prop> <prop key="hibernate.c3p0.max_statements">50</prop> 
+			<prop key="hibernate.c3p0.idle_test_period">28680</prop> </props> </property> -->
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.default_schema">artmag_db1</prop>
+			</props>
+		</property>
+	</bean>
+
+	<context:component-scan base-package="com.artistmagnet.web" />
+
+	<!-- Configure the multipart resolver -->
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- one of the properties available; the maximum file size in bytes (200KB) -->
+		<property name="maxUploadSize" value="204800" />
+	</bean>
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
+
+	<bean id="userDAO" class="com.artistmagnet.dao.UserDAO"></bean>
+
+	<bean id="resumeDAO" class="com.artistmagnet.dao.ResumeDAO"></bean>
+
+</beans>
+
