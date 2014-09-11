@@ -28,7 +28,7 @@ if Venue.count == 0
         zipcode:  "10036",
         state:    "NY",
         country: "United States",
-        desccription: "Opened in 1973, the theatre was named for Sam Minskoff and Sons, one of New York's distinguished real estate families."
+        description: "Opened in 1973, the theatre was named for Sam Minskoff and Sons, one of New York's distinguished real estate families."
       },
     ])
 end
