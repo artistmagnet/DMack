@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong><%= @venue.name %></strong>
+</p>
+
+<p>
+  <%= @venue.address1 %> <%= @venue.address2 %> <br/>
+  <%= @venue.city %> <%= @venue.zipcode %>, <%= @venue.state %>, <%= @venue.country %>
+</p>
+
+<p>
+  <%= @venue.description %>
+</p>
+
+<p>
+  <strong>Production:</strong>
+  <% if @venue.current_production.nil? %>
+    None
+  <% else %>
+    <%= link_to @venue.current_production_name, @venue.current_production %>
+  <% end %>
+</p>
+
+<%= link_to 'Edit', edit_venue_path(@venue) %> |
+<%= link_to 'Venue list', venues_path %>

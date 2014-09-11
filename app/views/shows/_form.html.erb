@@ -1,0 +1,29 @@
+<%= form_for(@show) do |f| %>
+  <% if @show.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@show.errors.count, "error") %> prohibited this show from being saved:</h2>
+
+      <ul>
+      <% @show.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :production %><br>
+    <%= f.collection_select :production_id, Production.all, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label :venue %><br>
+    <%= f.collection_select :venue_id, Venue.all, :id, :name %>
+  </div>
+  <div class="field">
+    <%= f.label :date %><br>
+    <%= f.date_select :date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
