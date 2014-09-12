@@ -29,10 +29,10 @@ class VenuesController < ApplicationController
     respond_to do |format|
       if @venue.save
         format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
-        format.json { render :show, status: :created, location: @venue }
+        format.json { render json: @venue }
       else
         format.html { render :new }
-        format.json { render json: @venue.errors, status: :unprocessable_entity }
+        format.json { render json: @venue.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -43,10 +43,10 @@ class VenuesController < ApplicationController
     respond_to do |format|
       if @venue.update(venue_params)
         format.html { redirect_to @venue, notice: 'Venue was successfully updated.' }
-        format.json { render :show, status: :ok, location: @venue }
+        format.json { render json: @venue }
       else
         format.html { render :edit }
-        format.json { render json: @venue.errors, status: :unprocessable_entity }
+        format.json { render json: @venue.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
