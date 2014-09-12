@@ -4,11 +4,3 @@
 
 
 
-#jQuery ->
-#  $('.extend-company-list').click (e) ->
-#    e.preventDefault()
-#    alert('click')
-
-$('.extend-company-list').click (e) ->
-  e.preventDefault()
-  alert('hey')

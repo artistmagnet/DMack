@@ -29,10 +29,10 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       if @company.save
         format.html { redirect_to @company, notice: 'Company was successfully created.' }
-        format.json { render :show, status: :created, location: @company }
+        format.json { render json: @company }
       else
         format.html { render :new }
-        format.json { render json: @company.errors, status: :unprocessable_entity }
+        format.json { render json: @company.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -43,10 +43,10 @@ class CompaniesController < ApplicationController
     respond_to do |format|
       if @company.update(company_params)
         format.html { redirect_to @company, notice: 'Company was successfully updated.' }
-        format.json { render :show, status: :ok, location: @company }
+        format.json { render json: @company }
       else
         format.html { render :edit }
-        format.json { render json: @company.errors, status: :unprocessable_entity }
+        format.json { render json: @company.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

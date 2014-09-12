@@ -22,7 +22,7 @@
   </div>
   <%= f.fields_for :shows do |fs| %>
     <div class="field">
-      <%= fs.label :venue %><br>
+      <%= fs.label :company %><br>
       <%= fs.collection_select :venue_id, Venue.all, :id, :name %>
     </div>
     <div class="field">
@@ -40,7 +40,7 @@
   </div>
 <% end %>
 
-<div id="company-form" style="display: none">
+<div id="add-company" style="display: none">
   Create a company
   <%= render 'companies/form' %>
 </div>
