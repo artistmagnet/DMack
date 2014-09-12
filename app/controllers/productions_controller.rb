@@ -1,6 +1,7 @@
 class ProductionsController < ApplicationController
   before_action :set_production, only: [:show, :edit, :update, :destroy]
   before_action :new_venue, only: [:edit, :new]
+  before_action :new_company, only: [:edit, :new]
 
   # GET /productions
   # GET /productions.json
@@ -68,8 +69,13 @@ class ProductionsController < ApplicationController
   def set_production
     @production = Production.find(params[:id])
   end
+
   def new_venue
     @venue = Venue.new
+  end
+
+  def new_company
+    @company = Company.new
   end
 
     # Never trust parameters from the scary internet, only allow the white list through.

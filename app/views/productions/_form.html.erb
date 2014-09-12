@@ -17,7 +17,8 @@
   </div>
   <div class="field">
     <%= f.label :company %><br>
-    <%= f.collection_select :company_id, Company.all, :id, :name %>
+    <%= f.collection_select :company_id, Company.all, :id, :name, {}, {:class => 'company-selector'} %>
+    <%= link_to "Add one", '#', {:class => 'extend-company-list'} %>
   </div>
   <%= f.fields_for :shows do |fs| %>
     <div class="field">
@@ -38,3 +39,8 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+<div id="company-form" style="display: none">
+  Create a company
+  <%= render 'companies/form' %>
+</div>
