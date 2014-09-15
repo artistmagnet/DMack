@@ -51,3 +51,7 @@ gem 'thin'
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
+# Track v1.0 when it is released
+gem 'activeadmin', github: 'activeadmin'
+
+gem 'devise'
