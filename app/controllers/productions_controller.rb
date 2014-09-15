@@ -1,7 +1,7 @@
 class ProductionsController < ApplicationController
   before_action :set_production, only: [:show, :edit, :update, :destroy]
-  before_action :new_venue, only: [:edit, :new]
-  before_action :new_company, only: [:edit, :new]
+  before_action :new_venue, only: [:edit, :new, :create]
+  before_action :new_company, only: [:edit, :new, :create]
 
   # GET /productions
   # GET /productions.json

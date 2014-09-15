@@ -22,9 +22,13 @@ class Production < ActiveRecord::Base
       errors.add :description, "is required"
     end
 
-    if shows.count == 0 || !shows[0].valid?
-      errors.add :premiere_info, "is invalid"
-    end
+    # if shows.count == 0
+    #   errors.add :premiere_info, "is missing"
+    # else
+      if !shows[0].valid?
+        errors.add :premiere_info, "is invalid"
+      end
+    # end
   end
 
   def current_venue

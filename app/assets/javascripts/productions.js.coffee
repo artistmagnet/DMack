@@ -13,8 +13,8 @@
 
 
 jQuery ->
-  bindAjaxOption('#new_production', '#production_company_id', '#add-company')
-  bindAjaxOption('#new_production', '#production_shows_attributes_0_venue_id', '#add-venue')
+  bindAjaxOption('#add-production', '#production_company_id', '#add-company')
+  bindAjaxOption('#add-production', '#production_shows_attributes_0_venue_id', '#add-venue')
 
 
 bindAjaxOption = (origin_form_selector, select_selector, create_form_selector) ->
