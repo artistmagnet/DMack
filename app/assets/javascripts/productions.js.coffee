@@ -2,25 +2,21 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-#jQuery ->
-#  $('.extend-list').click (e) ->
-#    e.preventDefault()
-#    openForm($('#add-company'))
-
-#openForm = (form) ->
-#  $('#new_production').hide()
-#  form.show()
-
 
 jQuery ->
   bindAjaxOption('#add-production', '#production_company_id', '#add-company')
   bindAjaxOption('#add-production', '#production_shows_attributes_0_venue_id', '#add-venue')
 
 
+# Enable adding an option on-the-fly to a select
+# PARAMS:
+#   origin_form_selector: containing form
+#   select_selector:      select to be extended
+#   create_form_selector  form for the type of entoty listed on the select.
+
 bindAjaxOption = (origin_form_selector, select_selector, create_form_selector) ->
   $(select_selector.concat(' + .extend-list')).click (e) ->
     e.preventDefault()
-#    openForm($(create_form_selector))
     $(origin_form_selector).hide()
     $(create_form_selector).show()
 
