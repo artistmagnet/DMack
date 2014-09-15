@@ -1,6 +1,10 @@
+<% remoteForm  ||= false %>
+<% queryFormat ||= '' %>
+<% html_class  ||= '' %>
+
 
 <div id="add-production">
-  <%= form_for(@production) do |f| %>
+  <%= form_for(@production, remote: remoteForm, format: queryFormat, html: {class: html_class}) do |f| %>
     <% if @production.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@production.errors.count, "error") %> prohibited this production from being saved:</h2>

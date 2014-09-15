@@ -78,8 +78,8 @@ class ProductionsController < ApplicationController
     @company = Company.new
   end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def production_params
-      params.require(:production).permit(:name, :description, :company_id, shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def production_params
+    params.require(:production).permit(:name, :description, :company_id, shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy])
+  end
 end

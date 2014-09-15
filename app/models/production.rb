@@ -2,6 +2,8 @@ class Production < ActiveRecord::Base
   belongs_to :company
   has_many :shows
   has_many :venues, :through => :shows
+  has_many :roles
+  has_many :resumes, :through => :roles
 
   accepts_nested_attributes_for :shows, allow_destroy: true, reject_if: :all_blank
   delegate :name, :to => :company, :prefix => true
@@ -22,13 +24,9 @@ class Production < ActiveRecord::Base
       errors.add :description, "is required"
     end
 
-    # if shows.count == 0
-    #   errors.add :premiere_info, "is missing"
-    # else
-      if !shows[0].valid?
-        errors.add :premiere_info, "is invalid"
-      end
-    # end
+    if !shows[0].valid?
+      errors.add :premiere_info, "is invalid"
+    end
   end
 
   def current_venue

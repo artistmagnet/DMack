@@ -4,6 +4,7 @@
 
 
 jQuery ->
+  bindAjaxOption('#add-resume',     '#resume_roles_attributes_0_production_id','#add-production')
   bindAjaxOption('#add-production', '#production_company_id', '#add-company')
   bindAjaxOption('#add-production', '#production_shows_attributes_0_venue_id', '#add-venue')
 

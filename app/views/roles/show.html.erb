@@ -1,0 +1,17 @@
+<p>
+  <strong>Name:</strong>
+  <%= @role.name %>
+</p>
+
+<p>
+  <strong>Resume:</strong>
+  <%= @role.resume_id %>
+</p>
+
+<p>
+  <strong>Production:</strong>
+  <%= @role.production_id %>
+</p>
+
+<%= link_to 'Edit', edit_role_path(@role) %> |
+<%= link_to 'Back', roles_path %>

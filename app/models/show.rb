@@ -11,6 +11,5 @@ class Show < ActiveRecord::Base
     if venue_name.blank?
       errors.add :venue_name, "is invalid"
     end
-
   end
 end

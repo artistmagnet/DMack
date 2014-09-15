@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :roles
+
+  resources :resumes
+
   devise_for :users
 
   resources :shows
