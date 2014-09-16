@@ -2,31 +2,49 @@
 <div style="background-color: #CCCCCC; border-radius: 4px; padding: 10px 20px">
   <h3>Theater</h3>
 
-  <p>
-    <strong>Production</strong>
-    <%= link_to @resume.roles.first.production_name, @resume.roles.first.production %>
-  </p>
+  <table>
+    <tr>
+      <% @resume.roles.each do |role| %>
+        <td style="border-radius: 4px; background-color: #eeeeee; padding: 5px">
+          <p>
+            <strong>Production</strong>
+            <%= link_to role.production_name, role.production %>
+          </p>
+
+          <p>
+            <strong>Role</strong>
+            <%= role.name %>
+          </p>
+
+          <p>
+            <strong>Venue</strong>
+            <%= link_to role.production.shows.first.venue_name, role.production.shows.first.venue  %>
+          </p>
+
+          <p>
+            <strong>Company</strong>
+            <%= link_to role.production.company_name, role.production.company %>
+          </p>
+
+          <p>
+            <strong>Dates</strong>
+            <%= role.production.shows.first.date %>
+          </p>
+
+          <p>
+            <%= link_to "Edit role", edit_resume_role_path(role.resume, role) %>
+            <%= link_to "Destroy", [role.resume, role], method: :delete, data: { confirm: 'Are you sure?' } %>
+          </p>
+        </td>
+      <% end %>
+    </tr>
+
+  </table>
 
   <p>
-    <strong>Role</strong>
-    <%= @resume.roles.first.name %>
+    <%= link_to 'New Role', new_resume_role_path(@resume) %>
   </p>
 
-  <p>
-    <strong>Venue</strong>
-    <%= link_to @resume.roles.first.production.shows.first.venue_name, @resume.roles.first.production.shows.first.venue  %>
-  </p>
-
-  <p>
-    <strong>Company</strong>
-    <%= link_to @resume.roles.first.production.company_name, @resume.roles.first.production.company %>
-  </p>
-
-  <p>
-    <strong>Dates</strong>
-    <%= @resume.roles.first.production.shows.first.date %>
-  </p>
 </div>
 
-<%= link_to 'Edit', edit_resume_path(@resume) %> |
 <%= link_to 'Resume list', resumes_path %>

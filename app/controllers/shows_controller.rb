@@ -25,7 +25,6 @@ class ShowsController < ApplicationController
   # POST /shows.json
   def create
     @show = Show.new(show_params)
-    puts "+++++++++++++++++show_params_ #{show_params}"
 
     respond_to do |format|
       if @show.save

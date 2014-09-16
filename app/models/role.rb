@@ -8,8 +8,14 @@ class Role < ActiveRecord::Base
   validate :validate_properties
 
   def validate_properties
-    if production_name.blank?
-      errors.add :production_name, "is invalid"
+    if name.blank?
+      errors.add :name, "is invalid"
+    end
+    if resume_id.blank?
+      errors.add :resume_id, "is invalid"
+    end
+    if production_id.blank?
+      errors.add :production_id, "is invalid"
     end
   end
 end

@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
-  resources :roles
 
-  resources :resumes
+  resources :resumes do
+    resources :roles
+  end
 
   devise_for :users
 

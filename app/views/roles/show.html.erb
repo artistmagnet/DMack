@@ -13,5 +13,5 @@
   <%= @role.production_id %>
 </p>
 
-<%= link_to 'Edit', edit_role_path(@role) %> |
-<%= link_to 'Back', roles_path %>
+<%= link_to 'Edit', edit_resume_role_path(@role.resume, @role) %> |
+<%= link_to 'Role list', resume_roles_path(@role.resume) %>

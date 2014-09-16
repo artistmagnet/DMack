@@ -1,8 +1,8 @@
 class Production < ActiveRecord::Base
   belongs_to :company
-  has_many :shows
+  has_many :shows, dependent: :destroy
   has_many :venues, :through => :shows
-  has_many :roles
+  has_many :roles, dependent: :destroy
   has_many :resumes, :through => :roles
 
   accepts_nested_attributes_for :shows, allow_destroy: true, reject_if: :all_blank

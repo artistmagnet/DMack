@@ -1,4 +1,4 @@
-<%= form_for(@role) do |f| %>
+<%= form_for([@resume, @role]) do |f| %>
   <% if @role.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
@@ -15,13 +15,14 @@
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
+
   <div class="field">
-    <%= f.label :resume_id %><br>
-    <%= f.number_field :resume_id %>
+    <%= f.hidden_field :resume_id %>
   </div>
+
   <div class="field">
     <%= f.label :production_id %><br>
-    <%= f.number_field :production_id %>
+    <%= f.collection_select :production_id, Production.all, :id, :name  %>
   </div>
   <div class="actions">
     <%= f.submit %>
