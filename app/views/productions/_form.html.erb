@@ -3,19 +3,22 @@
 <% html_class  ||= '' %>
 
 
+<% if remoteForm  %>
+<div id="add-production" style="display: none">
+<% else %>
 <div id="add-production">
+<% end %>
+  Create a production
   <%= form_for(@production, remote: remoteForm, format: queryFormat, html: {class: html_class}) do |f| %>
-    <% if @production.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(@production.errors.count, "error") %> prohibited this production from being saved:</h2>
-
-        <ul>
-        <% @production.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+    <div id="error_explanation" style="display: none">
+      <ul>
+        <% if @production.errors.any? %>
+          <% @production.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
         <% end %>
-        </ul>
-      </div>
-    <% end %>
+      </ul>
+    </div>
 
     <div class="field">
       <%= f.label :name %><br>
