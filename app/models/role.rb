@@ -11,9 +11,10 @@ class Role < ActiveRecord::Base
     if name.blank?
       errors.add :name, "is invalid"
     end
-    if resume_id.blank?
-      errors.add :resume_id, "is invalid"
-    end
+    # issues when submitted by new resumes
+    # if resume_id.blank?
+    #   errors.add :resume_id, "is invalid"
+    # end
     if production_id.blank?
       errors.add :production_id, "is invalid"
     end

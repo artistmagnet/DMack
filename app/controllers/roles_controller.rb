@@ -24,7 +24,7 @@ class RolesController < InheritedResources::Base
 
     respond_to do |format|
       if @role.save
-        format.html { redirect_to [@resume, @role], notice: 'Role was successfully created.' }
+        format.html { redirect_to @resume, notice: 'Role was successfully created.' }
         format.json { render :role, status: :created, location: @role }
       else
         format.html { render :new }
@@ -37,7 +37,7 @@ class RolesController < InheritedResources::Base
     @resume = @role.resume
     respond_to do |format|
       if @role.update(role_params)
-        format.html { redirect_to [@resume, @role], notice: 'Show was successfully updated.' }
+        format.html { redirect_to @resume, notice: 'Show was successfully updated.' }
         format.json { render :show, status: :ok, location: @role }
       else
         format.html { render :edit }
@@ -63,4 +63,15 @@ class RolesController < InheritedResources::Base
     #TODO: use current_user to validate
     Resume.find params[:resume_id]
   end
+end
+
+def destroy
+  @role.destroy
+
+  redirect_to @resume, notice: 'Show was successfully destroyed.'
+
+  # respond_to do |format|
+  #   format.html { redirect_to @resume, notice: 'Show was successfully destroyed.' }
+  #   format.json { head :no_content }
+  # end
 end

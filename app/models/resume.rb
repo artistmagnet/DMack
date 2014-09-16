@@ -10,7 +10,7 @@ class Resume < ActiveRecord::Base
 
   def validate_resumes
     if !roles[0].valid?
-      errors.clear
+      # errors.clear
       errors.add(:role_name, roles[0].errors[:name].first)
     end
   end
