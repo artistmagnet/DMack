@@ -1,5 +1,8 @@
 class RolesController < InheritedResources::Base
   before_action :set_role, only: [:show, :edit, :update, :destroy]
+  before_action :new_production, only: [:edit, :new, :create]
+  before_action :new_venue, only: [:edit, :new, :create]
+  before_action :new_company, only: [:edit, :new, :create]
 
   def index
     @resume = find_resume
@@ -13,9 +16,11 @@ class RolesController < InheritedResources::Base
     @role = Role.new
     @resume = find_resume
     @role.resume = @resume
+    # @resume.roles.build
   end
 
   def edit
+    @production = @role.production
   end
 
   def create
@@ -67,11 +72,26 @@ end
 
 def destroy
   @role.destroy
+  respond_to do |format|
+    format.html { redirect_to @resume, notice: 'Show was successfully destroyed.' }
+    format.json { head :no_content }
+  end
+end
 
-  redirect_to @resume, notice: 'Show was successfully destroyed.'
 
-  # respond_to do |format|
-  #   format.html { redirect_to @resume, notice: 'Show was successfully destroyed.' }
-  #   format.json { head :no_content }
-  # end
+
+private
+
+def new_production
+  @production = Production.new
+  @production.shows.build
+  puts "CREATED PRODUCTION: #{@production.to_json}"
+end
+
+def new_venue
+  @venue = Venue.new
+end
+
+def new_company
+  @company = Company.new
 end

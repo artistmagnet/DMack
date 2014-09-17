@@ -1,30 +1,37 @@
-<%= form_for([@resume, @role]) do |f| %>
-  <% if @role.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
+<div id="add-role">
+  <%= form_for([@resume, @role]) do |f| %>
+    <% if @role.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@role.errors.count, "error") %> prohibited this role from being saved:</h2>
 
-      <ul>
-      <% @role.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% @role.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :name %><br>
+      <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+      <%= f.hidden_field :resume_id %>
+    </div>
+
+    <div class="field">
+      <%= f.label :production_id %><br>
+      <%= f.collection_select :production_id, Production.all, :id, :name  %>
+      <%= link_to "Add one", '#', {:class => 'extend-list'} %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
     </div>
   <% end %>
+</div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= f.hidden_field :resume_id %>
-  </div>
-
-  <div class="field">
-    <%= f.label :production_id %><br>
-    <%= f.collection_select :production_id, Production.all, :id, :name  %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+<div id="add-role-production">
+  <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
+</div>
