@@ -1,10 +1,11 @@
 class ShowsController < ApplicationController
   before_action :set_show, only: [:show, :edit, :update, :destroy]
+  before_action :set_production, only: [:new, :show, :edit]
 
   # GET /shows
   # GET /shows.json
   def index
-    @shows = Show.all
+    @shows = Show.all.order(:name)
   end
 
   # GET /shows/1
@@ -15,6 +16,7 @@ class ShowsController < ApplicationController
   # GET /shows/new
   def new
     @show = Show.new
+    @show.production = @production
   end
 
   # GET /shows/1/edit
@@ -28,7 +30,7 @@ class ShowsController < ApplicationController
 
     respond_to do |format|
       if @show.save
-        format.html { redirect_to @show, notice: 'Show was successfully created.' }
+        format.html { redirect_to @show.production, notice: 'Show was successfully created.' }
         format.json { render :show, status: :created, location: @show }
       else
         format.html { render :new }
@@ -42,7 +44,7 @@ class ShowsController < ApplicationController
   def update
     respond_to do |format|
       if @show.update(show_params)
-        format.html { redirect_to @show, notice: 'Show was successfully updated.' }
+        format.html { redirect_to @show.production, notice: 'Show was successfully updated.' }
         format.json { render :show, status: :ok, location: @show }
       else
         format.html { render :edit }
@@ -63,12 +65,17 @@ class ShowsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_show
-      @show = Show.find(params[:id])
-    end
+  def set_show
+    @show = Show.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def show_params
-      params.require(:show).permit(:production_id, :venue_id, :date)
-    end
+  def set_production
+    @production = params[:production_id].nil? ? Production.all.first : Production.find(params[:production_id])
+    puts "PROD: #{@production.to_json}"
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def show_params
+    params.require(:show).permit(:production_id, :venue_id, :date)
+  end
 end

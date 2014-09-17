@@ -5,7 +5,7 @@ class ResumesController < InheritedResources::Base
   before_action :new_company, only: [:edit, :new, :create]
 
   def index
-    @resumes = Resume.all
+    @resumes = Resume.all.order(:name)
   end
 
   def new

@@ -23,7 +23,7 @@
 
     <div class="field">
       <%= f.label :production_id %><br>
-      <%= f.collection_select :production_id, Production.all, :id, :name  %>
+      <%= f.collection_select :production_id, Production.all.order(:name), :id, :name  %>
       <%= link_to "Add one", '#', {:class => 'extend-list'} %>
     </div>
     <div class="actions">

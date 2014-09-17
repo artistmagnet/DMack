@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   resources :shows
 
-  resources :productions
+  resources :productions do
+    resources :shows
+  end
 
   resources :companies
 

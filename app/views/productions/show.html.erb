@@ -2,11 +2,6 @@
   <strong>Name:</strong>
   <%= @production.name %>
 </p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @production.description %>
-</p>
 <p>
   <strong>Company:</strong>
   <%= link_to @production.company_name, @production.company %>
@@ -15,6 +10,22 @@
 <p>
   <strong>Venue:</strong>
   <%= link_to @production.current_venue_name, @production.current_venue %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @production.description %>
+</p>
+
+<p>
+  <strong>Dates:</strong> <br />
+  <% @production.shows.order(:date).each do |show| %>
+    <%= show.date %> <%= show.venue_name %> <br />
+  <% end %>
+</p>
+
+<p>
+  <%= link_to 'New Date', new_production_show_path(@production) %>
 </p>
 
 

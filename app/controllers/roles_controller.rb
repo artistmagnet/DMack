@@ -16,7 +16,6 @@ class RolesController < InheritedResources::Base
     @role = Role.new
     @resume = find_resume
     @role.resume = @resume
-    # @resume.roles.build
   end
 
   def edit
