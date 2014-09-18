@@ -13,6 +13,14 @@ class Production < ActiveRecord::Base
     company.nil? ? "Unknown" : company.name
   end
 
+  def key_info
+    info = name + ' - - - ' + company_name + ', ' + year
+  end
+
+  def year
+    Show.where(production_id: id).minimum("date").year.to_s
+  end
+
 
   def validate_properties
 

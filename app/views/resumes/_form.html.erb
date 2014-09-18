@@ -16,7 +16,7 @@
     <%= f.fields_for :roles do |fs| %>
       <div class="field">
         <%= fs.label :production %><br>
-        <%= fs.collection_select :production_id, Production.all.order(:name), :id, :name %>
+        <%= fs.collection_select :production_id, Production.all.order(:name), :id, :key_info %>
         <%= link_to "Add one", '#', {:class => 'extend-list'} %>
       </div>
       <div class="field">
