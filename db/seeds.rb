@@ -33,6 +33,7 @@ if Venue.count == 0
     ])
 end
 
+
 if Company.count == 0
   puts "Creating Companies"
   companies = Company.create([
@@ -47,7 +48,6 @@ if Company.count == 0
        primary_contact_name: "http://www.huntingtontheatre.org/",
        description:"The Huntington brings together world-class theatre artists from Boston, Broadway, and beyond with the most promising new talent to create eclectic seasons of exciting new works and classics made current."
      }
-
-
    ])
 end
+

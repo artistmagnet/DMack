@@ -2,8 +2,11 @@ class Show < ActiveRecord::Base
   belongs_to :venue
   belongs_to :production
 
-  delegate :name, :to => :venue, :prefix => true
   delegate :name, :to => :production, :prefix => true
+
+  def venue_name
+    venue.nil? ? "Unknown" : venue.name
+  end
 
   validate :validate_properties
 
