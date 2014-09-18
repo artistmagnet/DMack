@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :production %><br>
-    <%= f.collection_select :production_id, Production.all.order(:name), :id, :name %>
+    <%= f.collection_select :production_id, Production.all.order(:name), :id, :key_info %>
   </div>
   <div class="field">
     <%= f.label :venue %><br>
