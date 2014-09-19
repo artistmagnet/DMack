@@ -17,3 +17,6 @@
 
 # Ignore IDE
 .idea/
+
+# Ignore evironment
+.env
