@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :productions do
     resources :shows
+    # resources :prodroles
   end
 
   resources :companies
@@ -22,8 +23,6 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'home#index'
-
-  get 'invite' => 'home#invite'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

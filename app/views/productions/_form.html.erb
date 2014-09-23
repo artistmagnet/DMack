@@ -45,6 +45,15 @@
       <%= f.label :description %><br>
       <%= f.text_area :description %>
     </div>
+    <div class="field">
+      <%= f.label :director %><br>
+      <%= f.collection_select :director_id, User.all.order(:email), :id, :name, {include_blank: true} %>  <br />
+      Or invite them:
+      <div class="field">
+        <%= f.label :dirname, "Name" %> <%= f.text_field :dirname %>
+        <%= f.label :diremail, "Email" %> <%= f.text_field :diremail %>
+      </div>
+    </div>
     <div class="actions">
       <%= f.submit %>
     </div>

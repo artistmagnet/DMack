@@ -31,6 +31,7 @@ class ProductionsController < ApplicationController
 
     respond_to do |format|
       if @production.save
+        manage_temp_director_info(@production)
         format.html { redirect_to @production, notice: 'Production was successfully created.' }
         format.json { render json: @production }
       else
@@ -45,6 +46,7 @@ class ProductionsController < ApplicationController
   def update
     respond_to do |format|
       if @production.update(production_params)
+        manage_temp_director_info(@production)
         format.html { redirect_to @production, notice: 'Production was successfully updated.' }
         format.json { render json: @production }
       else
@@ -80,6 +82,15 @@ class ProductionsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def production_params
-    params.require(:production).permit(:name, :description, :company_id, shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy])
+    params.require(:production).permit(:name, :description, :company_id, :director_id, :dirname, :diremail, shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy])
+  end
+
+  def manage_temp_director_info(production)
+    if production.director.nil? && production.dirname && production.diremail
+      AmMailer.invite_director(production.dirname, production.diremail, 'An Artist Magnet user').deliver
+    else
+      production.dirname = ''
+    end
+    production.diremail = ''
   end
 end
