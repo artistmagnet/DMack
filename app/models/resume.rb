@@ -8,6 +8,7 @@ class Resume < ActiveRecord::Base
 
   validate :validate_resumes
 
+
   def validate_resumes
     if !roles[0].valid?
       # errors.clear

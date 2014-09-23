@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   end
 
   devise_for :users
+  get 'users' => 'users#index', :as => 'users'
 
   resources :shows
 

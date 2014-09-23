@@ -18,6 +18,7 @@ class ResumesController < InheritedResources::Base
 
   def create
     @resume = Resume.new(resume_params)
+    @resume.user_id = User.all.first if @resume.user.nil?
 
     respond_to do |format|
       if @resume.save

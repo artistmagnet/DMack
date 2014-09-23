@@ -18,15 +18,31 @@
 </p>
 
 <p>
-  <strong>Dates:</strong> <br />
+  <strong>Dates:</strong> <%= link_to 'Add one', new_production_show_path(@production) %><br />
   <% @production.shows.order(:date).each do |show| %>
     <%= show.date %> <%= show.venue_name %> <br />
   <% end %>
 </p>
 
-<p>
-  <%= link_to 'New Date', new_production_show_path(@production) %>
-</p>
+<div style="background-color: #CCCCCC; border-radius: 4px; padding: 10px 20px">
+  <h3>Cast & Crew</h3>
+
+  <table>
+    <tr>
+      <% @production.roles.each do |role| %>
+        <td style="border-radius: 4px; background-color: #eeeeee; padding: 5px">
+          <p>
+            <div>
+              <img src="/images/fallback/performer-200.jpg" />
+            </div>
+            <strong><%= link_to role.user_name, role.resume %></strong> <br />
+            <%= role.name %>
+          </p>
+        </td>
+      <% end %>
+    </tr>
+  </table>
+</div>
 
 
 

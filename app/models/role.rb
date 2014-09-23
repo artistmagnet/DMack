@@ -7,9 +7,17 @@ class Role < ActiveRecord::Base
 
   validate :validate_properties
 
+  def user
+    resume.user
+  end
+
+  def user_name
+    user.name
+  end
+
   def validate_properties
     if name.blank?
-      errors.add :name, "is invalid"
+      errors.add :name, "is required"
     end
     # issues when submitted by new resumes
     # if resume_id.blank?
