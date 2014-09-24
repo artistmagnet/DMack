@@ -17,6 +17,7 @@
 
 # Ignore IDE
 .idea/
+*.codekit
 
 # Ignore environment
 .env
