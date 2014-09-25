@@ -44,24 +44,34 @@
         <ul class="sidebar-group">
           <br />
           <li class="sidebar-group-header">ARTIST SPACE</li>
-          <div class="sidebar-panel">
-            <h4> Resumes </h4>
-            <li><a href="#"><i class="typcn typcn-starburst text-red"></i> <span>Performing Artist</span></a></li>
-            <li><a href="#"><i class="typcn typcn-starburst text-blue"></i> <span>Director</span></a></li>
-            <li><a href="#"><i class="typcn typcn-starburst text-green"></i> <span>Crew Memeber</span></a></li>
-            <li><button class="btn btn-primary btn-block no-margin"><i class="typcn typcn-plus"></i> Build a Resume</button></li>
-          </div>
-          <div class="sidebar-panel">
-            <li><button class="btn btn-primary btn-block no-margin"><i class="typcn typcn-plus"></i> Add Friends </button></li>
-            <br />
-            <li><button class="btn btn-primary btn-block no-margin"></i> Upgrade your account </button></li>
-          </div>
-
-          <div class="sidebar-panel">
-            <h4> Other </h4>
-            <li><a href="#"><i class="typcn typcn-starburst text-red"></i> <span>Account Settings</span></a></li>
-            <li><a href="#"><i class="typcn typcn-starburst text-blue"></i> <span>Log out</span></a></li>
-          </div>
+          <li class="has-submenu">
+            <a href="#"><i class="typcn typcn-tabs-outline"></i> <span>Resumes</span></a>
+            <div class="sidebar-link-addon"><i class="typcn typcn-plus"></i></div>
+            <!-- Sidebar submenu -->
+            <ul class="sidebar-submenu">
+              <li><a href="#"><i class="typcn typcn-starburst text-red"></i><span> Performing Artist</span></a></li>
+              <li><a href="#"><i class="typcn typcn-starburst text-blue"></i><span> Director</span></a></li>
+              <li><a href="#"><i class="typcn typcn-starburst text-green"></i><span> Crew Memeber</span></a></li>
+              <li><a href="#"><span><em>Build a Resume</em></span></a></li>
+            </ul>
+            <!-- /Sidebar submenu -->
+          </li>
+          <li>
+            <a href="#"><i class="typcn typcn-group"></i> <span>Add friends</span></a>
+          </li>
+          <li>
+            <a href="#"><i class="typcn typcn-star-outline"></i> <span>Upgrade your account</span></a>
+          </li>
+          <li class="has-submenu">
+            <a href="#"><i class="typcn typcn-cog"></i> <span>Other</span></a>
+            <div class="sidebar-link-addon"><i class="typcn typcn-plus"></i></div>
+            <!-- Sidebar submenu -->
+            <ul class="sidebar-submenu">
+              <li><a href="blank.html"><i class="typcn typcn-starburst text-red"></i><span> Account Settings</span></a></li>
+              <li><a href="blank.html"><i class="typcn typcn-starburst text-blue"></i><span> Log out</span></a></li>
+            </ul>
+            <!-- /Sidebar submenu -->
+          </li>
         </ul>
         <!-- /Sidebar group -->
 
@@ -78,11 +88,17 @@
                 <div class="panel-body">
                   <div class="row">
                     <div class="col-md-12">
+
+                      <div class="page-title" style="margin-left: 0px; display: block">
+                        <a href="#" id="toggle-menu"><i class="typcn typcn-th-menu"></i></a>
+                      </div>
                       <span class="pull-right" style="width: 180px; height: 180px; background-image: url('img/curtain-180.jpg')"></span>
-                      <h3>Invisible Cities</h3>
-                      <p>performed at <a href="#">Union Station Los Angeles</a> </p>
-                      <p>by <a href="#">The Industry</a> </p>
-                      <p>10.19.13 — 11.17.13 </p>
+                      <div>
+                        <h3>Invisible Cities</h3>
+                        <p>performed at <a href="#">Union Station Los Angeles</a> </p>
+                        <p>by <a href="#">The Industry</a> </p>
+                        <p>10.19.13 — 11.17.13 </p>
+                      </div>
                     </div>
 
                   </div>
