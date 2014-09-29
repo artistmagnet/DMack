@@ -14,8 +14,8 @@ $(function() {
 	// Show sidebar submenu
 	$(".has-submenu").click(function(e) {
 		//$(this).toggleClass("active");
-		$('.sidebar-group li').removeClass('active');
-		$(this).closest('li').addClass('active');
+//		$('.sidebar-group li').removeClass('active');
+//		$(this).closest('li').addClass('active');
 	});
 
 	// Collapse sidebar

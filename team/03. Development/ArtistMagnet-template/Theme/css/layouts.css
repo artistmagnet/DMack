@@ -1,3 +1,11 @@
 .m-top-20{
     margin-top: 20px;
 }
+
+/* Fixed sumbenu text visibility in collapsed sidebar */
+.compact-sidebar .sidebar-group li a span {
+    display: inline !important;
+}
+.compact-sidebar .sidebar-group>li>a span {
+    display: none !important;
+}
