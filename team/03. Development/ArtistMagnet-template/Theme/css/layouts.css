@@ -9,3 +9,11 @@
 .compact-sidebar .sidebar-group>li>a span {
     display: none !important;
 }
+
+/* Production listings inside Venue page */
+.row--productions{
+    margin-bottom: 30px;
+}
+.row--productions a{
+    color: #233e4d;
+}
