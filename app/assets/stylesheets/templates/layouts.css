@@ -1,0 +1,30 @@
+.m-top-20{
+    margin-top: 20px;
+}
+.m-top-m6{
+    margin-top: -6px;
+}
+
+.m-bottom-20{
+    margin-bottom: 20px;
+}
+
+/* Fixed sumbenu text visibility in collapsed sidebar */
+.compact-sidebar .sidebar-group li a span {
+    display: inline !important;
+}
+.compact-sidebar .sidebar-group>li>a span {
+    display: none !important;
+}
+
+/* Production listings inside Venue page */
+.row--productions{
+    margin-bottom: 30px;
+}
+.row--productions a{
+    color: #233e4d;
+}
+
+.socialicons{
+    font-size: 20px
+}
