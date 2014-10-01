@@ -11,7 +11,9 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.turbolinks
 //= require jquery_ujs
-//= require turbolinks
-//= require_tree .
+//= require plugins/enscroll.min
+//= require plugins/footable.min
+//= require plugins/icheck.min
+//= require main
+//= require layouts.js
