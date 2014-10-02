@@ -23,6 +23,11 @@ class Production < ActiveRecord::Base
     Show.where(production_id: id).minimum("date").year.to_s
   end
 
+  def opening_date
+    Show.where(production_id: id, venue_id: current_venue.id).minimum("date").to_formatted_s(:long)
+    # Show.where(production_id: id, venue_id: current_venue.id).minimum("date").strftime("%B %d, %Y")
+  end
+
 
   def validate_properties
 

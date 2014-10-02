@@ -1,61 +1,117 @@
-<p>
-  <strong>Name:</strong>
-  <%= @production.name %>
-</p>
-<p>
-  <strong>Company:</strong>
-  <%= link_to @production.company_name, @production.company %>
-</p>
+<div id="content" style="min-height: 873px;">
+  <div class="container-fluid m-top-20">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
 
-<p>
-  <strong>Venue:</strong>
-  <%= link_to @production.current_venue_name, @production.current_venue %>
-</p>
+                <div class="page-title" style="margin-left: 0px; display: block">
+                  <a href="#" id="toggle-menu"><i class="typcn typcn-th-menu"></i></a>
+                </div>
+                <span class="pull-right" style="width: 180px; height: 180px; background-image: url('/images/fallback/curtain-180.jpg')"></span>
+                <h3><%= @production.name %></h3>
+                <p>
+                  at <a href="#"><%= link_to @production.current_venue_name, @production.current_venue %></a> <br />
+                  by <a href="#"><%= link_to @production.company_name, @production.company %></a>  <br />
+                  Opening <%= @production.opening_date %> </p>
+                <p><%= @production.description %> </p>
+                <!--<p>Opening May 1,2015 </p>-->
+              </div>
 
-<p>
-  <strong>Description:</strong>
-  <%= @production.description %>
-</p>
-
-<% if @production.director || @production.dirname %>
-<p>
-  <strong>Director:</strong>
-  <% if @production.director %>
-    <%= link_to @production.director, @production.director_id %>
-  <% else %>
-    <%= @production.dirname %>
-  <% end %>
-</p>
-<% end %>
-
-<p>
-  <strong>Dates:</strong> <%= link_to 'Add one', new_production_show_path(@production) %><br />
-  <% @production.shows.order(:date).each do |show| %>
-    <%= show.date %> <%= show.venue_name %> <br />
-  <% end %>
-</p>
-
-<div style="background-color: #CCCCCC; border-radius: 4px; padding: 10px 20px">
-  <h3>Cast & Crew</h3>
-
-  <table>
-    <tr>
-      <% @production.roles.each do |role| %>
-        <td style="border-radius: 4px; background-color: #eeeeee; padding: 5px">
-          <p>
-            <div>
-              <img src="/images/fallback/performer-200.jpg" />
             </div>
-            <strong><%= link_to role.user_name, role.resume %></strong> <br />
-            <%= role.name %>
-          </p>
-        </td>
-      <% end %>
-    </tr>
-  </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
+                <h4>
+                  <span>Cast & Crew</span>
+                  <button class="btn btn-primary pull-right m-top-m6" type="button">Add Artists to this Production</button>
+                </h4>
+                <br />
+              </div>
+              <% roles = @production.roles.to_a %>
+              <%= render partial: 'layouts/includes/actor_widgets_row', locals: {roles: roles} %>
+            </div>
+            <% ((roles.length+3)/4).times do |row| %>
+            <div class="row">
+              <%= render partial: 'layouts/includes/actor_widgets_row', locals: {roles: roles}  %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 
+<!--<p>-->
+  <!--<strong>Name:</strong>-->
+  <!--< %= @production.name %>-->
+<!--</p>-->
+<!--<p>-->
+  <!--<strong>Company:</strong>-->
+  <!--< %= link_to @production.company_name, @production.company %>-->
+<!--</p>-->
 
-<%= link_to 'Edit', edit_production_path(@production) %> |
-<%= link_to 'Production list', productions_path %>
+<!--<p>-->
+  <!--<strong>Venue:</strong>-->
+  <!--< %= link_to @production.current_venue_name, @production.current_venue %>-->
+<!--</p>-->
+
+<!--<p>-->
+  <!--<strong>Description:</strong>-->
+  <!--< %= @production.description %>-->
+<!--</p>-->
+
+<!--< % if @production.director || @production.dirname %>-->
+<!--<p>-->
+  <!--<strong>Director:</strong>-->
+  <!--< % if @production.director %>-->
+    <!--< %= link_to @production.director, @production.director_id %>-->
+  <!--< % else %>-->
+    <!--< %= @production.dirname %>-->
+  <!--< % end %>-->
+<!--</p>-->
+<!--< % end %>-->
+
+<!--<p>-->
+  <!--<strong>Dates:</strong> < %= link_to 'Add one', new_production_show_path(@production) %><br />-->
+  <!--< % @production.shows.order(:date).each do |show| %>-->
+    <!--< %= show.date %> < %= show.venue_name %> <br />-->
+  <!--< % end %>-->
+<!--</p>-->
+
+<!--<div style="background-color: #CCCCCC; border-radius: 4px; padding: 10px 20px">-->
+  <!--<h3>Cast & Crew</h3>-->
+
+  <!--<table>-->
+    <!--<tr>-->
+      <!--< % @production.roles.each do |role| %>-->
+        <!--<td style="border-radius: 4px; background-color: #eeeeee; padding: 5px">-->
+          <!--<p>-->
+            <!--<div>-->
+              <!--<img src="/images/fallback/performer-200.jpg" />-->
+            <!--</div>-->
+            <!--<strong>< %= link_to role.user_name, role.resume %></strong> <br />-->
+            <!--< %= role.name %>-->
+          <!--</p>-->
+        <!--</td>-->
+      <!--< % end %>-->
+    <!--</tr>-->
+  <!--</table>-->
+<!--</div>-->
+
+
+
+<!--< %= link_to 'Edit', edit_production_path(@production) %> |-->
+<!--< %= link_to 'Production list', productions_path %>-->

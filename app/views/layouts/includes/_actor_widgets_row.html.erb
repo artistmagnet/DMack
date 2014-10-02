@@ -1,0 +1,3 @@
+<% [4, roles.length].min.times do |i| %>
+  <%= render partial: 'layouts/includes/actor_widget_3c', locals: {role: roles.shift} %>
+<% end %>
