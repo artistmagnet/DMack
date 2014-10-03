@@ -1,3 +1,3 @@
 <% [3, productions.length].min.times do |i| %>
-  <%= render partial: 'layouts/includes/production_widget_4c', locals: {venue: @venue, production: productions.shift} %>
+  <%= render partial: 'layouts/includes/production_widget_4c', locals: {production: productions.shift} %>
 <% end %>

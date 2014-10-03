@@ -1,0 +1,7 @@
+<%# address %>
+<%# css-class %>
+<% unless address.blank? %>
+  <%= link_to(address) do %>
+    <i class="<%= css_class %>"></i>
+  <% end %>
+<% end %>

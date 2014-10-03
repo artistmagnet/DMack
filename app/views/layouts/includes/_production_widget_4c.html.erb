@@ -2,6 +2,9 @@
   <%= link_to(production) do %>
     <div class="" style="width: 180px; height: 180px; background-image: url('/images/fallback/curtain-180.jpg')"></div>
     <h5 class="text-primary"><%= production.name %></h5>
+    <% venue = production.current_venue %>
+    <%= venue.name %>
+    <br />
     <p> <em><%= production.staging_period_at venue %></em> </p>
   <% end %>
 </div>

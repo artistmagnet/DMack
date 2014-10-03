@@ -1,11 +1,69 @@
-<p>
-  <strong><%= @company.name %></strong> <br />
-  <%= @company.primary_contact_name %>
-</p>
 
-<p>
-  <%= @company.description %>
-</p>
+<!-- Content -->
+<div id="content" style="min-height: 873px;">
+  <div class="container-fluid m-top-20">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
 
-<%= link_to 'Edit', edit_company_path(@company) %> |
-<%= link_to 'Company list', companies_path %>
+                <div class="page-title" style="margin-left: 0px; display: block">
+                  <a href="#" id="toggle-menu"><i class="typcn typcn-th-menu"></i></a>
+                </div>
+                <span class="pull-right" style="width: 180px; height: 180px; background-image: url('/images/fallback/theindustry-180.png')"></span>
+                <h3><%= @company.name %></h3>
+                <p><%= @company.primary_contact_name %></p>
+                <% if @company.phone %>
+                  <%= @company.phone %>
+                  <br />
+                <% end %>
+                <%= mail_to @company.email unless @company.email.blank? %>
+                <p>
+                <div class="socialicons">
+                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_fb, css_class: "typcn typcn-social-facebook"} %>
+                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_tw, css_class: "typcn typcn-social-twitter"} %>
+                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_ins, css_class: "typcn typcn-social-instagram"} %>
+                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_lin, css_class: "typcn typcn-social-linkedin"} %>
+                </div>
+                </p>
+                <p>
+                  <%= @company.description %>
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row row--productions">
+              <% productions = Production.includes(:shows).where(company_id: @company.id).order('shows.date desc').uniq.to_a %>
+              <div class="col-md-12">
+                <h4>Productions</h4>
+                <br />
+              </div>
+              <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>
+            </div>
+
+            <% ((productions.length+2)/3).times do |row| %>
+              <div class="row row--productions">
+                <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%## link_to 'Edit', edit_company_path(@company) %> |
+<%## link_to 'Company list', companies_path %>

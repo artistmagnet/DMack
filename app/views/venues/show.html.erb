@@ -13,15 +13,18 @@
                 </div>
                 <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/union_station-180.png')"></span>
                 <h3><%= @venue.name %></h3>
-                <!--<p>800 North Alameda Street Los Angeles, CA 12345</p>-->
                 <p><%= @venue.full_address %></p>
                 <p>
-                  +1 234 567 8900
-                  <br />
-                  <a href="mailto:redcat@redcat.com">redcat@redcat.com</a>
+                  <% if @venue.phone %>
+                    <%= @venue.phone %>
+                    <br />
+                  <% end %>
+                  <% mail_to @venue.email if @venue.email %>
                 </p>
                 <p>
                 <div class="socialicons">
+                  <% link_to @venue.addr_fb if @venue.addr_fb %>
+                  <% link_to @venue.addr_tw if @venue.addr_tw %>
                   <a href="#"><i class="typcn typcn-social-facebook"></i></a>
                   <a href="#"><i class="typcn typcn-social-twitter"></i></a>
                   <a href="#"><i class="typcn typcn-social-instagram"></i> </a>
@@ -47,9 +50,6 @@
               </div>
 
               <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>
-              <!--< % [3, productions.count].min.times do %>-->
-                <!--< %= render partial: 'layouts/includes/production_widget_4c', locals: {venue: @venue, production: productions.shift} %>-->
-              <!--< % end %>-->
             </div>
 
 
@@ -58,8 +58,6 @@
                 <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>
               </div>
             <% end %>
-
-
 
           </div>
         </div>
