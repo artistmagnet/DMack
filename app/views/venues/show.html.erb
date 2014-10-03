@@ -1,24 +1,73 @@
-<p>
-  <strong><%= @venue.name %></strong>
-</p>
+<!-- Content -->
+<div id="content" style="min-height: 873px;">
+  <div class="container-fluid m-top-20">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
 
-<p>
-  <%= @venue.address1 %> <%= @venue.address2 %> <br/>
-  <%= @venue.city %> <%= @venue.zipcode %>, <%= @venue.state %>, <%= @venue.country %>
-</p>
+                <div class="page-title" style="margin-left: 0px; display: block">
+                  <a href="#" id="toggle-menu"><i class="typcn typcn-th-menu"></i></a>
+                </div>
+                <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/union_station-180.png')"></span>
+                <h3><%= @venue.name %></h3>
+                <!--<p>800 North Alameda Street Los Angeles, CA 12345</p>-->
+                <p><%= @venue.full_address %></p>
+                <p>
+                  +1 234 567 8900
+                  <br />
+                  <a href="mailto:redcat@redcat.com">redcat@redcat.com</a>
+                </p>
+                <p>
+                <div class="socialicons">
+                  <a href="#"><i class="typcn typcn-social-facebook"></i></a>
+                  <a href="#"><i class="typcn typcn-social-twitter"></i></a>
+                  <a href="#"><i class="typcn typcn-social-instagram"></i> </a>
+                  <a href="#"><i class="typcn typcn-social-linkedin"></i> </a>
+                </div>
+                </p>
+              </div>
 
-<p>
-  <%= @venue.description %>
-</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row row--productions">
+              <% productions = Production.includes(:shows).where(shows: {venue_id: @venue.id}).order('shows.date desc').uniq.to_a %>
+              <div class="col-md-12">
+                <h4>Productions</h4>
+                <br />
+              </div>
 
-<p>
-  <strong>Production:</strong>
-  <% if @venue.current_production.nil? %>
-    None
-  <% else %>
-    <%= link_to @venue.current_production_name, @venue.current_production %>
-  <% end %>
-</p>
+              <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>
+              <!--< % [3, productions.count].min.times do %>-->
+                <!--< %= render partial: 'layouts/includes/production_widget_4c', locals: {venue: @venue, production: productions.shift} %>-->
+              <!--< % end %>-->
+            </div>
 
-<%= link_to 'Edit', edit_venue_path(@venue) %> |
-<%= link_to 'Venue list', venues_path %>
+
+            <% ((productions.length+2)/3).times do |row| %>
+              <div class="row row--productions">
+                <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>
+              </div>
+            <% end %>
+
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<%## link_to 'Edit', edit_venue_path(@venue) %> |
+<%## link_to 'Venue list', venues_path %>

@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:compact] = Date::DATE_FORMATS[:compact] = '%b %e, %Y'

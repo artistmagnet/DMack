@@ -9,6 +9,10 @@
     margin-bottom: 20px;
 }
 
+.m-left-15{
+    margin-left: 15px;
+}
+
 /* Fixed sumbenu text visibility in collapsed sidebar */
 .compact-sidebar .sidebar-group li a span {
     display: inline !important;

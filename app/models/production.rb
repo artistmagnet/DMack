@@ -60,4 +60,17 @@ class Production < ActiveRecord::Base
   def current_venue_name
     current_venue.name
   end
+
+  def staging_period_at(venue)
+    shows = Show.where(production: self, venue: venue).order(:date)
+    case shows.count
+      when 0
+        'Not featured'
+      when 1
+        shows.first.date.to_formatted_s(:long)
+      else
+        [shows.first.date.to_formatted_s(:compact), shows.last.date.to_formatted_s(:compact)].join(' - ')
+    end
+  end
+
 end

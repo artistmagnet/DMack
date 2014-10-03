@@ -3,6 +3,7 @@ class Show < ActiveRecord::Base
   belongs_to :production
 
   delegate :name, :to => :production, :prefix => true
+  # delegate :staging_period_at, :to => :production, :prefix => true
 
   def venue_name
     venue.nil? ? "Unknown" : venue.name

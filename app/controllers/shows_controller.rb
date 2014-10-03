@@ -5,7 +5,7 @@ class ShowsController < ApplicationController
   # GET /shows
   # GET /shows.json
   def index
-    @shows = Show.all.order(:name)
+    @shows = Show.all.order(date: :desc)
   end
 
   # GET /shows/1

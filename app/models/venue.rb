@@ -30,4 +30,13 @@ class Venue < ActiveRecord::Base
     current_production.name
   end
 
+  def full_address
+    res = address1
+    res << " " + address2 unless address2.blank?
+    res << " " + city
+    res << ",   " + state
+    res << " " + zipcode
+  end
+
+
 end
