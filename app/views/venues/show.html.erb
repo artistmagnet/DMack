@@ -15,16 +15,7 @@
                 <h3><%= @venue.name %></h3>
                 <p><%= @venue.full_address %></p>
                 <p>
-                  <% if @venue.phone %>
-                    <%= @venue.phone %>
-                    <br />
-                  <% end %>
-                  <% mail_to @venue.email if @venue.email %>
-                </p>
-                <p>
                 <div class="socialicons">
-                  <% link_to @venue.addr_fb if @venue.addr_fb %>
-                  <% link_to @venue.addr_tw if @venue.addr_tw %>
                   <a href="#"><i class="typcn typcn-social-facebook"></i></a>
                   <a href="#"><i class="typcn typcn-social-twitter"></i></a>
                   <a href="#"><i class="typcn typcn-social-instagram"></i> </a>
