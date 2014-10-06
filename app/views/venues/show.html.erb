@@ -16,11 +16,14 @@
                 <p><%= @venue.full_address %></p>
                 <p>
                 <div class="socialicons">
-                  <a href="#"><i class="typcn typcn-social-facebook"></i></a>
-                  <a href="#"><i class="typcn typcn-social-twitter"></i></a>
-                  <a href="#"><i class="typcn typcn-social-instagram"></i> </a>
-                  <a href="#"><i class="typcn typcn-social-linkedin"></i> </a>
+                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_fb, css_class: "typcn typcn-social-facebook"} %>
+                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_tw, css_class: "typcn typcn-social-twitter"} %>
+                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_ins, css_class: "typcn typcn-social-instagram"} %>
+                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_lin, css_class: "typcn typcn-social-linkedin"} %>
                 </div>
+                </p>
+                <p>
+                  <%= @venue.description unless @venue.description.blank? %>
                 </p>
               </div>
 

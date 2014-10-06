@@ -29,7 +29,7 @@
                 </div>
                 </p>
                 <p>
-                  <%= @company.description %>
+                  <%= @company.description unless @company.description.blank? %>
                 </p>
               </div>
 

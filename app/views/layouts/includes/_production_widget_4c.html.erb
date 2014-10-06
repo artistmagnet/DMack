@@ -4,6 +4,7 @@
     <h5 class="text-primary"><%= production.name %></h5>
     <% venue = production.current_venue %>
     <%= venue.name %>
+    <!--TODO: allow hidden name-->
     <br />
     <p> <em><%= production.staging_period_at venue %></em> </p>
   <% end %>
