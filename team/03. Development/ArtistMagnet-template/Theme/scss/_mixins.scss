@@ -1,0 +1,13 @@
+@mixin noRadius {
+  border-radius: 0;
+}
+
+@mixin addBorder($color) {
+  border-bottom: 1px solid $color;
+}
+
+@mixin addAnimation {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
