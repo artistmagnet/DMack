@@ -21,3 +21,8 @@
 
 # Ignore environment
 .env
+
+# Ignore Caches
+/.sass-cache/
+*.scssc
+*.sassc
