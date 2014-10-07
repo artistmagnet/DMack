@@ -19,7 +19,7 @@
 		<link href="css/plugins.min.css" rel="stylesheet">
 		<!-- Template -->
     <link href="css/layouts.css" rel="stylesheet">
-		<link href="css/main.min.css" rel="stylesheet">
+		<link href="css/main.css" rel="stylesheet">
 
 		<!--[if lt IE 9]>
 		  <script src="js/plugins/shiv.min.js"></script>
@@ -33,48 +33,66 @@
 		<div class="page-container">
 			<!-- Sidebar -->
 			<aside id="sidebar">
-				<!-- Sidebar header -->
+				<!-- Sidebar header - SIDEBAR MENU-->
 				<header class="sidebar-header">
-					<h1><img src="img/logo.png" alt="Artist Magnet"></h1>
-					<a href="" id="make-compact"><span class="typcn typcn-th-menu"></span></a>
+					<h1>ARTIST MAGNET</h1>
+<!-- 					<a href="#" id="make-compact"><span class="typcn typcn-th-menu"></span></a> -->
 					<a href="#" id="hide-menu"><span class="fa fa-caret-square-o-left"></span></a>
 				</header>
 				<!-- /Sidebar header -->
-        <!-- Sidebar group -->
-        <ul class="sidebar-group">
-          <br />
-          <li class="sidebar-group-header">ArtistSpace</li>
-          <li class="has-submenu">
-            <a href="#"><i class="typcn typcn-tabs-outline"></i> <span>Resumes</span></a>
-            <div class="sidebar-link-addon"><i class="typcn typcn-plus"></i></div>
-            <!-- Sidebar submenu -->
-            <ul class="sidebar-submenu">
-              <li><a href="#"><i class="typcn typcn-starburst text-red"></i><span> Performing Artist</span></a></li>
-              <li><a href="#"><i class="typcn typcn-starburst text-blue"></i><span> Director</span></a></li>
-              <li><a href="#"><i class="typcn typcn-starburst text-green"></i><span> Crew Memeber</span></a></li>
-              <li><a href="#"><span><em>Build a Resume</em></span></a></li>
-            </ul>
-            <!-- /Sidebar submenu -->
-          </li>
-          <li>
-            <a href="#"><i class="typcn typcn-group"></i> <span>Add friends</span></a>
-          </li>
-          <li>
-            <a href="#"><i class="typcn typcn-star-outline"></i> <span>Upgrade your account</span></a>
-          </li>
-          <li class="has-submenu">
-            <a href="#"><i class="typcn typcn-cog"></i> <span>Other</span></a>
-            <div class="sidebar-link-addon"><i class="typcn typcn-plus"></i></div>
-            <!-- Sidebar submenu -->
-            <ul class="sidebar-submenu">
-              <li><a href="blank.html"><i class="typcn typcn-starburst text-red"></i><span> Account Settings</span></a></li>
-              <li><a href="blank.html"><i class="typcn typcn-starburst text-blue"></i><span> Log out</span></a></li>
-            </ul>
-            <!-- /Sidebar submenu -->
-          </li>
-        </ul>
-        <!-- /Sidebar group -->
+				<!-- Sidebar group RESUME / ADD FRIENDS -->
+				<ul class="sidebar-group">
+					<li class="sidebar-group-header">NAVIGATION</li>
+					<li id="sidebar-item-artistspace" >
+						<a href="index.html"><i class="fa fa-magnet"></i> <span>ArtistSpace</span></a>
+					</li>
+					<li id="sidebar-item-build-resume" >
+						<a href="index.html"><i class="fa fa-file-text"></i> <span>New Resume</span></a>
+					</li>
+					<li id="sidebar-item-resumes" class="has-submenu">
+						<a href="#"><i class="fa fa-files-o"></i> <span>Resumes</span></a>
+						<div class="sidebar-link-addon"><i class="fa fa-plus"></i></div>
+						<!-- Sidebar submenu -->
+						<ul class="sidebar-submenu">
+							<li><a href="blank.html"><span>Performing Artist</span></a></li>
+							<li><a href="sidebar_right.html"><span>Director</span></a></li>
+						</ul>
+						<!-- /Sidebar submenu -->
+					</li>
 
+					<li id="sidebar-item-resumes" >
+						<a href="#"><i class="fa fa-group"></i> <span>Add Friends</span></a>
+						<!-- /Sidebar submenu -->
+					</li>
+
+				</ul>
+				<!-- /Sidebar group -->
+				<!-- Sidebar group - SETTINGS -->
+				<ul class="sidebar-group">
+					<li class="sidebar-group-header">Tools & Settings</li>
+					<li><a href="forms.html"><i class="fa fa-cog"></i> <span>Account Settings</span></a></li>
+					<li><a href="forms_elements.html"><i class="fa fa-sign-out"></i> <span>Log Out</span></a></li>
+				</ul>
+				<!-- /Sidebar group -->
+				<br>
+				<!-- Sidebar panel UPGRADE -->
+				<div class="sidebar-panel">
+					<h4>Upgrade</h4>
+					<p>
+						Upgrade to premium to get rid of the ads!
+						<br>
+						<button class="btn btn-primary btn-block">Learn more...</button>
+					</p>
+				</div>
+				<!-- /Sidebar panel -->
+				<!-- Sidebar panel SEARCH FORM -->
+				<div class="sidebar-panel">
+					<form role="form">
+						<div class="form-group">
+							<input type="text" class="form-control" id="sidebarSearch" placeholder="Search">
+						</div>
+					</form>
+				</div>
 				<!-- /Sidebar panel -->
 			</aside>
 			<!-- /Sidebar -->
