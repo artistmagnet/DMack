@@ -21,3 +21,16 @@
 
 en:
   hello: "Hello world"
+
+  activerecord:
+    attributes:
+      company:
+        addr_fb: 'Facebook page address'
+        addr_tw: 'Twitter page address'
+        addr_ins: 'Instagram page address'
+        addr_lin: 'LinkedIn page address'
+      venue:
+        addr_fb: 'Facebook page address'
+        addr_tw: 'Twitter page address'
+        addr_ins: 'Instagram page address'
+        addr_lin: 'LinkedIn page address'
