@@ -32,3 +32,8 @@
 .skill-icon{
 	margin-top: 4px;
 }
+
+.top-right-handle{
+   margin-top: -10px; 
+   margin-right: -14px;
+}
