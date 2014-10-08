@@ -28,3 +28,15 @@
 .socialicons{
     font-size: 20px
 }
+
+.skill-icon{
+	margin-top: 4px;
+}
+
+.top-right-handle{
+   margin-top: -10px; 
+   margin-right: -14px;
+}
+
+.text-pale {
+  color: #c0c0c0; }

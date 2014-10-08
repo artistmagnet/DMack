@@ -35,5 +35,5 @@
 
 .top-right-handle{
    margin-top: -10px; 
-   margin-right: -13px;
+   margin-right: -14px;
 }
