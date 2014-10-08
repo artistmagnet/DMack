@@ -11,18 +11,27 @@
       <ul class="sidebar-group">
         <li class="sidebar-group-header">NAVIGATION</li>
         <li id="sidebar-item-artistspace" >
-          <a href="index.html"><i class="fa fa-magnet"></i> <span>ArtistSpace</span></a>
+          <%= link_to root_path do %>
+            <i class="fa fa-magnet"></i> <span>ArtistSpace</span>
+          <% end %>
         </li>
         <li id="sidebar-item-build-resume" >
-          <a href="index.html"><i class="fa fa-file-text"></i> <span>New Resume</span></a>
+          <%= link_to new_resume_path do %>
+            <i class="fa fa-file-text"></i> <span>New Resume</span>
+          <% end %>
         </li>
         <li id="sidebar-item-resumes" class="has-submenu">
           <a href="#"><i class="fa fa-files-o"></i> <span>Resumes</span></a>
           <div class="sidebar-link-addon"><i class="fa fa-plus"></i></div>
           <!-- Sidebar submenu -->
           <ul class="sidebar-submenu">
-            <li><a href="blank.html"><span>Performing Artist</span></a></li>
-            <li><a href="sidebar_right.html"><span>Director</span></a></li>
+            <% @resumes.each do |resume| %>
+              <li>
+                <%= link_to resume do %>
+                  <span>Resume #<%= resume.id %></span></a>
+                <% end %>
+              </li>
+            <% end %>
           </ul>
           <!-- /Sidebar submenu -->
         </li>
