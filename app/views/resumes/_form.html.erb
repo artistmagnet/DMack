@@ -1,5 +1,78 @@
 <div id="add-resume">
   <%= form_for(@resume) do |f| %>
+
+  <div class="container-fluid m-top-20">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
+                <h4>
+                  <span>Theater</span>
+                  <!--<button class="btn btn-primary pull-right m-top-m6" type="button">Add a production</button>-->
+                </h4>
+                <br />
+              </div>
+            </div>
+
+
+
+            <div class="row">
+              <div class="col-md-2">
+                <strong>Production</strong> <i class="fa fa-arrows-h text-pale"></i>
+              </div>
+              <div class="col-md-2">
+                <strong>Role</strong> <i class="fa fa-arrows-h text-pale"></i>
+              </div>
+              <div class="col-md-2">
+                <strong>Director</strong> <i class="fa fa-arrows-h text-pale"></i>
+              </div>
+              <div class="col-md-2">
+                <strong>Venue</strong> <i class="fa fa-arrows-h text-pale"></i>
+              </div>
+              <div class="col-md-2">
+                <strong>Company</strong>
+                <i class="fa fa-arrows-h text-pale"></i>
+                <a href="#"><i class="fa fa-trash-o text-pale"></i></a>
+              </div>
+              <div class="col-md-2">
+                <strong>Custom</strong>
+                <i class="fa fa-arrows-h text-pale"></i>
+                <a href="#"><i class="fa fa-trash-o text-pale"></i></a>
+              </div>
+            </div>
+            <div class="h-movable row">
+              <div class="col-md-2">
+                FILTHY TALK FOR TROUBLED TIMES
+              </div>
+              <div class="col-md-2">
+                Neil LaBute
+              </div>
+              <div class="col-md-2">
+                Frederique Michel
+              </div>
+              <div class="col-md-2">
+                City Garage Theatre
+              </div>
+              <div class="col-md-2">
+                <a href="#"></a>
+              </div>
+              <div class="col-md-1">
+                <a href="#"></a>
+              </div>
+              <div class="col-md-1 actions">
+                <a href="#"><i class="fa fa-trash-o text-pale pull-right"></i></a>
+                <i class="fa fa-arrows-v text-pale pull-right"></i>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
     <% if @resume.errors.any? %>
       <div id="error_explanation">
         <h2><%= pluralize(@resume.errors.count, "error") %> prohibited this resume from being saved:</h2>

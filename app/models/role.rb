@@ -4,6 +4,11 @@ class Role < ActiveRecord::Base
 
   delegate :name, :to => :resume, :prefix => true
   delegate :name, :to => :production, :prefix => true
+  delegate :current_venue, :to => :production, :prefix => true
+  delegate :current_venue_name, :to => :production, :prefix => true
+  delegate :company, :to => :production, :prefix => true
+  delegate :company_name, :to => :production, :prefix => true
+  delegate :director, :to => :production
 
   validate :validate_properties
 

@@ -8,6 +8,7 @@ class Production < ActiveRecord::Base
 
   accepts_nested_attributes_for :shows, allow_destroy: true, reject_if: :all_blank
   delegate :name, :to => :director, :prefix => true
+  delegate :name, :to => :company, :prefix => true
 
   validate :validate_properties
 
@@ -71,6 +72,10 @@ class Production < ActiveRecord::Base
       else
         [shows.first.date.to_formatted_s(:compact), shows.last.date.to_formatted_s(:compact)].join(' - ')
     end
+  end
+
+  def director
+    "Not supported (yet)"
   end
 
 end
