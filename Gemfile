@@ -55,3 +55,4 @@ gem 'thin'
 gem 'activeadmin', github: 'activeadmin'
 
 gem 'devise'
+gem 'chosen-rails'

@@ -28,6 +28,7 @@ module Artmag
     # config.i18n.default_locale = :de
 
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
+    config.assets.paths << Rails.root.join("vendor", "assets", "chosen.io", "1.2.0")
 
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.default_url_options = { :host => ENV['EMAIL_DOMAIN'] }
