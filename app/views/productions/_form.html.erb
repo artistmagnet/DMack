@@ -1,14 +1,19 @@
+
 <% remoteForm  ||= false %>
 <% queryFormat ||= '' %>
 <% html_class  ||= '' %>
 
-
 <% if remoteForm  %>
-<div id="add-production" style="display: none">
+<div id="add-production" class="overlay overlay-1" >
 <% else %>
-<div id="add-production">
+<div id="add-production" class="overlay overlay-1" style="display: block">
 <% end %>
-  Create a production
+  <h3>
+    <span>New production</span>
+    <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-1').hide();$('.fade-1').hide()">
+      <i class="fa fa-undo"></i>
+    </a>
+  </h3>
   <%= form_for(@production, remote: remoteForm, format: queryFormat, html: {class: html_class}) do |f| %>
     <div id="error_explanation" style="display: none">
       <ul>
@@ -59,6 +64,9 @@
     </div>
   <% end %>
 </div>
+
+<!--modal background-->
+<div class="fade fade-1"></div>
 
 <div id="add-company" style="display: none">
   Create a company

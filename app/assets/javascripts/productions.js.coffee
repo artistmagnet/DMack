@@ -14,25 +14,27 @@ jQuery ->
 # PARAMS:
 #   origin_form_selector: containing form
 #   select_selector:      select to be extended
-#   create_form_selector  form for the type of entoty listed on the select.
+#   create_form_selector  form for the type of entity listed on the select.
 
 bindAjaxOption = (origin_form_selector, select_selector, create_form_selector) ->
   $(select_selector.concat(' + .extend-list')).click (e) ->
     e.preventDefault()
-    $(origin_form_selector).hide()
     $(create_form_selector).show()
+    $(create_form_selector+' + .fade').show()
     selectChain.push(create_form_selector)
 
   $(document).bind "ajaxSuccess", create_form_selector, (event, xhr, settings) ->
     if event.data == selectChain[selectChain.length-1]
       $entity_form = $(event.data)
+      $entity_form_frame = $(event.data.concat(' + .fade'))
       $error_container = $("#error_explanation", $entity_form)
       $error_container_ul = $("ul", $error_container)
       #  $("<p>").html(xhr.responseJSON.title + " saved.").appendTo $entity_form
       if $("li", $error_container_ul).length
         $("li", $error_container_ul).remove()
       $entity_form.hide()
-      $(origin_form_selector).show()
+      $entity_form_frame.hide()
+      $(event.data.concat(' + .fade')).hide()
       entId = xhr.responseJSON.id
       entName = xhr.responseJSON.name
       $select = $(select_selector, $(origin_form_selector))

@@ -17,3 +17,4 @@
 //= require plugins/icheck.min
 //= require main
 //= require layouts.js
+//= require productions.js

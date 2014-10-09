@@ -17,7 +17,7 @@
       <div class="field">
         <%= fs.label :production %><br>
         <%= fs.collection_select :production_id, Production.all.order(:name), :id, :key_info %>
-        <%= link_to "Add one", '#', {:class => 'extend-list'} %>
+        <%= link_to "Add one", 'javascript:void(0)', {:class => 'extend-list'} %>
       </div>
       <div class="field">
         <%= fs.label :name, "Role" %><br>
@@ -34,3 +34,17 @@
 <div id="add-resume-production">
   <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
 </div>
+
+<!--<div class="overlay-1">-->
+  <!--Overlay text-->
+  <!--<a-->
+  <!--onclick="$('.overlay-1').hide();$('.fade-1').hide()"-->
+  <!--href="javascript:void(0)">Click here to close the overlay-->
+  <!--</a>-->
+<!--</div>-->
+<!--<div class="fade-1"></div>-->
+
+<a
+onclick="$('.overlay-1').show();$('.fade-1').show()"
+href="javascript:void(0)">Click here to open the overlay
+</a>

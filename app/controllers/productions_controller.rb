@@ -86,7 +86,7 @@ class ProductionsController < ApplicationController
   end
 
   def manage_temp_director_info(production)
-    if production.director.nil? && production.dirname && production.diremail
+    if production.director.nil? && !production.dirname.blank? && !production.diremail.blank?
       AmMailer.invite_director(production.dirname, production.diremail, 'An Artist Magnet user').deliver
     else
       production.dirname = ''
