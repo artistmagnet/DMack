@@ -2,9 +2,15 @@ require 'uri'
 
 class UriValidator < ActiveModel::EachValidator
   def validate_each(object, attribute, value)
-    uri = URI.parse(value)
-    unless value.blank? || uri.kind_of?(URI::HTTP) || uri.kind_of?(URI::HTTPS)
-      object.errors[attribute] << (options[:messages] || "must begin with 'http://' or 'https://")
+    unless value.blank?
+      begin
+        uri = URI.parse(value)
+        if (uri.kind_of?(URI::HTTP) || uri.kind_of?(URI::HTTPS))
+          throw Error.new('AM email error')
+        end
+      rescue
+        object.errors[attribute] << (options[:messages] || "must begin with 'http://' or 'https://")
+      end
     end
   end
 end

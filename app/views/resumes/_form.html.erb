@@ -42,6 +42,8 @@
                 <a href="#"><i class="fa fa-trash-o text-pale"></i></a>
               </div>
             </div>
+
+            <% @resume.roles.select{|r| !r.new_record?}.each do |role| %>
             <div class="h-movable row">
               <div class="col-md-2">
                 FILTHY TALK FOR TROUBLED TIMES
@@ -66,6 +68,7 @@
                 <i class="fa fa-arrows-v text-pale pull-right"></i>
               </div>
             </div>
+            <% end %>
 
           </div>
         </div>
@@ -87,15 +90,17 @@
 
 
     <%= f.fields_for :roles do |fs| %>
+      <% if fs.object.new_record? %>
       <div class="field">
         <%= fs.label :production %><br>
-        <%= fs.collection_select :production_id, Production.all.order(:name), :id, :key_info, {}, {class: "chosen-select"} %>
+        <%= fs.collection_select :production_id, Production.all.order(:name), :id, :key_info, {}, {id: 'resume_role_production_id', class: "chosen-select"} %>
         <%= link_to "Add one", 'javascript:void(0)', {:class => 'extend-list'} %>
       </div>
       <div class="field">
         <%= fs.label :name, "Role" %><br>
         <%= fs.text_field :name %>
       </div>
+      <% end %>
     <% end %>
 
     <div class="actions">

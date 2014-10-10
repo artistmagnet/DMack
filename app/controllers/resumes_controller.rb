@@ -13,6 +13,10 @@ class ResumesController < InheritedResources::Base
     @resume.roles.build
   end
 
+  def edit
+    @resume.roles.build
+  end
+
   def show
   end
 

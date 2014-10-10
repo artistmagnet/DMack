@@ -4,7 +4,7 @@
 selectChain = [];
 
 jQuery ->
-  bindAjaxOption('#add-resume',     '#resume_roles_attributes_0_production_id','#add-production')
+  bindAjaxOption('#add-resume',     '#resume_role_production_id','#add-production')
   bindAjaxOption('#add-role',       '#role_production_id','#add-production')
   bindAjaxOption('#add-production', '#production_company_id', '#add-company')
   bindAjaxOption('#add-production', '#production_shows_attributes_0_venue_id', '#add-venue')
@@ -40,6 +40,8 @@ bindAjaxOption = (origin_form_selector, select_selector, create_form_selector) -
       $select = $(select_selector, $(origin_form_selector))
       if $select.length
         $select.append(String.concat("<option value=", entId, " selected='selected'>", entName, "</option>"));
+        # rerender
+        $select.trigger("chosen:updated");
         selectChain.pop()
 
   $(document).bind "ajaxError", create_form_selector, (event, jqxhr, settings, exception) ->
