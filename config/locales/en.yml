@@ -34,3 +34,7 @@ en:
         addr_tw: 'Twitter page address'
         addr_ins: 'Instagram page address'
         addr_lin: 'LinkedIn page address'
+  helpers:
+    submit:
+      create: "Create a %{model}"
+      update: "Confirm changes to %{model}"
