@@ -9,8 +9,8 @@
             <div class="row">
               <div class="col-md-12">
                 <h4>
-                  <span>Edit theatre table</span>
-                  <!--<button class="btn btn-primary pull-right m-top-m6" type="button">Add a production</button>-->
+                  <span>Organize theatre table</span>
+                  <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
                 </h4>
                 <br />
               </div>
@@ -34,31 +34,31 @@
               <div class="col-md-2">
                 <strong>Company</strong>
                 <i class="fa fa-arrows-h text-pale"></i>
-                <a href="#"><i class="fa fa-trash-o text-pale"></i></a>
+                <a href="#"><i class="fa fa-check-square-o text-pale"></i></a>
               </div>
               <div class="col-md-2">
                 <strong>Custom</strong>
                 <i class="fa fa-arrows-h text-pale"></i>
-                <a href="#"><i class="fa fa-trash-o text-pale"></i></a>
+                <a href="#"><i class="fa fa-square-o text-pale"></i></a>
               </div>
             </div>
 
             <% @resume.roles.select{|r| !r.new_record?}.each do |role| %>
             <div class="h-movable row">
               <div class="col-md-2">
-                FILTHY TALK FOR TROUBLED TIMES
+                <%= role.production_name %>
               </div>
               <div class="col-md-2">
-                Neil LaBute
+                <%= role.name %>
               </div>
               <div class="col-md-2">
-                Frederique Michel
+                Director
               </div>
               <div class="col-md-2">
-                City Garage Theatre
+                <%= role.production_company_name %>
               </div>
               <div class="col-md-2">
-                <a href="#"></a>
+                <%= role.production_name %>
               </div>
               <div class="col-md-1">
                 <a href="#"></a>

@@ -20,7 +20,7 @@ bindAjaxOption = (origin_form_selector, select_selector, create_form_selector) -
   $(select_selector.concat(' + .extend-list')).click (e) ->
     e.preventDefault()
     $(create_form_selector).show()
-    $(create_form_selector+' + .fade').show()
+    $(create_form_selector+' + .fade').height($(document).height()).show()
     selectChain.push(create_form_selector)
 
   $(document).bind "ajaxSuccess", create_form_selector, (event, xhr, settings) ->
@@ -34,7 +34,6 @@ bindAjaxOption = (origin_form_selector, select_selector, create_form_selector) -
         $("li", $error_container_ul).remove()
       $entity_form.hide()
       $entity_form_frame.hide()
-      $(event.data.concat(' + .fade')).hide()
       entId = xhr.responseJSON.id
       entName = xhr.responseJSON.name
       $select = $(select_selector, $(origin_form_selector))

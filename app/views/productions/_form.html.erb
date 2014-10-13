@@ -8,61 +8,104 @@
 <% else %>
 <div id="add-production" class="overlay overlay-1" style="display: block">
 <% end %>
-  <h3>
-    <span>New production</span>
-    <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-1').hide();$('.fade-1').hide()">
-      <i class="fa fa-undo"></i>
-    </a>
-  </h3>
-  <%= form_for(@production, remote: remoteForm, format: queryFormat, html: {class: html_class}) do |f| %>
-    <div id="error_explanation" style="display: none">
-      <ul>
-        <% if @production.errors.any? %>
-          <% @production.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
+
+  <div class="panel panel-default" >
+
+    <h3>
+      <span>New production</span>
+      <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-1').hide();$('.fade-1').hide()">
+        <i class="fa fa-undo"></i>
+      </a>
+    </h3>
+
+    <div class="panel-body">
+    <%= form_for(@production, remote: remoteForm, format: queryFormat, html: {class: html_class + ' form-horizontal'}) do |f| %>
+      <div id="error_explanation" style="display: none">
+        <ul>
+          <% if @production.errors.any? %>
+            <% @production.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
           <% end %>
-        <% end %>
-      </ul>
+        </ul>
+      </div>
+
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :name, {class: "col-sm-2 control-label"} %>
+          <div class="col-sm-10">
+            <%= f.text_field :name %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :company, {class: "col-sm-2 control-label"} %>
+          <div class="col-sm-10">
+            <%= f.collection_select :company_id, Company.all.order(:name), :id, :name, {include_blank: true}, {:class => 'company-selector'} %>
+            <%= link_to "Add one", '#', {:class => 'extend-list'} %>
+          </div>
+        </div>
+      </div>
+      <%= f.fields_for :shows do |fs| %>
+        <div class="form-group">
+          <div class="field">
+            <%= fs.label :venue, {class: "col-sm-2 control-label"} %>
+            <div class="col-sm-10">
+              <%= fs.collection_select :venue_id, Venue.all.order(:name), :id, :name, {include_blank: true} %>
+              <%= link_to "Add one", '#', {:class => 'extend-list'} %>
+            </div>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="field">
+            <%= fs.label "Opening", {class: "col-sm-2 control-label"} %>
+            <div class="col-sm-10">
+              <%= fs.date_select :date %>
+            </div>
+          </div>
+        </div>
+        <!--< %= hidden_field_tag production_id,-->
+      <% end %>
+
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :description, {class: "col-sm-2 control-label"} %>
+          <div class="col-sm-10">
+            <%= f.text_area :description %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :director, {class: "col-sm-2 control-label"} %>
+          <div class="col-sm-10">
+            <%= f.collection_select :director_id, User.all.order(:email), :id, :name, {include_blank: true} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :invite_new_director, {class: "col-sm-2 control-label"} %>
+          <div class="col-sm-10">
+            <%= f.text_field :dirname, {placeholder: "Name"} %>
+            <%= f.text_field :diremail, {placeholder: "Email"} %>
+          </div>
+          <div class="col-sm-10">
+            <%= f.text_area :dirname, {placeholder: "Invitation text"} %>
+          </div>
+        </div>
+      </div>
+      <div class="actions form-group">
+        <div class="col-sm-10 pull-right">
+          <%= f.button 'Done', {class: "btn btn-primary m-top-m6"} %>
+          <%# f.submit %>
+        </div>
+      </div>
+    <% end %>
     </div>
 
-    <div class="field">
-      <%= f.label :name %><br>
-      <%= f.text_field :name %>
-    </div>
-    <div class="field">
-      <%= f.label :company %><br>
-      <%= f.collection_select :company_id, Company.all.order(:name), :id, :name, {include_blank: true}, {:class => 'company-selector'} %>
-      <%= link_to "Add one", '#', {:class => 'extend-list'} %>
-    </div>
-    <%= f.fields_for :shows do |fs| %>
-      <div class="field">
-        <%= fs.label :venue %><br>
-        <%= fs.collection_select :venue_id, Venue.all.order(:name), :id, :name, {include_blank: true} %>
-        <%= link_to "Add one", '#', {:class => 'extend-list'} %>
-      </div>
-      <div class="field">
-        <%= fs.label "Premiere date (you can add more dates later)" %><br>
-        <%= fs.date_select :date %>
-      </div>
-      <!--< %= hidden_field_tag production_id,-->
-    <% end %>
-    <div class="field">
-      <%= f.label :description %><br>
-      <%= f.text_area :description %>
-    </div>
-    <div class="field">
-      <%= f.label :director %><br>
-      <%= f.collection_select :director_id, User.all.order(:email), :id, :name, {include_blank: true} %>  <br />
-      Or invite them:
-      <div class="field">
-        <%= f.label :dirname, "Name" %> <%= f.text_field :dirname %>
-        <%= f.label :diremail, "Email" %> <%= f.text_field :diremail %>
-      </div>
-    </div>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  <% end %>
+  </div>
 </div>
 
 <!--modal background-->
