@@ -38,3 +38,6 @@ en:
     submit:
       create: "Create a %{model}"
       update: "Confirm changes to %{model}"
+    label:
+      company:
+        primary_contact_name: "Contact"
