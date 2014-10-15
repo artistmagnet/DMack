@@ -18,10 +18,12 @@ class ProductionsController < ApplicationController
   def new
     @production = Production.new
     @production.shows.build
+    @production.invitations.build
   end
 
   # GET /productions/1/edit
   def edit
+    @production.invitations.build if @production.invitations.empty?
   end
 
   # POST /productions
@@ -80,9 +82,16 @@ class ProductionsController < ApplicationController
     @company = Company.new
   end
 
+  # def new_invitation
+  #   @invitation = invitation.new(to: @production)
+  # end
+
+  private
   # Never trust parameters from the scary internet, only allow the white list through.
   def production_params
-    params.require(:production).permit(:name, :description, :company_id, :director_id, :dirname, :diremail, shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy])
+    params.require(:production).permit(:name, :description, :company_id, :director_id, :dirname, :diremail,
+                                       shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy],
+                                       invitations_attributes: [:id, :first_name, :last_name, :email])
   end
 
   def manage_temp_director_info(production)

@@ -67,6 +67,7 @@ class ResumesController < InheritedResources::Base
   def new_production
     @production = Production.new
     @production.shows.build
+    @production.invitations.build
   end
 
   def new_venue

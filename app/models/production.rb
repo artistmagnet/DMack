@@ -5,12 +5,16 @@ class Production < ActiveRecord::Base
   has_many :venues, :through => :shows
   has_many :roles, dependent: :destroy
   has_many :resumes, :through => :roles
+  has_many :invitations, :as => :to
 
   accepts_nested_attributes_for :shows, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :invitations, allow_destroy: true
+
+  validate :validate_properties
+
   delegate :name, :to => :director, :prefix => true
   delegate :name, :to => :company, :prefix => true
 
-  validate :validate_properties
 
   def company_name
     company.nil? ? "Unknown" : company.name
@@ -25,8 +29,7 @@ class Production < ActiveRecord::Base
   end
 
   def opening_date
-    Show.where(production_id: id, venue_id: current_venue.id).minimum("date").to_formatted_s(:long)
-    # Show.where(production_id: id, venue_id: current_venue.id).minimum("date").strftime("%B %d, %Y")
+    Show.where(production_id: id, venue_id: current_venue.id).minimum("date").to_formatted_s(:long) if current_venue
   end
 
 
@@ -44,12 +47,23 @@ class Production < ActiveRecord::Base
       errors.add :company, "is invalid"
     end
 
+    # puts "Show #{shows[0].nil? ? 'does NOT exist' : 'exists'}"
     if !shows[0].venue_id.blank? && !shows[0].valid?
       errors.add :premiere_info, "is invalid"
     end
 
     if company_id.blank? && shows[0].venue_id.blank?
       errors.add :company_and_venue, "are blank. Please provide at least one"
+    end
+
+    last_invitation = invitations.last
+    # puts "Invitation #{last_invitation.nil? ? 'does NOT exist' : 'exists'}"
+    if director_id.blank?
+      if last_invitation && invitation_filled?(last_invitation) && !good_for_production(last_invitation)
+        errors.add "Director's contact info", "is invalid"
+      end
+    else
+      invitations[invitations.size-1] = Invitation.new
     end
 
   end
@@ -59,7 +73,7 @@ class Production < ActiveRecord::Base
   end
 
   def current_venue_name
-    current_venue.name
+    current_venue ? current_venue.name : ""
   end
 
   def staging_period_at(venue)
@@ -76,6 +90,16 @@ class Production < ActiveRecord::Base
 
   def director
     "Not supported (yet)"
+  end
+
+  private
+
+  def invitation_filled? (invitation)
+    !invitation.first_name.blank? || !invitation.last_name.blank? || !invitation.email.blank?
+  end
+
+  def good_for_production(invitation)
+    !invitation.first_name.blank? && !invitation.last_name.blank? && !invitation.email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   end
 
 end

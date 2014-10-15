@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :invitations
+
   resources :resumes do
     resources :roles
   end
