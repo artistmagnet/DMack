@@ -3,7 +3,8 @@
 <table>
   <thead>
     <tr>
-      <th>Name</th>
+      <th>First name</th>
+      <th>Second name</th>
       <th>Email</th>
       <th>State</th>
       <th>Text</th>
@@ -14,7 +15,8 @@
   <tbody>
     <% @invitations.each do |invitation| %>
       <tr>
-        <td><%= invitation.name %></td>
+        <td><%= invitation.first_name %></td>
+        <td><%= invitation.second_name %></td>
         <td><%= invitation.email %></td>
         <td><%= invitation.state %></td>
         <td><%= invitation.text %></td>

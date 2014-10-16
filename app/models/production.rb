@@ -5,16 +5,17 @@ class Production < ActiveRecord::Base
   has_many :venues, :through => :shows
   has_many :roles, dependent: :destroy
   has_many :resumes, :through => :roles
-  has_many :invitations, :as => :to
+  has_many :artist_invitations, :as => :to
+  has_many :director_invitations, :as => :to
 
   accepts_nested_attributes_for :shows, allow_destroy: true, reject_if: :all_blank
-  accepts_nested_attributes_for :invitations, allow_destroy: true
+  accepts_nested_attributes_for :director_invitations, allow_destroy: true
+  accepts_nested_attributes_for :artist_invitations, allow_destroy: true
 
   validate :validate_properties
 
   delegate :name, :to => :director, :prefix => true
   delegate :name, :to => :company, :prefix => true
-
 
   def company_name
     company.nil? ? "Unknown" : company.name
@@ -56,14 +57,16 @@ class Production < ActiveRecord::Base
       errors.add :company_and_venue, "are blank. Please provide at least one"
     end
 
-    last_invitation = invitations.last
+    last_invitation = last_director_invitation
     # puts "Invitation #{last_invitation.nil? ? 'does NOT exist' : 'exists'}"
     if director_id.blank?
       if last_invitation && invitation_filled?(last_invitation) && !good_for_production(last_invitation)
         errors.add "Director's contact info", "is invalid"
       end
     else
-      invitations[invitations.size-1] = Invitation.new
+      unless director_invitations.empty?
+        director_invitations[director_invitations.size-1] = Invitation.new
+      end
     end
 
   end
@@ -92,6 +95,14 @@ class Production < ActiveRecord::Base
     "Not supported (yet)"
   end
 
+  def last_director_invitation
+    director_invitations.last
+  end
+
+  def set_director_inviter(user)
+    last_director_invitation.by = user if last_director_invitation
+  end
+
   private
 
   def invitation_filled? (invitation)
@@ -99,7 +110,7 @@ class Production < ActiveRecord::Base
   end
 
   def good_for_production(invitation)
-    !invitation.first_name.blank? && !invitation.last_name.blank? && !invitation.email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
+    !invitation.first_name.blank? && !invitation.last_name.blank? && invitation.email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
   end
 
 end

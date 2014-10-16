@@ -18,12 +18,12 @@ class ProductionsController < ApplicationController
   def new
     @production = Production.new
     @production.shows.build
-    @production.invitations.build
+    @production.director_invitations.build
   end
 
   # GET /productions/1/edit
   def edit
-    @production.invitations.build if @production.invitations.empty?
+    @production.director_invitations.build if @production.director_invitations.empty?
   end
 
   # POST /productions
@@ -33,7 +33,9 @@ class ProductionsController < ApplicationController
 
     respond_to do |format|
       if @production.save
-        manage_temp_director_info(@production)
+        #TODO: save current user
+        @production.set_director_inviter User.first
+        send_director_invitation(@production) if @production.director.nil?
         format.html { redirect_to @production, notice: 'Production was successfully created.' }
         format.json { render json: @production }
       else
@@ -46,9 +48,11 @@ class ProductionsController < ApplicationController
   # PATCH/PUT /productions/1
   # PATCH/PUT /productions/1.json
   def update
+    previous_emails = Invitation.emails
     respond_to do |format|
       if @production.update(production_params)
-        manage_temp_director_info(@production)
+        #TODO filter by inviter too
+        send_director_invitation(@production) if (previous_emails.include? @production.last_director_invitation.email)
         format.html { redirect_to @production, notice: 'Production was successfully updated.' }
         format.json { render json: @production }
       else
@@ -82,24 +86,17 @@ class ProductionsController < ApplicationController
     @company = Company.new
   end
 
-  # def new_invitation
-  #   @invitation = invitation.new(to: @production)
-  # end
-
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def production_params
     params.require(:production).permit(:name, :description, :company_id, :director_id, :dirname, :diremail,
                                        shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy],
-                                       invitations_attributes: [:id, :first_name, :last_name, :email])
+                                       director_invitations_attributes: [:id, :first_name, :last_name, :email],
+                                       artist_invitations_attributes: [:id, :first_name, :last_name, :email])
   end
 
-  def manage_temp_director_info(production)
-    if production.director.nil? && !production.dirname.blank? && !production.diremail.blank?
-      AmMailer.invite_director(production.dirname, production.diremail, 'An Artist Magnet user').deliver
-    else
-      production.dirname = ''
-    end
-    production.diremail = ''
+  def send_director_invitation(production)
+    inv = production.director_invitations.last
+    AmMailer.invite_director(inv, production, 'An Artist Magnet user').deliver
   end
 end

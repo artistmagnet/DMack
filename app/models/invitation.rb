@@ -5,5 +5,14 @@ class Invitation < ActiveRecord::Base
   # validates :text, :presence => true
 
   belongs_to :to, :polymorphic => true
+  belongs_to :by, :class_name => "User"
+
+  def full_name
+    [first_name, last_name].join(' ')
+  end
+
+  def self.emails
+    Invitation.all.select{|invitation| invitation.email}
+  end
 
 end

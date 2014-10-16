@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   has_many :resumes
+  has_many :invitations
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

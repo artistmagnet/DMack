@@ -9,7 +9,7 @@ class InvitationsController < ApplicationController
     @invitation = Invitation.new(invitation_params)
     respond_to do |format|
       if @invitation.save
-        deliver_invitation
+        # invite_director
         format.html {redirect_to invitations_path, notice: "Invitation has been sent"}
         format.json {render json: @invitation}
       else
@@ -32,7 +32,7 @@ class InvitationsController < ApplicationController
   end
 
   def index
-    @invitations = Invitation.all.order(:name)
+    @invitations = Invitation.all.order(:last_name)
   end
 
   def destroy
@@ -54,7 +54,7 @@ class InvitationsController < ApplicationController
     params.require(:invitation).permit(:name, :email, :text)
   end
 
-  def deliver_invitation
-    puts ("INVITATION SENT TO: #{@invitation.name} (#{@invitation.email}), state: #{@invitation.state}, text: #{@invitation.text}")
-  end
+  # def deliver_invitation
+  #   puts ("INVITATION SENT TO: #{@invitation.name} (#{@invitation.email}), state: #{@invitation.state}, text: #{@invitation.text}")
+  # end
 end
