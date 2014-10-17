@@ -6,8 +6,9 @@ class CreateInvitations < ActiveRecord::Migration
       t.string :email
       t.string :state
       t.string :text
-      # t.type :string
+      t.string :type
       t.references :to, polymorphic: true
+      t.references :by
 
       t.timestamps
     end

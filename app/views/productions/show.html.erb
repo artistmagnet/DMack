@@ -13,9 +13,13 @@
                 <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/curtain-180.jpg')"></span>
                 <h3><%= @production.name %></h3>
                 <p>
-                  at <a href="#"><%= link_to @production.current_venue_name, @production.current_venue %></a> <br />
-                  by <a href="#"><%= link_to @production.company_name, @production.company %></a>  <br />
-                  Opening <%= @production.opening_date %> </p>
+                  <% unless @production.current_venue_name.blank? %>
+                    at <%= link_to @production.current_venue_name, @production.current_venue %></a> <br />
+                  <% end %>
+                  <% unless @production.company_name.blank? %>
+                    by <%= link_to @production.company_name, @production.company %></a> <br />
+                  <% end %>
+                  <%= "Opening #{@production.opening_date}" unless @production.opening_date.nil?  %> </p>
                 <p><%= @production.description %> </p>
                 <!--<p>Opening May 1,2015 </p>-->
               </div>

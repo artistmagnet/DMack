@@ -8,7 +8,7 @@ class Role < ActiveRecord::Base
   delegate :current_venue_name, :to => :production, :prefix => true
   delegate :company, :to => :production, :prefix => true
   delegate :company_name, :to => :production, :prefix => true
-  delegate :director, :to => :production
+  delegate :director_name, :to => :production
 
   validate :validate_properties
 

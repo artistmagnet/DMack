@@ -36,8 +36,10 @@ ActiveRecord::Schema.define(version: 20141014054303) do
     t.string   "email"
     t.string   "state"
     t.string   "text"
+    t.string   "type"
     t.integer  "to_id"
     t.string   "to_type"
+    t.integer  "by_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

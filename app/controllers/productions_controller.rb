@@ -1,7 +1,7 @@
 class ProductionsController < ApplicationController
   before_action :set_production, only: [:show, :edit, :update, :destroy]
-  before_action :new_venue, only: [:edit, :new, :create]
-  before_action :new_company, only: [:edit, :new, :create]
+  before_action :new_venue, only: [:edit, :new, :create, :update]
+  before_action :new_company, only: [:edit, :new, :create, :update]
 
   # GET /productions
   # GET /productions.json
@@ -23,7 +23,7 @@ class ProductionsController < ApplicationController
 
   # GET /productions/1/edit
   def edit
-    @production.director_invitations.build if @production.director_invitations.empty?
+    @production.director_invitations.build #if @production.director_invitations.empty?
   end
 
   # POST /productions
@@ -35,7 +35,7 @@ class ProductionsController < ApplicationController
       if @production.save
         #TODO: save current user
         @production.set_director_inviter User.first
-        send_director_invitation(@production) if @production.director.nil?
+        send_director_invitation(@production) if @production.director_name.nil?
         format.html { redirect_to @production, notice: 'Production was successfully created.' }
         format.json { render json: @production }
       else
@@ -51,8 +51,10 @@ class ProductionsController < ApplicationController
     previous_emails = Invitation.emails
     respond_to do |format|
       if @production.update(production_params)
+        puts "prev: " + previous_emails.to_json
+        puts "last: " + last_director_invitation.to_json
         #TODO filter by inviter too
-        send_director_invitation(@production) if (previous_emails.include? @production.last_director_invitation.email)
+        send_director_invitation(@production) if (!previous_emails.include? @production.last_director_invitation.email)
         format.html { redirect_to @production, notice: 'Production was successfully updated.' }
         format.json { render json: @production }
       else
@@ -91,8 +93,8 @@ class ProductionsController < ApplicationController
   def production_params
     params.require(:production).permit(:name, :description, :company_id, :director_id, :dirname, :diremail,
                                        shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy],
-                                       director_invitations_attributes: [:id, :first_name, :last_name, :email],
-                                       artist_invitations_attributes: [:id, :first_name, :last_name, :email])
+                                       director_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by],
+                                       artist_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by])
   end
 
   def send_director_invitation(production)

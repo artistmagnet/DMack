@@ -14,11 +14,11 @@ class Production < ActiveRecord::Base
 
   validate :validate_properties
 
-  delegate :name, :to => :director, :prefix => true
+  delegate :name, :to => :director_name, :prefix => true
   delegate :name, :to => :company, :prefix => true
 
   def company_name
-    company.nil? ? "Unknown" : company.name
+    company.nil? ? "" : company.name
   end
 
   def key_info
@@ -35,7 +35,6 @@ class Production < ActiveRecord::Base
 
 
   def validate_properties
-
     if name.blank?
       errors.add :name, "is required"
     end
@@ -57,14 +56,16 @@ class Production < ActiveRecord::Base
       errors.add :company_and_venue, "are blank. Please provide at least one"
     end
 
-    last_invitation = last_director_invitation
-    # puts "Invitation #{last_invitation.nil? ? 'does NOT exist' : 'exists'}"
+    director_invitation = last_director_invitation
+    puts "Invitation #{director_invitation.nil? ? 'does NOT exist' : 'exists'}"
     if director_id.blank?
-      if last_invitation && invitation_filled?(last_invitation) && !good_for_production(last_invitation)
+      puts "NO AM director"
+      if director_invitation && invitation_filled?(director_invitation) && !good_for_production(director_invitation)
         errors.add "Director's contact info", "is invalid"
       end
     else
       unless director_invitations.empty?
+        puts "resetting last dir inv"
         director_invitations[director_invitations.size-1] = Invitation.new
       end
     end
@@ -91,22 +92,28 @@ class Production < ActiveRecord::Base
     end
   end
 
-  def director
-    "Not supported (yet)"
+  def director_name
+    return director.full_name if director
+    return last_director_invitation.try(:full_name)
   end
+
 
   def last_director_invitation
     director_invitations.last
   end
 
   def set_director_inviter(user)
-    last_director_invitation.by = user if last_director_invitation
+    inv = last_director_invitation
+    if inv
+      inv.by = user
+      inv.save
+    end
   end
 
   private
 
   def invitation_filled? (invitation)
-    !invitation.first_name.blank? || !invitation.last_name.blank? || !invitation.email.blank?
+    !(invitation.first_name.blank? && invitation.last_name.blank? & invitation.email.blank?)
   end
 
   def good_for_production(invitation)

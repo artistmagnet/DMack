@@ -1,4 +1,4 @@
-class DirectorInvitation < Invitation
+class ArtistInvitation < Invitation
 
   belongs_to :to, :polymorphic => true
 

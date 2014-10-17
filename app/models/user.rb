@@ -11,6 +11,10 @@ class User < ActiveRecord::Base
     email.sub(/@.*/, '')
   end
 
+  def full_name
+    name
+  end
+
   def self.sorted_names_including_invited
     self.names_including_invited.sort
   end
