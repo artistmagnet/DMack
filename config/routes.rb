@@ -13,7 +13,7 @@ Rails.application.routes.draw do
 
   resources :productions do
     resources :shows
-    # resources :prodroles
+    resources :roles
   end
 
   resources :companies

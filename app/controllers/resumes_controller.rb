@@ -38,7 +38,7 @@ class ResumesController < InheritedResources::Base
   def update
     respond_to do |format|
       if @resume.update(resume_params)
-        format.html { redirect_to @resume, notice: 'Resume was successfully updated.' }
+        format.html { redirect_to edit_resume_path(@resume), notice: 'Updated' }
         format.json { render json: @resume }
       else
         format.html { render :edit }
@@ -68,7 +68,7 @@ class ResumesController < InheritedResources::Base
     @production = Production.new
     @production.shows.build
     @production.director_invitations.build
-    @production.artist_invitations.build
+    # @production.artist_invitations.build
   end
 
   def new_venue

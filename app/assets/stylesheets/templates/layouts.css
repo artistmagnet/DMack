@@ -41,6 +41,10 @@
     font-size: .8em;
 }
 
+.text-pale{
+    color: #bbb;
+}
+
 #add-resume .form-group{
     margin-right: 20px;
 }

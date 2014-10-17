@@ -5,8 +5,10 @@ class RolesController < InheritedResources::Base
   before_action :new_company, only: [:edit, :new, :create]
 
   def index
-    @resume = find_resume
-    @roles = Role.where(resume_id: @resume.id)
+    role_params = {}
+    role_params[:resume_id] = params[:resume_id]
+    role_params[:production_id] = params[:production_id]
+    @roles = Role.where(role_params)
   end
 
   def show
@@ -50,6 +52,17 @@ class RolesController < InheritedResources::Base
     end
   end
 
+  def destroy
+    @role.destroy
+    respond_to do |format|
+      puts "referer: #{request.referer}"
+      format.html { redirect_to request.referer, notice: 'Show was successfully destroyed.' }
+      # format.html { redirect_to @resume, notice: 'Show was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+
 
   private
   # Use callbacks to share common setup or constraints between actions.
@@ -67,19 +80,11 @@ class RolesController < InheritedResources::Base
     #TODO: use current_user to validate
     Resume.find params[:resume_id]
   end
-end
 
-def destroy
-  @role.destroy
-  respond_to do |format|
-    format.html { redirect_to @resume, notice: 'Show was successfully destroyed.' }
-    format.json { head :no_content }
-  end
 end
 
 
 
-private
 
 def new_production
   @production = Production.new

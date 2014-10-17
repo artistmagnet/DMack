@@ -37,7 +37,9 @@
               <div class="col-md-12">
                 <h4>
                   <span>Cast & Crew</span>
-                  <button class="btn btn-primary pull-right m-top-m6" type="button">Add Artists to this Production</button>
+                  <%= link_to production_roles_path @production do %>
+                    <button class="btn btn-primary pull-right m-top-m6" type="button">Add Artists to this Production</button>
+                  <% end %>
                 </h4>
                 <br />
               </div>

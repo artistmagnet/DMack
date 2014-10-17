@@ -10,7 +10,9 @@
               <div class="col-md-12">
                 <h4>
                   <span>Organize theatre table</span>
-                  <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
+                  <%= link_to @resume do %>
+                    <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
+                  <% end %>
                 </h4>
                 <br />
               </div>
@@ -52,7 +54,7 @@
                 <%= role.name %>
               </div>
               <div class="col-md-2">
-                Director
+                <%= role.director_name %>
               </div>
               <div class="col-md-2">
                 <%= role.production_company_name %>
@@ -64,7 +66,10 @@
                 <a href="#"></a>
               </div>
               <div class="col-md-1 actions">
-                <a href="#"><i class="fa fa-trash-o text-pale pull-right"></i></a>
+
+                <%= link_to [@resume, role], method: :delete, data: { confirm: "Delete role #{role.name}?" } do %>
+                  <i class="fa fa-trash-o text-pale pull-right"></i>
+                <% end %>
                 <i class="fa fa-arrows-v text-pale pull-right"></i>
               </div>
             </div>
@@ -84,6 +89,11 @@
         <div class="panel panel-default">
           <div class="panel-body">
 
+
+          <h4>
+            <span>New role</span>
+          </h4>
+
           <% if @resume.errors.any? %>
             <div id="error_explanation">
               <h2><%= pluralize(@resume.errors.count, "error") %> prohibited this resume from being saved:</h2>
@@ -101,21 +111,21 @@
             <% if fs.object.new_record? %>
             <div class="form-group">
               <div class="field">
-                <%= fs.label :production %><br>
-                <%= fs.collection_select :production_id, Production.all.order(:name), :id, :key_info, {}, {id: 'resume_role_production_id', class: "form-control chosen-select"} %>
+                <%# fs.label :production %>
+                <%= fs.collection_select :production_id, Production.all.order(:name), :id, :key_info, {prompt: 'Production'}, {id: 'resume_role_production_id', class: "form-control chosen-select"} %>
                 <%= link_to "New", 'javascript:void(0)', {:class => 'extend-list'} %>
               </div>
             </div>
             <div class="form-group">
               <div class="field">
-                <%= fs.label :name, "Role", {style: "display: block; visibility: hidden"} %>
+                <%# fs.label :name, "Role", {style: "display: block; visibility: hidden"} %>
                 <%= fs.text_field :name, {class: 'form-control', placeholder: 'Role'} %>
               </div>
             </div>
             <div class="form-group">
-              <div class="actions">
-                <%= f.label 'Actions', {style: "display: block; visibility: hidden"} %>
-                <%= f.submit "Add", {class: "btn btn-primary btn-block"} %>
+              <div class="actions field ">
+                <%# f.label 'Actions', {style: "display: block; visibility: hidden"} %>
+                <%= f.button "Add", {class: "btn btn-primary"} %>
               </div>
             </div>
             <% end %>
