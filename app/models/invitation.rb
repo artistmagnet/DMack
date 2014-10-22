@@ -11,6 +11,10 @@ class Invitation < ActiveRecord::Base
     [first_name, last_name].join(' ')
   end
 
+  def by_name
+    by.nil? ? '' : by.name
+  end
+
   def self.emails
     Invitation.all.select{|invitation| invitation.email}
   end

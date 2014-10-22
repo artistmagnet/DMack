@@ -1,30 +1,12 @@
 Rails.application.routes.draw do
 
-  resources :invitations
-
-  resources :resumes do
-    resources :roles
-  end
-
-  devise_for :users
-  get 'users' => 'users#index', :as => 'users'
-
-  resources :shows
-
-  resources :productions do
-    resources :shows
-    resources :roles
-  end
-
-  resources :companies
-
-  resources :venues
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
   root 'home#index'
+
+  put   'productions/:production_id/update_director'   =>  'productions#update_director',    as: :update_production_director
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -74,4 +56,26 @@ Rails.application.routes.draw do
   #     # (app/controllers/admin/products_controller.rb)
   #     resources :products
   #   end
+
+  resources :invitations
+
+  resources :resumes do
+    resources :roles
+  end
+
+  devise_for :users
+  get 'users' => 'users#index', :as => 'users'
+
+  resources :shows
+
+  resources :productions do
+    resources :shows
+    resources :roles
+    resources :director_invitations
+  end
+
+  resources :companies
+
+  resources :venues
+
 end

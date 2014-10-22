@@ -1,12 +1,25 @@
 .m-top-20{
     margin-top: 20px;
 }
+
+.m-top-10{
+    margin-top: 10px;
+}
+
 .m-top-m6{
     margin-top: -6px;
 }
 
 .m-bottom-20{
     margin-bottom: 20px;
+}
+
+.m-right-0{
+    margin-right: 0px;
+}
+
+.m-left-10{
+    margin-left: 10px;
 }
 
 .m-left-15{
@@ -47,4 +60,23 @@
 
 #add-resume .form-group{
     margin-right: 20px;
+}
+
+/*.chosen-drop{*/
+    /*height: 34px;*/
+/*}*/
+
+.chosen-container.chosen-container-single{
+    height: 34px;
+    padding-top: 7px;
+    font-size: 14px;
+    color: #555555;
+}
+
+.chosen-container.chosen-container-single>a{
+    border-width: 0px;
+    border-radius: 0px;
+    border-style: none;
+    background-color: white;
+    background-image: none;
 }

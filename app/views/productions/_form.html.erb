@@ -1,12 +1,12 @@
 
 <% remoteForm  ||= false %>
-<% queryFormat ||= '' %>
+<% queryFormat ||= (remoteForm ? 'json' : '') %>
 <% html_class  ||= '' %>
 
 <% if remoteForm  %>
 <div id="add-production" class="overlay overlay-1" >
 <% else %>
-<div id="add-production" class="overlay overlay-1" style="display: block">
+<div id="add-production" class="" style="display: block">
 <% end %>
 
   <div class="panel panel-default" >
@@ -95,18 +95,20 @@
           </div>
         </div>
         <% end %>
-        <%= f.fields_for [@production.director_invitations.last] do |ft| %>
-          <div class="form-group">
-            <div class="field">
-              <%= ft.label "Or invite new director", {class: "col-sm-2 control-label"} %>
-              <div class="col-sm-10">
-                <%= ft.text_field :first_name, {placeholder: "First name"} %>
-                <%= ft.text_field :last_name, {placeholder: "Last name"} %>
-                <%= ft.text_field :email, {placeholder: "Email"} %>
-              </div>
-            </div>
-          </div>
-        <% end %>
+        <!--< %= f.fields_for :director_invitations, @production.director_invitations do |ft| %>-->
+          <!--< % unless @production.invitation_filled?(ft.object) %>-->
+          <!--<div class="form-group">-->
+            <!--<div class="field">-->
+              <!--< %= ft.label "Or invite new director", {class: "col-sm-2 control-label"} %>-->
+              <!--<div class="col-sm-10">-->
+                <!--< %= ft.text_field :first_name, {placeholder: "First name"} %>-->
+                <!--< %= ft.text_field :last_name, {placeholder: "Last name"} %>-->
+                <!--< %= ft.text_field :email, {placeholder: "Email"} %>-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+          <!--< % end %>-->
+        <!--< % end %>-->
       <div class="actions form-group">
         <div class="col-sm-10 pull-right">
           <%= f.button 'Done', {class: "btn btn-primary m-top-m6"} %>

@@ -18,12 +18,11 @@ class ProductionsController < ApplicationController
   def new
     @production = Production.new
     @production.shows.build
-    @production.director_invitations.build
+    # @production.director_invitations.build
   end
 
   # GET /productions/1/edit
   def edit
-    @production.director_invitations.build #if @production.director_invitations.empty?
   end
 
   # POST /productions
@@ -33,9 +32,9 @@ class ProductionsController < ApplicationController
 
     respond_to do |format|
       if @production.save
-        #TODO: save current user
-        @production.set_director_inviter User.first
-        send_director_invitation(@production) if @production.director_name.nil?
+        #TO DO: save current user
+        # @production.set_director_inviter User.first
+        # send_director_invitation(@production)
         format.html { redirect_to @production, notice: 'Production was successfully created.' }
         format.json { render json: @production }
       else
@@ -48,17 +47,17 @@ class ProductionsController < ApplicationController
   # PATCH/PUT /productions/1
   # PATCH/PUT /productions/1.json
   def update
-    previous_emails = Invitation.emails
+    # previous_emails = Invitation.emails
     respond_to do |format|
       if @production.update(production_params)
-        puts "prev: " + previous_emails.to_json
-        puts "last: " + last_director_invitation.to_json
+        # puts "prev: " + previous_emails.to_json
+        # puts "last: " + last_director_invitation.to_json
         #TODO filter by inviter too
-        send_director_invitation(@production) if (!previous_emails.include? @production.last_director_invitation.email)
+        # send_director_invitation(@production) if (!previous_emails.include? @production.last_director_invitation.email)
         format.html { redirect_to @production, notice: 'Production was successfully updated.' }
         format.json { render json: @production }
       else
-        format.html { render :edit }
+        format.html { redirect_to edit_production_path(@production), notice: 'not saved' }
         format.json { render json: @production.errors.full_messages, status: :unprocessable_entity }
       end
     end
@@ -71,6 +70,19 @@ class ProductionsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to productions_url, notice: 'Production was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def update_director
+    @production = Production.find params[:production_id]
+    respond_to do |format|
+      if @production.update(params.require(:production).permit(:director_id) )
+        format.html { redirect_to @production, notice: "Saved" }
+        format.json { render json: @production }
+      else
+        format.html { redirect_to edit_production_path(@production), notice: 'not saved' }
+        format.json { render json: @production.errors.full_messages, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -91,14 +103,21 @@ class ProductionsController < ApplicationController
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def production_params
-    params.require(:production).permit(:name, :description, :company_id, :director_id, :dirname, :diremail,
-                                       shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy],
-                                       director_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by],
-                                       artist_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by])
+    params.require(:production).permit(:name, :description, :company_id,
+                                       # director_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by],
+                                       # artist_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by],
+                                       shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy]
+                                       )
   end
 
   def send_director_invitation(production)
     inv = production.director_invitations.last
-    AmMailer.invite_director(inv, production, 'An Artist Magnet user').deliver
+    if production.director_invitations.where(email: inv.email, by: inv.by).count > 1
+      puts "Duplicate director invitation - INGORING"
+      puts production.director_invitations.where(email: inv.email, by: inv.by).to_json
+    else
+      puts "Sending director invitation"
+      AmMailer.invite_director(inv, production, 'An Artist Magnet user').deliver
+    end
   end
 end

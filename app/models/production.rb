@@ -1,6 +1,6 @@
 class Production < ActiveRecord::Base
   belongs_to :company
-  belongs_to :director, :class_name => :user
+  belongs_to :director, :class_name => 'Resume'
   has_many :shows, dependent: :destroy
   has_many :venues, :through => :shows
   has_many :roles, dependent: :destroy
@@ -9,12 +9,12 @@ class Production < ActiveRecord::Base
   has_many :director_invitations, :as => :to
 
   accepts_nested_attributes_for :shows, allow_destroy: true, reject_if: :all_blank
-  accepts_nested_attributes_for :director_invitations, allow_destroy: true
-  accepts_nested_attributes_for :artist_invitations, allow_destroy: true
+  # accepts_nested_attributes_for :director_invitations, allow_destroy: true
+  # accepts_nested_attributes_for :artist_invitations, allow_destroy: true
 
   validate :validate_properties
 
-  delegate :name, :to => :director_name, :prefix => true
+  # delegate :name, :to => :director, :prefix => true
   delegate :name, :to => :company, :prefix => true
 
   def company_name
@@ -56,19 +56,19 @@ class Production < ActiveRecord::Base
       errors.add :company_and_venue, "are blank. Please provide at least one"
     end
 
-    director_invitation = last_director_invitation
-    puts "Invitation #{director_invitation.nil? ? 'does NOT exist' : 'exists'}"
-    if director_id.blank?
-      puts "NO AM director"
-      if director_invitation && invitation_filled?(director_invitation) && !good_for_production(director_invitation)
-        errors.add "Director's contact info", "is invalid"
-      end
-    else
-      unless director_invitations.empty?
-        puts "resetting last dir inv"
-        director_invitations[director_invitations.size-1] = Invitation.new
-      end
-    end
+    # director_invitation = last_director_invitation
+    # puts "Invitation #{director_invitation.nil? ? 'had NOT been initialized' : 'had been initialized'}"
+    # if director_id.blank?
+    #   puts "NO AM director"
+    #   if director_invitation && invitation_filled?(director_invitation) && !good_for_production(director_invitation)
+    #     errors.add "Director's contact info", "is invalid"
+    #   end
+    # else
+    #   # unless director_invitations.empty?
+    #     puts "resetting last dir inv"
+    #     director_invitations[director_invitations.size-1] = Invitation.new
+    #   # end
+    # end
 
   end
 
@@ -93,7 +93,7 @@ class Production < ActiveRecord::Base
   end
 
   def director_name
-    return director.full_name if director
+    return director.name if director_id
     return last_director_invitation.try(:full_name)
   end
 
@@ -102,22 +102,26 @@ class Production < ActiveRecord::Base
     director_invitations.last
   end
 
-  def set_director_inviter(user)
-    inv = last_director_invitation
-    if inv
-      inv.by = user
-      inv.save
-    end
-  end
+  # def set_director_inviter(user)
+  #   inv = last_director_invitation
+  #   if inv
+  #     inv.by = user
+  #     inv.save
+  #   end
+  # end
 
-  private
-
-  def invitation_filled? (invitation)
-    !(invitation.first_name.blank? && invitation.last_name.blank? & invitation.email.blank?)
-  end
-
-  def good_for_production(invitation)
-    !invitation.first_name.blank? && !invitation.last_name.blank? && invitation.email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i
-  end
+  # def invitation_filled? (invitation)
+  #   res = !(invitation.first_name.blank? && invitation.last_name.blank? & invitation.email.blank?)
+  #   puts "Dir. inv. #{res ? '' : 'NOT'} filled"
+  #   res
+  # end
+  #
+  # private
+  #
+  # def good_for_production(invitation)
+  #   res = (!invitation.first_name.blank? && !invitation.last_name.blank? && invitation.email =~ /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i  )
+  #   puts "Dir. inv. #{res ? '' : 'NOT'}good for prod"
+  #   res
+  # end
 
 end
