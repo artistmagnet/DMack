@@ -2,12 +2,8 @@ class DirectorInvitationsController < InvitationsController
   before_action :set_production
 
   def index
-    @production = Production.find(params[:production_id])
-    puts @production.nil? ? "NIL prod" : "Prod: #{@production.to_json}"
-    @invitations = Invitation.where(to: @production).order(:last_name)
+    @invitations = DirectorInvitation.where(to: @production).order(:last_name)
     @invitation = DirectorInvitation.new()
-    #TODO: set current user as sender
-    # @invitation = DirectorInvitation.new(to_id: @production.id, by: User.first)
   end
 
   def create

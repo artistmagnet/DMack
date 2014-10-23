@@ -30,7 +30,7 @@ class RolesController < InheritedResources::Base
 
     respond_to do |format|
       if @role.save
-        format.html { redirect_to @resume, notice: 'Role was successfully created.' }
+        format.html { redirect_to after_create_path(request, @role), notice: 'Role was successfully created.' }
         format.json { render :role, status: :created, location: @role }
       else
         format.html { render :new }
@@ -79,6 +79,10 @@ class RolesController < InheritedResources::Base
   def find_resume
     #TODO: use current_user to validate
     Resume.find params[:resume_id]
+  end
+
+  def after_create_path(request, role)
+    request.path == production_roles_path(role.production) ? production_artist_invitations_path(role.production) : request.path
   end
 
 end

@@ -1,5 +1,6 @@
 class Resume < ActiveRecord::Base
   scope :directors, -> {all}
+  scope :artists,   -> {all}
 
   belongs_to :user
   has_many :roles, dependent: :destroy

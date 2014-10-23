@@ -1,5 +1,4 @@
 class DirectorInvitation < Invitation
-
   belongs_to :to, :polymorphic => true
 
   def initialize(attributes={})

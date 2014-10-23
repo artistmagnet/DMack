@@ -8,13 +8,17 @@ class Invitation < ActiveRecord::Base
   belongs_to :to, :polymorphic => true
   belongs_to :by, :class_name => "User"
 
+  scope :directors, -> { where type: 'DirectorInvitation' }
+
   def other_validations
     previous = Invitation.find_by(by: by, email: email)
     if previous
       errors.add :base, "You have already invited this person"
     end
 
-    if Invitation.find_by(email: email)
+    already_joined = Invitation.find_by(email: email)
+    if already_joined
+      puts "FAILING email uniquess validation on this record: #{already_joined}"
       errors.add :base, "This person has already joined Artist Magnet"
     end
   end
