@@ -53,6 +53,17 @@
                     </h5>
                     <div class="col-sm-12">
                       <div class="row">
+                        <% if @invitation.errors.any? %>
+                          <%= content_tag 'div', 'Please review the following:' %>
+                          <ul>
+                            <% @invitation.errors.full_messages.each do |error_message| %>
+                              <%= content_tag 'li', error_message %>
+                            <% end %>
+                          </ul>
+                        <% end %>
+                      </div>
+
+                      <div class="row">
                         <div class="form-group">
                           <div class="field">
                             <div class="row">

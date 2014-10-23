@@ -3,9 +3,17 @@ class Invitation < ActiveRecord::Base
   validates :last_name, :presence => true
   validates :email,:presence => true, :email => true
   # validates :text, :presence => true
+  validate :other_validations
 
   belongs_to :to, :polymorphic => true
   belongs_to :by, :class_name => "User"
+
+  def other_validations
+    previous = Invitation.find_by(by: by, email: email)
+    if previous
+      errors.add :base, "You have already invited this person"
+    end
+  end
 
   def full_name
     [first_name, last_name].join(' ')
