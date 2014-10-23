@@ -49,7 +49,6 @@ class ArtistInvitationsController < InvitationsController
   def send_artist_invitation(invitation)
     production = invitation.to
     puts "Sending artist invitation"
-    # TODO: invite artist
-    # AmMailer.invite_director(invitation, production, 'An Artist Magnet user').deliver
+    AmMailer.invite_artist(invitation, production, 'An Artist Magnet user').deliver
   end
 end

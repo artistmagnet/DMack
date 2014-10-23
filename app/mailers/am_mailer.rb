@@ -7,4 +7,11 @@ class AmMailer < ActionMailer::Base
     @referrer_name = referrer_name
     mail(to: @invitation.email, subject: "#{referrer_name} invited you to Artist Magnet")
   end
+
+  def invite_artist(invitation, production, referrer_name)
+    @invitation = invitation
+    @production = production
+    @referrer_name = referrer_name
+    mail(to: @invitation.email, subject: "#{referrer_name} invited you to Artist Magnet")
+  end
 end
