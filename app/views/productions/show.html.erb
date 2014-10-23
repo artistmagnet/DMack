@@ -76,6 +76,7 @@
                 <br />
               </div>
               <% roles = @production.roles.to_a %>
+              <%= puts roles.to_json %>
               <%= render partial: 'layouts/includes/actor_widgets_row', locals: {roles: roles} %>
             </div>
             <% ((roles.length+3)/4).times do |row| %>

@@ -22,11 +22,12 @@ class ResumesController < InheritedResources::Base
 
   def create
     @resume = Resume.new(resume_params)
-    @resume.user_id = User.all.first if @resume.user.nil?
+    #TODO BUG: set the current user
+    @resume.user = User.all.first if @resume.user.nil?
 
     respond_to do |format|
       if @resume.save
-        format.html { redirect_to @resume, notice: 'Resume was succesfully created'}
+        format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully created'}
         format.json { render json: @resume}
       else
         format.html { render :new }

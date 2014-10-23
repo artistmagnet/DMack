@@ -77,10 +77,10 @@ class ProductionsController < ApplicationController
     @production = Production.find params[:production_id]
     respond_to do |format|
       if @production.update(params.require(:production).permit(:director_id) )
-        format.html { redirect_to @production, notice: "Saved" }
+        format.html { redirect_to production_director_invitations_path(@production), notice: "Saved" }
         format.json { render json: @production }
       else
-        format.html { redirect_to edit_production_path(@production), notice: 'not saved' }
+        format.html { redirect_to production_director_invitations_path(@production), notice: 'not saved' }
         format.json { render json: @production.errors.full_messages, status: :unprocessable_entity }
       end
     end
