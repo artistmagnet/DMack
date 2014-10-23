@@ -13,9 +13,11 @@
 
     <h3>
       <span>Production</span>
-      <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-1').hide();$('.fade-1').hide()">
-        <i class="fa fa-undo"></i>
-      </a>
+      <% if remoteForm %>
+        <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-1').hide();$('.fade-1').hide()">
+          <i class="fa fa-undo"></i>
+        </a>
+      <% end %>
     </h3>
 
     <div class="panel-body">
@@ -110,10 +112,15 @@
           <!--</div>-->
           <!--< % end %>-->
         <!--< % end %>-->
-      <div class="actions form-group">
-        <div class="col-sm-10 pull-right">
+      <div class="actions form-group form-inline">
+        <span class="col-sm-1 col-sm-offset-2">
           <%= f.button 'Done', {class: "btn btn-primary m-top-m6"} %>
-        </div>
+        </span>
+        <% if !remoteForm  %>
+        <span class="col-sm-1">
+          <%= link_to 'Cancel', :back, {class: "btn btn-default m-top-m6"} %>
+        </span>
+        <% end %>
       </div>
     <% end %>
     </div>

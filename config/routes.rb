@@ -72,6 +72,7 @@ Rails.application.routes.draw do
     resources :shows
     resources :roles
     resources :director_invitations
+    resources :artist_invitations
   end
 
   resources :companies

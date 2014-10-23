@@ -48,7 +48,7 @@
                   <% end %>
                 </h4>
                 <% if @production.director_id.nil? %>
-                  <%= @production.last_director_invitation %>
+                  <%= @production.director_name %>
                 <% else %>
                   <%= link_to @production.director_name, @production.director %>
                   <br />
@@ -69,7 +69,7 @@
               <div class="col-md-12">
                 <h4>
                   <span>Cast & Crew</span>
-                  <%= link_to production_roles_path @production do %>
+                  <%= link_to  production_artist_invitations_path @production do %>
                     <button class="btn btn-primary pull-right m-top-m6" type="button">Add Artists to this Production</button>
                   <% end %>
                 </h4>
