@@ -17,6 +17,7 @@ class DirectorInvitationsController < InvitationsController
     respond_to do |format|
       if @invitation.save
         # invite_director
+        send_director_invitation @invitation
         format.html {redirect_to production_director_invitations_path(@production), notice: "Invitation has been sent"}
         format.json {render json: @invitation}
       else
@@ -39,5 +40,16 @@ class DirectorInvitationsController < InvitationsController
 
   def director_invitation_params
     params.require(:director_invitation).permit(:first_name, :last_name, :email, :text)
+  end
+
+  def send_director_invitation(invitation)
+    production = invitation.to
+    # if production.director_invitations.where(email: inv.email, by: inv.by).count > 1
+    #   puts "Duplicate director invitation - INGORING"
+    #   puts production.director_invitations.where(email: inv.email, by: inv.by).to_json
+    # else
+      puts "Sending director invitation"
+      AmMailer.invite_director(invitation, production, 'An Artist Magnet user').deliver
+    # end
   end
 end

@@ -110,14 +110,14 @@ class ProductionsController < ApplicationController
                                        )
   end
 
-  def send_director_invitation(production)
-    inv = production.director_invitations.last
-    if production.director_invitations.where(email: inv.email, by: inv.by).count > 1
-      puts "Duplicate director invitation - INGORING"
-      puts production.director_invitations.where(email: inv.email, by: inv.by).to_json
-    else
-      puts "Sending director invitation"
-      AmMailer.invite_director(inv, production, 'An Artist Magnet user').deliver
-    end
-  end
+  # def send_director_invitation(production)
+  #   inv = production.director_invitations.last
+  #   if production.director_invitations.where(email: inv.email, by: inv.by).count > 1
+  #     puts "Duplicate director invitation - INGORING"
+  #     puts production.director_invitations.where(email: inv.email, by: inv.by).to_json
+  #   else
+  #     puts "Sending director invitation"
+  #     AmMailer.invite_director(inv, production, 'An Artist Magnet user').deliver
+  #   end
+  # end
 end

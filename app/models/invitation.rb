@@ -13,6 +13,10 @@ class Invitation < ActiveRecord::Base
     if previous
       errors.add :base, "You have already invited this person"
     end
+
+    if Invitation.find_by(email: email)
+      errors.add :base, "This person has already joined Artist Magnet"
+    end
   end
 
   def full_name
