@@ -18,6 +18,7 @@ class ResumesController < InheritedResources::Base
   end
 
   def show
+    @section_slots = SectionSlot.order(:position)
   end
 
   def create

@@ -44,26 +44,26 @@
           </div>
 
           <% @resume.roles.each do |role| %>
-          <div class="h-movable row diminished-font">
-            <div class="col-md-2">
-              <%= link_to role.production_name.upcase, role.production %>
+            <div class="h-movable row diminished-font">
+              <div class="col-md-2">
+                <%= link_to role.production_name.upcase, role.production %>
+              </div>
+              <div class="col-md-2">
+                <%= role.name %>
+              </div>
+              <div class="col-md-2">
+                <%= role.director_name %>
+              </div>
+              <div class="col-md-2">
+                <%= link_to role.production_current_venue_name, role.production_current_venue  %>
+              </div>
+              <div class="col-md-2">
+                <%= link_to role.production_company_name, role.production_company  %>
+              </div>
+              <div class="col-md-2">
+                <a href="#"></a>
+              </div>
             </div>
-            <div class="col-md-2">
-              <%= role.name %>
-            </div>
-            <div class="col-md-2">
-              <%= role.director_name %>
-            </div>
-            <div class="col-md-2">
-              <%= link_to role.production_current_venue_name, role.production_current_venue  %>
-            </div>
-            <div class="col-md-2">
-              <%= link_to role.production_company_name, role.production_company  %>
-            </div>
-            <div class="col-md-2">
-              <a href="#"></a>
-            </div>
-          </div>
           <% end %>
 
         </div>
@@ -72,3 +72,11 @@
   </div>
 </div>
 
+<div class="container-fluid" id="section_slot" data-update-url="<%= sort_section_slots_url %>">
+
+  <% @resume.section_slots.each do |section_slot| %>
+    <%= render partial: 'section_slot', locals: {section_slot: section_slot} %>
+  <% end %>
+
+
+</div>

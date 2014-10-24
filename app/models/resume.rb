@@ -6,6 +6,11 @@ class Resume < ActiveRecord::Base
   has_many :roles, dependent: :destroy
   has_many :productions, :through => :roles
   has_many :directed_productions, :class_name => "Production", :foreign_key => 'director_id'
+  has_many :section_slots, -> { order('position ASC') }, :dependent => :destroy
+  # has_one  :education_table, :dependent => :destroy
+  # has_one  :skill_list, :dependent => :destroy
+  # has_many :custom_table, :dependent => :destroy
+  # has_many :custom_list, :dependent => :destroy
 
   accepts_nested_attributes_for :roles, allow_destroy: true, reject_if: :all_blank
   delegate :name, :to => :user, :prefix => true

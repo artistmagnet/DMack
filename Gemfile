@@ -56,3 +56,4 @@ gem 'activeadmin', github: 'activeadmin'
 
 gem 'devise'
 gem 'chosen-rails'
+gem 'acts_as_list'

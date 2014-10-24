@@ -78,5 +78,6 @@ Rails.application.routes.draw do
   resources :companies
 
   resources :venues
+  post 'section_slots' => 'section_slots#sort', :as => 'sort_section_slots'
 
 end
