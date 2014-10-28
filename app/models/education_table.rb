@@ -1,0 +1,2 @@
+class EducationTable < Rtable
+end

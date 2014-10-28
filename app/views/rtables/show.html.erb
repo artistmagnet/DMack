@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @rtable.title %>
+</p>
+
+<p>
+  <strong>Columns:</strong>
+  <%= @rtable.columns %>
+</p>
+
+<p>
+  <strong>Positions:</strong>
+  <%= @rtable.positions %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @rtable.type %>
+</p>
+
+<%= link_to 'Edit', edit_rtable_path(@rtable) %> |
+<%= link_to 'Back', rtables_path %>
