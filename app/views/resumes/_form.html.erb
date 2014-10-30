@@ -75,6 +75,11 @@
             </div>
             <% end %>
 
+            <div class="row">
+              <div class="col-md-12">
+                <%= link_to 'Add Credit', 'javascript:void(0)', {id: "add-resume-role-link", class: "btn btn-primary m-top-10"} %>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -144,3 +149,9 @@
 <div id="add-resume-production">
   <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
 </div>
+<div class="fade fade-1"></div>
+
+<div id="add-resume-role" class="overlay overlay-1" style="display: none">
+  <%= render 'roles/form' %>
+</div>
+<div class="fade fade-1"></div>

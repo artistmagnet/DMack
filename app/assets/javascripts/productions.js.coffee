@@ -53,3 +53,9 @@ bindAjaxOption = (origin_form_selector, select_selector, create_form_selector) -
         $("li", $error_container_ul).remove()
       $.each jqxhr.responseJSON, (index, message) ->
         $("<li>").html(message).appendTo $error_container_ul
+
+jQuery ->
+  $('#add-resume-role-link').click ->
+#    $('.fade-1').first().show()
+    $('#add-resume-role + .fade').height($(document).height()).show()
+    $('#add-resume-role').show()

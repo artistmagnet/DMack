@@ -10,11 +10,11 @@ class ResumesController < InheritedResources::Base
 
   def new
     @resume = Resume.new
-    @resume.roles.build
+    @role = @resume.roles.build
   end
 
   def edit
-    @resume.roles.build
+    @role = @resume.roles.build
   end
 
   def show
