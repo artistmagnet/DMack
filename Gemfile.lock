@@ -19,6 +19,7 @@ GIT
 GIT
   remote: https://github.com/gior/chosen-rails.git
   revision: 10af07598178f10f63f2174d31756dd71bb21a3c
+  branch: master
   specs:
     chosen-rails (1.2.0)
       coffee-rails (>= 3.2)

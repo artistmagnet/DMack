@@ -9,7 +9,7 @@ class ResumesController < InheritedResources::Base
   end
 
   def new
-    @resume = Resume.new
+    @resume = Resume.create
     @role = @resume.roles.build
   end
 
