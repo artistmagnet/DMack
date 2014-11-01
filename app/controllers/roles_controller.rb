@@ -31,10 +31,10 @@ class RolesController < InheritedResources::Base
     respond_to do |format|
       if @role.save
         format.html { redirect_to after_create_path(request, @role), notice: 'Role was successfully created.' }
-        format.json { render :role, status: :created, location: @role }
+        format.json { render json: @role }
       else
         format.html { render :new }
-        format.json { render json: @role.errors, status: :unprocessable_entity }
+        format.json { render json: @role.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -44,10 +44,10 @@ class RolesController < InheritedResources::Base
     respond_to do |format|
       if @role.update(role_params)
         format.html { redirect_to @resume, notice: 'Show was successfully updated.' }
-        format.json { render :show, status: :ok, location: @role }
+        format.json { render json: @role }
       else
         format.html { render :edit }
-        format.json { render json: @role.errors, status: :unprocessable_entity }
+        format.json { render json: @role.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
