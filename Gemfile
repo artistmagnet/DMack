@@ -17,6 +17,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 # gem 'turbolinks'
 # gem 'jquery-turbolinks'
@@ -52,8 +53,8 @@ gem 'thin'
 # gem 'debugger', group: [:development, :test]
 
 # Track v1.0 when it is released
-gem 'activeadmin', github: 'activeadmin'
+# gem 'activeadmin', github: 'activeadmin'
 
 gem 'devise'
-gem 'chosen-rails', :git => 'https://github.com/gior/chosen-rails.git', :branch => 'master'
+gem 'chosen-rails', '1.2.0.j', :git => 'https://github.com/gior/chosen-rails.git', :branch => 'master'
 gem 'acts_as_list'
