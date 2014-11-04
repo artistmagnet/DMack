@@ -22,45 +22,53 @@
           </div>
 
 
-          <div class="row">
-            <div class="col-md-2">
-              <strong>Production</strong>
+          <div class="roles-table diminished-font row">
+            <div class="col-md-5">
+              <div class="col-md-6">
+                <strong>Production</strong>
+              </div>
+              <div class="col-md-6">
+                <strong>Role</strong>
+              </div>
             </div>
-            <div class="col-md-2">
-              <strong>Role</strong>
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
               <strong>Director</strong>
             </div>
-            <div class="col-md-2">
-              <strong>Venue</strong>
+            <div class="col-md-5">
+              <div class="col-md-6">
+                <strong>Venue</strong>
+              </div>
+              <div class="col-md-6">
+                <strong>Company</strong>
+              </div>
             </div>
-            <div class="col-md-2">
-              <strong>Company</strong>
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
               <strong>Custom</strong>
             </div>
           </div>
 
           <% @resume.roles.each do |role| %>
-            <div class="h-movable row diminished-font">
-              <div class="col-md-2">
-                <%= link_to role.production_name.upcase, role.production %>
+            <div class="h-movable roles-table row diminished-font">
+              <div class="col-md-5">
+                <div class="col-md-6">
+                  <%= link_to role.production_name.upcase, role.production %>
+                </div>
+                <div class="col-md-6">
+                  <%= role.name %>
+                </div>
               </div>
-              <div class="col-md-2">
-                <%= role.name %>
-              </div>
-              <div class="col-md-2">
+              <div class="col-md-1">
                 <%= role.director_name %>
               </div>
-              <div class="col-md-2">
-                <%= link_to role.production_current_venue_name, role.production_current_venue  %>
+              <div class="col-md-5">
+                <div class="col-md-6">
+                  <%= link_to role.production_current_venue_name, role.production_current_venue  %>
+                </div>
+                <div class="col-md-6">
+                  <%= link_to role.production_company_name, role.production_company  %>
+                </div>
               </div>
-              <div class="col-md-2">
-                <%= link_to role.production_company_name, role.production_company  %>
-              </div>
-              <div class="col-md-2">
+              <div class="col-md-1">
                 <a href="#"></a>
               </div>
             </div>

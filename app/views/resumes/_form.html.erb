@@ -20,57 +20,63 @@
 
 
 
-            <div class="row">
-              <div class="col-md-2">
-                <strong>Production</strong> <i class="fa fa-arrows-h text-pale"></i>
+            <div class="roles-table row diminished-font">
+              <div class="col-md-5">
+                <div class="col-md-6">
+                  <strong>Production</strong> </i>
+                </div>
+                <div class="col-md-6">
+                  <strong>Role</strong> </i>
+                </div>
               </div>
-              <div class="col-md-2">
-                <strong>Role</strong> <i class="fa fa-arrows-h text-pale"></i>
+              <div class="col-md-1">
+                <strong>Director</strong> </i>
               </div>
-              <div class="col-md-2">
-                <strong>Director</strong> <i class="fa fa-arrows-h text-pale"></i>
+              <div class="col-md-5">
+                <div class="col-md-6">
+                  <strong>Venue</strong> </i>
+                </div>
+                <div class="col-md-6">
+                  <strong>Company</strong>
+                  <a href="#"><i class="fa fa-check-square-o text-pale"></i></a>
+                </div>
               </div>
-              <div class="col-md-2">
-                <strong>Venue</strong> <i class="fa fa-arrows-h text-pale"></i>
-              </div>
-              <div class="col-md-2">
-                <strong>Company</strong>
-                <i class="fa fa-arrows-h text-pale"></i>
-                <a href="#"><i class="fa fa-check-square-o text-pale"></i></a>
-              </div>
-              <div class="col-md-2">
+              <div class="col-md-1">
                 <strong>Custom</strong>
-                <i class="fa fa-arrows-h text-pale"></i>
                 <a href="#"><i class="fa fa-square-o text-pale"></i></a>
               </div>
             </div>
 
             <% @resume.roles.select{|r| !r.new_record?}.each do |role| %>
-            <div class="h-movable row">
-              <div class="col-md-2">
-                <%= role.production_name %>
-              </div>
-              <div class="col-md-2">
-                <%= role.name %>
-              </div>
-              <div class="col-md-2">
-                <%= role.director_name %>
-              </div>
-              <div class="col-md-2">
-                <%= role.production_company_name %>
-              </div>
-              <div class="col-md-2">
-                <%= role.production_name %>
+            <div class="roles-table h-movable row diminished-font">
+              <div class="col-md-5">
+                <div class="col-md-6">
+                  <%= role.production_name %>
+                </div>
+                <div class="col-md-6">
+                  <%= role.name %>
+                </div>
               </div>
               <div class="col-md-1">
-                <a href="#"></a>
+                <%= role.director_name %>
+              </div>
+              <div class="col-md-5">
+                <div class="col-md-6">
+                  <%= role.production_company_name %>
+                </div>
+                <div class="col-md-6">
+                  <%= role.production_name %>
+                </div>
+                <div class="col-md-1">
+                  <a href="#"></a>
+                </div>
               </div>
               <div class="col-md-1 actions">
 
                 <%= link_to [@resume, role], method: :delete, data: { confirm: "Delete role #{role.name}?" } do %>
                   <i class="fa fa-trash-o text-pale pull-right"></i>
                 <% end %>
-                <i class="fa fa-arrows-v text-pale pull-right"></i>
+                <!--<i class="fa fa-arrows-v text-pale pull-right"></i>-->
               </div>
             </div>
             <% end %>
