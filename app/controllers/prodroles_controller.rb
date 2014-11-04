@@ -1,4 +1,4 @@
-# class RolesController < InheritedResources::Base
+# class RolesController < ApplicationController
 #   before_action :set_role, only: [:show, :edit, :update, :destroy]
 #   before_action :new_production, only: [:edit, :new, :create]
 #   before_action :new_venue, only: [:edit, :new, :create]

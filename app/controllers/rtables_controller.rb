@@ -1,2 +1,2 @@
-class RtablesController < InheritedResources::Base
+class RtablesController < ApplicationController
 end
