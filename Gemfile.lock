@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/gior/chosen-rails.git
-  revision: b4801bf5b8df4e7208b70d1569954b1cb8a5bcf9
+  revision: 056fc6e0dd05a6023babd3ca8e792d9fdb0edc5d
   branch: master
   specs:
     chosen-rails (1.2.0.j)
@@ -38,7 +38,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    acts_as_list (0.4.0)
+    acts_as_list (0.5.0)
       activerecord (>= 3.0)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.9)
@@ -81,7 +81,7 @@ GEM
     ffi (1.9.6)
     formatador (0.2.5)
     fssm (0.2.10)
-    guard (2.7.0)
+    guard (2.8.0)
       formatador (>= 0.2.4)
       listen (~> 2.7)
       lumberjack (~> 1.0)
@@ -107,7 +107,7 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     lumberjack (1.0.9)
-    mail (2.6.1)
+    mail (2.6.3)
       mime-types (>= 1.16, < 3)
     method_source (0.8.2)
     mime-types (2.4.3)
@@ -173,11 +173,11 @@ GEM
       rspec-mocks (~> 3.1.0)
       rspec-support (~> 3.1.0)
     rspec-support (3.1.2)
-    sass (3.2.0)
-    sass-rails (4.0.3)
+    sass (3.2.19)
+    sass-rails (4.0.4)
       railties (>= 4.0.0, < 5.0)
-      sass (~> 3.2.0)
-      sprockets (~> 2.8, <= 2.11.0)
+      sass (~> 3.2.2)
+      sprockets (~> 2.8, < 2.12)
       sprockets-rails (~> 2.0)
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
@@ -186,7 +186,7 @@ GEM
     spring (1.1.3)
     spring-commands-rspec (1.0.2)
       spring (>= 0.9.1)
-    sprockets (2.11.0)
+    sprockets (2.11.3)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
@@ -231,7 +231,7 @@ DEPENDENCIES
   rails (= 4.1.6)
   rails_12factor
   rspec-rails
-  sass-rails (~> 4.0.3)
+  sass-rails (~> 4.0.4)
   sdoc (~> 0.4.0)
   spring
   spring-commands-rspec

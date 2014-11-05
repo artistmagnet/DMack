@@ -20,4 +20,3 @@
 //= require layouts
 //= require productions
 //= require chosen-jquery
-//= require chosen
