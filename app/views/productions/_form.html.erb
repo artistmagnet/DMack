@@ -3,18 +3,14 @@
 <% queryFormat ||= (remoteForm ? 'json' : '') %>
 <% html_class  ||= '' %>
 
-<% if remoteForm  %>
-<div id="add-production" class="overlay overlay-1" >
-<% else %>
-<div id="add-production" class="" style="display: block">
-<% end %>
+<div id="add-production" >
 
   <div class="panel panel-default" >
 
     <h3>
       <span>Production</span>
       <% if remoteForm %>
-        <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-1').hide();$('.fade-1').hide()">
+        <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-2').hide();$('.fade-2').hide()">
           <i class="fa fa-undo"></i>
         </a>
       <% end %>
@@ -128,15 +124,5 @@
   </div>
 </div>
 
-<!--modal background-->
-<div class="fade fade-1"></div>
-
-<div id="add-company" class="overlay overlay-2" style="display: none">
-  <%= render 'companies/form' %>
-</div>
-<div class="fade fade-2"></div>
-
-<div id="add-venue" class="overlay overlay-2" style="display: none">
-  <%= render 'venues/form' %>
-</div>
-<div class="fade fade-2"></div>
+<!--&lt;!&ndash;modal background&ndash;&gt;-->
+<!--<div class="fade fade-2"></div>-->

@@ -4,10 +4,10 @@
 selectChain = [];
 
 jQuery ->
-  bindAjaxOption('#add-resume',     '#resume_role_production_id','#add-production')
-#  bindAjaxOption('#add-role',       '#role_production_id','#add-production')
-  bindAjaxOption('#add-production', '#production_company_id', '#add-company')
-  bindAjaxOption('#add-production', '#production_shows_attributes_0_venue_id', '#add-venue')
+#  bindAjaxOption('#add-resume',     '#resume_role_production_id','#add-production')
+  bindAjaxOption('#add-role',              '#role_production_id','#add-resume-production')
+  bindAjaxOption('#add-resume-production', '#production_company_id', '#add-company')
+  bindAjaxOption('#add-resume-production', '#production_shows_attributes_0_venue_id', '#add-venue')
 
 
 # Enable adding an option on-the-fly to a select
@@ -67,7 +67,7 @@ jQuery ->
 # invalid data
 jQuery ->
   $(document).bind "ajaxError", '#add-resume-role', (event, jqxhr, settings, exception) ->
-    alert('not saved')
+#    alert('not saved')
     console.log(event)
     console.log(jqxhr)
     console.log(settings)
