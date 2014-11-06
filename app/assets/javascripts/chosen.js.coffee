@@ -26,20 +26,11 @@ $ ->
 #    alert('p')
 
   $("#role_production_id").on 'chosen:no_results', (e) ->
-#    console.log(e)
-#    alert('no res')
-
+    setAddNewLink('#role_production_id', '#add-resume-production', '#production_name')
+#    setAddTextLink()
 
   $("#role_production_id").on 'chosen:results', (e) ->
-    new_name = $("#role_production_id" + "_chosen").find(".chosen-search>input").val()
-    $add_link = $("#role_production_id" + "_chosen").find(".add_new>a")
-    $add_link.click ->
-      $('#add-resume-production').find('#production_name').val(new_name)
-      popupModal('#add-resume-production')
-
-
-#  $("#role_production_id" + "_chosen").find("a.add_new").click ->
-#    alert('addolo?')
+    setAddNewLink('#role_production_id', '#add-resume-production', '#production_name')
 
 
   $('.chosen-multiple-select').chosen
@@ -51,4 +42,21 @@ $ ->
 popupModal = (selector) ->
   $(selector + ' + .fade').height($(document).height()).show()
   $(selector).show()
+
+#tells the 'add new' link of the select to open targetScope and populate targetfieldle
+setAddNewLink = (selectSel, targetScopeSel, targetFieldSel) ->
+  new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
+  $add_link = $(selectSel + "_chosen").find(".add_new>a")
+  $add_link.click ->
+    $(targetScopeSel).find(targetFieldSel).val(new_name)
+    popupModal(targetScopeSel)
+
+#tells the 'add text' link of the select to ... ?
+#setAddNewLink = (selectSel, targetScopeSel, targetFieldSel) ->
+#  new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
+#  $add_link = $(selectSel + "_chosen").find(".add_new>a")
+#  $add_link.click ->
+#    $(targetScopeSel).find(targetFieldSel).val(new_name)
+#    popupModal(targetScopeSel)
+
 
