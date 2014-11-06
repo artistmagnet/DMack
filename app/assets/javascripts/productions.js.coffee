@@ -60,9 +60,9 @@ bindAjaxOption = (origin_form_selector, select_selector, create_form_selector) -
 
 # activation
 jQuery ->
-  $('#add-resume-role-link').click ->
-    $('#add-resume-role + .fade').height($(document).height()).show()
-    $('#add-resume-role').show()
+  $('#add-resume-role-link').click -> popupModal('#add-resume-role')
+#    $('#add-resume-role + .fade').height($(document).height()).show()
+#    $('#add-resume-role').show()
 
 # invalid data
 jQuery ->
@@ -108,6 +108,8 @@ jQuery ->
 syncGet = (url) ->
   alert('calling ' + url)
   window.location.replace(url)
-#  $.ajax url,
-#    type: 'GET'
-#    async: false
+
+# TODO: remove duplication in chosen.js.coffee
+popupModal = (selector) ->
+  $(selector + ' + .fade').height($(document).height()).show()
+  $(selector).show()

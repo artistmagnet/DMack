@@ -37,14 +37,14 @@
   width: 100%;
 }
 .fade-1{
-    z-index: 90; /* makes the div the second most top layer, so it’ll lay on top of everything else EXCEPT for divs with a higher z-index (meaning the #overlay ruleset) */
+    z-index: 90;
     height: 97%;
 }
 .fade-2{
-    z-index: 190; /* makes the div the second most top layer, so it’ll lay on top of everything else EXCEPT for divs with a higher z-index (meaning the #overlay ruleset) */
+    z-index: 190;
     height: 94%;
 }
 .fade-3{
-    z-index: 290; /* makes the div the second most top layer, so it’ll lay on top of everything else EXCEPT for divs with a higher z-index (meaning the #overlay ruleset) */
+    z-index: 290;
     height: 91%;
 }

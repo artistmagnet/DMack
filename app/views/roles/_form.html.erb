@@ -2,14 +2,17 @@
 
   <div class="panel panel-default" >
 
-    <h3>
-      <span>Add a new Credit</span>
-      <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-1').hide();$('.fade-1').hide()">
-        <i class="fa fa-undo"></i>
-      </a>
-    </h3>
-
     <div class="panel-body">
+
+      <div class="form-group">
+        <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
+          <span>Add a new Credit</span>
+          <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-1').hide();$('.fade-1').hide()">
+            <i class="fa fa-undo"></i>
+          </a>
+        </h3>
+      </div>
+
     <%= form_for([@resume, @role], remote: true, format: 'json', html: {class: 'form-horizontal'}) do |f| %>
 
         <div id="error_explanation" style="display: none">
@@ -24,9 +27,9 @@
 
       <div class="form-group">
         <div class="field">
-          <%= f.label :name, {class: "col-sm-2 control-label"} %>
+          <%= label_tag 'role_name', 'Role', {class: "col-sm-2 control-label"} %>
           <div class="col-sm-10">
-            <%= f.text_field :name %>
+            <%= f.text_field :name, {class: 'form-control', placeholder: 'Enter Role'} %>
           </div>
         </div>
       </div>
@@ -37,15 +40,22 @@
         <div class="field">
           <%= f.label :production_id, {class: "col-sm-2 control-label"} %>
           <div class="col-sm-10">
-            <%= f.collection_select :production_id, Production.all.order(:name), :id, :key_info  %>
+            <%= f.collection_select :production_id, Production.all.order(:name), :id, :key_info, {prompt: 'Select production'},
+                                    {class: "form-control chosen-select m-left-m8",
+                                     data: {
+                                         add_as_new_label:  'To add it as a new Production, click here',
+                                         add_as_text_label: 'To leave as text only, click here.'
+                                     }
+                                    }  %>
             <%= link_to "Add one", '#', {:class => 'extend-list'} %>
           </div>
         </div>
       </div>
 
 
-      <div class="actions form-group form-inline">
-        <span class="col-sm-1 col-sm-offset-2">
+      <div class="actions form-group">
+        <span class="col-sm-2"></span>
+        <span class="col-sm-2">
           <%= f.submit 'Done', {class: "btn btn-primary"} %>
         </span>
       </div>
@@ -55,7 +65,4 @@
   </div>
 </div>
 
-<div id="add-role-production">
-  <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
-</div>
 

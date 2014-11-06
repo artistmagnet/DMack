@@ -40,7 +40,7 @@
         <div class="field">
           <%= f.label :company, {class: "col-sm-2 control-label"} %>
           <div class="col-sm-10">
-            <%= f.collection_select :company_id, Company.all.order(:name), :id, :name, {include_blank: true}, {:class => 'company-selector'} %>
+            <%= f.collection_select :company_id, Company.all.order(:name), :id, :name, {include_blank: true}, {:class => 'form-control chosen-select'} %>
             <%= link_to "Add one", '#', {:class => 'extend-list'} %>
           </div>
         </div>
@@ -50,7 +50,7 @@
           <div class="field">
             <%= fs.label :venue, {class: "col-sm-2 control-label"} %>
             <div class="col-sm-10">
-              <%= fs.collection_select :venue_id, Venue.all.order(:name), :id, :name, {include_blank: true} %>
+              <%= fs.collection_select :venue_id, Venue.all.order(:name), :id, :name, {include_blank: true}, {:class => 'form-control chosen-select'} %>
               <%= link_to "Add one", '#', {:class => 'extend-list'} %>
             </div>
           </div>
@@ -63,7 +63,6 @@
             </div>
           </div>
         </div>
-        <!--< %= hidden_field_tag production_id,-->
       <% end %>
 
       <div class="form-group">
@@ -74,40 +73,6 @@
           </div>
         </div>
       </div>
-        <!--<div class="form-group">-->
-          <!--<div class="field">-->
-            <!--< %= f.label :director, {class: "col-sm-2 control-label"} %>-->
-            <!--<div class="col-sm-10">-->
-              <!--< %= f.collection_select :director_id, User.all.order(:email), :id, :name, {include_blank: true} %>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--< % invited = @production.director_invitations.order(:updated_at).try(:last) %>-->
-        <!--< % unless invited.try(:full_name).blank? %>-->
-        <!--<div class="form-group">-->
-          <!--<div class="field">-->
-            <!--< %= f.label :Invited, {class: "col-sm-2 control-label"} %>-->
-            <!--<div class="col-sm-10" style="margin-top: 6px">-->
-              <!--< %= invited.full_name %>-->
-            <!--</div>-->
-          <!--</div>-->
-        <!--</div>-->
-        <!--< % end %>-->
-
-        <!--< %= f.fields_for :director_invitations, @production.director_invitations do |ft| %>-->
-          <!--< % unless @production.invitation_filled?(ft.object) %>-->
-          <!--<div class="form-group">-->
-            <!--<div class="field">-->
-              <!--< %= ft.label "Or invite new director", {class: "col-sm-2 control-label"} %>-->
-              <!--<div class="col-sm-10">-->
-                <!--< %= ft.text_field :first_name, {placeholder: "First name"} %>-->
-                <!--< %= ft.text_field :last_name, {placeholder: "Last name"} %>-->
-                <!--< %= ft.text_field :email, {placeholder: "Email"} %>-->
-              <!--</div>-->
-            <!--</div>-->
-          <!--</div>-->
-          <!--< % end %>-->
-        <!--< % end %>-->
       <div class="actions form-group form-inline">
         <span class="col-sm-1 col-sm-offset-2">
           <%= f.button 'Done', {class: "btn btn-primary m-top-m6"} %>
@@ -124,5 +89,3 @@
   </div>
 </div>
 
-<!--&lt;!&ndash;modal background&ndash;&gt;-->
-<!--<div class="fade fade-2"></div>-->

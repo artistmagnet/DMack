@@ -26,8 +26,16 @@
     margin-right: 0px;
 }
 
+.m-left-m8{
+    margin-left: -8px;
+}
+
 .m-left-10{
     margin-left: 10px;
+}
+
+.m-left-12{
+    margin-left: 12px;
 }
 
 .m-left-15{
@@ -90,6 +98,13 @@
 /*.chosen-drop{*/
     /*height: 34px;*/
 /*}*/
+
+.chosen-container .chosen-drop{
+    margin-top: 0px;
+    border: 0px !important;
+    border-style: solid;
+    border-color: rgb(170, 170, 170);
+}
 
 .chosen-container.chosen-container-single{
     height: 34px;
