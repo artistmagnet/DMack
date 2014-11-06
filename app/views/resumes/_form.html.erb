@@ -94,61 +94,6 @@
 
 
 
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-
-          <h4>
-            <span>New role</span>
-          </h4>
-
-          <% if @resume.errors.any? %>
-            <div id="error_explanation">
-              <h2><%= pluralize(@resume.errors.count, "error") %> prohibited this resume from being saved:</h2>
-
-              <ul>
-              <% @resume.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-              </ul>
-            </div>
-          <% end %>
-
-
-          <%= f.fields_for :roles do |fs| %>
-            <% if fs.object.new_record? %>
-            <div class="form-group">
-              <div class="field">
-                <%# fs.label :production %>
-                <%= fs.collection_select :production_id, Production.all.order(:name), :id, :key_info, {prompt: 'Select production'}, {id: 'resume_role_production_id', class: "form-control chosen-select"} %>
-                <%= link_to "New", 'javascript:void(0)', {:class => 'extend-list'} %>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="field">
-                <%# fs.label :name, "Role", {style: "display: block; visibility: hidden"} %>
-                <%= fs.text_field :name, {class: 'form-control', placeholder: 'Role'} %>
-              </div>
-            </div>
-            <div class="form-group pull-right" style="margin-right: 0px">
-              <div class="actions field ">
-                <%# f.label 'Actions', {style: "display: block; visibility: hidden"} %>
-                <%= f.button "Add", {class: "btn btn-primary"} %>
-              </div>
-            </div>
-            <% end %>
-          <% end %>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
   <% end %>
 </div>
 
