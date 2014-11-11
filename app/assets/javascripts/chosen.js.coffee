@@ -1,36 +1,30 @@
 $ ->
   # enable chosen js using gem 'rails-chosen'
-#  $('.chosen-select').chosen
-#    allow_single_deselect: true
-#    inherit_select_classes: true
-#    no_results_text: ' not found.'
-##    no_results_links: [{"text":"To add it as a new Production, click here", "classes": "add_prod", "href": "#"},
-##      {"text":"To leave as text only, click here.", "classes": "add_text", "href": "#"} ]
-##    some_results_links: [{"text":"To add it as a new Production, click here", "classes": "add_prod", "href": "#"}]
-#    width: '382px'
+  enrichSelect('#role_production_id',                     '#add-resume-production', '#production_name')
+  enrichSelect('#production_company_id',                  '#add-company',           '#company_name')
+  enrichSelect('#production_shows_attributes_0_venue_id', '#add-venue',             '#venue_name')
 
-  $select = $('#role_production_id')
+enrichSelect = (selectSel, targetScopeSel, targetFieldSel) ->
+#  $select = $('#role_production_id')
+  $select = $(selectSel)
   $add_as_new = $select.data("add-as-new-label")
   $add_as_text= $select.data("add-as-text-label")
   $select.chosen
     allow_single_deselect: true
     inherit_select_classes: true
     no_results_text: ' not found.'
-    no_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"},
-      {"text":$add_as_text, "classes": "add_text", "href": "#"} ]
+#    no_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"},
+#      {"text":$add_as_text, "classes": "add_text", "href": "#"} ]
+    no_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"}]
     some_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"}]
     width: '382px'
 
-#  $("#role_production_id" + "_chosen").change (e) ->
-#    console.log(e)
-#    alert('p')
+  $select.on 'chosen:no_results', (e) ->
+#    setAddNewLink('#role_production_id', '#add-resume-production', '#production_name')
+    setAddNewLink(selectSel, targetScopeSel, targetFieldSel)
 
-  $("#role_production_id").on 'chosen:no_results', (e) ->
-    setAddNewLink('#role_production_id', '#add-resume-production', '#production_name')
-#    setAddTextLink()
-
-  $("#role_production_id").on 'chosen:results', (e) ->
-    setAddNewLink('#role_production_id', '#add-resume-production', '#production_name')
+  $select.on 'chosen:results', (e) ->
+    setAddNewLink(selectSel, targetScopeSel, targetFieldSel)
 
 
   $('.chosen-multiple-select').chosen
@@ -43,7 +37,7 @@ popupModal = (selector) ->
   $(selector + ' + .fade').height($(document).height()).show()
   $(selector).show()
 
-#tells the 'add new' link of the select to open targetScope and populate targetfieldle
+#tells the 'add as new' link of the select to open targetScope and populate targetfieldle
 setAddNewLink = (selectSel, targetScopeSel, targetFieldSel) ->
   new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
   $add_link = $(selectSel + "_chosen").find(".add_new>a")
@@ -87,13 +81,14 @@ jQuery ->
   $(document).bind "ajaxSuccess", '#add-resume-role', (event, xhr, settings) ->
     console.log([event.data, selectChain])
     console.log('was res log')
-    if event.data == selectChain[selectChain.length-1]
-      $entity_form = $(event.data)
-      $entity_form_frame = $(event.data.concat(' + .fade'))
-      $error_container = $("#error_explanation", $entity_form)
-      $error_container_ul = $("ul", $error_container)
+    $entity_form = $(event.data)
+    $entity_form_frame = $(event.data.concat(' + .fade'))
+    $error_container = $("#error_explanation", $entity_form)
+    $error_container_ul = $("ul", $error_container)
+    if selectChain.length >= 2 && event.data == selectChain[selectChain.length-2]
       if $("li", $error_container_ul).length
         $("li", $error_container_ul).remove()
+    if event.data == selectChain[selectChain.length-1]
       $entity_form.hide()
       $entity_form_frame.hide()
       syncGet($($entity_form).data("reload-url"))
@@ -154,14 +149,6 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 
 
 
-
-
-
 syncGet = (url) ->
   alert('calling ' + url)
   window.location.replace(url)
-
-# TODO: remove duplication in chosen.js.coffee
-#popupModal = (selector) ->
-#  $(selector + ' + .fade').height($(document).height()).show()
-#  $(selector).show()
