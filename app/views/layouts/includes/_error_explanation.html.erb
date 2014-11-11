@@ -1,0 +1,13 @@
+<div id="error_explanation" style="display: none">
+  <div class="row">
+    <div class="col-md-offset-<%= offset %> col-md-<%= span %>">
+      <ul style="list-style-type: none; padding-left: 13px; color: #fe4748">
+        <% if entity.errors.any? %>
+          <% entity.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>

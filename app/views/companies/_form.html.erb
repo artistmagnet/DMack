@@ -9,16 +9,7 @@
     </h3>
 
   <%= form_for(@company, remote: true, format: :json, html: {class: :'company_form form-horizontal'}) do |f| %>
-    <div id="error_explanation" style="display: none">
-      <ul>
-        <% if @company.errors.any? %>
-          <% @company.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
-
+     <%= render 'layouts/includes/error_explanation', entity: @company, offset: 4, span: 8 %>
 
     <div class="panel-body">
       <div class="form-group">

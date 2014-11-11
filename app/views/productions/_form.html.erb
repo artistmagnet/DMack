@@ -18,15 +18,7 @@
       </h3>
 
     <%= form_for(@production, remote: remoteForm, format: queryFormat, html: {class: html_class + ' form-horizontal'}) do |f| %>
-      <div id="error_explanation" style="display: none">
-        <ul>
-          <% if @production.errors.any? %>
-            <% @production.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          <% end %>
-        </ul>
-      </div>
+      <%= render 'layouts/includes/error_explanation', entity: @production, offset: 2, span: 10 %>
 
       <div class="form-group">
         <div class="field">

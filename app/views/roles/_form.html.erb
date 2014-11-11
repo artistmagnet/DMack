@@ -14,16 +14,7 @@
       </div>
 
     <%= form_for([@resume, @role], remote: true, format: 'json', html: {class: 'form-horizontal'}) do |f| %>
-
-        <div id="error_explanation" style="display: none">
-          <ul>
-            <% if @role.errors.any? %>
-              <% @role.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            <% end %>
-          </ul>
-        </div>
+      <%= render 'layouts/includes/error_explanation', entity: @role, offset: 2, span: 10 %>
 
       <div class="form-group">
         <div class="field">

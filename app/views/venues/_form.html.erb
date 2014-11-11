@@ -9,15 +9,7 @@
     </h3>
 
   <%= form_for(@venue, remote: true, format: :json, html: {class: 'venue_form form-horizontal'}) do |f| %>
-    <div id="error_explanation" style="display: none">
-      <ul>
-        <% if @venue.errors.any? %>
-          <% @venue.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        <% end %>
-      </ul>
-    </div>
+    <%= render 'layouts/includes/error_explanation', entity: @venue, offset: 4, span: 8 %>
 
     <div class="panel-body">
       <div class="form-group">
