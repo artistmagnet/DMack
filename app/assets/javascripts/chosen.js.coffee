@@ -63,6 +63,44 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel) ->
 
 selectChain = [];
 
+# CREDIT POPUP
+
+# activation
+jQuery ->
+  $('#add-resume-role-link').click ->
+    selectChain.push('#add-resume-role')
+    popupModal('#add-resume-role')
+
+# invalid data
+jQuery ->
+  $(document).bind "ajaxError", '#add-resume-role', (event, jqxhr, settings, exception) ->
+    $entity_form = $(event.data)
+    $error_container = $("#error_explanation", $entity_form)
+    $error_container_ul = $("ul", $error_container)
+    $error_container.show()  if $error_container.is(":hidden")
+    if $("li", $error_container_ul).length
+      $("li", $error_container_ul).remove()
+    $.each jqxhr.responseJSON, (index, message) ->
+      $("<li>").html(message).appendTo $error_container_ul
+
+  # valid data
+  $(document).bind "ajaxSuccess", '#add-resume-role', (event, xhr, settings) ->
+    console.log([event.data, selectChain])
+    console.log('was res log')
+    if event.data == selectChain[selectChain.length-1]
+      $entity_form = $(event.data)
+      $entity_form_frame = $(event.data.concat(' + .fade'))
+      $error_container = $("#error_explanation", $entity_form)
+      $error_container_ul = $("ul", $error_container)
+      if $("li", $error_container_ul).length
+        $("li", $error_container_ul).remove()
+      $entity_form.hide()
+      $entity_form_frame.hide()
+      syncGet($($entity_form).data("reload-url"))
+
+
+# Child popups
+
 jQuery ->
 #  bindAjaxOption('#add-resume',     '#resume_role_production_id','#add-production')
   bindAjaxOption('#add-role',              '#role_production_id',                     '#add-resume-production')
@@ -90,7 +128,6 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
       $entity_form_frame = $(event.data.concat(' + .fade'))
       $error_container = $("#error_explanation", $entity_form)
       $error_container_ul = $("ul", $error_container)
-      #  $("<p>").html(xhr.responseJSON.title + " saved.").appendTo $entity_form
       if $("li", $error_container_ul).length
         $("li", $error_container_ul).remove()
       $entity_form.hide()
@@ -117,50 +154,8 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 
 
 
-# CREDIT POPUP
 
-# activation
-jQuery ->
-  $('#add-resume-role-link').click ->
-    selectChain.push('#add-resume-role')
-    popupModal('#add-resume-role')
 
-# invalid data
-jQuery ->
-  $(document).bind "ajaxError", '#add-resume-role', (event, jqxhr, settings, exception) ->
-    $entity_form = $(event.data)
-    $error_container = $("#error_explanation", $entity_form)
-    $error_container_ul = $("ul", $error_container)
-    $error_container.show()  if $error_container.is(":hidden")
-    if $("li", $error_container_ul).length
-      $("li", $error_container_ul).remove()
-    $.each jqxhr.responseJSON, (index, message) ->
-      $("<li>").html(message).appendTo $error_container_ul
-
-  # valid data
-  $(document).bind "ajaxSuccess", '#add-resume-role', (event, xhr, settings) ->
-    console.log(event.data)
-    console.log('was res log')
-    if event.data == selectChain[selectChain.length-1]
-      $entity_form = $(event.data)
-      $entity_form_frame = $(event.data.concat(' + .fade'))
-      $error_container = $("#error_explanation", $entity_form)
-      $error_container_ul = $("ul", $error_container)
-      if $("li", $error_container_ul).length
-        $("li", $error_container_ul).remove()
-      $entity_form.hide()
-      $entity_form_frame.hide()
-      syncGet($($entity_form).data("reload-url"))
-
-#    entId = xhr.responseJSON.id
-#    entName = xhr.responseJSON.name
-#    $select = $(select_selector, $(origin_form_selector))
-#    if $select.length
-#      $select.append(String.concat("<option value=", entId, " selected='selected'>", entName, "</option>"));
-#      # rerender
-#      $select.trigger("chosen:updated");
-
-#      selectChain.pop()
 
 syncGet = (url) ->
   alert('calling ' + url)

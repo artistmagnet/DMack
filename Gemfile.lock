@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/gior/chosen-rails.git
-  revision: 056fc6e0dd05a6023babd3ca8e792d9fdb0edc5d
+  revision: f42a570e4f1916e6257745e23f0d668e7184ce5c
   branch: master
   specs:
     chosen-rails (1.2.0.j)
