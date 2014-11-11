@@ -1,4 +1,8 @@
 $ ->
+  $('.date.chosen-select').chosen(
+    disable_search : true
+    width: '116px'
+  )
   # enable chosen js using gem 'rails-chosen'
   enrichSelect('#role_production_id',                     '#add-resume-production', '#production_name')
   enrichSelect('#production_company_id',                  '#add-company',           '#company_name')
@@ -10,7 +14,7 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel) ->
   $add_as_new = $select.data("add-as-new-label")
   $add_as_text= $select.data("add-as-text-label")
   $select.chosen
-    allow_single_deselect: true
+    allow_single_deselect: false
     inherit_select_classes: true
     no_results_text: ' not found.'
 #    no_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"},

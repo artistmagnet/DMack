@@ -7,16 +7,16 @@
 
   <div class="panel panel-default" >
 
-    <h3>
-      <span>Production</span>
-      <% if remoteForm %>
-        <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-2').hide();$('.fade-2').hide()">
-          <i class="fa fa-undo"></i>
-        </a>
-      <% end %>
-    </h3>
-
     <div class="panel-body">
+      <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
+        <span>Add a new Production</span>
+        <% if remoteForm %>
+          <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-2').hide();$('.fade-2').hide()">
+            <i class="fa fa-undo"></i>
+          </a>
+        <% end %>
+      </h3>
+
     <%= form_for(@production, remote: remoteForm, format: queryFormat, html: {class: html_class + ' form-horizontal'}) do |f| %>
       <div id="error_explanation" style="display: none">
         <ul>
@@ -32,7 +32,7 @@
         <div class="field">
           <%= f.label :name, {class: "col-sm-2 control-label"} %>
           <div class="col-sm-10">
-            <%= f.text_field :name %>
+            <%= f.text_field :name, {class: 'form-control', placeholder: 'Enter Production'} %>
           </div>
         </div>
       </div>
@@ -41,7 +41,7 @@
           <%= f.label :company, {class: "col-sm-2 control-label"} %>
           <div class="col-sm-10">
             <%= f.collection_select :company_id, Company.all.order(:name), :id, :name, {include_blank: true},
-                                    {:class => 'form-control chosen-select',
+                                    {:class => 'form-control chosen-select m-left-m8',
                                      data: {
                                          add_as_new_label:  'To add it as a new Company, click here'
                                      }
@@ -56,7 +56,7 @@
             <%= fs.label :venue, {class: "col-sm-2 control-label"} %>
             <div class="col-sm-10">
               <%= fs.collection_select :venue_id, Venue.all.order(:name), :id, :name, {include_blank: true},
-                                       {:class => 'form-control chosen-select',
+                                       {:class => 'form-control chosen-select m-left-m8',
                                         data: {
                                             add_as_new_label:  'To add it as a new Venue, click here'
                                         }
@@ -69,7 +69,9 @@
           <div class="field">
             <%= fs.label "Opening", {class: "col-sm-2 control-label"} %>
             <div class="col-sm-10">
-              <%= fs.date_select :date %>
+              <div class="m-left-6">
+                <%= fs.date_select :date, {}, {class: 'form-control date chosen-select', style: 'display: inline;'} %>
+              </div>
             </div>
           </div>
         </div>
@@ -79,7 +81,7 @@
         <div class="field">
           <%= f.label :description, {class: "col-sm-2 control-label"} %>
           <div class="col-sm-10">
-            <%= f.text_area :description %>
+            <%= f.text_area :description, {class: 'form-control', placeholder: 'Enter description'} %>
           </div>
         </div>
       </div>
