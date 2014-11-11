@@ -1,5 +1,13 @@
 <div class="panel panel-default" >
 
+  <div class="panel-body">
+    <h3 class="col-md-offset-4 col-md-8 m-bottom-20">
+      <span>Add a new Company</span>
+      <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-3').hide();$('.fade-3').hide()">
+        <i class="fa fa-undo"></i>
+      </a>
+    </h3>
+
   <%= form_for(@company, remote: true, format: :json, html: {class: :'company_form form-horizontal'}) do |f| %>
     <div id="error_explanation" style="display: none">
       <ul>
@@ -12,21 +20,12 @@
     </div>
 
 
-
-
-    <h3>
-      <span>New Company</span>
-      <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-3').hide();$('.fade-3').hide()">
-        <i class="fa fa-undo"></i>
-      </a>
-    </h3>
-
     <div class="panel-body">
       <div class="form-group">
         <div class="field">
           <%= f.label :name, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_field  :name %>
+            <%= f.text_field  :name, {class: 'form-control', placeholder: 'Enter Name'} %>
           </div>
         </div>
       </div>
@@ -34,7 +33,7 @@
         <div class="field">
           <%= f.label :primary_contact_name, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_field :primary_contact_name %>
+            <%= f.text_field  :primary_contact_name, {class: 'form-control', placeholder: 'Enter Contact'} %>
           </div>
         </div>
       </div>
@@ -42,7 +41,7 @@
         <div class="field">
           <%= f.label :description, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_area :description %>
+            <%= f.text_area :description, {class: 'form-control', placeholder: 'Enter Description'} %>
           </div>
         </div>
       </div>
@@ -50,7 +49,7 @@
         <div class="field">
           <%= f.label :email, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_field :email %>
+            <%= f.text_field :email, {class: 'form-control', placeholder: 'Enter Email'} %>
           </div>
         </div>
       </div>
@@ -58,7 +57,7 @@
         <div class="field">
           <%= f.label :addr_fb, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_field :addr_fb %>
+            <%= f.text_field :addr_fb, {class: 'form-control', placeholder: 'Enter Facebook page address'} %>
           </div>
         </div>
       </div>
@@ -66,7 +65,7 @@
         <div class="field">
           <%= f.label :addr_tw, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_field :addr_tw %>
+            <%= f.text_field :addr_tw, {class: 'form-control', placeholder: 'Enter Twitter page address'} %>
           </div>
         </div>
       </div>
@@ -74,7 +73,7 @@
         <div class="field">
           <%= f.label :addr_ins, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_field :addr_ins %>
+            <%= f.text_field :addr_ins, {class: 'form-control', placeholder: 'Enter Instagram page address'} %>
           </div>
         </div>
       </div>
@@ -82,7 +81,7 @@
         <div class="field">
           <%= f.label :addr_lin, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_field :addr_lin %>
+            <%= f.text_field :addr_lin, {class: 'form-control', placeholder: 'Enter LinkedIn page address'} %>
           </div>
         </div>
       </div>
@@ -95,4 +94,5 @@
 
     </div>
   <% end %>
+  </div>
 </div>
