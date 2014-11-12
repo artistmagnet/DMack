@@ -49,6 +49,7 @@
             <div class="col-sm-10">
               <%= f.collection_select :director_id, Resume.directors.order(:user_id), :id, :name, {prompt: 'Select director'},
                                       {class: "form-control chosen-select m-left-m8",
+                                       disabled: true,
                                        data: {
                                            add_as_new_label:  'To add as a new Director, click here',
                                            add_as_text_label: 'To leave as text only, click here.'

@@ -69,6 +69,7 @@ Rails.application.routes.draw do
   get 'users' => 'users#index', :as => 'users'
 
   resources :shows
+  # resources :director_invitations
 
   resources :productions do
     resources :shows

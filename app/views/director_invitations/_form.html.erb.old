@@ -1,6 +1,8 @@
-<%= form_for([@production, @invitation]) do |f| %>
+<%= form_for(@invitation) do |f| %>
   <% if @invitation.errors.any? %>
     <div id="error_explanation">
+      <h2><%= pluralize(@invitation.errors.count, "error") %> prohibited this invitation from being saved:</h2>
+
       <ul>
       <% @invitation.errors.full_messages.each do |message| %>
         <li><%= message %></li>
@@ -14,8 +16,8 @@
     <%= f.text_field :first_name %>
   </div>
   <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
+    <%= f.label :second_name %><br>
+    <%= f.text_field :second_name %>
   </div>
   <div class="field">
     <%= f.label :email %><br>

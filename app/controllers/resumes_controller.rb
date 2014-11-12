@@ -3,6 +3,7 @@ class ResumesController < ApplicationController
   before_action :new_production, only: [:edit, :new, :create]
   before_action :new_venue, only: [:edit, :new, :create]
   before_action :new_company, only: [:edit, :new, :create]
+  before_action :new_director_invitation, only: [:edit, :new]
 
   def index
     @resumes = Resume.all.order(:id)
@@ -67,7 +68,7 @@ class ResumesController < ApplicationController
   end
 
   def new_production
-    @production = Production.new
+    @production = Production.new(id:0)
     @production.shows.build
     @production.director_invitations.build
     # @production.artist_invitations.build
@@ -79,6 +80,10 @@ class ResumesController < ApplicationController
 
   def new_company
     @company = Company.new
+  end
+
+  def new_director_invitation
+    @invitation = @production.director_invitations.build(by: @resume.user)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

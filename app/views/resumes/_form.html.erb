@@ -97,15 +97,20 @@
   <% end %>
 </div>
 
+<div id="add-resume-role" class="overlay overlay-1" data-reload-url="<%= edit_resume_url(@resume) %>" style="display: none">
+  <%= render 'roles/form' %>
+</div>
+<div class="fade fade-1"></div>
+
 <div id="add-resume-production" class="overlay overlay-2">
   <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
 </div>
 <div class="fade fade-2"></div>
 
-<div id="add-resume-role" class="overlay overlay-1" data-reload-url="<%= edit_resume_url(@resume) %>" style="display: none">
-  <%= render 'roles/form' %>
+<div id="add-role-director" class="overlay overlay-2">
+  <%= render 'director_invitations/form' %>
 </div>
-<div class="fade fade-1"></div>
+<div class="fade fade-2"></div>
 
 <div id="add-company" class="overlay overlay-3">
   <%= render 'companies/form' %>

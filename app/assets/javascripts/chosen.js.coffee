@@ -4,10 +4,19 @@ $ ->
     width: '116px'
   )
   # enable chosen js using gem 'rails-chosen'
-  enrichSelect('#role_director_id',                       '#add-resume-production', '#production_name', '#role_dirname')
+  enrichSelect('#role_director_id',                       '#add-role-director',     '#director_invitation_first_name', '#role_dirname')
   enrichSelect('#role_production_id',                     '#add-resume-production', '#production_name')
   enrichSelect('#production_company_id',                  '#add-company',           '#company_name')
   enrichSelect('#production_shows_attributes_0_venue_id', '#add-venue',             '#venue_name')
+
+  #enable Director selection if Production has been chosen
+  $('#role_production_id').change ->
+    $prodId = $('option:selected', '#role_production_id').attr('value')
+    alert($prodId)
+    $('#role_director_id').attr('disabled', ($prodId != ''))
+    alert($('#new_director_invitation', '#add-role-director').attr('action'))
+    $('#new_director_invitation', '#add-role-director').attr('action', '/productions/'.concat($prodId).concat('/director_invitations'))
+    $('#role_director_id').trigger('chosen:updated')
 
 enrichSelect = (selectSel, targetScopeSel, targetFieldSel, targetHidden) ->
 #  $select = $('#role_production_id')
@@ -21,8 +30,6 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, targetHidden) ->
     allow_single_deselect: false
     inherit_select_classes: true
     no_results_text: ' not found.'
-#    no_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"},
-#      {"text":$add_as_text, "classes": "add_text", "href": "#"} ]
     no_results_links: $no_res_links
     some_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"}]
     width: '382px'
@@ -31,7 +38,6 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, targetHidden) ->
     setAddNewLink(selectSel, targetScopeSel, targetFieldSel)
     if targetHidden
       setAddTextLink(selectSel, targetHidden)
-
 
   $select.on 'chosen:results', (e) ->
     setAddNewLink(selectSel, targetScopeSel, targetFieldSel)
@@ -73,13 +79,6 @@ setAddTextLink = (selectSel, hiddenSel) ->
 
     $(hiddenSel).val(new_name)
     $(selectSel).trigger("chosen:updated")
-#    $input = $(selectSel + '_chosen .chosen-drop .chosen-search input')
-#    $input.val(new_name)
-    #    $input.trigger('blur')
-#    console.log $(selectSel)
-#    $(selectSel).blur()
-#    $(selectSel).trigger("chosen:close")
-#    $('#role_director_id_chosen').blur()
 
 selectChain = [];
 

@@ -1,5 +1,5 @@
 class Resume < ActiveRecord::Base
-  scope :directors, -> {all}
+  scope :directors, -> {all.uniq}
   scope :artists,   -> {all}
 
   belongs_to :user
