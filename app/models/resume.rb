@@ -4,6 +4,7 @@ class Resume < ActiveRecord::Base
 
   belongs_to :user
   has_many :roles, dependent: :destroy
+  has_many :directed_roles, :class_name => "Role", :foreign_key => 'director_id'
   has_many :productions, :through => :roles
   has_many :directed_productions, :class_name => "Production", :foreign_key => 'director_id'
   has_many :section_slots, -> { order('position ASC') }, :dependent => :destroy

@@ -4,31 +4,39 @@ $ ->
     width: '116px'
   )
   # enable chosen js using gem 'rails-chosen'
+  enrichSelect('#role_director_id',                       '#add-resume-production', '#production_name', '#role_dirname')
   enrichSelect('#role_production_id',                     '#add-resume-production', '#production_name')
   enrichSelect('#production_company_id',                  '#add-company',           '#company_name')
   enrichSelect('#production_shows_attributes_0_venue_id', '#add-venue',             '#venue_name')
 
-enrichSelect = (selectSel, targetScopeSel, targetFieldSel) ->
+enrichSelect = (selectSel, targetScopeSel, targetFieldSel, targetHidden) ->
 #  $select = $('#role_production_id')
   $select = $(selectSel)
   $add_as_new = $select.data("add-as-new-label")
   $add_as_text= $select.data("add-as-text-label")
+  $no_res_links = [{"text":$add_as_new, "classes": "add_new", "href": "#"}]
+  if $add_as_text
+    $no_res_links.push( {"text":$add_as_text, "classes": "add_text", "href": "#"})
   $select.chosen
     allow_single_deselect: false
     inherit_select_classes: true
     no_results_text: ' not found.'
 #    no_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"},
 #      {"text":$add_as_text, "classes": "add_text", "href": "#"} ]
-    no_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"}]
+    no_results_links: $no_res_links
     some_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"}]
     width: '382px'
 
   $select.on 'chosen:no_results', (e) ->
-#    setAddNewLink('#role_production_id', '#add-resume-production', '#production_name')
     setAddNewLink(selectSel, targetScopeSel, targetFieldSel)
+    if targetHidden
+      setAddTextLink(selectSel, targetHidden)
+
 
   $select.on 'chosen:results', (e) ->
     setAddNewLink(selectSel, targetScopeSel, targetFieldSel)
+    if targetHidden
+      setAddTextLink(selectSel, targetHidden)
 
 
   $('.chosen-multiple-select').chosen
@@ -50,14 +58,28 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel) ->
     selectChain.push(targetScopeSel)
     popupModal(targetScopeSel)
 
-#tells the 'add text' link of the select to ... ?
-#setAddNewLink = (selectSel, targetScopeSel, targetFieldSel) ->
-#  new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
-#  $add_link = $(selectSel + "_chosen").find(".add_new>a")
-#  $add_link.click ->
-#    $(targetScopeSel).find(targetFieldSel).val(new_name)
-#    popupModal(targetScopeSel)
+#tells the 'add text' link of the select to populate target hidden field
+setAddTextLink = (selectSel, hiddenSel) ->
+  console.log(selectSel + ' e ' + hiddenSel)
+  new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
+  $text_link = $(selectSel + "_chosen").find(".add_text>a")
+  $text_link.click ->
+    $("select" + selectSel + " option").each (i, elem) ->
+      if (i == 0)
+        this.selected = true
+        this.text = new_name
+      else
+        this.selected = false
 
+    $(hiddenSel).val(new_name)
+    $(selectSel).trigger("chosen:updated")
+#    $input = $(selectSel + '_chosen .chosen-drop .chosen-search input')
+#    $input.val(new_name)
+    #    $input.trigger('blur')
+#    console.log $(selectSel)
+#    $(selectSel).blur()
+#    $(selectSel).trigger("chosen:close")
+#    $('#role_director_id_chosen').blur()
 
 selectChain = [];
 

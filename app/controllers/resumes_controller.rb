@@ -9,7 +9,7 @@ class ResumesController < ApplicationController
   end
 
   def new
-    @resume = Resume.create
+    @resume = Resume.create(user: current_user)
     @role = @resume.roles.build
   end
 

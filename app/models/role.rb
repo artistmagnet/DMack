@@ -1,5 +1,6 @@
 class Role < ActiveRecord::Base
   belongs_to :resume
+  belongs_to :director, :class_name => 'Resume'
   belongs_to :production
 
   delegate :name, :to => :resume, :prefix => true
@@ -8,7 +9,7 @@ class Role < ActiveRecord::Base
   delegate :current_venue_name, :to => :production, :prefix => true
   delegate :company, :to => :production, :prefix => true
   delegate :company_name, :to => :production, :prefix => true
-  delegate :director_name, :to => :production
+  delegate :director_name, :to => :production, :prefix => true
 
   validate :validate_properties
 
@@ -18,6 +19,12 @@ class Role < ActiveRecord::Base
 
   def user_name
     user.name
+  end
+
+  def director_name
+    return dirname if dirname
+    return director.name if director_id
+    return production_director_name
   end
 
   def validate_properties
