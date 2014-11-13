@@ -18,7 +18,7 @@ $ ->
     $('#new_director_invitation', '#add-role-director').attr('action', '/productions/'.concat($prodId).concat('/director_invitations.json'))
     $('#role_director_id').trigger('chosen:updated')
 
-enrichSelect = (selectSel, targetScopeSel, targetFieldSel, targetHidden) ->
+enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
 #  $select = $('#role_production_id')
   $select = $(selectSel)
   $add_as_new = $select.data("add-as-new-label")
@@ -35,14 +35,14 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, targetHidden) ->
     width: '382px'
 
   $select.on 'chosen:no_results', (e) ->
-    setAddNewLink(selectSel, targetScopeSel, targetFieldSel)
-    if targetHidden
-      setAddTextLink(selectSel, targetHidden)
+    setAddNewLink(selectSel, targetScopeSel, targetFieldSel, hiddenSel)
+    if hiddenSel
+      setAddTextLink(selectSel, hiddenSel)
 
   $select.on 'chosen:results', (e) ->
-    setAddNewLink(selectSel, targetScopeSel, targetFieldSel)
-    if targetHidden
-      setAddTextLink(selectSel, targetHidden)
+    setAddNewLink(selectSel, targetScopeSel, targetFieldSel, hiddenSel)
+    if hiddenSel
+      setAddTextLink(selectSel, hiddenSel)
 
 
   $('.chosen-multiple-select').chosen
@@ -56,10 +56,20 @@ popupModal = (selector) ->
   $(selector).show()
 
 #tells the 'add as new' link of the select to open targetScope and populate targetfieldle
-setAddNewLink = (selectSel, targetScopeSel, targetFieldSel) ->
+setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
   $add_link = $(selectSel + "_chosen").find(".add_new>a")
   $add_link.click ->
+
+    el = $(selectSel + '_chosen')
+    console.log($(selectSel + '_chosen'))
+    console.log($(selectSel + '_chosen>a.chosen-single'))
+    console.log($(selectSel + '_chosen>a.chosen-single>span'))
+
+    $(selectSel + '_chosen>a.chosen-single>span').text(new_name)
+    if hiddenSel
+      $(hiddenSel).val(new_name)
+
     $(targetScopeSel).find(targetFieldSel).val(new_name)
     selectChain.push(targetScopeSel)
     popupModal(targetScopeSel)
