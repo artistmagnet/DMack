@@ -7,10 +7,11 @@ class DirectorInvitationsController < InvitationsController
   end
 
   def create
-    @invitation = DirectorInvitation.new(invitation_params)
-    @invitation.to      = @production
-    @invitation.by      = User.first
+    @invitation    = DirectorInvitation.new(invitation_params)
+    @invitation.to = @production
+    @invitation.by = current_user
     respond_to do |format|
+      puts format
       if @invitation.save
         # invite_director
         send_director_invitation @invitation
@@ -18,8 +19,9 @@ class DirectorInvitationsController < InvitationsController
         format.json {render json: @invitation}
       else
         format.html {render :index}
-        format.html {render json: @invitation.errors.full_messages, status: :unprocessable_entity}
+        format.json {render json: @invitation.errors.full_messages, status: :unprocessable_entity}
       end
+      puts 'format: ' + format.to_json
     end
   end
 

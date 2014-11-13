@@ -12,10 +12,10 @@ $ ->
   #enable Director selection if Production has been chosen
   $('#role_production_id').change ->
     $prodId = $('option:selected', '#role_production_id').attr('value')
-    alert($prodId)
-    $('#role_director_id').attr('disabled', ($prodId != ''))
-    alert($('#new_director_invitation', '#add-role-director').attr('action'))
-    $('#new_director_invitation', '#add-role-director').attr('action', '/productions/'.concat($prodId).concat('/director_invitations'))
+    # enable Director selection
+    $('#role_director_id').attr('disabled', ($prodId == ''))
+    # reference the production
+    $('#new_director_invitation', '#add-role-director').attr('action', '/productions/'.concat($prodId).concat('/director_invitations.json'))
     $('#role_director_id').trigger('chosen:updated')
 
 enrichSelect = (selectSel, targetScopeSel, targetFieldSel, targetHidden) ->
@@ -124,6 +124,7 @@ jQuery ->
 jQuery ->
 #  bindAjaxOption('#add-resume',     '#resume_role_production_id','#add-production')
   bindAjaxOption('#add-role',              '#role_production_id',                     '#add-resume-production')
+  bindAjaxOption('#add-resume-production', '#role_director_id',                  '#add-role-director')
   bindAjaxOption('#add-resume-production', '#production_company_id',                  '#add-company')
   bindAjaxOption('#add-resume-production', '#production_shows_attributes_0_venue_id', '#add-venue')
 
@@ -175,5 +176,5 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 
 
 syncGet = (url) ->
-  alert('calling ' + url)
+#  alert('calling ' + url)
   window.location.replace(url)

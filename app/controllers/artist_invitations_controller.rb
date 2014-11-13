@@ -18,7 +18,7 @@ class ArtistInvitationsController < InvitationsController
         format.json {render json: @invitation}
       else
         format.html {render :index}
-        format.html {render json: @invitation.errors.full_messages, status: :unprocessable_entity}
+        format.json {render json: @invitation.errors.full_messages, status: :unprocessable_entity}
       end
     end
   end
