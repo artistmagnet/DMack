@@ -1,4 +1,5 @@
 class ResumesController < ApplicationController
+  before_action :new_resume, only: [:new]
   before_action :set_resume, only: [:show, :edit, :update, :destroy]
   before_action :new_production, only: [:edit, :new, :create]
   before_action :new_venue, only: [:edit, :new, :create]
@@ -10,8 +11,6 @@ class ResumesController < ApplicationController
   end
 
   def new
-    @resume = Resume.create(user: current_user)
-    @role = @resume.roles.build
   end
 
   def edit
@@ -24,8 +23,7 @@ class ResumesController < ApplicationController
 
   def create
     @resume = Resume.new(resume_params)
-    #TODO BUG: set the current user
-    @resume.user = User.all.first if @resume.user.nil?
+    @resume.user ||= current_user
 
     respond_to do |format|
       if @resume.save
@@ -62,7 +60,14 @@ class ResumesController < ApplicationController
 
 
   private
-  # Use callbacks to share common setup or constraints between actions.
+  # Use c
+  # allbacks to share common setup or constraints between actions.
+  def new_resume
+    @resume = Resume.create(user: current_user)
+    @role = @resume.roles.build
+    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK #{@resume.to_json}"
+  end
+
   def set_resume
     @resume = Resume.find(params[:id])
   end

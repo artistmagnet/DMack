@@ -10,8 +10,8 @@ class Resume < ActiveRecord::Base
   has_many :section_slots, -> { order('position ASC') }, :dependent => :destroy
   # has_one  :education_table, :dependent => :destroy
   # has_one  :skill_list, :dependent => :destroy
-  # has_many :custom_table, :dependent => :destroy
-  # has_many :custom_list, :dependent => :destroy
+  # has_many :custom_tables, :dependent => :destroy
+  # has_many :custom_lists,  :dependent => :destroy
 
   accepts_nested_attributes_for :roles, allow_destroy: true, reject_if: :all_blank
   delegate :name, :to => :user, :prefix => true
@@ -27,6 +27,9 @@ class Resume < ActiveRecord::Base
   end
 
   def name
+    puts "NAMED RESUME: #{self.to_json}"
+    puts "USER: #{user.to_json}"
+    puts "USER NAME: #{user.fullname}"
     user.full_name
   end
 
