@@ -29,7 +29,7 @@ class Resume < ActiveRecord::Base
   def name
     puts "NAMED RESUME: #{self.to_json}"
     puts "USER: #{user.to_json}"
-    puts "USER NAME: #{user.fullname}"
+    puts "USER NAME: #{user.full_name}"
     user.full_name
   end
 
