@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-12">
+            <h4>
+              <span>Director</span>
+              <%= link_to production_director_invitations_path(production) do %>
+                <button class="btn btn-primary pull-right m-top-m6" type="button"> <%= @production.director_name.nil? ? 'Add Director' : 'Change Director' %></button>
+              <% end %>
+            </h4>
+            <% if production.director_id.nil? %>
+              <%= production.director_name %>
+            <% else %>
+              <%= link_to production.director_name, production.director %>
+              <br />
+
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

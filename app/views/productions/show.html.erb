@@ -13,11 +13,7 @@
                 <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/curtain-180.jpg')"></span>
                 <h3>
                   <%= @production.name %>
-                  <%= link_to edit_production_path @production do %>
-                    <!--<button class="btn btn-primary m-top-m6" type="button">Edit</button>-->
-                    <i class="fa fa-edit m-left-10" ></i>
-                  <% end %>
-                  </h3>
+                </h3>
                 <p>
                   <% unless @production.current_venue_name.blank? %>
                     at <%= link_to @production.current_venue_name, @production.current_venue %></a> <br />
@@ -35,31 +31,8 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-12">
-                <h4>
-                  <span>Director</span>
-                  <%= link_to production_director_invitations_path(@production) do %>
-                    <button class="btn btn-primary pull-right m-top-m6" type="button"> <%= @production.director_name.nil? ? 'Add Director' : 'Change Director' %></button>
-                  <% end %>
-                </h4>
-                <% if @production.director_id.nil? %>
-                  <%= @production.director_name %>
-                <% else %>
-                  <%= link_to @production.director_name, @production.director %>
-                  <br />
+    <%# render 'layouts/includes/production_director', production: @production %>
 
-                <% end %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <div class="row">
       <div class="col-md-12">
