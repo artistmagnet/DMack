@@ -245,6 +245,8 @@ label {
   z-index: 1;
   height: 100%;
   @include addAnimation;
+  @include box-shadow(-2px 0px 8px 1px lighten(black, 80));
+
 }
 
 #content {
@@ -294,6 +296,11 @@ label {
     float: left;
     font-family: $fontSec;
     font-size: 26px;
+    
+    img {
+	    width: 90%;
+	    height: auto;
+    }
   }
   a {
     float: right;
