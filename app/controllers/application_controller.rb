@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
   before_action {@resumes = Resume.all.order(:id)}
 
   def current_user
-    puts "Users: #{User.all.to_json}"
     User.all.first
   end
 end

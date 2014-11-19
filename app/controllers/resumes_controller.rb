@@ -65,7 +65,6 @@ class ResumesController < ApplicationController
   def new_resume
     @resume = Resume.create(user: current_user)
     @role = @resume.roles.build
-    puts "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK #{@resume.to_json}"
   end
 
   def set_resume

@@ -47,9 +47,6 @@
           <div class="field">
             <%= f.label :director_id, {class: "col-sm-2 control-label"} %>
             <div class="col-sm-10">
-              <%= puts Resume.all.to_a %>
-              <%= puts Role.all.to_a %>
-              <%= puts User.all.to_a %>
               <%= f.collection_select :director_id, Resume.directors.order(:user_id), :id, :name, {prompt: 'Select director'},
                                       {class: "form-control chosen-select m-left-m8",
                                        disabled: true,

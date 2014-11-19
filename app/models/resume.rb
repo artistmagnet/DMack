@@ -16,8 +16,8 @@ class Resume < ActiveRecord::Base
   accepts_nested_attributes_for :roles, allow_destroy: true, reject_if: :all_blank
   delegate :name, :to => :user, :prefix => true
 
+  validates :user, :presence => true
   validate :validate_resumes
-
 
   def validate_resumes
     if roles.any? && !roles[0].valid?
@@ -27,9 +27,6 @@ class Resume < ActiveRecord::Base
   end
 
   def name
-    puts "NAMED RESUME: #{self.to_json}"
-    puts "USER: #{user.to_json}"
-    puts "USER NAME: #{user.full_name}"
     user.full_name
   end
 
