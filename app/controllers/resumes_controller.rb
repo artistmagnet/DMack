@@ -2,7 +2,8 @@ class ResumesController < ApplicationController
   before_action :new_resume, only: [:new]
   before_action :set_resume, only: [:show, :edit, :update, :destroy]
   before_action :new_production, only: [:edit, :new, :create]
-  before_action :set_show, only: [:new, :edit]
+  before_action :new_show, only: [:new]
+  before_action :set_show, only: [:edit]
   before_action :new_venue, only: [:edit, :new, :create]
   before_action :new_company, only: [:edit, :new, :create]
   before_action :new_director_invitation, only: [:edit, :new]
@@ -77,6 +78,10 @@ class ResumesController < ApplicationController
     @production.shows.build
     @production.director_invitations.build
     # @production.artist_invitations.build
+  end
+
+  def new_show
+    @show = Show.new(:production => @production)
   end
 
   def set_show
