@@ -30,7 +30,7 @@
 /* ------------------ 1. STYLES ------------------ */
 body {
   background: $colorMainBg;
-  font-family: $fontMain;
+  font-family: $fontSec;
 }
 
 /* ------------------ 2. TYPOGRAPHY ------------------ */
@@ -54,7 +54,7 @@ a {
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: $fontSec;
+  font-family: $fontMain;
 }
 
 h1 small, h2 small, h3 small, h4 small, h5 small, h6 small,
@@ -220,7 +220,7 @@ label {
   right: 0;
   left: 5%;
   left: 0;
-  width: 90%;
+  width: 100%;
   height: 100%;
   @include addAnimation;
 }
@@ -268,7 +268,7 @@ label {
   .footer-group {
     float: left;
     display: inline-block;
-    padding: 0;
+    padding: 0 0 0 10px;
     margin: 0;
     clear: left;
     li {
@@ -317,7 +317,7 @@ label {
 /* == SIDEBAR NAVIGATION GROUPS == */
 .sidebar-group {
   list-style: none;
-  margin: 10px 0;
+  margin: 10px 0 30px;
   padding: 0;
   li {
     font-size: 12px;
@@ -327,17 +327,21 @@ label {
 	@include transition-property(background, box-shadow);
 	@include transition-duration($transDur);
    
+    font-family: $fontMain;
+
     &.active {
 	    background: $colorMediumGray;
     }
     
     &.sidebar-group-header {
       color: $colorBlue;
-      font-family: $fontSec;
+      font-family: $fontMain;
       text-indent: 20px;
       text-transform: uppercase;
       font-size: 10px;
-      line-height: 40px;
+      line-height: 1;
+      border-left: 2px solid $colorBlue;
+      margin: 0px 0 10px 0;
     }
     a {
       font-size: 15px;
@@ -345,9 +349,11 @@ label {
       display: block;
       color: black;
       padding: 0 20px;
-      box-shadow: inset 3px 0 0 transparent;
+
       @include transition-property(color);
       @include transition-duration($transDur);
+      
+      //@include text-shadow(1px 0px 3px #afafaf);
       
       i {
         font-size: 14px;
@@ -402,8 +408,9 @@ label {
   height: 0;
   display: none;
   box-shadow: inset 3px 0 0 $colorRed;
+    
   li {
-    text-indent: 20px;
+    text-indent: 28px;
     a {
       &:hover {
         background: $colorDarkGray;
@@ -507,6 +514,8 @@ label {
   background: white;
   height: $headerHeight;
   margin-bottom: 20px;
+  padding-left: 15px;
+  
   .container-fluid {
     padding: 0;
   }
@@ -526,16 +535,27 @@ label {
     font-size: 13px;
     color: $colorMediumGray;
   }
+
+
   #toggle-menu {
     display: none;
     color: $colorMain;
     font-size: 20px;
     margin-right: 10px;
+    margin-top: -25px;
+    margin-bottom: 10px;
+    
+    width: 100%;
+    float: left;
+    clear: left;
+	
     &:hover, &:active, &:focus {
       color: $colorMainAccentBlue;
     }
   }
+
 }
+
 
 /* = HEADER NAVIGATION = */
 .header-nav {
@@ -570,7 +590,78 @@ label {
   }
 }
 
+
+/* ------------------ 10. MAIN CONTENT STUFF ------------------ */
+
+/* PAGE / OBJECT HEADERS */
+.page-header-info {
+
+	h3 {
+		font-size: 32px;
+		font-weight: bold;
+		
+		margin-bottom: 20px;
+		padding-bottom: 10px;
+		border-bottom: 2px solid $colorRed;
+		padding-left: 0;
+		color: $colorRed;
+	}
+	
+	p {
+		margin-bottom: 0px;
+		padding-bottom: 0;
+	}
+	
+	.panel-object-information {
+		padding-left: 0;
+	}
+	
+	.production-dates {
+		margin-top: 10px;
+	}
+	
+	
+	.socialicons {
+		margin-top: 10px;
+	}
+}
+
+/* PANELS FOR OBJECT LINKS */
+// e.g Cast & Crew for a production, etc...
+
+.panel-object-links {
+	
+	h4 {
+		color: $colorBlue;
+		text-transform: uppercase;
+	}
+
+	h5 {
+		text-transform: uppercase;
+		margin-bottom: 2px;
+	}
+	
+	
+	img {
+		width: 100%;
+		max-width: 400px;
+		height: auto;
+	}
+	
+
+	.col-md-3 p {
+		border-bottom: 2px solid $colorBlue;
+		padding-bottom: 10px;
+	}	
+	
+}
+
 /* ------------------ 10. BOOTSTRAP OVERRIDES ------------------ */
+
+
+.panel-body {
+    padding-top: 0px;	
+}
 
 /* = Buttons = */
 .btn {

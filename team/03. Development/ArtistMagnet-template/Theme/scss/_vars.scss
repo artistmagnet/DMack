@@ -1,3 +1,47 @@
+@font-face {
+	font-family: 'Wedding';
+	src: url('../fonts/Wedding-Medium.eot');
+	src: url('../fonts/Wedding-Medium.eot?#iefix') format('embedded-opentype');
+	src: url('../fonts/Wedding-Medium.woff') format('woff'), 
+	     url('../fonts/Wedding-Medium.ttf')  format('truetype');	
+	
+	font-weight: normal;
+	font-style: normal;     
+}
+
+@font-face {
+	font-family: 'Wedding';
+	src: url('../fonts/Wedding-Bold.eot');
+	src: url('../fonts/Wedding-Bold.eot?#iefix') format('embedded-opentype');
+	src: url('../fonts/Wedding-Bold.woff') format('woff'), 
+	     url('../fonts/Wedding-Bold.ttf')  format('truetype');	
+	
+	font-weight: bold;
+	font-style: normal;     
+}
+
+@font-face {
+	font-family: 'Theinhardt';
+	src: url('../fonts/Theinhardt-Rg.eot');
+	src: url('../fonts/Theinhardt-Rg.eot?#iefix') format('embedded-opentype');
+	src: url('../fonts/Theinhardt-Rg.woff') format('woff'), 
+	     url('../fonts/Theinhardt-Rg.ttf')  format('truetype');	
+	
+	font-weight: normal;
+	font-style: normal;     
+}
+
+@font-face {
+	font-family: 'Theinhardt';
+	src: url('../fonts/Theinhardt-Md.eot');
+	src: url('../fonts/Theinhardt-Md.eot?#iefix') format('embedded-opentype');
+	src: url('../fonts/Theinhardt-Md.woff') format('woff'), 
+	     url('../fonts/Theinhardt-Md.ttf')  format('truetype');	
+	
+	font-weight: bold;
+	font-style: normal;     
+}
+
 // Sidebar size
 $sidebarWidth: 280px;
 $sidebarCompactWidth: 60px;
@@ -6,8 +50,12 @@ $sidebarCompactWidth: 60px;
 $headerHeight: 70px;
 
 // Fonts
-$fontMain: "Open sans", sans-serif;
-$fontSec: "Montserrat", sans-serif;
+//$fontMain: "Open sans", sans-serif;
+//$fontSec: "Montserrat", sans-serif;
+
+$fontMain: "Wedding", "Open Sans", Helvetica, sans-serif;
+$fontSec: "Theinhardt", sans-serif;
+
 
 //Effects
 $transDur: 500ms;
