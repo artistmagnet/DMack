@@ -21,7 +21,8 @@
                   <% unless @production.company_name.blank? %>
                     by <%= link_to @production.company_name, @production.company %></a> <br />
                   <% end %>
-                  <%= "Opening #{@production.opening_date}" unless @production.opening_date.nil?  %> </p>
+                  <%= "Opening #{@production.opening_date}" unless @production.opening_date.nil?  %>
+                </p>
                 <p><%= @production.description %> </p>
               </div>
 

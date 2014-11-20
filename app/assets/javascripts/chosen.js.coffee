@@ -62,9 +62,9 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   $add_link.click ->
 
     el = $(selectSel + '_chosen')
-    console.log($(selectSel + '_chosen'))
-    console.log($(selectSel + '_chosen>a.chosen-single'))
-    console.log($(selectSel + '_chosen>a.chosen-single>span'))
+#    console.log($(selectSel + '_chosen'))
+#    console.log($(selectSel + '_chosen>a.chosen-single'))
+#    console.log($(selectSel + '_chosen>a.chosen-single>span'))
 
     $(selectSel + '_chosen>a.chosen-single>span').text(new_name)
     if hiddenSel
@@ -76,7 +76,7 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
 
 #tells the 'add text' link of the select to populate target hidden field
 setAddTextLink = (selectSel, hiddenSel) ->
-  console.log(selectSel + ' e ' + hiddenSel)
+#  console.log(selectSel + ' e ' + hiddenSel)
   new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
   $text_link = $(selectSel + "_chosen").find(".add_text>a")
   $text_link.click ->
@@ -114,8 +114,8 @@ jQuery ->
 
   # valid data
   $(document).bind "ajaxSuccess", '#add-resume-role', (event, xhr, settings) ->
-    console.log([event.data, selectChain])
-    console.log('was res log')
+#    console.log([event.data, selectChain])
+#    console.log('was res log')
     $entity_form = $(event.data)
     $entity_form_frame = $(event.data.concat(' + .fade'))
     $error_container = $("#error_explanation", $entity_form)
@@ -153,7 +153,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
     selectChain.push(create_scope_selector)
 
   $(document).bind "ajaxSuccess", create_scope_selector, (event, xhr, settings) ->
-    console.log([event.data, selectChain])
+#    console.log([event.data, selectChain])
     if event.data == selectChain[selectChain.length-1]
       $entity_form = $(event.data)
       $entity_form_frame = $(event.data.concat(' + .fade'))

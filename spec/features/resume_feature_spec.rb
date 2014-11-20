@@ -8,7 +8,7 @@ feature "Resume" do
     visit_home
   end
 
-  scenario "Creating a new Resume", :js => true do
+  scenario "can be created from the homepage", :js => true do
     within("#sidebar-item-build-resume") do
       click_link 'New Resume'
     end

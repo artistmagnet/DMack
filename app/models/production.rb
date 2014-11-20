@@ -26,11 +26,33 @@ class Production < ActiveRecord::Base
   end
 
   def year
-    Show.where(production_id: id).minimum("date").year.to_s
+    od = opening_show.date
+    puts "ODDDDDDDDD :  " + od.to_json
+    od.try(:year).to_s
+    # Show.where(production_id: id).minimum("date").year.to_s
   end
 
   def opening_date
-    Show.where(production_id: id, venue_id: current_venue.id).minimum("date").to_formatted_s(:long) if current_venue
+    (show = opening_show) ? masked_date(show.date, show.opening_date_mask) : nil
+  end
+
+  def masked_date(date, mask)
+    case mask
+      when 7
+        date.to_formatted_s(:long)
+      when 6
+        date.to_formatted_s(:month_and_year)
+        # date.month + ', ' + date.year
+      when 4
+        date.to_formatted_s(:year)
+        # date.year
+      else
+        ''
+    end
+  end
+
+  def opening_show
+    shows.order("date ASC").first #if current_venue
   end
 
 

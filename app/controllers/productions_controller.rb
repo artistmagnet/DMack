@@ -1,5 +1,7 @@
 class ProductionsController < ApplicationController
+  before_action :set_date_params, only: [:create, :update]
   before_action :set_production, only: [:show, :edit, :update, :destroy]
+  before_action :set_show, only: [:edit]
   before_action :new_venue, only: [:edit, :new, :create, :update]
   before_action :new_company, only: [:edit, :new, :create, :update]
 
@@ -29,6 +31,10 @@ class ProductionsController < ApplicationController
   # POST /productions.json
   def create
     @production = Production.new(production_params)
+    if (@show = @production.opening_show).nil?
+      @production.shows.build
+      @show = @production.shows.first
+    end
 
     respond_to do |format|
       if @production.save
@@ -50,8 +56,7 @@ class ProductionsController < ApplicationController
     # previous_emails = Invitation.emails
     respond_to do |format|
       if @production.update(production_params)
-        # puts "prev: " + previous_emails.to_json
-        # puts "last: " + last_director_invitation.to_json
+        puts "UPDATING PROD! " +  production_params.to_json
         #TODO filter by inviter too
         # send_director_invitation(@production) if (!previous_emails.include? @production.last_director_invitation.email)
         format.html { redirect_to @production, notice: 'Production was successfully updated.' }
@@ -92,6 +97,10 @@ class ProductionsController < ApplicationController
     @production = Production.find(params[:id])
   end
 
+  def set_show
+    @show = @production.opening_show || Show.new(:production => @production)
+  end
+
   def new_venue
     @venue = Venue.new
   end
@@ -100,13 +109,50 @@ class ProductionsController < ApplicationController
     @company = Company.new
   end
 
-  private
+  def set_date_params
+    puts "PARAMS ---------------------------"
+    puts params[:production][:shows_attributes][:"0"][:"date(1i)"]
+    puts params[:production][:shows_attributes][:"0"][:"date(2i)"]
+    puts params[:production][:shows_attributes][:"0"][:"date(3i)"]
+    params[:production][:shows_attributes][:"0"][:opening_date_mask] = partial_date_mask(
+      params[:production][:shows_attributes][:"0"][:"date(1i)"],
+      params[:production][:shows_attributes][:"0"][:"date(2i)"],
+      params[:production][:shows_attributes][:"0"][:"date(3i)"]
+    )
+    params[:production][:shows_attributes][:"0"][:"date(2i)"] = partial_date_month(
+      params[:production][:shows_attributes][:"0"][:"date(1i)"],
+      params[:production][:shows_attributes][:"0"][:"date(2i)"],
+      params[:production][:shows_attributes][:"0"][:"date(3i)"]
+    )
+    params[:production][:shows_attributes][:"0"][:"date(3i)"] = partial_date_day(
+      params[:production][:shows_attributes][:"0"][:"date(1i)"],
+      params[:production][:shows_attributes][:"0"][:"date(2i)"],
+      params[:production][:shows_attributes][:"0"][:"date(3i)"]
+    )
+  end
+
+  def partial_date_month(year_param, month_param, day_param)
+    (year_param != '' && month_param == '') ? '1' : month_param
+  end
+
+  def partial_date_day(year_param, month_param, day_param)
+    (year_param != '' && (month_param == '' || day_param == '')) ? '1' : day_param
+  end
+
+  def partial_date_mask(year_param, month_param, day_param)
+    return 0 if year_param == ''  # nothing
+    return 4 if month_param == '' # 100
+    return 6 if day_param == ''   # 110
+
+    return 7                      # 111, full date
+  end
+
   # Never trust parameters from the scary internet, only allow the white list through.
   def production_params
     params.require(:production).permit(:name, :description, :company_id,
                                        # director_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by],
                                        # artist_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by],
-                                       shows_attributes: [:id, :production_id, :venue_id, :date, :_destroy]
+                                       shows_attributes: [:id, :production_id, :venue_id, :date, :opening_date_mask, :_destroy]
                                        )
   end
 
