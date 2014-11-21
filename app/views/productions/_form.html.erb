@@ -47,11 +47,11 @@
           <div class="field">
             <%= fs.label :venue, {class: "col-sm-2 control-label"} %>
             <div class="col-sm-10">
-              <%= fs.collection_select :venue_id, Venue.all.order(:name), :id, :name, {include_blank: true},
+              <%= fs.collection_select :venue_id, Venue.all.order(:name), :id, :name_with_city, {include_blank: true},
                                        {:class => 'form-control chosen-select m-left-m8',
-                                        data: {
-                                            add_as_new_label:  'To add it as a new Venue, click here'
-                                        }
+                                         data: {
+                                           add_as_new_label:  'To add it as a new Venue, click here'
+                                         }
                                        } %>
               <%= link_to "Add one", '#', {:class => 'extend-list'} %>
             </div>

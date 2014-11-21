@@ -66,6 +66,7 @@ class ShowsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_show
+    puts 'SETTING SHOW (showCtrl)'
     @show = Show.find(params[:id])
   end
 

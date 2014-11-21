@@ -18,21 +18,17 @@ class Company < ActiveRecord::Base
     if description.blank?
       errors.add :description, "is required"
     end
+  end
 
-    # uri_validator = UriValidator.new
-    # if !addr_fb.blank? && !uri_validator.valid?(addr_fb)
-    #   errors.add "Facebook page address", "must begin with 'http://' or 'https://'"
-    # end
-    # if !addr_tw.blank? && !uri_validator.valid?(addr_tw)
-    #   errors.add "Twitter page address", "must begin with 'http://' or 'https://'"
-    # end
-    # if !addr_ins.blank? && !uri_validator.valid?(addr_ins)
-    #   errors.add "Instagram page address", "must begin with 'http://' or 'https://'"
-    # end
-    # if !addr_lin.blank? &&!uri_validator.valid?(addr_lin)
-    #   errors.add "LinkedIn page address", "must begin with 'http://' or 'https://'"
-    # end
 
+  def name_with_city
+    city.nil? ? name : [name, city].join(', ')
+  end
+
+  def city
+    productions.each do |production|
+      return production.city unless production.city.nil?
+    end
   end
 
 end

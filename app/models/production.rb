@@ -27,7 +27,6 @@ class Production < ActiveRecord::Base
 
   def year
     od = opening_show.date
-    puts "ODDDDDDDDD :  " + od.to_json
     od.try(:year).to_s
     # Show.where(production_id: id).minimum("date").year.to_s
   end
@@ -92,7 +91,6 @@ class Production < ActiveRecord::Base
     #     director_invitations[director_invitations.size-1] = Invitation.new
     #   # end
     # end
-
   end
 
   def current_venue
@@ -101,6 +99,10 @@ class Production < ActiveRecord::Base
 
   def current_venue_name
     current_venue ? current_venue.name : ""
+  end
+
+  def city
+    current_venue.city
   end
 
   def staging_period_at(venue)

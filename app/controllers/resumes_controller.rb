@@ -81,10 +81,12 @@ class ResumesController < ApplicationController
   end
 
   def new_show
+    puts 'CREATING SHOW (resCtrl)'
     @show = Show.new(:production => @production)
   end
 
   def set_show
+    puts 'SETTING SHOW (resCtrl)'
     @show = @production.opening_show #|| Show.new(:production => @production)
   end
 

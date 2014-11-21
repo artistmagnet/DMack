@@ -53,5 +53,9 @@ class Venue < ActiveRecord::Base
     res << " " + zipcode
   end
 
+  def name_with_city
+    [name, city].join(', ')
+  end
+
 
 end
