@@ -102,7 +102,7 @@ class Production < ActiveRecord::Base
   end
 
   def city
-    current_venue.city
+    current_venue.city if current_venue
   end
 
   def staging_period_at(venue)

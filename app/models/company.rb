@@ -22,7 +22,7 @@ class Company < ActiveRecord::Base
 
 
   def name_with_city
-    city.nil? ? name : [name, city].join(', ')
+    city.blank? ? name : [name, city].join(', ')
   end
 
   def city
