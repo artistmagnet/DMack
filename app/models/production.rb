@@ -51,6 +51,7 @@ class Production < ActiveRecord::Base
   end
 
   def opening_show
+    puts "Prod ##{id} has #{shows.count} shows"
     shows.order("date ASC").first #if current_venue
   end
 

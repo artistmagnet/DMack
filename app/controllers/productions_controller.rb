@@ -1,6 +1,7 @@
 class ProductionsController < ApplicationController
   before_action :set_date_params, only: [:create, :update]
   before_action :set_production, only: [:show, :edit, :update, :destroy]
+  before_action :new_show, only: [:new]
   before_action :set_show, only: [:edit]
   before_action :new_venue, only: [:edit, :new, :create, :update]
   before_action :new_company, only: [:edit, :new, :create, :update]
@@ -95,6 +96,11 @@ class ProductionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
   def set_production
     @production = Production.find(params[:id])
+  end
+
+  def new_show
+    puts 'CREATING SHOW (prodCtrl)'
+    @show = Show.new(:production => @production)
   end
 
   def set_show

@@ -139,7 +139,7 @@ jQuery ->
 jQuery ->
 #  bindAjaxOption('#add-resume',     '#resume_role_production_id','#add-production')
   bindAjaxOption('#add-role',              '#role_production_id',                     '#add-resume-production')
-  bindAjaxOption('#add-resume-production', '#role_director_id',                  '#add-role-director')
+  bindAjaxOption('#add-resume-production', '#role_director_id',                       '#add-role-director')
   bindAjaxOption('#add-resume-production', '#production_company_id',                  '#add-company')
   bindAjaxOption('#add-resume-production', '#production_shows_attributes_0_venue_id', '#add-venue')
 
@@ -156,6 +156,12 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
     $(create_scope_selector).show()
     $(create_scope_selector+' + .fade').height($(document).height()).show()
     selectChain.push(create_scope_selector)
+    #clear errors
+    $error_container = $("#error_explanation", create_scope_selector)
+    $error_container_ul = $("ul", $error_container)
+    $error_container.hide()  if $error_container.is(":visible")
+    if $("li", $error_container_ul).length
+      $("li", $error_container_ul).remove()
 
   $(document).bind "ajaxSuccess", create_scope_selector, (event, xhr, settings) ->
 #    console.log([event.data, selectChain])
@@ -164,8 +170,8 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
       $entity_form_frame = $(event.data.concat(' + .fade'))
       $error_container = $("#error_explanation", $entity_form)
       $error_container_ul = $("ul", $error_container)
-      if $("li", $error_container_ul).length
-        $("li", $error_container_ul).remove()
+#      if $("li", $error_container_ul).length
+#        $("li", $error_container_ul).remove()
       $entity_form.hide()
       $entity_form_frame.hide()
       entId = xhr.responseJSON.id
@@ -193,3 +199,12 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 syncGet = (url) ->
 #  alert('calling ' + url)
   window.location.replace(url)
+
+jQuery ->
+  addAlertTo($('#new_director_invitation>div>div>span>input.btn'), "Your invitation is being processed")
+
+addAlertTo = (selector, message) ->
+  $(selector).click () ->
+    alert(message)
+
+

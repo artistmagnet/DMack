@@ -1,9 +1,10 @@
 class ResumesController < ApplicationController
   before_action :new_resume, only: [:new]
   before_action :set_resume, only: [:show, :edit, :update, :destroy]
-  before_action :new_production, only: [:edit, :new, :create]
-  before_action :new_show, only: [:new]
-  before_action :set_show, only: [:edit]
+  before_action :new_production, only: [:new, :edit, :create]
+  before_action :new_show, only: [:new, :edit]
+  # before_action :set_production, only: [:edit]
+  # before_action :set_show, only: [:edit]
   before_action :new_venue, only: [:edit, :new, :create]
   before_action :new_company, only: [:edit, :new, :create]
   before_action :new_director_invitation, only: [:edit, :new]
@@ -80,15 +81,19 @@ class ResumesController < ApplicationController
     # @production.artist_invitations.build
   end
 
+  # def set_production
+  #   @production = @resume.pro
+  # end
+
   def new_show
     puts 'CREATING SHOW (resCtrl)'
     @show = Show.new(:production => @production)
   end
 
-  def set_show
-    puts 'SETTING SHOW (resCtrl)'
-    @show = @production.opening_show #|| Show.new(:production => @production)
-  end
+  # def set_show
+  #   puts 'SETTING SHOW (resCtrl)'
+  #   @show = @production.opening_show #|| Show.new(:production => @production)
+  # end
 
   def new_venue
     @venue = Venue.new
