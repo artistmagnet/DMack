@@ -1,4 +1,9 @@
 $ ->
+  $('.essential.chosen-select').chosen(
+    disable_search : false
+    width: '100%'
+  )
+
   $('.date.chosen-select').chosen(
     disable_search : true
     width: '116px'

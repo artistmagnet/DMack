@@ -56,17 +56,17 @@
         <div class="field">
           <%= f.label :state, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_field  :state, {class: 'form-control', placeholder: 'Enter State'} %>
+            <%= select_tag 'venue[state]', options_for_select(Topo.us_state_options), {class: 'form-control essential chosen-select', prompt: '--'} %>
           </div>
         </div>
       </div>
-      <%= TOPO['countries']['AZ'] %>
-      <%= Topo.countries %>
+      <%# Topo.us_states %>
+      <%# Topo.us_state_options %>
       <div class="form-group">
         <div class="field">
           <%= f.label :country, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_field  :country, {class: 'form-control', placeholder: 'Enter Country'} %>
+            <%= select_tag  'venue[country]', options_for_select(Topo.country_options, "United States"), {class: 'form-control essential chosen-select'} %>
           </div>
         </div>
       </div>

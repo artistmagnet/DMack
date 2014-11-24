@@ -14,7 +14,7 @@ class Venue < ActiveRecord::Base
       errors.add :city, "is required"
     end
 
-    if state.blank?
+    if country == 'United States' && state.blank?
       errors.add :state, "is required"
     end
 
