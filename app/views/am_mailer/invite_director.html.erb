@@ -8,6 +8,11 @@ Dear <%= @invitation.first_name %>:
 <p>
   Thanks for your help, and see you soon on <%= link_to "Artist Magnet", root_url %>,
 </p>
-<br />
+<p>
 <%= @referrer_name %><br />
-http://www.artistmagnet.com
+http://www.artistmagnet.com   <br />
+</p>
+<br />
+<p>
+  <%= @invitation.text %>
+</p>

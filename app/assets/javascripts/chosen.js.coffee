@@ -201,7 +201,7 @@ syncGet = (url) ->
   window.location.replace(url)
 
 jQuery ->
-  addAlertTo($('#new_director_invitation>div>div>span>input.btn'), "Your invitation is being processed")
+  addAlertTo('#new_director_invitation>div>div>span>input.btn', "Your invitation is being processed")
 
 addAlertTo = (selector, message) ->
   $(selector).click () ->
