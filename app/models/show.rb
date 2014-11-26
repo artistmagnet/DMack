@@ -20,7 +20,6 @@ class Show < ActiveRecord::Base
   end
 
   def get_date_select_opt
-    # opt = { include_blank: true }
     opt = {start_year: 1950, end_year: 2030, prompt: { day: '--', month: '--', year: '--' }}
     if self.opening_date_mask == 0 || self.date == nil
       return opt.merge( selected: nil )
@@ -46,5 +45,9 @@ class Show < ActiveRecord::Base
     # if venue_name.blank?
     #   errors.add :venue_name, "is invalid"
     # end
+
+    if date.nil?
+      errors.add :operning_date, "is invalid. Please enter at least the year"
+    end
   end
 end

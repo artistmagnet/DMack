@@ -61,18 +61,17 @@ class Production < ActiveRecord::Base
       errors.add :name, "is required"
     end
 
-    if description.blank?
-      errors.add :description, "is required"
-    end
+    # if !company.nil? && !company.valid?
+    #   errors.add :company, "is invalid"
+    # end
+    #
+    # if !shows[0].venue.nil? && !shows[0].valid?
+    #   errors.add :opening_date, "is invalid. Please enter at least the year"
+    # end
 
-    if !company.nil? && !company.valid?
-      errors.add :company, "is invalid"
-    end
-
-    # puts "Show #{shows[0].nil? ? 'does NOT exist' : 'exists'}"
-    if !shows[0].venue.nil? && !shows[0].valid?
-      errors.add :premiere_info, "is invalid"
-    end
+    # if !shows[0].venue.nil? && !shows[0].valid?
+    #   errors.add :premiere_info, "is invalid"
+    # end
 
     if company.nil? && shows[0].venue.nil?
       puts "COMPANY: #{company.to_json}"

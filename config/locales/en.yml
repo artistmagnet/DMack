@@ -24,16 +24,13 @@ en:
 
   activerecord:
     attributes:
-      venue:
-        addr_fb: 'Facebook page address'
-        addr_tw: 'Twitter page address'
-        addr_ins: 'Instagram page address'
-        addr_lin: 'LinkedIn page address'
       director_invitation:
         first_name: "First name*"
         last_name: "Last name*"
         email: "Email*"
         text: "Custom text"
+      "production/shows":
+        operning_date: "Opening date"
   helpers:
     submit:
       create: "Create a %{model}"
@@ -46,3 +43,11 @@ en:
         addr_tw: 'Twitter page address'
         addr_ins: 'Instagram page address'
         addr_lin: 'LinkedIn page address'
+      venue:
+        name: "Name*"
+        country: "Coutry*"
+        addr_fb: 'Facebook page address'
+        addr_tw: 'Twitter page address'
+        addr_ins: 'Instagram page address'
+        addr_lin: 'LinkedIn page address'
+#      production:

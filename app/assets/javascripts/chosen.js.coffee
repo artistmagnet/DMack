@@ -32,7 +32,7 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   if $add_as_text
     $no_res_links.push( {"text":$add_as_text, "classes": "add_text", "href": "#"})
   $select.chosen
-    allow_single_deselect: false
+    allow_single_deselect: true
     inherit_select_classes: true
     no_results_text: ' not found.'
     no_results_links: $no_res_links
