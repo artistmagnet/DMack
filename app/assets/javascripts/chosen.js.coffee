@@ -36,7 +36,7 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
     inherit_select_classes: true
     no_results_text: ' not found.'
     no_results_links: $no_res_links
-    some_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"}]
+    some_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"}, {"text":$add_as_text, "classes": "add_text", "href": "#"}]
     width: '382px'
 
   $select.on 'chosen:no_results', (e) ->
