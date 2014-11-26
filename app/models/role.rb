@@ -29,7 +29,7 @@ class Role < ActiveRecord::Base
 
   def validate_properties
     if name.blank?
-      errors.add :name, "is required"
+      errors.add :role, "is required"
     end
     # issues when submitted by new resumes
     # if resume_id.blank?

@@ -36,6 +36,9 @@ en:
       create: "Create a %{model}"
       update: "Confirm changes to %{model}"
     label:
+      role:
+        name: "Role*"
+        production_id: "Production*"
       company:
         name: "Name*"
         primary_contact_name: "Contact name*"
