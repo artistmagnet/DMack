@@ -65,12 +65,10 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
   $add_link = $(selectSel + "_chosen").find(".add_new>a")
   $add_link.click ->
-
     el = $(selectSel + '_chosen')
 #    console.log($(selectSel + '_chosen'))
 #    console.log($(selectSel + '_chosen>a.chosen-single'))
 #    console.log($(selectSel + '_chosen>a.chosen-single>span'))
-
     $(selectSel + '_chosen>a.chosen-single>span').text(new_name)
     if hiddenSel
       $(hiddenSel).val(new_name)

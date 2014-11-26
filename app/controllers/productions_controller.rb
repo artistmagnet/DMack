@@ -32,10 +32,10 @@ class ProductionsController < ApplicationController
   # POST /productions.json
   def create
     @production = Production.new(production_params)
-    if (@show = @production.opening_show).nil?
-      @production.shows.build
-      @show = @production.shows.first
-    end
+    # if (@show = @production.opening_show).nil?
+    #   @production.shows.build
+    #   @show = @production.shows.first
+    # end
 
     respond_to do |format|
       if @production.save

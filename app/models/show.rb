@@ -45,6 +45,7 @@ class Show < ActiveRecord::Base
     # if venue_name.blank?
     #   errors.add :venue_name, "is invalid"
     # end
+    puts "date: #{date}"
 
     if date.nil?
       errors.add :operning_date, "is invalid. Please enter at least the year"
