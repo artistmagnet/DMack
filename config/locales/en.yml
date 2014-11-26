@@ -24,11 +24,6 @@ en:
 
   activerecord:
     attributes:
-      company:
-        addr_fb: 'Facebook page address'
-        addr_tw: 'Twitter page address'
-        addr_ins: 'Instagram page address'
-        addr_lin: 'LinkedIn page address'
       venue:
         addr_fb: 'Facebook page address'
         addr_tw: 'Twitter page address'
@@ -45,4 +40,9 @@ en:
       update: "Confirm changes to %{model}"
     label:
       company:
-        primary_contact_name: "Contact"
+        name: "Name*"
+        primary_contact_name: "Contact name*"
+        addr_fb: 'Facebook page address'
+        addr_tw: 'Twitter page address'
+        addr_ins: 'Instagram page address'
+        addr_lin: 'LinkedIn page address'

@@ -14,10 +14,6 @@ class Company < ActiveRecord::Base
     if primary_contact_name.blank?
       errors.add :primary_contact_name, "is required"
     end
-
-    if description.blank?
-      errors.add :description, "is required"
-    end
   end
 
 
