@@ -76,6 +76,11 @@
                 <%= link_to [@resume, role], method: :delete, data: { confirm: "Delete role #{role.name}?" } do %>
                   <i class="fa fa-trash-o text-pale pull-right"></i>
                 <% end %>
+
+                <!--< %= link_to edit_resume_role_path(@resume, role), method: :get, class: 'edit_role_link', data: {'id' => role.id} do %>-->
+                <%= link_to edit_resume_with_role_path(@resume.id, role.id), method: :get, class: 'edit_role_link', data: {'id' => role.id} do %>
+                  <i class="fa fa-edit text-pale pull-right"></i>
+                <% end %>
                 <!--<i class="fa fa-arrows-v text-pale pull-right"></i>-->
               </div>
             </div>
@@ -95,10 +100,10 @@
   <% end %>
 </div>
 
-<div id="add-resume-role" class="overlay overlay-1" data-reload-url="<%= edit_resume_url(@resume) %>" style="display: none">
+<div id="add-resume-role" class="overlay overlay-1" data-reload-url="<%= edit_resume_url(@resume) %>" style="display: <%= role_visibility ||= 'none' %>">
   <%= render 'roles/form' %>
 </div>
-<div class="fade fade-1"></div>
+<div class="fade fade-1" style="display: <%= role_visibility ||= 'none' %>"></div>
 
 <div id="add-resume-production" class="overlay overlay-2">
   <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>

@@ -36,6 +36,7 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
     inherit_select_classes: true
     no_results_text: ' not found.'
     no_results_links: $no_res_links
+    placeholder_text_single: $select.data("single_prompt") || "Select option"
     some_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"}, {"text":$add_as_text, "classes": "add_text", "href": "#"}]
     width: '382px'
 
@@ -96,11 +97,15 @@ setAddTextLink = (selectSel, hiddenSel) ->
 selectChain = [];
 
 # CREDIT POPUP
+#setup
+jQuery ->
+  selectChain.push('#add-resume-role')
 
 # activation
 jQuery ->
   $('#add-resume-role-link').click ->
-    selectChain.push('#add-resume-role')
+    if selectChain.length == 0
+      selectChain.push('#add-resume-role')
     popupModal('#add-resume-role')
 
 # invalid data

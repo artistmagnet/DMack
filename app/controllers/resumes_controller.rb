@@ -1,13 +1,18 @@
 class ResumesController < ApplicationController
   before_action :new_resume, only: [:new]
-  before_action :set_resume, only: [:show, :edit, :update, :destroy]
+  before_action :set_resume, only: [:show, :edit, :edit_with_role, :update, :destroy]
   before_action :new_production, only: [:new, :edit, :create]
   before_action :new_show, only: [:new, :edit]
-  # before_action :set_production, only: [:edit]
-  # before_action :set_show, only: [:edit]
   before_action :new_venue, only: [:edit, :new, :create]
   before_action :new_company, only: [:edit, :new, :create]
-  before_action :new_director_invitation, only: [:edit, :new]
+
+  before_action :set_role,        only: [:edit_with_role]
+  before_action :set_production,  only: [:edit_with_role]
+  before_action :set_show,        only: [:edit_with_role]
+  before_action :set_company,     only: [:edit_with_role]
+  before_action :set_venue,       only: [:edit_with_role]
+
+  before_action :new_director_invitation, only: [:edit, :edit_with_role, :new]
 
   def index
     @resumes = Resume.all.order(:id)
@@ -18,6 +23,9 @@ class ResumesController < ApplicationController
 
   def edit
     @role = @resume.roles.build
+  end
+
+  def edit_with_role
   end
 
   def show
@@ -81,19 +89,31 @@ class ResumesController < ApplicationController
     # @production.artist_invitations.build
   end
 
-  # def set_production
-  #   @production = @resume.pro
-  # end
+  def set_role
+    @role = Role.find id_params[:role_id]
+  end
+
+  def set_production
+    @production = @role.production
+  end
+
+  def set_company
+    @company = @production.company
+  end
+
+  def set_venue
+    @venue = @show.venue || Venue.new
+  end
 
   def new_show
     puts 'CREATING SHOW (resCtrl)'
     @show = Show.new(:production => @production)
   end
 
-  # def set_show
-  #   puts 'SETTING SHOW (resCtrl)'
-  #   @show = @production.opening_show #|| Show.new(:production => @production)
-  # end
+  def set_show
+    puts 'SETTING SHOW (resCtrl)'
+    @show = @production.opening_show #|| Show.new(:production => @production)
+  end
 
   def new_venue
     @venue = Venue.new
@@ -109,7 +129,11 @@ class ResumesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def resume_params
-    params.require(:resume).permit(roles_attributes: [:id, :production_id, :resume_id, :name, :_destroy])
+    params.require(:resume).permit(:role_id, roles_attributes: [:id, :production_id, :resume_id, :name, :_destroy])
+  end
+
+  def id_params
+    params.permit(:id, :role_id)
   end
 
 end

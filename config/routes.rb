@@ -64,6 +64,7 @@ Rails.application.routes.draw do
   resources :resumes do
     resources :roles
   end
+  get '/resumes/:id/edit/:role_id' => 'resumes#edit_with_role', :as => 'edit_resume_with_role'
 
   devise_for :users
   get 'users' => 'users#index', :as => 'users'

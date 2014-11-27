@@ -34,9 +34,10 @@
           <div class="col-sm-10">
             <%= f.collection_select :company_id, Company.all.order(:name), :id, :name_with_city, {include_blank: true},
                                     {:class => 'form-control chosen-select m-left-m8',
-                                     data: {
-                                         add_as_new_label:  'To add it as a new Company, click here'
-                                     }
+                                      data: {
+                                         add_as_new_label:  'To add it as a new Company, click here',
+                                         single_prompt: "Select Company"
+                                      }
                                     } %>
             <%= link_to "Add one", '#', {:class => 'extend-list'} %>
           </div>

@@ -14,4 +14,5 @@ jQuery ->
 
 jQuery ->
   $("#content").height('100%')
+  $('.fade').height($(document).height())
 
