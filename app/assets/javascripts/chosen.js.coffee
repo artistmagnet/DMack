@@ -178,6 +178,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
       if $select.length
         $select.append(String.concat("<option value=", entId, " selected='selected'>", entName, "</option>"));
         # rerender
+        $select.trigger("change");
         $select.trigger("chosen:updated");
         selectChain.pop()
 
