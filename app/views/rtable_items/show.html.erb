@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Values:</strong>
+  <%= @rtable_item.values %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @rtable_item.position %>
+</p>
+
+<%= link_to 'Edit', edit_rtable_item_path(@rtable_item) %> |
+<%= link_to 'Back', rtable_items_path %>

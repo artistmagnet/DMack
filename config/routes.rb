@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-  resources :rtables
-
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -77,6 +75,14 @@ Rails.application.routes.draw do
     resources :roles
     resources :director_invitations
     resources :artist_invitations
+  end
+
+  resources :rtables do
+    resources :rtable_items
+  end
+
+  resources :education_tables do
+    resources :rtable_items
   end
 
   resources :companies

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120102059) do
+ActiveRecord::Schema.define(version: 20141202174138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -74,6 +74,13 @@ ActiveRecord::Schema.define(version: 20141120102059) do
     t.string   "diremail"
   end
 
+  create_table "rtable_items", force: true do |t|
+    t.string   "values",     default: [], array: true
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "rtables", force: true do |t|
     t.string   "title"
     t.string   "columns",    default: [], array: true
@@ -86,10 +93,10 @@ ActiveRecord::Schema.define(version: 20141120102059) do
   create_table "section_slots", force: true do |t|
     t.integer  "position"
     t.integer  "resume_id"
-    t.integer  "section_id"
-    t.string   "section_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "section_id"
+    t.string   "section_type"
   end
 
   create_table "shows", force: true do |t|

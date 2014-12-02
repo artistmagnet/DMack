@@ -81,10 +81,16 @@
 </div>
 
 <div class="container-fluid" id="section_slot" data-update-url="<%= sort_section_slots_url %>">
-
-  <% @resume.section_slots.each do |section_slot| %>
-    <%# render partial: 'section_slot', locals: {section_slot: section_slot} %>
+  <% [@resume.section_slots.first].each do |section_slot| %>
+    <%= render partial: 'section_slot', locals: {section_slot: section_slot} %>
   <% end %>
+</div>
 
-
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <button type="button" class="btn btn-primary m-top-m6">Add a skills section</button>
+      <button type="button" class="btn btn-primary m-top-m6">Add a custom section</button>
+    </div>
+  </div>
 </div>

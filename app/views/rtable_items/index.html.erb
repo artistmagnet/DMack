@@ -1,0 +1,27 @@
+<h1>Listing rtable_items</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Values</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @rtable_items.each do |rtable_item| %>
+      <tr>
+        <td><%= rtable_item.values %></td>
+        <td><%= rtable_item.position %></td>
+        <td><%= link_to 'Show', rtable_item %></td>
+        <td><%= link_to 'Edit', edit_rtable_item_path(rtable_item) %></td>
+        <td><%= link_to 'Destroy', rtable_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Rtable item', new_rtable_item_path %>

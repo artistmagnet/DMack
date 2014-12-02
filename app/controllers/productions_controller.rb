@@ -99,12 +99,12 @@ class ProductionsController < ApplicationController
   end
 
   def new_show
-    puts 'CREATING SHOW (prodCtrl)'
+    # puts 'CREATING SHOW (prodCtrl)'
     @show = Show.new(:production => @production)
   end
 
   def set_show
-    puts 'SETTING SHOW (prodCtrl)'
+    # puts 'SETTING SHOW (prodCtrl)'
     @show = @production.opening_show #|| Show.new(:production => @production)
   end
 

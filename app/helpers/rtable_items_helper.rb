@@ -1,0 +1,2 @@
+module RtableItemsHelper
+end
