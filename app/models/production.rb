@@ -22,7 +22,10 @@ class Production < ActiveRecord::Base
   end
 
   def key_info
-    info = name + ' - - - ' + company_name + ', ' + year
+    info = name
+    info += ' - - - ' + company_name unless company_name.blank?
+    info += ', ' + year if year
+    info
   end
 
   def year

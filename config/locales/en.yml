@@ -48,7 +48,7 @@ en:
         addr_lin: 'LinkedIn page address'
       venue:
         name: "Name*"
-        country: "Coutry*"
+        country: "Country*"
         addr_fb: 'Facebook page address'
         addr_tw: 'Twitter page address'
         addr_ins: 'Instagram page address'
