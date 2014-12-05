@@ -1,6 +1,7 @@
 class RtablesController < ApplicationController
   before_action :set_rtable, :only => [:new, :create]
   before_action :find_rtable, :only => [:show, :edit, :update]
+  before_action :set_item, :only => [:edit, :new]
 
   def new
   end
@@ -45,5 +46,9 @@ class RtablesController < ApplicationController
 
   def find_rtable
     @rtable = Rtable.find(params[:id])
+  end
+
+  def set_item
+    @rtable_item = RtableItem.new(:rtable => @rtable)
   end
 end

@@ -23,7 +23,9 @@
             <i class="fa fa-arrows pull-right text-pale top-right-handle"></i>
             <h4>
               <span>Education</span>
-              <button type="button" class="btn btn-primary pull-right m-top-m6">Edit</button>
+              <%= link_to edit_education_table_path(section_slot.section) do %>
+                <button type="button" class="btn btn-primary pull-right m-top-m6">Edit</button>
+              <% end %>
             </h4>
             <br>
             <div class="row">

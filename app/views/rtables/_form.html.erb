@@ -31,3 +31,28 @@
     <%= f.submit %>
   </div>
 <% end %>
+
+
+<%= form_for [@rtable, @rtable_item] do |f| %>
+  <div class="row">
+    <div class="col-md-2">
+      <%= text_field_tag "values[]" %>
+    </div>
+    <div class="col-md-2">
+      <%= text_field_tag "values[]" %>
+    </div>
+    <div class="col-md-2">
+      <%= text_field_tag "values[]" %>
+    </div>
+    <div class="col-md-2">
+      <%= text_field_tag "values[]" %>
+    </div>
+    <div class="col-md-2">
+      <%= text_field_tag "values[]" %>
+    </div>
+    <div class="col-md-2">
+      <%= text_field_tag "values[]" %>
+    </div>
+  </div>
+  <%= f.submit %>
+<% end %>
