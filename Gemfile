@@ -34,6 +34,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'capybara'
+  gem 'launchy'
   gem 'poltergeist'
   gem 'factory_girl_rails', "~> 4.0", group: :test
   gem 'database_cleaner'
