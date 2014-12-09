@@ -55,4 +55,9 @@ def select_from_chosen(item_text, options)
   page.execute_script(%Q!$("##{field[:id]}_chosen .chosen-results li:contains('#{value}')").mouseup()!)
 end
 
+def select_resume_from_sidebar
+  resume = find('select_resume_from_sidebar li>a')
+  click_on resume
+end
+
 
