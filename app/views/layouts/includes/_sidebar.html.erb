@@ -27,8 +27,8 @@
           <ul class="sidebar-submenu">
             <% @resumes.each do |resume| %>
               <li>
-                <%= link_to resume do %>
-                  <span>Resume #<%= resume.id %></span></a>
+                <%= link_to resume, id: "resume-#{resume.id}-link" do %>
+                  Resume #<%= resume.id %>
                 <% end %>
               </li>
             <% end %>

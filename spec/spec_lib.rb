@@ -2,17 +2,6 @@ def visit_home(locale = I18n.default_locale)
   visit "/"
 end
 
-# def select_from_chosen(item_text, options)
-#   puts "ITEM: #{item_text}, OPTIONS: #{options}"
-#   field = find_field(options[:from], visible: false)
-#   option_value = page.evaluate_script("$(\"##{field[:id]} option:contains('#{item_text}')\").val()")
-#   page.execute_script("value = ['#{option_value}']\; if ($('##{field[:id]}').val()) {$.merge(value, $('##{field[:id]}').val())}")
-#   option_value = page.evaluate_script("value")
-#   page.execute_script("$('##{field[:id]}').val(#{option_value})")
-#   page.execute_script("$('##{field[:id]}').trigger('chosen:updated')")
-# end
-
-
 def select_from_chosen(item_text, options)
   # Source: https://gist.github.com/michael-harrison/4102026
   # =begin
@@ -55,9 +44,17 @@ def select_from_chosen(item_text, options)
   page.execute_script(%Q!$("##{field[:id]}_chosen .chosen-results li:contains('#{value}')").mouseup()!)
 end
 
-def select_resume_from_sidebar
-  resume = find('select_resume_from_sidebar li>a')
-  click_on resume
+def select_resume_from_sidebar(resume)
+  click_link("Resumes")
+  click_link("resume-#{resume.id}-link")
+  within('#show-resume') do
+    click_button "Edit"
+  end
 end
 
+# def click_edit_link(selector, context = 'body')
+#   first(context) do
+#     first(selector).click
+#   end
+# end
 

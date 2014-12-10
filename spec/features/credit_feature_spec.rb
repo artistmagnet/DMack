@@ -8,24 +8,32 @@ feature "Credit" do
     click_link 'Add Credit'
   end
 
-  # feature "creation" do
-  #   scenario "should not allow to change director if production is unselected", :js => true do
-  #     director_field = find("#role_director_id_chosen")
-  #     expect(director_field).to have_css('[disabled]')
-  #   end
-  #
-  #   scenario "should allow to change director after production has been selected", :js => true do
-  #     select_from_chosen 'Test Production', :from => 'Production*'
-  #     # save_and_open_page
-  #     director_field = find("#role_director_id_chosen")
-  #     expect(director_field).not_to have_css('[disabled]')
-  #   end
-  # end
+  feature "creation" do
+    scenario "should not allow to change director if production is unselected", :js => true do
+      director_field = find("#role_director_id_chosen")
+      expect(director_field).to have_css('[disabled]')
+    end
+
+    scenario "should allow to change director after production has been selected", :js => true do
+      select_from_chosen 'Test Production', :from => 'Production*'
+      # save_and_open_page
+      director_field = find("#role_director_id_chosen")
+      expect(director_field).not_to have_css('[disabled]')
+    end
+  end
 
   feature "editing" do
+    before :all do
+      # role = Role.where('resume_id IS NOT NULL').first
+      # resume = role.resume
+    end
+
     before :each do
+      role = Role.where('resume_id IS NOT NULL').first
+      resume = role.resume
       visit_home
-      select_resume_from_sidebar
+      select_resume_from_sidebar(resume)
+      first('.fa-edit').click
     end
 
     scenario "should not allow to change director if production is unselected", :js => true do
@@ -33,9 +41,8 @@ feature "Credit" do
       expect(director_field).to have_css('[disabled]')
     end
 
-    # scenario "should allow to change director after production has been selected", :js => true do
+    # scenario "should allow to change director after production has been selected", :js => true, :focus => true do
     #   select_from_chosen 'Test Production', :from => 'Production*'
-    #   # save_and_open_page
     #   director_field = find("#role_director_id_chosen")
     #   expect(director_field).not_to have_css('[disabled]')
     # end
