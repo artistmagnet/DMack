@@ -23,20 +23,23 @@ feature "Credit" do
   end
 
   feature "editing" do
-    before :all do
-    end
 
     before :each do
+      Role.all do |role|
+        role.production = Production.first
+        role.save
+      end
       role = Role.where('resume_id IS NOT NULL').first
       resume = role.resume
+
       visit_home
       select_resume_from_sidebar(resume)
       first('.fa-edit').click
     end
 
-    scenario "should not allow to change director if production is unselected", :js => true do
+    scenario "should allow to change director", :js => true do
       director_field = find("#role_director_id_chosen")
-      expect(director_field).to have_css('[disabled]')
+      expect(director_field).not_to have_css('[disabled]')
     end
 
     scenario "should allow to change director after production has been selected", :js => true do
@@ -44,13 +47,8 @@ feature "Credit" do
       director_field = find("#role_director_id_chosen")
       expect(director_field).not_to have_css('[disabled]')
     end
-
-    # scenario "should allow to change director after production has been created", :js => true, :focus => true do
-    #   select_from_chosen 'Test Production', :from => 'Production*'
-    #   director_field = find("#role_director_id_chosen")
-    #   expect(director_field).not_to have_css('[disabled]')
-    # end
   end
+
 
 #TODO
   # scenario "should not be editable by generic users", :js => true do

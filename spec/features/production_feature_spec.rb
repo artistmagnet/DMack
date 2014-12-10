@@ -15,7 +15,7 @@ feature "Production" do
     end
 
     scenario "should close the Production form", :js => true do
-      save_and_open_page
+      # save_and_open_page
       within("#add-resume-production") do
         fill_in_production(name: new_name)
         click_button("Done")
