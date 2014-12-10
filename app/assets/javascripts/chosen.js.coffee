@@ -173,12 +173,13 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
       $entity_form_frame = $(event.data.concat(' + .fade'))
       $error_container = $("#error_explanation", $entity_form)
       $error_container_ul = $("ul", $error_container)
-#      if $("li", $error_container_ul).length
+#      if $("li", $error_container_ul).length              TODO: check this
 #        $("li", $error_container_ul).remove()
       $entity_form.hide()
       $entity_form_frame.hide()
       entId = xhr.responseJSON.id
       entName = xhr.responseJSON.name
+#      console.log( "entid: " +entId + ", entName: " + entName)
       $select = $(select_selector, $(origin_scope_selector))
       if $select.length
         $select.append(String.concat("<option value=", entId, " selected='selected'>", entName, "</option>"));

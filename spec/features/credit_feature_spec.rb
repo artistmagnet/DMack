@@ -24,8 +24,6 @@ feature "Credit" do
 
   feature "editing" do
     before :all do
-      # role = Role.where('resume_id IS NOT NULL').first
-      # resume = role.resume
     end
 
     before :each do
@@ -41,7 +39,13 @@ feature "Credit" do
       expect(director_field).to have_css('[disabled]')
     end
 
-    # scenario "should allow to change director after production has been selected", :js => true, :focus => true do
+    scenario "should allow to change director after production has been selected", :js => true do
+      select_from_chosen 'Test Production', :from => 'Production*'
+      director_field = find("#role_director_id_chosen")
+      expect(director_field).not_to have_css('[disabled]')
+    end
+
+    # scenario "should allow to change director after production has been created", :js => true, :focus => true do
     #   select_from_chosen 'Test Production', :from => 'Production*'
     #   director_field = find("#role_director_id_chosen")
     #   expect(director_field).not_to have_css('[disabled]')

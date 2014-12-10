@@ -27,9 +27,9 @@ def select_from_chosen(item_text, options)
   typed_text = ""
   value.chars.each do |char|
     typed_text += char
-  # Put a value in the search field
+    # Put a value in the search field
     page.execute_script(%Q!$("##{field[:id]}_chosen input").val("#{typed_text}")!)
-  # Fire the search via a keyup
+    # Fire the search via a keyup
     page.execute_script(%Q!$("##{field[:id]}_chosen input").keyup()!)
   end
 
@@ -42,6 +42,15 @@ def select_from_chosen(item_text, options)
 
   # Do the selection via firing a mouse up on the option
   page.execute_script(%Q!$("##{field[:id]}_chosen .chosen-results li:contains('#{value}')").mouseup()!)
+end
+
+def select_from_chosen_date(date_selector, year, month = 'January', day = 1)
+  page.execute_script(%Q!$("#{date_selector}_1i_chosen").mousedown()!)
+  page.execute_script(%Q!$("#{date_selector}_1i_chosen .chosen-results li:contains('#{year}')").mouseup()!)
+  # page.execute_script(%Q!$("#{date_selector}_2i_chosen").mousedown()!)
+  # page.execute_script(%Q!$("#{date_selector}_2i_chosen .chosen-results li:contains('#{month}')").mouseup()!)
+  # page.execute_script(%Q!$("#{date_selector}_3i_chosen").mousedown()!)
+  # page.execute_script(%Q!$("#{date_selector}_3i_chosen .chosen-results li:contains('#{day}')").mouseup()!)
 end
 
 def select_resume_from_sidebar(resume)
@@ -57,4 +66,17 @@ end
 #     first(selector).click
 #   end
 # end
+
+def open_credit_form
+  visit_home
+  click_on 'New Resume'
+  click_link 'Add Credit'
+end
+
+def fill_in_production(options)
+  fill_in "Name*", :with => options[:name]
+  select_from_chosen 'Test Company', :from => 'Company'
+  select_from_chosen 'Test Venue', :from => 'Venue'
+  select_from_chosen_date '#production_shows_attributes_0_date', 2015
+end
 

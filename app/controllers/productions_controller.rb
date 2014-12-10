@@ -117,7 +117,7 @@ class ProductionsController < ApplicationController
   end
 
   def set_date_params
-    puts "PARAMS ---------------------------"
+    # puts "PARAMS ---------------------------"
     puts params[:production][:shows_attributes][:"0"][:"date(1i)"]
     puts params[:production][:shows_attributes][:"0"][:"date(2i)"]
     puts params[:production][:shows_attributes][:"0"][:"date(3i)"]
