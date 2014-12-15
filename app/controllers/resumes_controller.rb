@@ -98,7 +98,7 @@ class ResumesController < ApplicationController
   end
 
   def set_company
-    @company = @production.company
+    @company = @production.company || Company.new
   end
 
   def set_venue

@@ -7,13 +7,13 @@
       <div class="form-group">
         <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
           <span>Credit</span>
-          <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-1').hide();$('.fade-1').hide();$('#new_role').trigger('reset');$('#role_production_id').trigger('chosen:updated');$('#role_director_id').trigger('chosen:updated');">
+          <a class="pull-right" href="<%= edit_resume_path(@resume) %>" >
             <i class="fa fa-undo"></i>
           </a>
         </h3>
       </div>
 
-    <%= form_for([@resume, @role], remote: true, format: 'json', html: {class: 'form-horizontal'}) do |f| %>
+    <%= form_for([@resume, @role], remote: true, format: 'json', html: {class: 'role-form form-horizontal'}) do |f| %>
       <%= render 'layouts/includes/error_explanation', entity: @role, offset: 2, span: 10 %>
 
       <div class="form-group">
