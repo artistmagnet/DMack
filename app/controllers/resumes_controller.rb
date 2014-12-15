@@ -1,16 +1,16 @@
 class ResumesController < ApplicationController
   before_action :new_resume, only: [:new]
   before_action :set_resume, only: [:show, :edit, :edit_with_role, :update, :destroy]
-  before_action :new_production, only: [:new, :edit, :create]
-  before_action :new_show, only: [:new, :edit]
-  before_action :new_venue, only: [:edit, :new, :create]
-  before_action :new_company, only: [:edit, :new, :create]
+  before_action :new_production, only: [:new, :edit, :edit_with_role, :create]
+  before_action :new_show, only: [:new, :edit, :edit_with_role]
+  before_action :new_venue, only: [:edit, :edit_with_role, :new, :create]
+  before_action :new_company, only: [:edit, :edit_with_role, :new, :create]
 
   before_action :set_role,        only: [:edit_with_role]
-  before_action :set_production,  only: [:edit_with_role]
-  before_action :set_show,        only: [:edit_with_role]
-  before_action :set_company,     only: [:edit_with_role]
-  before_action :set_venue,       only: [:edit_with_role]
+  # before_action :set_production,  only: [:edit_with_role]
+  # before_action :set_show,        only: [:edit_with_role]
+  # before_action :set_company,     only: [:edit_with_role]
+  # before_action :set_venue,       only: [:edit_with_role]
 
   before_action :new_director_invitation, only: [:edit, :edit_with_role, :new]
 
@@ -93,27 +93,27 @@ class ResumesController < ApplicationController
     @role = Role.find id_params[:role_id]
   end
 
-  def set_production
-    @production = @role.production
-  end
+  # def set_production
+  #   @production = @role.production
+  # end
 
-  def set_company
-    @company = @production.company || Company.new
-  end
+  # def set_company
+  #   @company = @production.company || Company.new
+  # end
 
-  def set_venue
-    @venue = @show.venue || Venue.new
-  end
+  # def set_venue
+  #   @venue = @show.venue || Venue.new
+  # end
 
   def new_show
     # puts 'CREATING SHOW (resCtrl)'
     @show = Show.new(:production => @production)
   end
 
-  def set_show
-    # puts 'SETTING SHOW (resCtrl)'
-    @show = @production.opening_show #|| Show.new(:production => @production)
-  end
+  # def set_show
+  #   # puts 'SETTING SHOW (resCtrl)'
+  #   @show = @production.opening_show #|| Show.new(:production => @production)
+  # end
 
   def new_venue
     @venue = Venue.new

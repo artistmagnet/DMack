@@ -214,4 +214,9 @@ addAlertTo = (selector, message) ->
   $(selector).click () ->
     alert(message)
 
-
+#reset form on back
+jQuery ->
+  $('.fa-undo').closest('.back-link').click ->
+    $form = $(this).closest('.overlay').find('form')
+    $form.trigger('reset')
+    $form.find('.chosen-select').trigger('chosen:updated')
