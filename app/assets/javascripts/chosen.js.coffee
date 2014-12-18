@@ -120,6 +120,7 @@ jQuery ->
         $("li", $error_container_ul).remove()
       $.each jqxhr.responseJSON, (index, message) ->
         $("<li>").html(message).appendTo $error_container_ul
+      scrollElementToLocation('html, body', '#add-resume-role .error_explanation')
 
   # valid data
   $(document).bind "ajaxSuccess", '#add-resume-role', (event, xhr, settings) ->
@@ -200,6 +201,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
         $("li", $error_container_ul).remove()
       $.each jqxhr.responseJSON, (index, message) ->
         $("<li>").html(message).appendTo $error_container_ul
+      scrollElementToLocation('html, body', event.data + ' .error_explanation')
 
 
 
@@ -220,3 +222,9 @@ jQuery ->
     $form = $(this).closest('.overlay').find('form')
     $form.trigger('reset')
     $form.find('.chosen-select').trigger('chosen:updated')
+
+
+scrollElementToLocation = (elementSelector, targetSelector, duration) ->
+  $(elementSelector).animate({
+    scrollTop: $(targetSelector).offset().top
+  }, duration);
