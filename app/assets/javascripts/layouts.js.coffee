@@ -16,3 +16,7 @@ jQuery ->
   $("#content").height('100%')
   $('.fade').height($(document).height())
 
+jQuery ->
+  $(".semi-mandatory").each () ->
+    $(this).append($('<span class="label-hint">').text("*"));
+

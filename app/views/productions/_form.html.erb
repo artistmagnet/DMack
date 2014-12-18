@@ -30,7 +30,7 @@
       </div>
       <div class="form-group">
         <div class="field">
-          <%= f.label :company_id, {class: "col-sm-2 control-label"} %>
+          <%= f.label :company_id, {class: "col-sm-2 control-label semi-mandatory", title: "Company is mandatory if you don't provide the Venue"} %>
           <div class="col-sm-10">
             <%= f.collection_select :company_id, Company.all.order(:name), :id, :name_with_city, {include_blank: true},
                                     {:class => 'form-control chosen-select m-left-m8',
@@ -46,7 +46,7 @@
       <%= f.fields_for :shows do |fs| %>
         <div class="form-group">
           <div class="field">
-            <%= fs.label :venue_id, {class: "col-sm-2 control-label"} %>
+            <%= fs.label :venue_id, {class: "col-sm-2 control-label semi-mandatory", title: "Venue is mandatory if you don't provide the Company"} %>
             <div class="col-sm-10">
               <%= fs.collection_select :venue_id, Venue.all.order(:name), :id, :name_with_city, {include_blank: true},
                                        {:class => 'form-control chosen-select m-left-m8',
@@ -60,7 +60,7 @@
         </div>
         <div class="form-group">
           <div class="field">
-            <%= fs.label "Opening", {class: "col-sm-2 control-label"} %>
+            <%= fs.label "Opening", {class: "col-sm-2 control-label semi-mandatory", title: "Please provide at least the year"} %>
             <div class="col-sm-10">
               <div class="m-left-6">
                 <%= fs.date_select :date, @show.get_date_select_opt, {class: 'form-control date chosen-select', style: 'display: inline;'} %>
