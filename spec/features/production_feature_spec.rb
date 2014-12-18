@@ -26,6 +26,15 @@ feature "Production" do
       end
     end
 
+    scenario "should enable to choose the Director in the underlaying Credit form", :js => true do
+      # save_and_open_page
+      within("#add-resume-production") do
+        fill_in_production(name: new_name)
+        click_button("Done")
+      end
+      expect(find('#role_director_id_chosen', :visible => false)).not_to have_css('input:disabled')
+    end
+
     # scenario "should write the name to the Credit form", :js => true, :focus => true do
     #   fill_in_production(name: new_name)
     #   within('#add-resume-production') do

@@ -184,7 +184,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 #      console.log( "entid: " +entId + ", entName: " + entName)
       $select = $(select_selector, $(origin_scope_selector))
       if $select.length
-        $select.append(String.concat("<option value=", entId, " selected='selected'>", entName, "</option>"));
+        $select.append("<option value=" + entId + " selected='selected'>" + entName + "</option>");
         # rerender
         $select.trigger("change");
         $select.trigger("chosen:updated");
@@ -192,7 +192,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 
   $(document).bind "ajaxError", create_scope_selector, (event, jqxhr, settings, exception) ->
     $entity_form = $(event.data)
-    console.log event.data
+#    console.log event.data
     if event.data == selectChain[selectChain.length-1]
       $error_container = $entity_form.find(".error_explanation")
       $error_container_ul = $("ul", $error_container)
