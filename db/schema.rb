@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141120102059) do
+ActiveRecord::Schema.define(version: 20141218174720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 20141120102059) do
     t.string   "addr_tw"
     t.string   "addr_ins"
     t.string   "addr_lin"
+    t.string   "website"
+    t.string   "primary_contact_email"
+    t.string   "primary_contact_phone"
+    t.integer  "year_founded"
+    t.string   "address1"
+    t.string   "address2"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
   end
 
   create_table "invitations", force: true do |t|
@@ -74,6 +83,12 @@ ActiveRecord::Schema.define(version: 20141120102059) do
     t.string   "diremail"
   end
 
+  create_table "rtable_items", force: true do |t|
+    t.integer "rtable_id"
+    t.integer "position"
+    t.string  "values",    array: true
+  end
+
   create_table "rtables", force: true do |t|
     t.string   "title"
     t.string   "columns",    default: [], array: true
@@ -86,10 +101,10 @@ ActiveRecord::Schema.define(version: 20141120102059) do
   create_table "section_slots", force: true do |t|
     t.integer  "position"
     t.integer  "resume_id"
-    t.integer  "section_id"
-    t.string   "section_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "section_id"
+    t.string   "section_type"
   end
 
   create_table "shows", force: true do |t|

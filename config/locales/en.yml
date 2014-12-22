@@ -41,11 +41,12 @@ en:
         production_id: "Production*"
       company:
         name: "Name*"
-        primary_contact_name: "Contact name*"
+        email: "Company Email"
+        primary_contact_name: "Primary contact name*"
         addr_fb: 'Facebook page address'
         addr_tw: 'Twitter page address'
-        addr_ins: 'Instagram page address'
-        addr_lin: 'LinkedIn page address'
+#        addr_ins: 'Instagram page address'
+#        addr_lin: 'LinkedIn page address'
       venue:
         name: "Name*"
         country: "Country*"
