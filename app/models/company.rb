@@ -3,8 +3,8 @@ class Company < ActiveRecord::Base
 
 
   validate :validate_properties
-  validates :email, :email => true
-  validates :addr_fb, :addr_tw, :addr_ins, :addr_lin, uri: true
+  validates :email, :primary_contact_email, :email => true
+  # validates :website, :addr_fb, :addr_tw, uri: true
 
   def validate_properties
     if name.blank?
@@ -14,6 +14,18 @@ class Company < ActiveRecord::Base
     if primary_contact_name.blank?
       errors.add :primary_contact_name, "is required"
     end
+
+    if city.blank?
+      errors.add :city, "is required"
+    end
+
+    if country == 'United States' && state.blank?
+      errors.add :state, "is required"
+    end
+
+    if country.blank?
+      errors.add :country, "is required"
+    end
   end
 
 
@@ -21,10 +33,10 @@ class Company < ActiveRecord::Base
     city.blank? ? name : [name, city].join(', ')
   end
 
-  def city
-    productions.each do |production|
-      return production.city unless production.city.nil?
-    end
-  end
+  # def city
+  #   productions.each do |production|
+  #     return production.city unless production.city.nil?
+  #   end
+  # end
 
 end

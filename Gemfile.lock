@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/gior/chosen-rails.git
-  revision: f42a570e4f1916e6257745e23f0d668e7184ce5c
+  revision: 737608e506f5d28d08ae05a4dbccb5217bc9df1e
   branch: master
   specs:
     chosen-rails (1.2.0.j)
@@ -38,8 +38,6 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    acts_as_list (0.5.0)
-      activerecord (>= 3.0)
     addressable (2.3.6)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.9)
@@ -234,7 +232,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_list
   capybara
   chosen-rails (= 1.2.0.j)!
   coffee-rails (~> 4.0.0)

@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20141218174720) do
     t.string   "address1"
     t.string   "address2"
     t.string   "city"
+    t.string   "zipcode"
     t.string   "state"
     t.string   "country"
   end

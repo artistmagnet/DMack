@@ -58,8 +58,8 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
 
 
 popupModal = (selector) ->
-  $(selector + ' + .fade').height($(document).height()).show()
   $(selector).show()
+  $(selector + ' + .fade').height($(document).height()).show()
 
 #tells the 'add as new' link of the select to open targetScope and populate targetfieldle
 setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
