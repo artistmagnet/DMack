@@ -3,7 +3,8 @@ class Venue < ActiveRecord::Base
   has_many :productions, :through => :shows
 
   validate :validate_properties
-  validates :addr_fb, :addr_tw, :addr_ins, :addr_lin, uri: true
+  validates :email, :primary_contact_email, :email => true
+  # validates :addr_fb, :addr_tw, :addr_ins, :addr_lin, uri: true
 
   def validate_properties
     if name.blank?
