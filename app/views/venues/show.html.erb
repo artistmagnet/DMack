@@ -13,14 +13,32 @@
                 </div>
                 <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/union_station-180.png')"></span>
                 <h3><%= @venue.name %></h3>
+                <% unless @venue.year_founded.blank? %>
+                  <%= "<div>Founded: #{@venue.year_founded}</div>".html_safe %>
+                <% end %>
                 <p><%= @venue.full_address %></p>
                 <p>
+
                 <div class="socialicons">
                   <%= render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_fb, css_class: "typcn typcn-social-facebook"} %>
                   <%= render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_tw, css_class: "typcn typcn-social-twitter"} %>
-                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_ins, css_class: "typcn typcn-social-instagram"} %>
-                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_lin, css_class: "typcn typcn-social-linkedin"} %>
+                  <%# render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_ins, css_class: "typcn typcn-social-instagram"} %>
+                  <%# render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_lin, css_class: "typcn typcn-social-linkedin"} %>
                 </div>
+                </p>
+                <p class="m-top-20">
+                  <% unless @venue.primary_contact_name.blank? && @venue.primary_contact_email.blank? && @venue.primary_contact_phone.blank? %>
+                    <%= "<div><b>Contact</b></div>".html_safe %>
+                    <% unless @venue.primary_contact_name.blank? %>
+                      <%= @venue.primary_contact_name %> <br />
+                    <% end %>
+                    <% unless @venue.primary_contact_phone.blank? %>
+                      <%= @venue.primary_contact_phone %> <br />
+                    <% end %>
+                    <% unless @venue.primary_contact_email.blank? %>
+                      <%= mail_to @venue.primary_contact_email %> <br />
+                    <% end %>
+                  <% end %>
                 </p>
                 <p>
                   <%= @venue.description unless @venue.description.blank? %>

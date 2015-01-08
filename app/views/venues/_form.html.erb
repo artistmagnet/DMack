@@ -130,15 +130,15 @@
       </div>
       <div class="form-group">
         <div class="field">
-          <%= f.label :addr_tw, {class: "col-sm-4 control-label"} %>
+          <%= f.label :addr_tw, {class: "col-sm-4 control-label", title: "Please enter an address beginning with http:// or https://"} %>
           <div class="col-sm-8">
-            <%= f.label :addr_tw, {class: "col-sm-4 control-label", title: "Will be used as link. Use a valid page address"} %>
+            <%= f.text_field :addr_tw, {class: 'form-control', placeholder: 'Enter Twitter page address'} %>
           </div>
         </div>
       </div>
       <div class="form-group">
         <div class="field">
-          <%= f.label :website, {class: "col-sm-4 control-label", title: "Will be used as link. Use a valid page address"} %>
+          <%= f.label :website, {class: "col-sm-4 control-label", title: "Please enter an address beginning with http:// or https://"} %>
           <div class="col-sm-8">
             <%= f.text_field :website, {class: 'form-control', placeholder: 'Enter website address'} %>
           </div>

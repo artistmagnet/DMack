@@ -4,7 +4,7 @@ class Company < ActiveRecord::Base
 
   validate :validate_properties
   validates :email, :primary_contact_email, :email => true
-  # validates :website, :addr_fb, :addr_tw, uri: true
+  validates :website, :addr_fb, :addr_tw, uri: true
 
   def validate_properties
     if name.blank?

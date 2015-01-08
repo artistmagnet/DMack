@@ -14,12 +14,10 @@
                 </div>
                 <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/theindustry-180.png')"></span>
                 <h3><%= @company.name %></h3>
-                <p><%= @company.primary_contact_name %></p>
-                <% if @company.phone %>
-                  <%= @company.phone %>
-                  <br />
+                <% unless @company.year_founded.blank? %>
+                  <%= "<div>Founded: #{@company.year_founded}</div>".html_safe %>
                 <% end %>
-                <%= mail_to @company.email unless @company.email.blank? %>
+
                 <p>
                 <div class="socialicons">
                   <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_fb, css_class: "typcn typcn-social-facebook"} %>
@@ -27,6 +25,21 @@
                   <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_ins, css_class: "typcn typcn-social-instagram"} %>
                   <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_lin, css_class: "typcn typcn-social-linkedin"} %>
                 </div>
+                </p>
+
+                <p class="m-top-20">
+                  <% unless @company.primary_contact_name.blank? && @company.primary_contact_email.blank? && @company.primary_contact_phone.blank? %>
+                    <%= "<div><b>Contact</b></div>".html_safe %>
+                    <% unless @company.primary_contact_name.blank? %>
+                      <%= @company.primary_contact_name %> <br />
+                    <% end %>
+                    <% unless @company.primary_contact_email.blank? %>
+                      <%= @company.primary_contact_email %> <br />
+                    <% end %>
+                    <% unless @company.primary_contact_phone.blank? %>
+                      <%= @company.primary_contact_phone %> <br />
+                    <% end %>
+                  <% end %>
                 </p>
                 <p>
                   <%= @company.description unless @company.description.blank? %>
