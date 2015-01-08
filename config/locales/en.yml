@@ -43,6 +43,7 @@ en:
         name: "Name*"
         email: "Company Email"
         primary_contact_name: "Primary contact name*"
+        city: "City*"
         addr_fb: 'Facebook page address'
         addr_tw: 'Twitter page address'
 #        addr_ins: 'Instagram page address'
