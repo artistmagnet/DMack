@@ -13,6 +13,8 @@ class Role < ActiveRecord::Base
 
   validate :validate_properties
 
+  scope :confirmed, -> { where("name <> ?", "N.A.") }
+
   def user
     resume.user
   end

@@ -14,51 +14,51 @@
                 </div>
               </div>
 
-              <div class="m-bottom-5">
-                <% @production.roles.any? do |role| %>
-                  <div class="row">
-                    <div class="col-md-3">
-                      <strong>Listed members</strong>
-                    </div>
-                    <div class="col-md-9">
-                      <strong>Role</strong>
-                    </div>
-                  </div>
-                  <% @production.roles.each do |role| %>
-                    <div class="row">
-                      <div class="col-md-3">
-                        <%= role.resume_name %>
-                      </div>
-                      <div class="col-md-9">
-                        <%= role.name %>
-                      </div>
-                    </div>
-                  <% end %>
-                <% end %>
-              </div>
+              <!--<div class="m-bottom-5">-->
+                <!--< % @production.roles.any? do |role| %>-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-3">-->
+                      <!--<strong>Listed members</strong>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-9">-->
+                      <!--<strong>Role</strong>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--< % @production.roles.each do |role| %>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-3">-->
+                        <!--< %= role.resume_name %>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-9">-->
+                        <!--< %= role.name %>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--< % end %>-->
+                <!--< % end %>-->
+              <!--</div>-->
 
-              <div class="m-bottom-20">
-                <% if @invitations.any? %>
-                  <div class="row">
-                    <div class="col-md-3">
-                      <strong>Pending invitations</strong>
-                    </div>
-                    <div class="col-md-9">
-                      <strong>Role</strong>
-                    </div>
-                  </div>
-                  <% @invitations.each do |invitation| %>
-                    <div class="row">
-                      <div class="col-md-3">
-                        <%= invitation.full_name %>
-                      </div>
-                      <div class="col-md-9">
-                        <%= invitation.role %>
-                      </div>
-                    </div>
-                  <% end %>
-                <% end %>
-              </div>
+              <!--<div class="m-bottom-20">-->
+                <!--< % if @invitations.any? %>-->
+                  <!--<div class="row">-->
+                    <!--<div class="col-md-3">-->
+                      <!--<strong>Pending invitations</strong>-->
+                    <!--</div>-->
+                    <!--<div class="col-md-9">-->
+                      <!--<strong>Role</strong>-->
+                    <!--</div>-->
+                  <!--</div>-->
+                  <!--< % @invitations.each do |invitation| %>-->
+                    <!--<div class="row">-->
+                      <!--<div class="col-md-3">-->
+                        <!--< %= invitation.full_name %>-->
+                      <!--</div>-->
+                      <!--<div class="col-md-9">-->
+                        <!--< %= invitation.role %>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                  <!--< % end %>-->
+                <!--< % end %>-->
+              <!--</div>-->
 
               <div class="row">
                 <div class="col-md-12 m-bottom-20">
@@ -72,9 +72,10 @@
                           <div class="col-sm-6">
                             <%= collection_select :role, :resume_id, Resume.artists.sort_by{ |resume| resume.name }, :id, :name, {prompt: 'Select artist'}, {class: "form-control chosen-select"} %>
                           </div>
-                          <div class="col-sm-6">
-                            <%= text_field :role, :name, {placeholder: "Role", class: "form-control"} %>
-                          </div>
+                          <!--<div class="col-sm-6">-->
+                            <!--< %= text_field :role, :name, {placeholder: "Role", class: "form-control"} %>-->
+                          <!--</div>-->
+                          <%= hidden_field_tag 'role[name]', 'N.A.' %>
                           <%= hidden_field_tag 'role[production_id]', @production.id %>
                         </div>
                       </div>
@@ -112,9 +113,10 @@
                               <div class="col-sm-3">
                                 <%= f.text_field :email, {placeholder: "Email", class: "form-control"} %>
                               </div>
-                              <div class="col-sm-3">
-                                <%= f.text_field :role, {placeholder: "Role", class: "form-control"} %>
-                              </div>
+                              <!--<div class="col-sm-3">-->
+                                <!--< %= f.text_field :role, {placeholder: "Role", class: "form-control"} %>-->
+                              <!--</div>-->
+                              <%= hidden_field_tag 'role[name]', 'N.A.' %>
                             </div>
                           </div>
                         </div>

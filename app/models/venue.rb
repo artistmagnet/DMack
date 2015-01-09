@@ -4,7 +4,7 @@ class Venue < ActiveRecord::Base
 
   validate :validate_properties
   validates :email, :primary_contact_email, :email => true
-  validates :addr_fb, :addr_tw, uri: true
+  validates :addr_fb, :addr_tw, :website, uri: true
   # validates :addr_fb, :addr_tw, :addr_ins, :addr_lin, uri: true
 
   def validate_properties
