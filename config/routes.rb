@@ -70,7 +70,6 @@ Rails.application.routes.draw do
   get 'users' => 'users#index', :as => 'users'
 
   resources :shows
-  # resources :director_invitations
 
   resources :productions do
     resources :shows
@@ -80,8 +79,10 @@ Rails.application.routes.draw do
   end
 
   resources :companies
+    resources :artist_invitations
 
   resources :venues
+    resources :artist_invitations
   post 'section_slots' => 'section_slots#sort', :as => 'sort_section_slots'
 
 end

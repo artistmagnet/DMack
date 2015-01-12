@@ -1,20 +1,20 @@
 class ArtistInvitationsController < InvitationsController
-  before_action :set_production
+  before_action :set_to
   before_action :set_invitations
-  before_action :set_role
+  # before_action :set_role
   def index
     @invitation  = ArtistInvitation.new()
   end
 
   def create
     @invitation = ArtistInvitation.new(invitation_params)
-    @invitation.to      = @production
+    @invitation.to      = @to
     @invitation.by      = User.first
     respond_to do |format|
       if @invitation.save
         # invite_artist
         send_artist_invitation @invitation
-        format.html {redirect_to production_artist_invitations_path(@production), notice: "Invitation has been sent"}
+        format.html {redirect_to :back, notice: "Invitation has been sent to #{@invitation.first_name} #{@invitation.last_name}"}
         format.json {render json: @invitation}
       else
         format.html {render :index}
@@ -26,17 +26,17 @@ class ArtistInvitationsController < InvitationsController
 
   private
 
-  def set_production
-    @production = Production.find(params[:production_id])
+  def set_to
+    @to = Production.find(params[:production_id])
   end
 
   def set_invitations
-    @invitations = ArtistInvitation.where(to: @production).order(:last_name)
+    @invitations = ArtistInvitation.where(to: @to).order(:last_name)
   end
 
-  def set_role
-    @role = Role.new(production: @production)
-  end
+  # def set_role
+  #   @role = Role.new(production: @production)
+  # end
 
   def invitation_params
     artist_invitation_params

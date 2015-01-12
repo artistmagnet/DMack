@@ -1,5 +1,6 @@
 class Company < ActiveRecord::Base
   has_many :productions
+  has_many :simple_invitations, :as => :to
 
 
   validate :validate_properties

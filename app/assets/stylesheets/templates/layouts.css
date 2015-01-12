@@ -132,3 +132,11 @@
 .label-hint {
     color: #a9a9a9;
 }
+
+.am-notice {
+    color: #41c4dd;
+}
+
+.am-alert {
+    color: #fe4748;
+}

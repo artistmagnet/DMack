@@ -3,93 +3,61 @@
         <div class="col-md-12">
           <div class="panel panel-default">
             <div class="panel-body">
+
+              <% if !flash[:notice].blank? %>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="am-notice m-bottom-20">
+                    <span> <%= flash[:notice] %></span>
+                  </div>
+                </div>
+              </div>
+              <% end %>
+
               <div class="row">
                 <div class="col-md-12">
                   <h4>
-                    <span>Add an Artist to: <%= @production.name %></span>
-                    <%= link_to @production do %>
+                    <span>Add an Artist to: <%= @to.name %></span>
+                    <%= link_to @to do %>
                       <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
                     <% end %>
                   </h4>
                 </div>
               </div>
 
-              <!--<div class="m-bottom-5">-->
-                <!--< % @production.roles.any? do |role| %>-->
-                  <!--<div class="row">-->
-                    <!--<div class="col-md-3">-->
-                      <!--<strong>Listed members</strong>-->
-                    <!--</div>-->
-                    <!--<div class="col-md-9">-->
-                      <!--<strong>Role</strong>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                  <!--< % @production.roles.each do |role| %>-->
-                    <!--<div class="row">-->
-                      <!--<div class="col-md-3">-->
-                        <!--< %= role.resume_name %>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-9">-->
-                        <!--< %= role.name %>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--< % end %>-->
-                <!--< % end %>-->
-              <!--</div>-->
-
-              <!--<div class="m-bottom-20">-->
-                <!--< % if @invitations.any? %>-->
-                  <!--<div class="row">-->
-                    <!--<div class="col-md-3">-->
-                      <!--<strong>Pending invitations</strong>-->
-                    <!--</div>-->
-                    <!--<div class="col-md-9">-->
-                      <!--<strong>Role</strong>-->
-                    <!--</div>-->
-                  <!--</div>-->
-                  <!--< % @invitations.each do |invitation| %>-->
-                    <!--<div class="row">-->
-                      <!--<div class="col-md-3">-->
-                        <!--< %= invitation.full_name %>-->
-                      <!--</div>-->
-                      <!--<div class="col-md-9">-->
-                        <!--< %= invitation.role %>-->
-                      <!--</div>-->
-                    <!--</div>-->
-                  <!--< % end %>-->
-                <!--< % end %>-->
-              <!--</div>-->
 
               <div class="row">
-                <div class="col-md-12 m-bottom-20">
-                  <%= form_for [@production, @role] do %>
-                    <h5>
-                      <span>Link an Artist Magnet member</span>
-                    </h5>
-                    <div class="form-group">
-                      <div class="field">
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <%= collection_select :role, :resume_id, Resume.artists.sort_by{ |resume| resume.name }, :id, :name, {prompt: 'Select artist'}, {class: "form-control chosen-select"} %>
-                          </div>
+                <!--<div class="col-md-12 m-bottom-20">-->
+                  <!--< %= form_for [@production, @role] do %>-->
+                    <!--<h5>-->
+                      <!--<span>Link an Artist Magnet member</span>-->
+                    <!--</h5>-->
+                    <!--<div class="form-group">-->
+                      <!--<div class="field">-->
+                        <!--<div class="row">-->
                           <!--<div class="col-sm-6">-->
-                            <!--< %= text_field :role, :name, {placeholder: "Role", class: "form-control"} %>-->
+                            <!--< %= collection_select :role, :resume_id, Resume.artists.sort_by{ |resume| resume.name }, :id, :name, {prompt: 'Select artist'}, {class: "form-control chosen-select"} %>-->
                           <!--</div>-->
-                          <%= hidden_field_tag 'role[name]', 'N.A.' %>
-                          <%= hidden_field_tag 'role[production_id]', @production.id %>
-                        </div>
-                      </div>
-                    </div>
-                    <%= button_tag 'Update', {class: "btn btn-primary"} %>
-                  <% end %>
-                </div>
+                          <!--&lt;!&ndash;<div class="col-sm-6">&ndash;&gt;-->
+                            <!--&lt;!&ndash;< %= text_field :role, :name, {placeholder: "Role", class: "form-control"} %>&ndash;&gt;-->
+                          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                          <!--< %= hidden_field_tag 'role[name]', 'N.A.' %>-->
+                          <!--< %= hidden_field_tag 'role[production_id]', @production.id %>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                    <!--</div>-->
+                    <!--< %= button_tag 'Update', {class: "btn btn-primary"} %>-->
+                  <!--< % end %>-->
+                <!--</div>-->
+
+
                 <div class="col-md-12">
-                  <%= form_for [@production, @invitation] do |f| %>
-                    <h5>
-                      <span>or invite an Artist to Artist Magnet</span>
-                    </h5>
+                  <%= form_for [@to, @invitation] do |f| %>
+                    <!--<h5>-->
+                      <!--<span>or invite an Artist to Artist Magnet</span>-->
+                    <!--</h5>-->
                     <div class="col-sm-12">
-                      <div class="row">
+                      <div class="row am-alert">
                         <% if @invitation.errors.any? %>
                           <%= content_tag 'div', 'Please review the following:' %>
                           <ul>

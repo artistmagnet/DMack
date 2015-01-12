@@ -1,6 +1,7 @@
 class Venue < ActiveRecord::Base
   has_many :shows
   has_many :productions, :through => :shows
+  has_many :simple_invitations, :as => :to
 
   validate :validate_properties
   validates :email, :primary_contact_email, :email => true
