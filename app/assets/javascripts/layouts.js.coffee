@@ -20,3 +20,6 @@ jQuery ->
   $(".semi-mandatory").each () ->
     $(this).append($('<span class="label-hint">').text("*"));
 
+jQuery ->
+  $(".mandatory label").each () ->
+    $(this).append("*");
