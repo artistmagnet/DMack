@@ -6,7 +6,7 @@
 
               <% if !flash[:notice].blank? %>
               <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-offset-2 col-md-10">
                   <div class="am-notice m-bottom-20">
                     <span> <%= flash[:notice] %></span>
                   </div>
@@ -20,9 +20,9 @@
               <div class="form-group">
                 <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
                   <span>Invite an Artist to <%= @to.name %> on Artist Magnet</span>
-                  <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-2').hide();$('.fade-2').hide();$('#new_director_invitation').trigger('reset');">
-                    <i class="fa fa-undo"></i>
-                  </a>
+                  <%= link_to @to do %>
+                    <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
+                  <% end %>
                 </h3>
               </div>
 
@@ -71,69 +71,6 @@
                   </div>
                 </div>
               <% end %>
-
-
-
-
-              <div class="row">
-                <div class="col-md-12">
-                  <h4>
-                    <span>Add an Artist to: <%= @to.name %></span>
-                    <%= link_to @to do %>
-                      <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
-                    <% end %>
-                  </h4>
-                </div>
-              </div>
-
-
-              <div class="row">
-                <div class="col-md-12">
-                  <%= form_for [@to, @invitation] do |f| %>
-                    <!--<h5>-->
-                      <!--<span>or invite an Artist to Artist Magnet</span>-->
-                    <!--</h5>-->
-                    <div class="col-sm-12">
-                      <div class="row am-alert">
-                        <% if @invitation.errors.any? %>
-                          <%= content_tag 'div', 'Please review the following:' %>
-                          <ul>
-                            <% @invitation.errors.full_messages.each do |error_message| %>
-                              <%= content_tag 'li', error_message %>
-                            <% end %>
-                          </ul>
-                        <% end %>
-                      </div>
-
-                      <div class="row">
-                        <div class="form-group">
-                          <div class="field">
-                            <div class="row">
-                              <div class="col-sm-3">
-                                <%= f.text_field :first_name, {placeholder: "First name", class: "form-control"} %>
-                              </div>
-                              <div class="col-sm-3">
-                                <%= f.text_field :last_name, {placeholder: "Last name", class: "form-control"} %>
-                              </div>
-                              <div class="col-sm-3">
-                                <%= f.text_field :email, {placeholder: "Email", class: "form-control"} %>
-                              </div>
-                              <%= hidden_field_tag 'role[name]', 'N.A.' %>
-                            </div>
-                            <div class="row">
-                              <div class="col-sm-3">
-                                <%= f.text_area :text, {placeholder: "Enter custom text (optional)", class: "form-control"} %>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <%= button_tag 'Send invitation', {class: "btn btn-primary"} %>
-                  <% end %>
-                </div>
-              </div>
 
             </div>
           </div>

@@ -58,7 +58,14 @@
             <div class="row row--productions">
               <% productions = Production.includes(:shows).where(company_id: @company.id).order('shows.date desc').uniq.to_a %>
               <div class="col-md-12">
-                <h4>Productions</h4>
+                <h4>
+                  <span>
+                    Productions
+                  </span>
+                  <%= link_to  company_artist_invitations_path @company do %>
+                    <button class="btn btn-primary pull-right m-top-m6" type="button">Add Artists</button>
+                  <% end %>
+                </h4>
                 <br />
               </div>
               <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>

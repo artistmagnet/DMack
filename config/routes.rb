@@ -78,11 +78,13 @@ Rails.application.routes.draw do
     resources :artist_invitations
   end
 
-  resources :companies
+  resources :companies do
     resources :artist_invitations
+  end
 
-  resources :venues
+  resources :venues do
     resources :artist_invitations
+  end
   post 'section_slots' => 'section_slots#sort', :as => 'sort_section_slots'
 
 end

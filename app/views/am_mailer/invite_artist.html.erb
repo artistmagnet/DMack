@@ -1,13 +1,18 @@
 Dear <%= @invitation.first_name %>:
 <p>
-  I am in the process of completing my professional hyperlinking Resume on <%= link_to "Artist Magnet", root_url %>, and I just added a page for <%= @production.name %>, and remembered that you were involved in that production as well.
+  I am in the process of completing my professional hyperlinking Resume on <%= link_to "Artist Magnet", root_url %>, the theatre revolution, and I just added a <%= @related_entity.class.name %> page for <%= @related_entity.name %>, and remembered that you were involved in <%= @related_entity.class.name == 'Production' ? 'that production as well' : 'a production there' %>.
 </p>
 <p>
-  Will you consider joining <%= link_to "Artist Magnet", root_url %> and building your own professional hyperlinking Resume, then linking our Production Page so we can be linked together?  It's very easy, fun and there’s no cost to you.
+  Will you consider joining <%= link_to "Artist Magnet", root_url %> and building your own professional hyperlinking Resume, then <%= @related_entity.class.name == 'Production' ? 'linking our Production Page so we can be linked together?' : 'adding that Production?' %> It's very easy, fun and there’s no cost to you.
 </p>
 <p>
   Thanks for your help, and see you soon on <%= link_to "Artist Magnet", root_url %>,
 </p>
+<p>
+  <%= @referrer_name %><br />
+  http://www.artistmagnet.com   <br />
+</p>
 <br />
-<%= @referrer_name %><br />
-http://www.artistmagnet.com
+<p>
+  <%= @invitation.text %>
+</p>

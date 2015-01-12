@@ -27,7 +27,9 @@ class ArtistInvitationsController < InvitationsController
   private
 
   def set_to
-    @to = Production.find(params[:production_id])
+    @to ||= Production.find(params[:production_id]) unless params[:production_id].blank?
+    @to ||= Company.find(params[:company_id]) unless params[:company_id].blank?
+    @to ||= Venue.find(params[:venue_id]) unless params[:venue_id].blank?
   end
 
   def set_invitations
@@ -43,7 +45,7 @@ class ArtistInvitationsController < InvitationsController
   end
 
   def artist_invitation_params
-    params.require(:artist_invitation).permit(:first_name, :last_name, :email, :text, :role)
+    params.require(:artist_invitation).permit(:first_name, :last_name, :email, :text)
   end
 
   def send_artist_invitation(invitation)
