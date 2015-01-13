@@ -1,9 +1,12 @@
 class RtablesController < ApplicationController
-  before_action :set_rtable, :only => [:new, :create]
+  before_action :set_rtable, :only => [:create]
   before_action :find_rtable, :only => [:show, :edit, :update]
-  before_action :set_item, :only => [:edit, :new]
+  before_action :set_item, :only => [:show, :edit]
 
   def new
+    @rtable = Rtable.new()
+    # @rtable_item = @rtable.rtable_items.build()
+    @rtable_item = RtableItem.new(:rtable => @rtable)
   end
 
   def index
@@ -41,7 +44,7 @@ class RtablesController < ApplicationController
   end
 
   def set_rtable
-    @rtable = rtable_params ? Rtable.new(rtable_params) : Rtable.new
+    @rtable = Rtable.new(rtable_params)
   end
 
   def find_rtable

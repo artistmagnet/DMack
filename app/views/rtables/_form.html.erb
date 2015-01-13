@@ -35,23 +35,27 @@
 
 <%= form_for [@rtable, @rtable_item] do |f| %>
   <div class="row">
+    <%= hidden_field_tag 'rtable_item[rtable_id]', @rtable.id %>
     <div class="col-md-2">
-      <%= text_field_tag "values[]" %>
+      <%= f.text_field :position %>
     </div>
     <div class="col-md-2">
-      <%= text_field_tag "values[]" %>
+      <%= text_field_tag "rtable_item[values][]" %>
     </div>
     <div class="col-md-2">
-      <%= text_field_tag "values[]" %>
+      <%= text_field_tag "rtable_item[values][]" %>
     </div>
     <div class="col-md-2">
-      <%= text_field_tag "values[]" %>
+      <%= text_field_tag "rtable_item[values][]" %>
     </div>
     <div class="col-md-2">
-      <%= text_field_tag "values[]" %>
+      <%= text_field_tag "rtable_item[values][]" %>
     </div>
     <div class="col-md-2">
-      <%= text_field_tag "values[]" %>
+      <%= text_field_tag "rtable_item[values][]" %>
+    </div>
+    <div class="col-md-2">
+      <%= text_field_tag "rtable_item[values][]" %>
     </div>
   </div>
   <%= f.submit %>

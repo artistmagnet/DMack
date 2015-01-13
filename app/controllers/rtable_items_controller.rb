@@ -23,6 +23,7 @@ class RtableItemsController < ApplicationController
   def create
     @rtable_item = RtableItem.new(rtable_item_params)
     @rtable_item.save
+    @rtable = @rtable_item.rtable
     respond_with(@rtable)
   end
 
@@ -42,6 +43,6 @@ class RtableItemsController < ApplicationController
     end
 
     def rtable_item_params
-      params.permit({values: []}, :position)
+      params.require(:rtable_item).permit({values: []}, :position, :rtable, :rtable_id)
     end
 end
