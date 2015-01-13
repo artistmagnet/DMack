@@ -3,128 +3,74 @@
         <div class="col-md-12">
           <div class="panel panel-default">
             <div class="panel-body">
+
+              <% if !flash[:notice].blank? %>
               <div class="row">
-                <div class="col-md-12">
-                  <h4>
-                    <span>Add an Artist to: <%= @production.name %></span>
-                    <%= link_to @production do %>
-                      <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
-                    <% end %>
-                  </h4>
+                <div class="col-md-offset-2 col-md-10">
+                  <div class="am-notice m-bottom-20">
+                    <span> <%= flash[:notice] %></span>
+                  </div>
                 </div>
               </div>
+              <% end %>
 
-              <div class="m-bottom-5">
-                <% @production.roles.any? do |role| %>
-                  <div class="row">
-                    <div class="col-md-3">
-                      <strong>Listed members</strong>
-                    </div>
-                    <div class="col-md-9">
-                      <strong>Role</strong>
+
+
+
+              <div class="form-group">
+                <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
+                  <span>Invite an Artist to <%= @to.name %> on Artist Magnet</span>
+                  <%= link_to @to do %>
+                    <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
+                  <% end %>
+                </h3>
+              </div>
+
+              <%= form_for([@to, @invitation], html: {class: 'form-horizontal'}) do |f| %>
+                <%= render 'layouts/includes/error_explanation', entity: @invitation, offset: 2, span: 10, display: (@invitation.errors.empty? ? 'none' : 'block')  %>
+
+                <div class="form-group">
+                  <div class="mandatory field">
+                    <%= f.label :first_name, {class: "col-sm-2 control-label"} %>
+                    <div class="col-sm-10">
+                      <%= f.text_field :first_name, {class: 'form-control', placeholder: 'Enter First Name'} %>
                     </div>
                   </div>
-                  <% @production.roles.each do |role| %>
-                    <div class="row">
-                      <div class="col-md-3">
-                        <%= role.resume_name %>
-                      </div>
-                      <div class="col-md-9">
-                        <%= role.name %>
-                      </div>
-                    </div>
-                  <% end %>
-                <% end %>
-              </div>
-
-              <div class="m-bottom-20">
-                <% if @invitations.any? %>
-                  <div class="row">
-                    <div class="col-md-3">
-                      <strong>Pending invitations</strong>
-                    </div>
-                    <div class="col-md-9">
-                      <strong>Role</strong>
+                </div>
+                <div class="form-group">
+                  <div class="mandatory field">
+                    <%= f.label :last_name, {class: "col-sm-2 control-label"} %>
+                    <div class="col-sm-10">
+                      <%= f.text_field :last_name, {class: 'form-control', placeholder: 'Enter Last Name'} %>
                     </div>
                   </div>
-                  <% @invitations.each do |invitation| %>
-                    <div class="row">
-                      <div class="col-md-3">
-                        <%= invitation.full_name %>
-                      </div>
-                      <div class="col-md-9">
-                        <%= invitation.role %>
-                      </div>
-                    </div>
-                  <% end %>
-                <% end %>
-              </div>
-
-              <div class="row">
-                <div class="col-md-12 m-bottom-20">
-                  <%= form_for [@production, @role] do %>
-                    <h5>
-                      <span>Link an Artist Magnet member</span>
-                    </h5>
-                    <div class="form-group">
-                      <div class="field">
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <%= collection_select :role, :resume_id, Resume.artists.sort_by{ |resume| resume.name }, :id, :name, {prompt: 'Select artist'}, {class: "form-control chosen-select"} %>
-                          </div>
-                          <div class="col-sm-6">
-                            <%= text_field :role, :name, {placeholder: "Role", class: "form-control"} %>
-                          </div>
-                          <%= hidden_field_tag 'role[production_id]', @production.id %>
-                        </div>
-                      </div>
-                    </div>
-                    <%= button_tag 'Update', {class: "btn btn-primary"} %>
-                  <% end %>
                 </div>
-                <div class="col-md-12">
-                  <%= form_for [@production, @invitation] do |f| %>
-                    <h5>
-                      <span>or invite an Artist to Artist Magnet</span>
-                    </h5>
-                    <div class="col-sm-12">
-                      <div class="row">
-                        <% if @invitation.errors.any? %>
-                          <%= content_tag 'div', 'Please review the following:' %>
-                          <ul>
-                            <% @invitation.errors.full_messages.each do |error_message| %>
-                              <%= content_tag 'li', error_message %>
-                            <% end %>
-                          </ul>
-                        <% end %>
-                      </div>
-
-                      <div class="row">
-                        <div class="form-group">
-                          <div class="field">
-                            <div class="row">
-                              <div class="col-sm-3">
-                                <%= f.text_field :first_name, {placeholder: "First name", class: "form-control"} %>
-                              </div>
-                              <div class="col-sm-3">
-                                <%= f.text_field :last_name, {placeholder: "Last name", class: "form-control"} %>
-                              </div>
-                              <div class="col-sm-3">
-                                <%= f.text_field :email, {placeholder: "Email", class: "form-control"} %>
-                              </div>
-                              <div class="col-sm-3">
-                                <%= f.text_field :role, {placeholder: "Role", class: "form-control"} %>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+                <div class="form-group">
+                  <div class="mandatory field">
+                    <%= f.label :email, {class: "col-sm-2 control-label"} %>
+                    <div class="col-sm-10">
+                      <%= f.text_field :email, {class: 'form-control', placeholder: 'Enter Email'} %>
                     </div>
-
-                    <%= button_tag 'Send invitation', {class: "btn btn-primary"} %>
-                  <% end %>
+                  </div>
                 </div>
-              </div>
+                <div class="form-group">
+                  <div class="field">
+                    <%= f.label :text, {class: "col-sm-2 control-label"} %>
+                    <div class="col-sm-10 m-bottom-5">
+                      <%= f.text_area :text, {class: 'form-control', placeholder: 'Enter custom text (optional)'}  %>
+                    </div>
+                  </div>
+                </div>
+                <div class="actions form-group">
+                  <div class="actions">
+                    <span class="col-sm-2">
+                    </span>
+                    <span class="col-sm-2">
+                      <%= f.submit 'Send invitation', {class: "btn btn-primary"} %>
+                    </span>
+                  </div>
+                </div>
+              <% end %>
 
             </div>
           </div>

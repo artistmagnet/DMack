@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/gior/chosen-rails.git
-  revision: f42a570e4f1916e6257745e23f0d668e7184ce5c
+  revision: 737608e506f5d28d08ae05a4dbccb5217bc9df1e
   branch: master
   specs:
     chosen-rails (1.2.0.j)
@@ -38,8 +38,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
-    acts_as_list (0.5.0)
-      activerecord (>= 3.0)
+    addressable (2.3.6)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.9)
     builder (3.2.2)
@@ -109,6 +108,8 @@ GEM
     jquery-ui-rails (5.0.2)
       railties (>= 3.2.16)
     json (1.8.1)
+    launchy (2.4.3)
+      addressable (~> 2.3)
     listen (2.8.0)
       celluloid (>= 0.15.2)
       rb-fsevent (>= 0.9.3)
@@ -231,7 +232,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  acts_as_list
   capybara
   chosen-rails (= 1.2.0.j)!
   coffee-rails (~> 4.0.0)
@@ -242,6 +242,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails
+  launchy
   pg
   poltergeist
   rails (= 4.1.8)

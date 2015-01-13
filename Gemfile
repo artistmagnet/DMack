@@ -34,6 +34,7 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'guard-rspec'
   gem 'capybara'
+  gem 'launchy'
   gem 'poltergeist'
   gem 'factory_girl_rails', "~> 4.0", group: :test
   gem 'database_cleaner'
@@ -59,5 +60,5 @@ gem 'thin'
 # gem 'activeadmin', github: 'activeadmin'
 
 gem 'devise'
+# gem 'chosen-rails', '1.2.0.j', :git => 'https://github.com/gior/chosen-rails.git', :branch => 'feature/vanilla-search'
 gem 'chosen-rails', '1.2.0.j', :git => 'https://github.com/gior/chosen-rails.git', :branch => 'master'
-gem 'acts_as_list'

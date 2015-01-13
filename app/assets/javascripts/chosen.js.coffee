@@ -58,8 +58,8 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
 
 
 popupModal = (selector) ->
-  $(selector + ' + .fade').height($(document).height()).show()
   $(selector).show()
+  $(selector + ' + .fade').height($(document).height()).show()
 
 #tells the 'add as new' link of the select to open targetScope and populate targetfieldle
 setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
@@ -111,14 +111,16 @@ jQuery ->
 # invalid data
 jQuery ->
   $(document).bind "ajaxError", '#add-resume-role', (event, jqxhr, settings, exception) ->
-    $entity_form = $(event.data)
-    $error_container = $("#error_explanation", $entity_form)
-    $error_container_ul = $("ul", $error_container)
-    $error_container.show()  if $error_container.is(":hidden")
-    if $("li", $error_container_ul).length
-      $("li", $error_container_ul).remove()
-    $.each jqxhr.responseJSON, (index, message) ->
-      $("<li>").html(message).appendTo $error_container_ul
+    if event.data == selectChain[selectChain.length-1]
+      $entity_form = $(event.data)
+      $error_container = $(".error_explanation", $entity_form)
+      $error_container_ul = $("ul", $error_container)
+      $error_container.show()  if $error_container.is(":hidden")
+      if $("li", $error_container_ul).length
+        $("li", $error_container_ul).remove()
+      $.each jqxhr.responseJSON, (index, message) ->
+        $("<li>").html(message).appendTo $error_container_ul
+      scrollElementToLocation('html, body', '#add-resume-role .error_explanation')
 
   # valid data
   $(document).bind "ajaxSuccess", '#add-resume-role', (event, xhr, settings) ->
@@ -126,7 +128,7 @@ jQuery ->
 #    console.log('was res log')
     $entity_form = $(event.data)
     $entity_form_frame = $(event.data.concat(' + .fade'))
-    $error_container = $("#error_explanation", $entity_form)
+    $error_container = $(".error_explanation", $entity_form)
     $error_container_ul = $("ul", $error_container)
     if selectChain.length >= 2 && event.data == selectChain[selectChain.length-2]
       if $("li", $error_container_ul).length
@@ -160,7 +162,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
     $(create_scope_selector+' + .fade').height($(document).height()).show()
     selectChain.push(create_scope_selector)
     #clear errors
-    $error_container = $("#error_explanation", create_scope_selector)
+    $error_container = $(".error_explanation", create_scope_selector)
     $error_container_ul = $("ul", $error_container)
     $error_container.hide()  if $error_container.is(":visible")
     if $("li", $error_container_ul).length
@@ -171,17 +173,18 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
     if event.data == selectChain[selectChain.length-1]
       $entity_form = $(event.data)
       $entity_form_frame = $(event.data.concat(' + .fade'))
-      $error_container = $("#error_explanation", $entity_form)
+      $error_container = $(".error_explanation", $entity_form)
       $error_container_ul = $("ul", $error_container)
-#      if $("li", $error_container_ul).length
+#      if $("li", $error_container_ul).length              TODO: check this
 #        $("li", $error_container_ul).remove()
       $entity_form.hide()
       $entity_form_frame.hide()
       entId = xhr.responseJSON.id
       entName = xhr.responseJSON.name
+#      console.log( "entid: " +entId + ", entName: " + entName)
       $select = $(select_selector, $(origin_scope_selector))
       if $select.length
-        $select.append(String.concat("<option value=", entId, " selected='selected'>", entName, "</option>"));
+        $select.append("<option value=" + entId + " selected='selected'>" + entName + "</option>");
         # rerender
         $select.trigger("change");
         $select.trigger("chosen:updated");
@@ -189,14 +192,16 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 
   $(document).bind "ajaxError", create_scope_selector, (event, jqxhr, settings, exception) ->
     $entity_form = $(event.data)
+#    console.log event.data
     if event.data == selectChain[selectChain.length-1]
-      $error_container = $("#error_explanation", $entity_form)
+      $error_container = $entity_form.find(".error_explanation")
       $error_container_ul = $("ul", $error_container)
       $error_container.show()  if $error_container.is(":hidden")
       if $("li", $error_container_ul).length
         $("li", $error_container_ul).remove()
       $.each jqxhr.responseJSON, (index, message) ->
         $("<li>").html(message).appendTo $error_container_ul
+      scrollElementToLocation('html, body', event.data + ' .error_explanation')
 
 
 
@@ -211,4 +216,15 @@ addAlertTo = (selector, message) ->
   $(selector).click () ->
     alert(message)
 
+#reset form on back
+jQuery ->
+  $('.fa-undo').closest('.back-link').click ->
+    $form = $(this).closest('.overlay').find('form')
+    $form.trigger('reset')
+    $form.find('.chosen-select').trigger('chosen:updated')
 
+
+scrollElementToLocation = (elementSelector, targetSelector, duration) ->
+  $(elementSelector).animate({
+    scrollTop: $(targetSelector).offset().top
+  }, duration);

@@ -25,9 +25,14 @@ en:
   activerecord:
     attributes:
       director_invitation:
-        first_name: "First name*"
-        last_name: "Last name*"
-        email: "Email*"
+        first_name: "First name"
+        last_name: "Last name"
+        email: "Email"
+        text: "Custom text"
+      artist_invitation:
+        first_name: "First name"
+        last_name: "Last name"
+        email: "Email"
         text: "Custom text"
       "production/shows":
         operning_date: "Opening date"
@@ -41,13 +46,18 @@ en:
         production_id: "Production*"
       company:
         name: "Name*"
-        primary_contact_name: "Contact name*"
+        email: "Company Email"
+        primary_contact_name: "Primary contact name*"
+        city: "City*"
+        country: "Country*"
         addr_fb: 'Facebook page address'
         addr_tw: 'Twitter page address'
         addr_ins: 'Instagram page address'
         addr_lin: 'LinkedIn page address'
       venue:
         name: "Name*"
+        email: "Venue Email"
+        city: "City*"
         country: "Country*"
         addr_fb: 'Facebook page address'
         addr_tw: 'Twitter page address'

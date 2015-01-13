@@ -3,7 +3,7 @@
   <div class="panel-body">
     <h3 class="col-md-offset-4 col-md-8 m-bottom-20">
       <span>Add a new Company</span>
-      <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-3').hide();$('.fade-3').hide();$('#new_company').trigger('reset');">
+      <a class="pull-right back-link" href="javascript:void(0)" onclick="$('.overlay-3').hide();$('.fade-3').hide();$('#new_company').trigger('reset');">
         <i class="fa fa-undo"></i>
       </a>
     </h3>
@@ -22,9 +22,84 @@
       </div>
       <div class="form-group">
         <div class="field">
+          <%= f.label :year_founded, {class: "col-sm-4 control-label"} %>
+          <div class="col-sm-8">
+            <%# f.text_field  :year_founded, {class: 'form-control', placeholder: 'Enter Name'} %>
+            <%= f.select :year_founded, (1950..Time.now.year).collect {|y| [y, y] }, {include_blank: true, placeholder: 'Enter Year'}, {class: 'form-control essential chosen-select'} %>
+            <%# select_tag  'venue[year_founded]', options_for_select([1950..Time.now.year], ""), {class: 'form-control essential chosen-select'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :address1, {class: "col-sm-4 control-label"} %>
+          <div class="col-sm-8">
+            <%= f.text_field  :address1 , {class: 'form-control', placeholder: 'Enter Address'}%>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :address2, {class: "col-sm-4 control-label"} %>
+          <div class="col-sm-8">
+            <%= f.text_field  :address2, {class: 'form-control', placeholder: 'Enter Address (cont.)'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :city, {class: "col-sm-4 control-label"} %>
+          <div class="col-sm-8">
+            <%= f.text_field  :city, {class: 'form-control', placeholder: 'Enter City'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :zipcode, {class: "col-sm-4 control-label"} %>
+          <div class="col-sm-8">
+            <%= f.text_field  :zipcode, {class: 'form-control', placeholder: 'Enter ZIP code'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :state, {class: "col-sm-4 control-label semi-mandatory", title: "Required for US companies"} %>
+          <div class="col-sm-8">
+            <%= select_tag 'company[state]', options_for_select(Topo.us_state_options), {class: 'form-control essential chosen-select', prompt: '--'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :country, {class: "col-sm-4 control-label"} %>
+          <div class="col-sm-8">
+            <%= select_tag  'company[country]', options_for_select(Topo.country_options, "United States"), {class: 'form-control essential chosen-select'} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div class="field">
           <%= f.label :primary_contact_name, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%= f.text_field  :primary_contact_name, {class: 'form-control', placeholder: 'Enter Contact'} %>
+            <%= f.text_field  :primary_contact_name, {class: 'form-control', placeholder: 'Enter Primary contact name'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :primary_contact_email, {class: "col-sm-4 control-label"} %>
+          <div class="col-sm-8">
+            <%= f.text_field  :primary_contact_email, {class: 'form-control', placeholder: 'Enter Primary contact email'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :primary_contact_phone, {class: "col-sm-4 control-label"} %>
+          <div class="col-sm-8">
+            <%= f.text_field  :primary_contact_phone, {class: 'form-control', placeholder: 'Enter Primary contact phone'} %>
           </div>
         </div>
       </div>
@@ -46,7 +121,15 @@
       </div>
       <div class="form-group">
         <div class="field">
-          <%= f.label :addr_fb, {class: "col-sm-4 control-label"} %>
+          <%= f.label :phone, {class: "col-sm-4 control-label"} %>
+          <div class="col-sm-8">
+            <%= f.text_field :phone, {class: 'form-control', placeholder: 'Enter Phone'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+          <%= f.label :addr_fb, {class: "col-sm-4 control-label", title: "Will be used as link. Use a valid page address"} %>
           <div class="col-sm-8">
             <%= f.text_field :addr_fb, {class: 'form-control', placeholder: 'Enter Facebook page address'} %>
           </div>
@@ -54,7 +137,7 @@
       </div>
       <div class="form-group">
         <div class="field">
-          <%= f.label :addr_tw, {class: "col-sm-4 control-label"} %>
+          <%= f.label :addr_tw, {class: "col-sm-4 control-label", title: "Please enter an address beginning with http:// or https://"} %>
           <div class="col-sm-8">
             <%= f.text_field :addr_tw, {class: 'form-control', placeholder: 'Enter Twitter page address'} %>
           </div>
@@ -62,17 +145,9 @@
       </div>
       <div class="form-group">
         <div class="field">
-          <%= f.label :addr_ins, {class: "col-sm-4 control-label"} %>
+          <%= f.label :website, {class: "col-sm-4 control-label", title: "Please enter an address beginning with http:// or https://"} %>
           <div class="col-sm-8">
-            <%= f.text_field :addr_ins, {class: 'form-control', placeholder: 'Enter Instagram page address'} %>
-          </div>
-        </div>
-      </div>
-      <div class="form-group">
-        <div class="field">
-          <%= f.label :addr_lin, {class: "col-sm-4 control-label"} %>
-          <div class="col-sm-8">
-            <%= f.text_field :addr_lin, {class: 'form-control', placeholder: 'Enter LinkedIn page address'} %>
+            <%= f.text_field :website, {class: 'form-control', placeholder: 'Enter website address'} %>
           </div>
         </div>
       </div>
