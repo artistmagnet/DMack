@@ -22,7 +22,8 @@
           <div class="col-md-12">
             <i class="fa fa-arrows pull-right text-pale top-right-handle"></i>
             <h4>
-              <span>Education</span>
+              <span><%= section_slot.section.title %></span>
+              <!--< %= link_to SectionSlot.edit_section_path(section_slot.section) do %>-->
               <%= link_to edit_education_table_path(section_slot.section) do %>
                 <button type="button" class="btn btn-primary pull-right m-top-m6">Edit</button>
               <% end %>
@@ -48,26 +49,28 @@
                 <strong><%= table.columns[table.positions[5]-1] %></strong>
               </div>
             </div>
-            <div class="h-movable row">
-              <div class="col-md-2">
-                text 1
+            <% table.rtable_items.each do |line| %>
+              <div class="h-movable row">
+                <div class="col-md-2">
+                  <%= line.values[0] %>
+                </div>
+                <div class="col-md-2">
+                  <%= line.values[1] %>
+                </div>
+                <div class="col-md-2">
+                  <%= line.values[2] %>
+                </div>
+                <div class="col-md-2">
+                  <%= line.values[3] %>
+                </div>
+                <div class="col-md-2">
+                  <%= line.values[4] %>
+                </div>
+                <div class="col-md-2">
+                  <%= line.values[5] %>
+                </div>
               </div>
-              <div class="col-md-2">
-                text 2
-              </div>
-              <div class="col-md-2">
-                text 3
-              </div>
-              <div class="col-md-2">
-                text 4
-              </div>
-              <div class="col-md-2">
-                text 5
-              </div>
-              <div class="col-md-2">
-                text 6
-              </div>
-            </div>
+            <% end %>
           </div>
         </div>
       </div>
