@@ -23,8 +23,8 @@
             <i class="fa fa-arrows pull-right text-pale top-right-handle"></i>
             <h4>
               <span><%= section_slot.section.title %></span>
-              <!--< %= link_to SectionSlot.edit_section_path(section_slot.section) do %>-->
-              <%= link_to edit_education_table_path(section_slot.section) do %>
+              <%= link_to edit_polymorphic_path(section_slot.section) do %>
+              <!--< %= link_to edit_education_table_path(section_slot.section) do %>-->
                 <button type="button" class="btn btn-primary pull-right m-top-m6">Edit</button>
               <% end %>
             </h4>
