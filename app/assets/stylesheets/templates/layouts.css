@@ -145,3 +145,9 @@
     width: 100%;
     border: none;
 }
+
+.top-right-handle {
+    cursor: move;
+    margin-right: -13px;
+    margin-top: -10px;
+}

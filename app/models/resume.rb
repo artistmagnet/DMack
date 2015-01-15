@@ -1,4 +1,6 @@
 class Resume < ActiveRecord::Base
+  after_save :add_education_table
+
   scope :directors, -> {all.uniq}
   scope :artists,   -> {all}
 
@@ -29,5 +31,16 @@ class Resume < ActiveRecord::Base
   def name
     user.full_name
   end
+
+  def add_education_table
+    table = EducationTable.create(title: 'Education', columns: '{School,City,State,Country,Degree,Year}', positions: '{1,2,3,4,5,6}')
+    SectionSlot.create(section_id: table.id, section_type: 'Rtable', resume_id: id, position: 1)
+  end
+
+  # def add_rtable
+  #   table = rtable.create(title: 'Other', columns: '{Column 1,Column 2,Column 3,Column 4,Column 5,Column 6}', positions: '{1,2,3,4,5,6}')
+  #   max_pos = SectionSlot.where('resume_id = ?', id).maximum("position")
+  #   SectionSlot.create(section_id: table.id, section_type: 'Rtable', resume_id: id, position: max_pos + 1)
+  # end
 
 end

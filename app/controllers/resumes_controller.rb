@@ -38,6 +38,7 @@ class ResumesController < ApplicationController
 
     respond_to do |format|
       if @resume.save
+        # add_education_table(@resume)  #moved to model
         format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully created'}
         format.json { render json: @resume}
       else
@@ -66,6 +67,11 @@ class ResumesController < ApplicationController
       format.html { redirect_to resumes_url, notice: 'Resume was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+
+  def add_table
+    @resume.add_rtable
   end
 
 
@@ -126,6 +132,11 @@ class ResumesController < ApplicationController
   def new_director_invitation
     @invitation = @production.director_invitations.build(by: @resume.user)
   end
+
+  # def add_education_table(resume)
+  #   table = EducationTable.create(title: 'Education', columns: '{School,City,State,Country,Degree,Year}', positions: '{1,2,3,4,5,6}')
+  #   SectionSlot.create(section_id: table.id, section_type: 'Rtable', resume_id: resume.id, position: 1)
+  # end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def resume_params
