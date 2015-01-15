@@ -32,10 +32,11 @@ class RtablesController < ApplicationController
   def update
     respond_to do |format|
       if @rtable.update(rtable_params)
-        format.html { redirect_to @rtable, notice: 'Table updated' }
+        format.html { redirect_to edit_polymorphic_path(@rtable), notice: 'Table updated' }
       else
         format.html { render :edit }
       end
+
     end
   end
 
