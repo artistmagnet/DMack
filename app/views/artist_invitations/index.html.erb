@@ -4,18 +4,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
 
-              <% if !flash[:notice].blank? %>
-              <div class="row">
-                <div class="col-md-offset-2 col-md-10">
-                  <div class="am-notice m-bottom-20">
-                    <span> <%= flash[:notice] %></span>
-                  </div>
-                </div>
-              </div>
-              <% end %>
-
-
-
+              <%= render partial: 'layouts/includes/notice' %>
 
               <div class="form-group">
                 <h3 class="col-md-offset-2 col-md-10 m-bottom-20">

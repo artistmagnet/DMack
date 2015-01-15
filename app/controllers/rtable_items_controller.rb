@@ -23,18 +23,17 @@ class RtableItemsController < ApplicationController
   def create
     @rtable_item = RtableItem.new(rtable_item_params)
     @rtable_item.save
-    @rtable = @rtable_item.rtable
-    respond_with(@rtable)
+    redirect_to edit_polymorphic_path(@rtable_item.rtable)
   end
 
-  def update
-    @rtable_item.update(rtable_item_params)
-    respond_with(@rtable)
-  end
+  # def update
+  #   @rtable_item.update(rtable_item_params)
+  #   respond_with(@rtable)
+  # end
 
   def destroy
     @rtable_item.destroy
-    respond_with(@rtable_item)
+    redirect_to edit_polymorphic_path(@rtable_item.rtable)
   end
 
   private

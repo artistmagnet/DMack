@@ -29,46 +29,15 @@
               <% end %>
             </h4>
             <br>
-            <div class="row">
-              <div class="col-md-2">
-                <strong><%= table.columns[table.positions[0]-1] %></strong>
-              </div>
-              <div class="col-md-2">
-                <strong><%= table.columns[table.positions[1]-1] %></strong>
-              </div>
-              <div class="col-md-2">
-                <strong><%= table.columns[table.positions[2]-1] %></strong>
-              </div>
-              <div class="col-md-2">
-                <strong><%= table.columns[table.positions[3]-1] %></strong>
-              </div>
-              <div class="col-md-2">
-                <strong><%= table.columns[table.positions[4]-1] %></strong>
-              </div>
-              <div class="col-md-2">
-                <strong><%= table.columns[table.positions[5]-1] %></strong>
-              </div>
-            </div>
+            <%= render partial: 'rtables/columns', locals: {table: table} %>
+
             <% table.rtable_items.each do |line| %>
               <div class="h-movable row">
-                <div class="col-md-2">
-                  <%= line.values[0] %>
-                </div>
-                <div class="col-md-2">
-                  <%= line.values[1] %>
-                </div>
-                <div class="col-md-2">
-                  <%= line.values[2] %>
-                </div>
-                <div class="col-md-2">
-                  <%= line.values[3] %>
-                </div>
-                <div class="col-md-2">
-                  <%= line.values[4] %>
-                </div>
-                <div class="col-md-2">
-                  <%= line.values[5] %>
-                </div>
+                <% line.values.each do |cell| %>
+                  <div class="col-md-2">
+                    <%= cell %>
+                  </div>
+                <% end %>
               </div>
             <% end %>
           </div>

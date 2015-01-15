@@ -140,3 +140,8 @@
 .am-alert {
     color: #fe4748;
 }
+
+.inline-table-input {
+    width: 100%;
+    border: none;
+}

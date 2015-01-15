@@ -23,3 +23,15 @@ jQuery ->
 jQuery ->
   $(".mandatory label").each () ->
     $(this).append("*");
+
+
+jQuery ->
+  $(".column-partial-input").keyup () ->
+    updateColumnField()
+
+updateColumnField = () ->
+  $textArray = []
+  $(".column-partial-input").each (index, element) ->
+    $textArray.push element.value
+    console.log(element.value)
+  $(".column-input").val('{' + $textArray.join(', ') + '}')
