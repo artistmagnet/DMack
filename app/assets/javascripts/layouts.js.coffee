@@ -34,4 +34,4 @@ updateColumnField = () ->
   $(".column-partial-input").each (index, element) ->
     $textArray.push element.value
     console.log(element.value)
-  $(".column-input").val('{' + $textArray.join(', ') + '}')
+  $(".column-input").val('{' + $textArray.join(',') + '}')

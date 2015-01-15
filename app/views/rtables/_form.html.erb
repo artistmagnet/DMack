@@ -55,7 +55,7 @@
             <div class="row">
               <!--<div class="form-group">-->
               <div class="col-md-2 form-control" style="width: 16.667%">
-                <%= text_field_tag "rtable_item[values][]", nil, class: "inline-table-input", placeholder: "Enter credit" %>
+                <%= text_field_tag "rtable_item[values][]", nil, class: "inline-table-input", placeholder: "Enter new credit" %>
               </div>
               <div class="col-md-2 form-control" style="width: 16.667%">
                 <%= text_field_tag "rtable_item[values][]", nil, class: "inline-table-input", placeholder: "..." %>
@@ -74,7 +74,7 @@
               </div>
               <!--</div>-->
             </div>
-            <%= f.submit 'Add credit', class: "btn btn-primary m-top-10" %>
+            <%= f.submit 'Save new credit', class: "btn btn-primary m-top-10" %>
           <% end %>
 
         </div>
@@ -102,14 +102,65 @@
             </div>
           </div>
 
-          <%= form_for @rtable, html: {class: 'form-inline'} do |f| %>
+          <%= form_for @rtable do |f| %>
+            <!--< %= form_for @rtable, html: {class: 'form-inline'} do |f| %>-->
             <%= render 'layouts/includes/error_explanation', entity: @rtable, offset: 2, span: 10, display: (@rtable.errors.empty? ? 'none' : 'block')  %>
 
             <div class="form-group">
-              <div class="mandatory field">
+              <!--<div class="mandatory field">-->
+                <div class="field">
                 <%= f.label :title, {class: "col-sm-2 control-label"} %>
                 <div class="col-sm-10">
                   <%= f.text_field :title, {class: 'form-control', placeholder: 'Enter Title'} %>
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="field">
+                <%= f.label 'column 1 ', {class: "col-sm-2 control-label"} %>
+                <div class="col-sm-10">
+                  <%= text_field_tag "columns[]", @rtable.columns[0], class: "form-control column-partial-input", placeholder: "Enter columns" %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="field">
+                <%= f.label 'column 2', {class: "col-sm-2 control-label"} %>
+                <div class="col-sm-10">
+                  <%= text_field_tag "partial[]", @rtable.columns[1], class: "form-control column-partial-input", placeholder: "..." %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="field">
+                <%= f.label 'column 3', {class: "col-sm-2 control-label"} %>
+                <div class="col-sm-10">
+                  <%= text_field_tag "partial[]", @rtable.columns[2], class: "form-control column-partial-input", placeholder: "..." %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="field">
+                <%= f.label 'column 4', {class: "col-sm-2 control-label"} %>
+                <div class="col-sm-10">
+                  <%= text_field_tag "partial[]", @rtable.columns[3], class: "form-control column-partial-input", placeholder: "..." %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="field">
+                <%= f.label 'column 5', {class: "col-sm-2 control-label"} %>
+                <div class="col-sm-10">
+                  <%= text_field_tag "partial[]", @rtable.columns[4], class: "form-control column-partial-input", placeholder: "..." %>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="field">
+                <%= f.label 'column 6', {class: "col-sm-2 control-label"} %>
+                <div class="col-sm-10">
+                  <%= text_field_tag "partial[]", @rtable.columns[5], class: "form-control column-partial-input", placeholder: "..." %>
                 </div>
               </div>
             </div>
@@ -119,36 +170,11 @@
             <!--</div>-->
             <%= f.hidden_field :columns, class: 'column-input' %>
 
-            <div class="row">
-              <!--<div class="form-group">-->
-              <div class="col-md-2 form-control" style="width: 16.667%">
-                <%= text_field_tag "columns[]", @rtable.columns[0], class: "inline-table-input column-partial-input", placeholder: "Enter columns" %>
-              </div>
-              <div class="col-md-2 form-control" style="width: 16.667%">
-                <%= text_field_tag "columns[]", @rtable.columns[1], class: "inline-table-input column-partial-input", placeholder: "..." %>
-              </div>
-              <div class="col-md-2 form-control" style="width: 16.667%">
-                <%= text_field_tag "columns[]", @rtable.columns[2], class: "inline-table-input column-partial-input", placeholder: "..." %>
-              </div>
-              <div class="col-md-2 form-control" style="width: 16.667%">
-                <%= text_field_tag "columns[]", @rtable.columns[3], class: "inline-table-input column-partial-input", placeholder: "..." %>
-              </div>
-              <div class="col-md-2 form-control" style="width: 16.667%">
-                <%= text_field_tag "columns[]", @rtable.columns[4], class: "inline-table-input column-partial-input", placeholder: "..." %>
-              </div>
-              <div class="col-md-2 form-control" style="width: 16.667%">
-                <%= text_field_tag "columns[]", @rtable.columns[5], class: "inline-table-input column-partial-input", placeholder: "..." %>
-              </div>
-              <!--</div>-->
-            </div>
-
-
             <div class="field">
-              <%= f.label :positions %><br>
-              <%= f.text_field :positions %>
+              <%= f.hidden_field :positions %>
             </div>
             <div class="actions">
-              <%= f.submit %>
+              <%= f.submit 'Save configuration', class: 'btn btn-primary' %>
             </div>
           <% end %>
 
