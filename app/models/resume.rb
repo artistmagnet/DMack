@@ -10,7 +10,7 @@ class Resume < ActiveRecord::Base
   has_many :section_slots, -> { order('position ASC') }, :dependent => :destroy
   # has_one  :education_table, :dependent => :destroy
   # has_one  :skill_list, :dependent => :destroy
-  # has_many :custom_tables, :dependent => :destroy
+  has_many :rtables, :through => :section_slots, :dependent => :destroy
   # has_many :custom_lists,  :dependent => :destroy
 
   accepts_nested_attributes_for :roles, allow_destroy: true, reject_if: :all_blank

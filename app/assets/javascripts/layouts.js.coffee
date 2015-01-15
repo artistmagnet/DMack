@@ -3,7 +3,7 @@ jQuery ->
   $(".has-submenu").click (e) ->
     $(this).toggleClass("active")
 
-
+#
 #jQuery ->
 #  #Allow section movement
 #  $('#section_slot').sortable(

@@ -7,13 +7,6 @@
             <h4>
               <span><%= section_slot.id %></span>
             </h4>
-            <br />
-            <p>
-              <% table = section_slot.section %>
-              <%= table.columns %>
-              <%= table.columns[0] %>
-              <%= table.columns[1] %>
-            </p>
           </div>
         </div>
       </div>
@@ -29,9 +22,9 @@
               <% end %>
             </h4>
             <br>
-            <%= render partial: 'rtables/columns', locals: {table: table} %>
+            <%= render partial: 'rtables/columns', locals: {table: section_slot.section} %>
 
-            <% table.rtable_items.each do |line| %>
+            <% section_slot.section.rtable_items.each do |line| %>
               <div class="h-movable row">
                 <% line.values.each do |cell| %>
                   <div class="col-md-2">
