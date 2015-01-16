@@ -37,10 +37,10 @@ class Resume < ActiveRecord::Base
     SectionSlot.create(section_id: table.id, section_type: 'Rtable', resume_id: id, position: 1)
   end
 
-  # def add_rtable
-  #   table = rtable.create(title: 'Other', columns: '{Column 1,Column 2,Column 3,Column 4,Column 5,Column 6}', positions: '{1,2,3,4,5,6}')
-  #   max_pos = SectionSlot.where('resume_id = ?', id).maximum("position")
-  #   SectionSlot.create(section_id: table.id, section_type: 'Rtable', resume_id: id, position: max_pos + 1)
-  # end
+  def add_rtable
+    table = Rtable.create(title: 'Other', columns: '{Column 1,Column 2,Column 3,Column 4,Column 5,Column 6}', positions: '{1,2,3,4,5,6}')
+    max_pos = SectionSlot.where('resume_id = ?', id).maximum("position")
+    SectionSlot.create(section_id: table.id, section_type: 'Rtable', resume_id: id, position: max_pos + 1)
+  end
 
 end

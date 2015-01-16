@@ -93,4 +93,6 @@ Rails.application.routes.draw do
   end
   post 'section_slots' => 'section_slots#sort', :as => 'sort_section_slots'
 
+  post '/resumes/:id/add_table' => 'resumes#add_table', :as => 'add_resume_table'
+
 end
