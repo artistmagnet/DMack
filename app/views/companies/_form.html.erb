@@ -24,8 +24,8 @@
         <div class="field">
           <%= f.label :year_founded, {class: "col-sm-4 control-label"} %>
           <div class="col-sm-8">
-            <%# f.text_field  :year_founded, {class: 'form-control', placeholder: 'Enter Name'} %>
-            <%= f.select :year_founded, (1950..Time.now.year).collect {|y| [y, y] }, {include_blank: true, placeholder: 'Enter Year'}, {class: 'form-control essential chosen-select'} %>
+            <%= f.text_field  :year_founded, {class: 'form-control', placeholder: 'Enter Year'} %>
+            <%# f.select :year_founded, (1950..Time.now.year).collect {|y| [y, y] }, {include_blank: true, placeholder: 'Enter Year'}, {class: 'form-control essential chosen-select'} %>
             <%# select_tag  'venue[year_founded]', options_for_select([1950..Time.now.year], ""), {class: 'form-control essential chosen-select'} %>
           </div>
         </div>
