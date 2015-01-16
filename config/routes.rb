@@ -62,7 +62,9 @@ Rails.application.routes.draw do
   resources :resumes do
     resources :roles
   end
-  get '/resumes/:id/edit/:role_id' => 'resumes#edit_with_role', :as => 'edit_resume_with_role'
+  get    '/resumes/:id/edit/:role_id'  => 'resumes#edit_with_role', :as => 'edit_resume_with_role'
+  post   '/resumes/:id/add_table'      => 'resumes#add_table',      :as => 'add_resume_table'
+  delete '/resumes/:id/destroy_table/:table_id'  => 'resumes#destroy_table',  :as => 'destroy_resume_table'
 
   devise_for :users
   get 'users' => 'users#index', :as => 'users'
@@ -93,6 +95,5 @@ Rails.application.routes.draw do
   end
   post 'section_slots' => 'section_slots#sort', :as => 'sort_section_slots'
 
-  post '/resumes/:id/add_table' => 'resumes#add_table', :as => 'add_resume_table'
 
 end

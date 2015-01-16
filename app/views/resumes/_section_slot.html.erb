@@ -7,6 +7,11 @@
             <i class="fa fa-arrows pull-right text-pale top-right-handle"></i>
             <h4>
               <span><%= section_slot.section.title %></span>
+              <% if section_slot.section.type.nil? %>
+                <%= link_to destroy_resume_table_path(section_slot.resume_id, section_slot.section), method: :delete do %>
+                  <button type="button" class="btn btn-primary pull-right m-top-m6 m-left-6">Delete</button>
+                <% end %>
+              <% end %>
               <%= link_to edit_polymorphic_path(section_slot.section) do %>
               <!--< %= link_to edit_education_table_path(section_slot.section) do %>-->
                 <button type="button" class="btn btn-primary pull-right m-top-m6">Edit</button>

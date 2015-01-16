@@ -1,6 +1,6 @@
 class ResumesController < ApplicationController
   before_action :new_resume, only: [:new]
-  before_action :set_resume, only: [:show, :edit, :edit_with_role, :update, :destroy, :add_table]
+  before_action :set_resume, only: [:show, :edit, :edit_with_role, :update, :destroy, :add_table, :destroy_table]
   before_action :new_production, only: [:new, :edit, :edit_with_role, :create]
   before_action :new_show, only: [:new, :edit, :edit_with_role]
   before_action :new_venue, only: [:edit, :edit_with_role, :new, :create]
@@ -72,7 +72,13 @@ class ResumesController < ApplicationController
 
   def add_table
     @resume.add_rtable
-    render :show
+    redirect_to @resume
+  end
+
+  def destroy_table
+    table = Rtable.find(params[:table_id])
+    table.destroy
+    redirect_to @resume
   end
 
 
