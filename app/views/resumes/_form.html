@@ -1,0 +1,123 @@
+<div id="add-resume">
+  <%= form_for(@resume, html: {class: 'form-inline'}) do |f| %>
+  <div class="container-fluid m-top-20">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-12">
+                <h4>
+                  <span>Credits</span>
+                  <%= link_to @resume do %>
+                    <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
+                  <% end %>
+                </h4>
+                <br />
+              </div>
+            </div>
+
+            <div class="roles-table row diminished-font">
+              <div class="col-md-5">
+                <div class="col-md-6">
+                  <strong>Production</strong> </i>
+                </div>
+                <div class="col-md-6">
+                  <strong>Role</strong> </i>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <strong>Director</strong> </i>
+              </div>
+              <div class="col-md-5">
+                <div class="col-md-6">
+                  <strong>Venue</strong> </i>
+                </div>
+                <div class="col-md-6">
+                  <strong>Company</strong>
+                  <a href="#"><i class="fa fa-check-square-o text-pale"></i></a>
+                </div>
+              </div>
+              <!-- <div class="col-md-1">
+                <strong>Custom</strong>
+                <a href="#"><i class="fa fa-square-o text-pale"></i></a>
+              </div> -->
+            </div>
+
+            <% @resume.roles.select{|r| !r.new_record?}.each do |role| %>
+            <div class="roles-table h-movable row diminished-font">
+              <div class="col-md-5">
+                <div class="col-md-6">
+                  <%= role.production_name %>
+                </div>
+                <div class="col-md-6">
+                  <%= role.name %>
+                </div>
+              </div>
+              <div class="col-md-1">
+                <%= role.director_name %>
+              </div>
+              <div class="col-md-5">
+                <div class="col-md-6">
+                  <%= role.production_current_venue_name %>
+                </div>
+                <div class="col-md-6">
+                  <%= role.production_company_name %>
+                </div>
+                <div class="col-md-1">
+                  <a href="#"></a>
+                </div>
+              </div>
+              <div class="col-md-1 actions">
+
+                <%= link_to [@resume, role], method: :delete, data: { confirm: "Delete role #{role.name}?" } do %>
+                  <i class="fa fa-trash-o text-pale pull-right"></i>
+                <% end %>
+
+                <!--< %= link_to edit_resume_role_path(@resume, role), method: :get, class: 'edit_role_link', data: {'id' => role.id} do %>-->
+                <%= link_to edit_resume_with_role_path(@resume.id, role.id), method: :get, class: 'edit_role_link', data: {'id' => role.id} do %>
+                  <i class="fa fa-edit text-pale pull-right"></i>
+                <% end %>
+                <!--<i class="fa fa-arrows-v text-pale pull-right"></i>-->
+              </div>
+            </div>
+            <% end %>
+
+            <div class="row">
+              <div class="col-md-12">
+                <%= link_to 'Add Credit', 'javascript:void(0)', {id: "add-resume-role-link", class: "btn btn-primary m-top-10"} %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% end %>
+</div>
+
+<div id="add-resume-role" class="overlay overlay-1" data-reload-url="<%= edit_resume_url(@resume) %>" style="display: <%= role_visibility ||= 'none' %>">
+  <%= render 'roles/form' %>
+</div>
+<div class="fade fade-1" style="display: <%= role_visibility ||= 'none' %>"></div>
+
+<div id="add-resume-production" class="overlay overlay-2">
+  <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
+</div>
+<div class="fade fade-2"></div>
+
+<div id="add-role-director" class="overlay overlay-2">
+  <%= render 'director_invitations/form' %>
+</div>
+<div class="fade fade-2"></div>
+
+<div id="add-company" class="overlay overlay-3">
+  <%= render 'companies/form' %>
+</div>
+<div class="fade fade-3"></div>
+
+<div id="add-venue" class="overlay overlay-3">
+  <%= render 'venues/form' %>
+</div>
+<div class="fade fade-3"></div>

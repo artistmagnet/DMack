@@ -1,0 +1,41 @@
+<% productions_name= get_productions_name %>
+<% venues_name= get_venues_name %>
+<% companies_name= get_companies_name %>
+<% directors_name= get_directors_name %>
+<script type="text/javascript">
+ $(function() {
+    $('body').click(function() {
+        var productionsArray = <%=  raw productions_name%>;
+        var venuesArray = <%=  raw venues_name%>;
+        var companiesArray = <%=  raw companies_name%>;
+        var directorsArray = <%=  raw directors_name%>;
+      if(jQuery.inArray($(".productions_name").val(),productionsArray) == -1){
+        $(".productions_name").val("")
+        // the element is not in the array
+    };
+
+    if(jQuery.inArray($(".venues_name").val(),venuesArray) == -1){
+        $(".venues_name").val("")
+        // the element is not in the array
+    };
+
+    if(jQuery.inArray($(".company_name").val(),companiesArray) == -1){
+        $(".company_name").val("")
+        // the element is not in the array
+    };
+
+    if(jQuery.inArray($(".director_name").val(),directorsArray) == -1){
+        $(".director_name").val("")
+        // the element is not in the array
+    };
+     $('#add-new-production').hide();
+     $('#add-new-company').hide();
+     $('#add-new-venue').hide();
+     $('#add-new-director').hide();
+  });
+  });
+
+$('body').click(function() {
+   $('#productions_name').trigger("focus"); //or "click", at least one should work
+});
+  </script>

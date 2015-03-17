@@ -1,0 +1,14 @@
+Welcome, <%= @user.name%>
+<h2>Your login credential are:-</h2>
+<p>
+	<strong>Email: </strong> <%=@user.email%>
+</p>
+<p>
+	<strong>Password: </strong> <%=@password%>
+</p>
+<p><a href="<%= new_user_session_url %>" > <span>Sign In</span></a></p>
+<p>
+	<strong>
+		Thanks
+	</strong>
+</p>

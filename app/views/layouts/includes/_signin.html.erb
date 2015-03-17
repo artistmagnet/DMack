@@ -1,0 +1,17 @@
+ <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html=>{:class=>"form-inline"}) do |f| %>
+    <div class="form-group">
+      <label for="exampleInputName2">Name</label>
+      <%= f.email_field :email, autofocus: true,:class=>"form-control" ,:id=>"exampleInputName2" ,:placeholder=>"example@example.com" %><br/>
+        <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+    <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+    <% end -%>
+    </div>
+    <div class="form-group">
+      <label for="exampleInputEmail2">Password</label>
+       <%= f.password_field :password, autocomplete: "off",:class=>"form-control" ,:id=>"exampleInputEmail2" ,:placeholder=>"******"%><br/>
+        <% if devise_mapping.rememberable? -%>
+          <%= f.check_box :remember_me %> <%= f.label :remember_me %>
+        <% end -%>
+    </div>
+    <%= f.submit "Log in",:class=>"btn btn-primary",:style=>"margin-top: -30px;" %>
+  <%end%>

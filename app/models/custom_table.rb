@@ -1,0 +1,2 @@
+class CustomTable < Rtable
+end

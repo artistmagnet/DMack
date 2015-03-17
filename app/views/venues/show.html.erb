@@ -11,7 +11,7 @@
                 <div class="page-title" style="margin-left: 0px; display: block">
                   <a href="#" id="toggle-menu"><i class="typcn typcn-th-menu"></i></a>
                 </div>
-                <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/union_station-180.png')"></span>
+                <span class="pull-right m-left-15" style="width: 180px; height: 180px; "><%=image_tag @venue.image.try(:url)%></span>
                 <h3><%= @venue.name %></h3>
                 <% unless @venue.year_founded.blank? %>
                   <%= "<div>Founded: #{@venue.year_founded}</div>".html_safe %>

@@ -13,6 +13,10 @@
 //= require jquery
 //= require jquery-ui
 //= require jquery_ujs
+//= require jquery.remotipart
+//= require bootstrap.min
+//= require bootstrap-tagsinput.min
+//= require jquery_nested_form
 //= require plugins/enscroll.min
 //= require plugins/footable.min
 //= require plugins/icheck.min
@@ -20,4 +24,26 @@
 //= require layouts
 //= require productions
 //= require chosen-jquery
-//= require chosen
+//= require live_validation
+$(document).ready(function(){
+	$(function () {
+	  $('[data-toggle="tooltip"]').tooltip()
+	})
+
+	$(function () {
+	  $('[data-toggle="popover"]').popover({ trigger: "hover" });
+	})
+	$(function() {
+		$( "#datepicker" ).datepicker();
+	});
+	$(function() {
+		$( ".datepicker" ).datepicker();
+	});
+  $('.alert .close').on('click', function(e) {
+      $(this).parent().hide();
+  });
+
+});
+// function tags(){
+// 	$('.tag-input').tagsinput('add', 'some tag');
+// }

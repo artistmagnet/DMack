@@ -1,0 +1,50 @@
+<div class="form-group">
+  <div class="col-sm-2">
+    <label for="resume_theatres_attributes_Production:"><%=@theatre.production%></label>
+    <input type="hidden" placeholder="production" name="resume[theatres_attributes][<%=@id%>][production]" value="<%=@theatre.production%>"id="resume_theatres_attributes_<%=@id%>_production" class="form-control productions_name ui-autocomplete-input" autocomplete="off">
+    
+    <ul style="display: none;width: 273px;  padding: 12px;" tabindex="0" id="add-new-production" class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all"><li class="ui-menu-item add-new-organisation"><a tabindex="-1" class="ui-corner-all" id="ui-id-2" data-remote="true" href="#"><h4>Add <strong><span class="add-new-production" id="add-org-text"></span></strong> as a new Production</h4></a></li></ul>
+  </div>
+  <input type="hidden" name="resume[theatres_attributes][<%=@id%>][position]" id="resume_theatres_attributes_<%=@id%>_position" class="nested_theatre_attr">
+  <div class="col-sm-1">
+    <label for="resume_theatres_attributes_Role:"><%=@theatre.role%></label>
+    <input type="hidden" style="width: 66px;" placeholder="Role" name="resume[theatres_attributes][<%=@id%>][role]" value="<%=@theatre.role%>" id="resume_theatres_attributes_<%=@id%>_role" class="form-control" >
+  </div>
+
+  <div class="col-sm-2">
+    <label for="resume_theatres_attributes_Venue:"><%=@theatre.venue%></label>
+     <input type="hidden" placeholder="Venue" name="resume[theatres_attributes][<%=@id%>][venue]" value="<%=@theatre.venue%>" id="resume_theatres_attributes_<%=@id%>_venue" class="form-control venues_name ui-autocomplete-input" autocomplete="off" >
+    
+    <ul style="display: none;width: 273px;  padding: 12px;" tabindex="0" id="add-new-venue" class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all"><li class="ui-menu-item add-new-organisation"><a tabindex="-1" class="ui-corner-all" id="ui-id-2" data-remote="true" href="#"><h4>Add <strong><span class="add-new-venue" id="add-venue-text"></span></strong> as a new Venue</h4></a></li></ul>
+  </div>
+  <div class="col-sm-2">
+    <label for="resume_theatres_attributes_Company:"><%=@theatre.company%></label>
+    <input type="hidden" placeholder="Company" name="resume[theatres_attributes][<%=@id%>][company]" value="<%=@theatre.company%>" id="resume_theatres_attributes_<%=@id%>_company" class="form-control company_name ui-autocomplete-input" autocomplete="off">
+    
+    <ul style="display: none;width: 273px;  padding: 12px;" tabindex="0" id="add-new-company" class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all"><li class="ui-menu-item add-new-organisation"><a tabindex="-1" class="ui-corner-all" id="ui-id-2" data-remote="true" href="#"><h4>Add <strong><span class="add-new-company" id="add-company-text"></span></strong> as a new Company</h4></a></li></ul>
+  </div>
+  <div class="col-sm-2">
+    <label for="resume_theatres_attributes_Director:"><%=@theatre.directed_by%></label>
+    <input type="hidden" style="width:82px;" placeholder="Director" name="resume[theatres_attributes][<%=@id%>][directed_by]" value="<%=@theatre.directed_by%>" id="resume_theatres_attributes_<%=@id%>_directed_by" class="form-control director_name ui-autocomplete-input" autocomplete="off">
+    <ul style="display: none;width: 273px;  padding: 12px;" tabindex="0" id="add-new-director" class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all"><li class="ui-menu-item add-new-organisation"><a tabindex="-1" class="ui-corner-all" id="ui-id-2" data-remote="true" href="#"><h4>Add <strong><span class="add-new-director" id="add-director-text"></span></strong> as a new Director</h4></a></li></ul>
+  </div>
+
+  <div class="col-sm-1">
+    <label for="resume_theatres_attributes_Performance Date:"><%=@theatre.performance_date%></label>
+    <input type="hidden" style="margin-left: -42px; width: 101px;" placeholder="Dates" name="resume[theatres_attributes][<%=@id%>][performance_date]" value="<%=@theatre.performance_date%>" class="form-control datepicker" id="<%=@id%>" >
+  </div>
+  <div class="col-sm-1">
+    <label for="resume_theatres_attributes_Location:"><%=@theatre.location%></label>
+    <input type="hidden" style="width: 67px;" placeholder="Loc" name="resume[theatres_attributes][<%=@id%>][location]" value="<%=@theatre.location%>" id="resume_theatres_attributes_<%=@id%>_location" class="form-control">
+  </div>
+   <div class="col-sm-1">
+    <%= link_to 'Remove',"#-",data: {confirm: "Are you sure?"},:class=>"btn btn-default remove_new_theatre" %>
+    <!-- <a class="remove_new_theatre" href="#-">Remove</a> -->
+  <!-- <input type="hidden" value="false" name="resume[theatres_attributes][<%=@id%>][_destroy]" id="resume_theatres_attributes_<%=@id%>__destroy"><a href="javascript:void(0)" data-association="theatres" class="btn btn-default remove_nested_fields">Remove</a> -->
+  </div> 
+</div>
+<script>
+  $(function() {
+    $( ".datepicker" ).datepicker();
+  });
+</script>

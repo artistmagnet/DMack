@@ -1,28 +1,42 @@
 class ResumesController < ApplicationController
+  respond_to :html, :js
+  before_filter :authenticate_user!  
+
   before_action :new_resume, only: [:new]
-  before_action :set_resume, only: [:show, :edit, :edit_with_role, :update, :destroy, :add_table, :destroy_table]
-  before_action :new_production, only: [:new, :edit, :edit_with_role, :create]
+  before_action :set_resume, only: [:email_resume,:show, :edit, :edit_with_role, :update, :destroy, :add_table, :destroy_table]
+  #before_action :new_production, only: [:new, :edit, :edit_with_role, :create]
+  before_action :new_production, only: [:edit_with_role]
+
   before_action :new_show, only: [:new, :edit, :edit_with_role]
   before_action :new_venue, only: [:edit, :edit_with_role, :new, :create]
   before_action :new_company, only: [:edit, :edit_with_role, :new, :create]
+  before_action :load_data,only: [:new,:edit]
+  skip_before_filter :verify_authenticity_token  
+  #before_action :initialize_images_session ,only: [:new,:edit]
 
-  before_action :set_role,        only: [:edit_with_role]
+  before_action :set_role, only: [:edit_with_role]
   # before_action :set_production,  only: [:edit_with_role]
   # before_action :set_show,        only: [:edit_with_role]
   # before_action :set_company,     only: [:edit_with_role]
   # before_action :set_venue,       only: [:edit_with_role]
 
-  before_action :new_director_invitation, only: [:edit, :edit_with_role, :new]
+  #before_action :new_director_invitation, only: [:edit, :edit_with_role, :new]
+  before_action :new_director_invitation, only: [ :edit_with_role]
+
+  after_action :destroy_other, only: [:update]
 
   def index
-    @resumes = Resume.all.order(:id)
+    #@resumes = Resume.all.order(:id)
+    @resumes = current_user.resumes
   end
 
   def new
+    $session_image_id =[]
   end
 
   def edit
     @role = @resume.roles.build
+    $session_image_id =[]   
   end
 
   def edit_with_role
@@ -33,11 +47,19 @@ class ResumesController < ApplicationController
   end
 
   def create
-    @resume = Resume.new(resume_params)
+    @resume = Resume.new(resume_params)    
+    @resume.columns = params[:column]
+    @resume.positions = params[:positions]
+    @resume.custom_cols = params[:custom_cols]
+    @resume.custom_pos = params[:custom_pos]
+    @resume.repr_cols = params[:repr_cols]
+    @resume.repr_pos = params[:repr_pos]
     @resume.user ||= current_user
 
+    
     respond_to do |format|
       if @resume.save
+        update_photo(@resume)
         # add_education_table(@resume)  #moved to model
         format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully created'}
         format.json { render json: @resume}
@@ -48,9 +70,18 @@ class ResumesController < ApplicationController
     end
   end
 
-  def update
+  def update    
+    @resume.columns = params[:column]
+    @resume.positions = params[:positions]
+    @resume.custom_cols = params[:custom_cols]
+    @resume.custom_pos = params[:custom_pos]
+    @resume.repr_cols = params[:repr_cols]
+    @resume.repr_pos = params[:repr_pos]
+
     respond_to do |format|
       if @resume.update(resume_params)
+        # @resume.education_columns = params[:columns]
+        update_photo(@resume)
         format.html { redirect_to edit_resume_path(@resume), notice: 'Updated' }
         format.json { render json: @resume }
       else
@@ -60,9 +91,38 @@ class ResumesController < ApplicationController
     end
   end
 
+  def destroy_other
+    params[:resume].require(:others_attributes).each do |oth|
+      if oth[1][:id].present?
+        @oth=Other.find(oth[1][:id])
+        @oth.destroy if @oth.content.blank?
+      end
+    end
+  end
+
+  def find_user_role
+    @status=current_user.status
+    # @status=current_user.role.present?
+    respond_to do |format|
+      format.json { render json: @status }
+    end
+  end
+
+  def account_tier
+    
+  end
+
+  def new_theatre
+    params[:new_theatre]=Hash[params.map{|u,v|[u,v]}]
+    @theatre=Theatre.new(new_theatre_params)
+    @id=params[:id]
+    respond_to do |format|      
+      format.js      
+    end
+  end
 
   def destroy
-    @resume.destroy
+    @resume.delete
     respond_to do |format|
       format.html { redirect_to resumes_url, notice: 'Resume was successfully destroyed.' }
       format.json { head :no_content }
@@ -81,18 +141,85 @@ class ResumesController < ApplicationController
     redirect_to @resume
   end
 
+  def upload    
+    @image = current_user.photos.create(:image=> params[:file])
+    # Photo.new(:image=> params[:file])
+    # @image.save 
+    $session_image_id << @image.id    
+    # respond_to do |format|
+    #   format.js
+    # end
+  end
+
+  def autosuggest
+    @productions = Production.where("name like ?", "%#{params[:name]}%")
+    respond_to do |format|
+        format.json {render :json => @productions}
+    end
+  end
+
+  def email_resume
+    UserMailer.email_resume(current_user, @resume).deliver
+    flash[:notice]= "Resume has been sent in your email #{current_user.email}"
+    redirect_to :back
+  end
+
+  def view_resume_pdf
+    @resume = Resume.find(params[:id])
+    respond_to do |format|
+    #   format.html
+    #   format.pdf do
+    #     render :pdf => "../resumes/view_resume_pdf.erb"
+    #   end
+
+      format.pdf do
+      render :pdf => "my_pdf_name.pdf",
+      :disposition => "inline",
+      :template => "resumes/view_resume_pdf.pdf.erb",
+      :layout => false
+      end       
+       format.html
+    end
+  end
+  def download_pdf
+    @resume = Resume.find(params[:id])
+    html = render_to_string(:action => '../resumes/view_resume_pdf.pdf.erb',:layout=>false)
+    #pdf = PDFKit.new(html,:page_size => 'Letter', :orientation => 'Landscape')
+    pdf = WickedPdf.new.pdf_from_string(html)
+    send_data(pdf,:filename => "#{current_user.name}.pdf", :type => 'application/pdf')  
+    #file = pdf.to_file('/public')
+  end
+
+  def sort_sections
+    # debugger
+  end
+
 
 
   private
   # Use c
   # allbacks to share common setup or constraints between actions.
   def new_resume
-    @resume = Resume.create(user: current_user)
+    #@resume = Resume.create(user: current_user)
+    @resume = Resume.new
     @role = @resume.roles.build
+    @resume.build_contact_info
+    @resume.build_resume_attribute
+    @resume.photos.build
+    @resume.theatres.build
+    @resume.educations.build
+    @resume.representations.build
+    @resume.skills.build
+    @resume.others.build
+    @resume.customs.build
   end
 
   def set_resume
     @resume = Resume.find(params[:id])
+  end
+
+  def new_theatre_params
+    params.require(:new_theatre).permit(:production,:role,:venue,:company,:directed_by,:location,:performance_date)  
   end
 
   def new_production
@@ -147,11 +274,43 @@ class ResumesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def resume_params
-    params.require(:resume).permit(:role_id, roles_attributes: [:id, :production_id, :resume_id, :name, :_destroy])
+    params.require(:resume).permit(:performer_type,:union_guild,:image,:role_id,:resume_type,:other,:skills, roles_attributes: [:id, :production_id, :resume_id, :name, :_destroy],contact_info_attributes: [:id,:position,:nick_name,:first_name,:middle_name,:last_name,:suffix,:street_address1,:street_address2,:city,:state,:zip_code,:phone1,:phone2,:email,:website,:facebook,:twitter,:linkedin,:country,:_destroy],photos_attributes: [:id,:position, :image, :_destroy],theatres_attributes: [:id, :production_id,:production,:venue,:company,:venue_id,:company_id,:role,:director_id,:directed_by,:position,:performance_date,:location, :_destroy],educations_attributes: [:id,:position, :school,:city,:state,:country,:degree,:year, :_destroy],representations_attributes: [:id,:position, :company,:contact_name,:address,:title,:phone, :_destroy],skills_attributes: [:id, :category_id,:skills,:position, :_destroy],resume_attribute_attributes: [:id,:position, :height,:weighr,:gender,:age,:hair_color,:hair_lenght,:street_address2,:weight,:eye_color,:vocal_range,:ethnicity, :_destroy],customs_attributes: [:id, :custom1, :custom2, :custom3, :custom4, :custom5, :custom6, :position, :resume_id, :_destroy], others_attributes: [:id, :content, :position, :_destroy])
+  end
+
+  def initialize_images_session
+    # session[:image_ids]=[]
   end
 
   def id_params
     params.permit(:id, :role_id)
   end
 
+  def update_photo(resume)
+    
+    if !params[:photos].blank?
+      resume.photos.destroy_all
+      params[:photos].each_with_index do |photo,index|       
+        resume.photos.create(:image=>photo,:user_id=>current_user.id) if !params[:removed_images].include? index.to_s
+      end
+    end
+    # debugger
+    if $session_image_id.present?
+      $session_image_id.compact.each_with_index do |id,index|        
+        photo = Photo.find(id)
+        photo.update_attributes(:resume_id=>resume.id,:user_id=>current_user.id) if !params[:removed_drag_images].include? (index+1).to_s
+     end
+      $session_image_id=nil
+    end
+    current_user.photos.where(:resume_id=>nil).destroy_all
+  
+  end
+
+  def load_data
+    @productions_name = Production.all.collect(&:name)
+    @venues_name = Venue.all.collect(&:name)
+    @companies_name = Company.all.collect(&:name)
+    @directors_name = Director.all.collect(&:name)
+  end
+
+ 
 end

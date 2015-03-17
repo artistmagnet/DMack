@@ -1,0 +1,40 @@
+.sections{
+  border: 2px dashed #a1a1a1;
+  padding: 10px; 
+  background: #dddddd;
+  border-radius: 5px;
+}
+.main-image{
+  cursor: pointer;
+}
+ul { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
+ul.preview-area li {
+  width: 60px;
+  float: left;
+  margin-right: 10px;
+}
+.photo-popover {
+  background: none repeat scroll 0 0 #F1F1F2;
+  box-shadow: 6px 6px 14px 0 rgba(50, 50, 50, 0.5);
+  overflow-y: auto;
+  padding: 20px;
+  position: absolute;
+  width: 580px;
+  min-height: 175px;
+  z-index: 999;
+  text-align: center;
+  color: #333333;
+}
+
+.photo-popover1 {
+  background: none repeat scroll 0 0 #F1F1F2;
+  box-shadow: 6px 6px 14px 0 rgba(50, 50, 50, 0.5);
+  overflow-y: auto;
+  padding: 20px;
+  position: absolute;
+  width: 580px;
+  min-height: 175px;
+  z-index: 1;
+  text-align: center;
+  color: #333333;
+}

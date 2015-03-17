@@ -1,29 +1,79 @@
-<h1>Listing resumes</h1>
+<div class="container-fluid m-top-20">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body" id="show-resume">
+          <section class="list-resumes">
+           <h3>Performing Artist</h3><br/>
+         <% @resumes.performing_artist.each_with_index do |resume,index| %>             
+              <h4>Resume <%=index +1 %></h4>
+              <div class="row">
+                 <div class="col-md-4">
+                   <%= link_to "Email Resume", email_resume_resumes_path(:id=>resume.id),:class=>"btn btn-primary"%>
+                 </div>
+                 <div class="col-md-4">
+                 <%#= link_to "View As PDF", view_resume_pdf_path(resume),:class=>"btn btn-primary",:target=>'_blank'%>
+                   <%= link_to "Save As PDF",download_pdf_resumes_path(:format=>"pdf",:id=>resume.id),:class=>"btn btn-primary",:target=>'_blank'%>
+                 </div>
+                 <div class="col-md-4"></div>
+              </div><br/>
+              <div class="row">
+                 <div class="col-md-12">                 
+                   <%= link_to "Print Resume",view_resume_pdf_path(resume),:class=>"btn btn-primary"%>
+                 </div>
+              </div>
+              <br/>
 
-<table>
-  <thead>
-    <tr>
-      <th>id</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+              <div class="row">
+                 <div class="col-md-4">
+                  <%= link_to 'Edit Resume', edit_resume_path(resume),:class=>"btn btn-primary" %>
+                 </div>
+                 <div class="col-md-4">
+                 <%= link_to 'Delete Resume', resume, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-primary" %>
+                 </div>
+                 <div class="col-md-4"></div>
+              </div>
+           
+           <br/><hr/>
+         <%end%>
+          </section><br/><br/>
 
-  <tbody>
-    <% @resumes.each do |resume| %>
-      <tr>
-        <td><%= resume.id %></td>
-        <% if resume.roles.count > 0 %>
-          <td><%= resume.roles.first.name %> in <%= resume.roles.first.production_name %></td>
-        <% end %>
-        <td><%= link_to 'Show', resume %></td>
-        <!--<td>< %= link_to 'Edit', edit_resume_path(resume) %></td>-->
-        <td><%= link_to 'Destroy', resume, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+          <section class="list-resumes">
+           <h3>Production Member</h3><br/>
+         <% @resumes.production_member.each_with_index do |resume,index| %>            
+               <h4>Resume <%=index +1 %></h4>
+              <div class="row">
+                 <div class="col-md-4">
+                   <%= link_to "Email Resume", email_resume_resumes_path(:id=>resume.id),:class=>"btn btn-primary"%>
+                 </div>
+                 <div class="col-md-4">
+                 <%#= link_to "View As PDF", view_resume_pdf_path(resume),:class=>"btn btn-primary",:target=>'_blank'%>
+                   <%= link_to "Save As PDF",download_pdf_resumes_path(:format=>"pdf",:id=>resume.id),:class=>"btn btn-primary",:target=>'_blank'%>
+                 </div>
+                 <div class="col-md-4"></div>
+              </div><br/>
+              <div class="row">
+                 <div class="col-md-12">                 
+                   <%= link_to "Print Resume",view_resume_pdf_path(resume),:class=>"btn btn-primary"%>
+                 </div>
+              </div>
+              <br/>
 
-<br>
+              <div class="row">
+                 <div class="col-md-4">
+                  <%= link_to 'Edit Resume', edit_resume_path(resume),:class=>"btn btn-primary" %>
+                 </div>
+                 <div class="col-md-4">
+                 <%= link_to 'Delete Resume', resume, method: :delete, data: { confirm: 'Are you sure?' },:class=>"btn btn-primary" %>
+                 </div>
+                 <div class="col-md-4"></div>
+              </div>
+           
+           <br/><hr/>
+         <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'New Resume', new_resume_path %>

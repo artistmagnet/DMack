@@ -1,126 +1,696 @@
-<div id="add-resume">
-  <%= form_for(@resume, html: {class: 'form-inline'}) do |f| %>
+<%if ((current_user.role!="premium")) &&  (!current_user.resumes.blank?) %>
+  <div class='photo-popover'><%= render('/resumes/nested/payment_form') %></div>
+<%else%>
+  <div id="add-resume">
+    <%= nested_form_for(@resume, html: {class: 'form-horizontal'}) do |f| %>
+    <div class="container-fluid m-top-20">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body">
+               <div class="form-group">
+                  <label for="inputEmail3" class="col-sm-2 control-label">Resume type</label>
+                  <div class="col-sm-10">
+                  <%= f.select(:resume_type, options_for_select([['Performing Artist', 'Performing Artist'], ['Production Member', 'Production Member']], :selected=>@resume.resume_type ),{},:class=>"form-control",:id=>"select_resume_type") %>
+                  </div>
+                </div>
+                <hr/>
 
-  <div class="container-fluid m-top-20">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-12">
-                <h4>
-                  <span>Credits</span>
-                  <%= link_to @resume do %>
-                    <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
-                  <% end %>
-                </h4>
-                <br />
-              </div>
-            </div>
+                <div class="form-group">
+                  <div class="col-sm-2"></div>
+                  <div class="col-sm-5">
+                  <%= f.text_field :performer_type,:class=>"form-control", :placeholder =>"Type of Performer" %>
+                  </div>
+                  <div class="col-sm-5">
+                  <%= f.text_field :union_guild,:class=>"form-control", :placeholder =>"Union/Guild Affiliations" %>
+                  </div>
+                </div>
+                <div class="attributes-info">
+                <%=f.fields_for :resume_attribute do |a|%>                 
+                    <%= render "resumes/nested/attributes_info" ,:a=>a%>
+                <%end%>
+                <%if @resume.resume_attribute.blank?%>
+                 <%= f.link_to_add "Add attributes Section", :resume_attribute ,:class=>"btn btn-default" ,:class=>"attributes-info-add"%>
+                 <%end%>
 
+                </div>
+                <%= f.fields_for :contact_info do |c|%>
+                <h3>Contact Info:</h3>
+                  <%= render "resumes/nested/contact_info" ,:c=>c%>
+                <%end%>
+                <div class='photo-popover' style="display:none;"></div>
+                <%= hidden_field_tag "removed_images" %>
+                <%= hidden_field_tag "removed_drag_images" %>
+                <section class="sections">              
+                  <h3 class="photo-section"> Headshots</h3>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <div class="col-sm-4">
+                          <label for="file-input">
+                            <img src="<%=@resume.image.try(:url)%>" class="main-image" width="128" height="128" />
+                            </label>
+                          <%= f.file_field :image,:class=>"form-control",:onchange=>"Test.UpdatePreviewMain(this)",:accept=>"image/*" ,:id=>"file-input",:style=>"display: none"%>
+                        </div>
+                        <div class="col-sm-8"  style="margin-top: -45px;">
+                          <section id="wrapper">
+                            <h4>Drag and drop, automatic upload(Multiple Extra Images)</h4>
+                              <article>
+                                <div id="holder">
+                                  <%if @resume.photos%> 
+                                    <ul class="preview-area">
+                                      <%@resume.photos.each_with_index do |photo,index|%>
+                                      <li>
+                                        <%= hidden_field_tag "old_image_#{index.to_s}", nil, value: photo, :class=>"hidden_images" %>
+                                      <label for="files-input" class="main-image">
+                                        <%=image_tag photo.image.try(:url),:width=>"60"%>
+                                      </label>
+                                      </li>
+                                      <%end%>                          
+                                    </ul> 
+                                  <%else%>
+                                    <ul class="preview-area"></ul> 
+                                  <%end%>  
+                                  
+                                  <p id="upload" class="hidden"><label><br>
+                                  <input type="file" name="image"></label></p>
+                                  <p id="filereader">File API & FileReader API not supported</p>
+                                  <p id="formdata">XHR2's FormData is not supported</p>
+                                  <p id="progress">XHR2's upload progress isn't supported</p>
+                                  <%if current_user.role.present?%>        
+                                    <%= file_field_tag "photos[]",:id=>"files-input",:class=>"form-control", :multiple =>:true %>
+                                  <%else%>
+                                    <%= file_field_tag "photos[]",:id=>"files-input",:class=>"form-control"%>
+                                  <%end%>                          
+                                </div>                    
+                              </article>
+                         </section>
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+                </section><br/>
+                
+                <ul>
+                  <div class="ui-state-default sections threatr-section ">
+                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                  <h3> Theatre:</h3>
+                  <li class="sortable">
+                    <%=render 'resumes/nested/theatre_fields'%>
+                    <div class="add_new_theatre"></div>
+                    <div class='photo-popover1' style="display:none"></div>
+                    <%#= f.fields_for :theatres do |t|%>
+                      <%#= render "resumes/nested/theatre"%>
+                    <%#end%>
+                    <%= link_to "Add Credit","#-",:class=>"btn btn-default add-threatre-section"%>
+                    <%#= f.link_to_add "Add More", :theatres ,:class=>"btn btn-default add-threatre-section"%>
+                  </li>
+                </section><br/>
+                
+                <div class="ui-state-default sections education">
+                  <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                  <h3>Education/Training:</h3>
+                  <%=render 'resumes/nested/education_remove_cols', :section => "educations"%>
+                  <li class="sortable">
+                    <div class="rtable_cols"></div>
+                    <%=render 'resumes/nested/education_fields',:e=>f%>
+                    <%=f.fields_for :educations do |e|%>
+                      <%= render "resumes/nested/education",:e=>e%>
+                    <%end%>                
+                    <%= f.link_to_add "Add More", :educations ,:class=>"btn btn-default"%> 
+                  </li>
+                </div><br/>
 
+                <div class="ui-state-default sections representation">
+                  <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                  <h3>Representation:</h3>
+                  <%=render 'resumes/nested/education_remove_cols', :section => "representations"%>
+                  <li class="sortable">
+                    <%=render 'resumes/nested/representation_fields',:repr=>f%>
+                    <%=f.fields_for :representations do |r|%>                
+                       <%= render "resumes/nested/representation" ,:r=>r%>
+                    <%end%>
+                    <%= f.link_to_add "Add More", :representations ,:class=>"btn btn-default"%>
+                  </li>
+                </div><br/>
 
-            <div class="roles-table row diminished-font">
-              <div class="col-md-5">
-                <div class="col-md-6">
-                  <strong>Production</strong> </i>
-                </div>
-                <div class="col-md-6">
-                  <strong>Role</strong> </i>
-                </div>
-              </div>
-              <div class="col-md-1">
-                <strong>Director</strong> </i>
-              </div>
-              <div class="col-md-5">
-                <div class="col-md-6">
-                  <strong>Venue</strong> </i>
-                </div>
-                <div class="col-md-6">
-                  <strong>Company</strong>
-                  <a href="#"><i class="fa fa-check-square-o text-pale"></i></a>
-                </div>
-              </div>
-              <div class="col-md-1">
-                <strong>Custom</strong>
-                <a href="#"><i class="fa fa-square-o text-pale"></i></a>
-              </div>
-            </div>
+                <div class="ui-state-default sections">
+                  <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                  <h3>Skills Info:</h3>
+                  <li class="sortable">
+                    <%=f.fields_for :skills do |s|%>                 
+                       <%= render "resumes/nested/skill" ,:s=>s%>
+                    <%end%>                
+                    <%= f.link_to_add "Add More", :skills ,:class=>"btn btn-default"%> 
+                  </li>
+                </div> <br/>
 
-            <% @resume.roles.select{|r| !r.new_record?}.each do |role| %>
-            <div class="roles-table h-movable row diminished-font">
-              <div class="col-md-5">
-                <div class="col-md-6">
-                  <%= role.production_name %>
-                </div>
-                <div class="col-md-6">
-                  <%= role.name %>
-                </div>
-              </div>
-              <div class="col-md-1">
-                <%= role.director_name %>
-              </div>
-              <div class="col-md-5">
-                <div class="col-md-6">
-                  <%= role.production_current_venue_name %>
-                </div>
-                <div class="col-md-6">
-                  <%= role.production_company_name %>
-                </div>
-                <div class="col-md-1">
-                  <a href="#"></a>
-                </div>
-              </div>
-              <div class="col-md-1 actions">
+                <div class="ui-state-default sections customs">
+                  <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                  <h3>Custom:</h3>
+                  <%=render 'resumes/nested/education_remove_cols',:section=>"customs"%>
+                  <li class="sortable">
+                    <div class="rtable_cols"></div>
+                    <%=render 'resumes/nested/custom_fields',:cust=>f%>
+                    <%=f.fields_for :customs do |cust|%>
+                      <%= render "resumes/nested/custom",:cust=>cust%>
+                    <%end%>                
+                    <%= f.link_to_add "Add More", :customs ,:class=>"btn btn-default"%> 
+                  </li>
+                </div><br/>
 
-                <%= link_to [@resume, role], method: :delete, data: { confirm: "Delete role #{role.name}?" } do %>
-                  <i class="fa fa-trash-o text-pale pull-right"></i>
-                <% end %>
-
-                <!--< %= link_to edit_resume_role_path(@resume, role), method: :get, class: 'edit_role_link', data: {'id' => role.id} do %>-->
-                <%= link_to edit_resume_with_role_path(@resume.id, role.id), method: :get, class: 'edit_role_link', data: {'id' => role.id} do %>
-                  <i class="fa fa-edit text-pale pull-right"></i>
-                <% end %>
-                <!--<i class="fa fa-arrows-v text-pale pull-right"></i>-->
-              </div>
-            </div>
-            <% end %>
-
-            <div class="row">
-              <div class="col-md-12">
-                <%= link_to 'Add Credit', 'javascript:void(0)', {id: "add-resume-role-link", class: "btn btn-primary m-top-10"} %>
-              </div>
+                <div class="ui-state-default sections others">
+                  <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                    <h3>Other:</h3>
+                    <li class="sortable">
+                      <%=f.fields_for :others do |o|%>                 
+                        <%= render "resumes/nested/other" ,:o=>o%>
+                      <%end%>
+                      <%= f.link_to_add "Add More", :others ,:class=>"btn btn-default"%> 
+                    </li>
+                  </div>
+                </div> <br/>             
+              </ul>
+                <div class="form-group">                 
+                    <div class="col-sm-3">
+                      <%= f.submit @resume.id.blank? ? 'Save & Finish!' : 'Update $ Finish',:class=>"form-control btn btn-primary get_columns" %>
+                    </div>
+                </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+
+    <% end %>
   </div>
+   
+  <!-- Modal -->
+  <div class="modal " id="myModal" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <button type="button" class="close" 
+                 data-dismiss="modal" aria-hidden="true">
+                    &times;
+              </button>
+              <h4 class="modal-title" id="myModalLabel">
+                 This Modal title
+              </h4>
+           </div>
+           <div class="modal-body">
+             <%#= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
+           </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-default" 
+                 data-dismiss="modal">Close
+              </button>
+           </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+  <div class="form-javascipt">
+    <%= render "load_form_json"%>
+  </div>
+  <style type="text/css">
+    .theatre-fields{
+      background-color: #DDD !important;
+      border: none;
+    }
+    .sections{
+      border: 2px dashed #a1a1a1;
+      padding: 10px; 
+      background: #dddddd;
+      border-radius: 5px;
+    }
+    .main-image{
+      cursor: pointer;
+    }
 
-  <% end %>
-</div>
+    ul { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
+    ul.preview-area li {
+      width: 60px;
+      float: left;
+      margin-right: 10px;
+    }
 
-<div id="add-resume-role" class="overlay overlay-1" data-reload-url="<%= edit_resume_url(@resume) %>" style="display: <%= role_visibility ||= 'none' %>">
-  <%= render 'roles/form' %>
-</div>
-<div class="fade fade-1" style="display: <%= role_visibility ||= 'none' %>"></div>
+    .remove.cross_icon{
+      width: 15px;
+      position: absolute;
+    }
+    .remove.cross_icon1{
+      width: 15px;
+      margin-left: -65px !important;
+      position: relative;
+    }
+    
 
-<div id="add-resume-production" class="overlay overlay-2">
-  <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
-</div>
-<div class="fade fade-2"></div>
+  </style>
+  <script>
+  $(function() {
+    $( ".sortable" ).sortable({
+      revert: true
+    });
+  });
 
-<div id="add-role-director" class="overlay overlay-2">
-  <%= render 'director_invitations/form' %>
-</div>
-<div class="fade fade-2"></div>
 
-<div id="add-company" class="overlay overlay-3">
-  <%= render 'companies/form' %>
-</div>
-<div class="fade fade-3"></div>
+  </script>
 
-<div id="add-venue" class="overlay overlay-3">
-  <%= render 'venues/form' %>
-</div>
-<div class="fade fade-3"></div>
+
+
+
+  <script>
+  //File upload
+    $(function(){
+      Test = {
+          UpdatePreviewMain: function(obj){
+            // if IE < 10 doesn't support FileReader
+            if(!window.FileReader){
+               // don't know how to proceed to assign src to image tag
+            } else {
+               var reader = new FileReader();
+               var target = null;
+               
+               reader.onload = function(e) {
+                target =  e.target || e.srcElement;
+                 $(".main-image").prop("src", target.result);
+               };
+                reader.readAsDataURL(obj.files[0]);
+            }
+          }
+      };
+    });
+  //File upload
+    $(function(){
+      Test2 = {
+          UpdatePreviewExtra: function(obj){
+            // if IE < 10 doesn't support FileReader
+            if(!window.FileReader){
+               // don't know how to proceed to assign src to image tag
+            } else {
+               var reader = new FileReader();
+               var target = null;
+               
+               reader.onload = function(e) {
+                target =  e.target || e.srcElement;
+                 $(".extra-image").prop("src", target.result);
+               };
+                reader.readAsDataURL(obj.files[0]);
+            }
+          }
+      };
+  });
+
+
+  var holder = document.getElementById('holder'),
+      tests = {
+        filereader: typeof FileReader != 'undefined',
+        dnd: 'draggable' in document.createElement('span'),
+        formdata: !!window.FormData,
+        progress: "upload" in new XMLHttpRequest
+      }, 
+      support = {
+        filereader: document.getElementById('filereader'),
+        formdata: document.getElementById('formdata'),
+        progress: document.getElementById('progress')
+      },
+      acceptedTypes = {
+        'image/png': true,
+        'image/jpeg': true,
+        'image/gif': true
+      },
+      // progress = document.getElementById('uploadprogress'),
+      fileupload = document.getElementById('upload');
+
+  "filereader formdata progress".split(' ').forEach(function (api) {
+    if (tests[api] === false) {
+      support[api].className = 'fail';
+    } else {
+      // FFS. I could have done el.hidden = true, but IE doesn't support
+      // hidden, so I tried to create a polyfill that would extend the
+      // Element.prototype, but then IE10 doesn't even give me access
+      // to the Element object. Brilliant.
+      support[api].className = 'hidden';
+    }
+  });
+
+  function previewfile(file, validate) {
+    if (tests.filereader === true && acceptedTypes[file.type] === true) {
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        var image = new Image();
+        image.src = event.target.result;
+        image.width = 65; // a fake resize
+        // holder.appendChild(image);
+        // $(holder).append('<a href="#-"><img src="/assets/cross.png" alt="remove" class="remove cross_icon1 cross_icon"/></a>')
+        // debugger
+
+        var index=($('.remove_dragged_image').size()!=0) ? Math.max.apply(Math, $('.remove_dragged_image').map(function(){return this.id.split('_')[3]})) : 0
+        $($(holder).append("<div></div>")).find("div:last").attr("id","dragged_image_"+(index+1)).append(image).append('<a href="#-" class="remove_dragged_image" id="remove_dragged_image_'+(index+1)+'" ><img src="/assets/cross.png" alt="remove" class="remove cross_icon1"/></a>')
+        
+
+        if (!validate){
+          // debugger
+          $(image).css("border","2px solid red")
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }  else {
+      holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+      console.log(file);
+    }
+  }
+
+  function readfiles(files) {
+      var formData = tests.formdata ? new FormData() : null;
+      if (!get_status()){return false}
+      for (var i = 0; i < files.length; i++) {
+        if (files[i].size>250000){
+          // debugger
+          if (tests.formdata) formData.append('file', files[i]);
+          previewfile(files[i], false);
+        }else{
+          if (tests.formdata) formData.append('file', files[i]);
+          previewfile(files[i], true);
+          // now post a new XHR request
+          if (tests.formdata) {
+            // debugger
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/upload');
+            xhr.onload = function() {
+              progress.value = progress.innerHTML = 100;
+            };
+
+            if (tests.progress) {
+              xhr.upload.onprogress = function (event) {
+                if (event.lengthComputable) {
+                  var complete = (event.loaded / event.total * 100 | 0);
+                  progress.value = progress.innerHTML = complete;
+                }
+              }
+            }
+
+            xhr.send(formData);
+          }
+            }      
+          }
+  }
+
+  if (tests.dnd) { 
+    holder.ondragover = function () { this.className = 'hover'; return false; };
+    holder.ondragend = function () { this.className = ''; return false; };
+    holder.ondrop = function (e) {
+      this.className = '';
+      e.preventDefault();
+      readfiles(e.dataTransfer.files);
+    }
+  } else {
+    fileupload.className = 'hidden';
+    fileupload.querySelector('input').onchange = function () {
+      readfiles(this.files);
+    };
+  }
+
+
+    $("#select_resume_type").change(function(){
+      if ($("#select_resume_type").val()=="Production Member") 
+        {
+          $(".attributes-info").hide(); 
+          $('.photo-section').text("Photos")
+        }
+        else{
+          $(".attributes-info").show();
+          $('.photo-section').text("Headshots")
+        }
+    
+    });
+
+     if ($("#select_resume_type").val()=="Production Member") 
+      {
+        $(".attributes-info").hide(); 
+      }
+  $("#files-input").val("")
+
+  var inputLocalFont = document.getElementById("files-input");
+  inputLocalFont.addEventListener("change",previewImages,false); //bind the function to the input
+
+  function previewImages(){
+    $('.preview-area').html("");
+      var fileList = this.files;
+
+      var anyWindow = window.URL || window.webkitURL;
+
+          for(var i = 0; i < fileList.length; i++){
+            // var  index=($('.remove_dropped_image').size()!=0) ? Math.max.apply(Math, $('.remove_dropped_image').map(function(){return this.id.split('_')[3]})) : i
+            //get a blob to play with
+            var objectUrl = anyWindow.createObjectURL(fileList[i]);
+            // for the next line to work, you need something class="preview-area" in your html
+            if (fileList[i].size>250000){
+              $('.preview-area').append('<li style="border:2px solid red" id="dropped_image_'+i+'">Img size UpTo 250kb<img src="' + objectUrl + '" width="60"/><a href="#-" class="remove_dropped_image" id="remove_dropped_image_'+i+'"><img src="/assets/cross.png" alt="remove" class="remove cross_icon" /></a></li>');
+            }else{
+              $('.preview-area').append('<li id="dropped_image_'+i+'"><img src="' + objectUrl + '" width="60"/><a href="#-" class="remove_dropped_image" id="remove_dropped_image_'+i+'" ><img src="/assets/cross.png" alt="remove" class="remove cross_icon"/></a></li>');
+            }
+            // get rid of the blob
+            window.URL.revokeObjectURL(fileList[i]);
+            
+          }
+
+
+  }
+
+  var removed_images = []
+  var removed_drag_images = []
+
+  $("body").on("click",".remove_dropped_image",function(){
+    // debugger
+    var id = this.id.split("_")[3]
+    $("#dropped_image_"+id).remove()
+    removed_images.push(id)
+    $("#removed_images").val(removed_images)    
+  })
+
+  $("body").on("click",".remove_dragged_image",function(){
+    // debugger
+    var id = this.id.split("_")[3]
+    $("#dragged_image_"+id).remove()
+    removed_drag_images.push(id)
+    $("#removed_drag_images").val(removed_drag_images)
+  })
+  
+
+  $(".attributes-info-add").click(function(){
+    $(this).hide();
+  });
+
+  //Remove Confirmation
+
+  $("body").on("click",".remove_nested_fields",function(){
+    if (confirm("Are you sure?")) {      
+      if (($(this).data("success")) || ($(this).data("association")=="skills") || ($(this).data("association")=="others")){
+        if (($(this).hasClass("remove_columns")) || ($($(this).parents().eq(3)).find(".fields").filter(function() { return $(this).css("display") == "block" }).length==1)){
+          $($(this).parents().eq(4).hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Undo '+$(this).data("association")+'</a></li>');
+        }else{
+          $(this).trigger();
+        }
+      }else{
+        $(this).trigger();
+      }
+    }
+      return false;
+  });
+
+  $(document).on('click','.get_columns',function(){
+    $($(this).parents().eq(2).find('.nested_skill_attr')).each(function(index){return this.value=index})
+    $($(this).parents().eq(2).find('.nested_theatre_attr')).each(function(index){return this.value=index})  
+    $($(this).parents().eq(2).find('.nested_education_attr')).each(function(index){return this.value=index})
+    $($(this).parents().eq(2).find('.nested_repr_attr')).each(function(index){return this.value=index})
+    $($(this).parents().eq(2).find('.nested_custom_attr')).each(function(index){return this.value=index})    
+    $($(this).parents().eq(2).find('.nested_other_attr')).each(function(index){return this.value=index})
+
+    var columns=$('.education').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.value}}).get();
+    var positions=$('.education').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.id}}).get();
+    var custom_cols=$('.custom_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.value}}).get();
+    var custom_pos=$('.custom_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.id}}).get();
+    var repr_cols=$('.repr_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.value}}).get();
+    var repr_pos=$('.repr_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.id}}).get();
+    
+    $('.rtable_cols').html("<input type='hidden' name='column' value='"+columns+"'><input type='hidden' name='positions' value='"+positions+"'>").append("<input type='hidden' name='custom_cols' value='"+custom_cols+"'><input type='hidden' name='custom_pos' value='"+custom_pos+"'><input type='hidden' name='repr_cols' value='"+repr_cols+"'><input type='hidden' name='repr_pos' value='"+repr_pos+"'>")
+    
+    $($(this).parents().eq(2)).find(".sections.education .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
+    $($(this).parents().eq(2)).find(".sections.customs .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
+    $($(this).parents().eq(2)).find(".sections.representation .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
+    // return false
+    // get_status()
+    return get_status()
+  });
+
+  $(document).on("click",'.tag',function(){    
+    if ($('.sections.others').find('.tag').length==0){
+      $('.sections.others').hide().after('<li class="ui-state-default sections"><a class="btn btn-default add_other_section">Undo others</a></li>');
+    }
+  })
+
+  $('body').keyup(function(e){
+    if(e.keyCode == 8){
+       // user has pressed backspace
+      if ($('.sections.others').find('.tag').length==0){
+        $('.sections.others').hide().after('<li class="ui-state-default sections"><a class="btn btn-default add_other_section">Undo others</a></li>');
+      }
+    }    
+  });
+
+
+  function get_status(){
+    var stats=true
+    $.ajax({
+      method: "GET",    
+      url: "/resumes/find_user_role",
+      async : false,
+      success: function(status){        
+        var prices="<%= escape_javascript(render('/resumes/nested/payment_form') )%>"
+        if (status) {
+          $('.photo-popover').show().html(prices)
+          stats=false
+        }
+      }
+    })
+    return stats
+  }
+
+
+
+  $("body").on("click",".cross_icon1",function(){
+    // $(this).parents().eq(1).remove()
+  })
+
+  $(document).on("click",'.add_section',function(){
+    $(this).parent().hide();
+    if (this.text=="Undo others"){
+      $(this).parent().prev().css("display","block").find('.fields').slice(1,100).css("display","none").slice(0,1).css("display","block").find('.bootstrap-tagsinput').css("display","block")
+    }
+    $(this).parent().prev().find('.remove_cols').map(function(){return $(this).text("Remove")})
+    if (this.text=="Undo skills") {
+      $(this).parent().prev().css("display","block").find('.fields').slice(1,100).css("display","none").slice(0,1).css("display","block").find('.form-control').css("display","block")
+    }else{      
+      $(this).parent().prev().css("display","block").find('.fields').slice(1,100).css("display","none").slice(0,2).css("display","block").find('.form-control').css("display","block")
+    }
+    $(this).parents().eq(1).find('.custom').hide();
+    $('.section-customs').map(function(){return $(this).text("Undo")});
+  });
+
+  $(document).on("click",".add_other_section",function(){
+    $(this).parent().hide()
+    $('.sections.others').show().find(".fields").map(function(index){ if (index!=0) {return $(this).hide()}})
+  })
+
+  $(document).on("click",".add_nested_fields",function(){
+    // debugger
+    // var obj = {};
+    // obj=["education","custom_cols"]
+    // $.each(obj, function(key, value)
+    // {
+
+    //     // document.writeln('<li>[' + key + ']: ' + value + "</li>\n");
+    // });
+  // debugger
+    $( ".datepicker" ).datepicker();
+    $($($(this).parent().find(".education")).filter(function() { return $(this).css("display") == "none" })).map(function(){return $(this).parents().eq(3).find(".col"+this.id).hide()});
+    $($($(this).parent().find(".custom_cols")).filter(function() { return $(this).css("display") == "none" })).map(function(){return $(this).parents().eq(3).find(".col"+this.id).hide()});
+    $($($(this).parent().find(".repr_cols")).filter(function() { return $(this).css("display") == "none" })).map(function(){return $(this).parents().eq(3).find(".col"+this.id).hide()});
+    // tags()
+  })
+
+  $(document).on("click",".remove_cols",function(){    
+    ($(this).text()=="Remove") ? ($(this).text("Undo")) : ($(this).text("Remove"))
+    $(this).parents().eq(3).find("."+this.id+"").toggle()
+      // .filter(function() { return $(this).css("display") == "block" }).length!=0) ?  $(this).text("Remove") : $(this).text("Undo")
+    var arr=$($(this).parents().eq(1).find('.remove_cols').map(function(e){return $(this).text()})).get();
+    if (arr.indexOf("Remove")==-1){    
+      $($(this).parents().eq(3).hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Undo '+$(this).data("association")+'</a></li>');
+      // $(this).parent().parent().parent().parent().find('.fields').slice(0,12).css("display","block")
+      $(this).parents().eq(1).find('.remove_cols').map(function(){return $(this).text("Remove")});
+    }
+  });
+
+  $(window).on('load',function(){
+    var col5=$(".custom.col5").map(function(){if (this.value!=''){return this.value}})
+    var col6=$(".custom.col6").map(function(){if (this.value!=''){return this.value}})
+    if (col5.length!=0){$(".custom.col5").map(function(){return $(this).css("display","block")})}else{$('.custom.col5').hide();}
+    if (col6.length!=0){$(".custom.col6").map(function(){return $(this).css("display","block")})}else{$('.custom.col6').hide();}
+    // $('.custom').slice(0,2).map(function(){
+    //   that=this
+    //   $('.custom').map(function(){
+    //     var df+that.id=$(".custom.col"+that.id).map(function(){return this.value})
+    //     return false
+    //   })
+    // })
+    
+  }); 
+
+  $("body").on("change","#files-input",function(){
+    // debugger
+    get_status();
+  });
+
+  $("body").on("click",".new_theatre",function(){
+    // var inputs=$(".theatre_inputs").map(function(){return this.value})
+    var id=$.now()
+    $(".theatre_id").val(id)
+    $(".new_theatre_resumes").submit()
+    return false;
+
+    // $.ajax({
+    //   method: "GET",
+    //   url: "<%=new_theatre_resumes_path%>",
+    //   data: {id: id,production: inputs[0], role: inputs[1] , venue: inputs[2],company: inputs[3],directed_by: inputs[4],performance_date: inputs[5].replace(/\//g,'-'), location: inputs[6]}
+    // });
+  });
+
+  $("body").on("click",".add-threatre-section",function(){
+    var theatre="<%= escape_javascript (render 'resumes/nested/theatre') %>"    
+    $(".photo-popover1").show().html(theatre)
+  });
+  </script>
+  <script type="text/javascript">
+    $(document).on("click",".add-new-production",function(){  
+      var a = $("#add-org-text").text()
+       $.ajax({
+              url: "<%=new_production_path%>",
+              method: "get",
+               data:  { name: a } 
+          });
+    });
+    $(document).on("click",".add-new-venue",function(){  
+      var a = $("#add-venue-text").text()
+       $.ajax({
+              url: "<%=new_venue_path%>",
+              method: "get",
+               data:  { name: a } 
+          });
+    });
+
+    $(document).on("click",".add-new-company",function(){
+      var a = $("#add-company-text").text()
+       $.ajax({
+              url: "<%=new_company_path%>",
+              method: "get",
+               data:  { name: a } 
+          });
+    });
+
+    $(document).on("click",".add-new-director",function(){
+      var a = $("#add-director-text").text()
+       $.ajax({
+              url: "<%=new_director_path%>",
+              method: "get",
+               data:  { name: a } 
+          });
+    });
+
+    $(document).on("click",".remove_new_theatre",function(){
+      $(this).parents().eq(1).remove()
+    });
+  </script>
+<%end%>

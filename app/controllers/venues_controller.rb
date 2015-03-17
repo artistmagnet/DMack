@@ -1,6 +1,6 @@
 class VenuesController < ApplicationController
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
-
+    before_filter :authenticate_user!
   # GET /venues
   # GET /venues.json
   def index
@@ -14,7 +14,10 @@ class VenuesController < ApplicationController
 
   # GET /venues/new
   def new
-    @venue = Venue.new
+    @venue = Venue.new(:name=> params[:name])
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /venues/1/edit
@@ -23,16 +26,30 @@ class VenuesController < ApplicationController
 
   # POST /venues
   # POST /venues.json
-  def create
+  def create    
+    venue,company,image=new_object params
+    
+    params[:venue]=venue
+    params[:company]=company
+    params[:image]=image
     @venue = Venue.new(venue_params)
+    @company = Company.new(company_params)
+    @company.state=params[:venue][:state]
+    @company.country=params[:venue][:country]
+    @company.save
+    @company.photos.create(params.require(:image).permit!) if params[:image].present?
 
     respond_to do |format|
       if @venue.save
-        format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
-        format.json { render json: @venue }
+        @venue.photos.create(params.require(:image).permit!) if params[:image].present?
+        flash[:notice] ="Venue/Company was successfully created."
+        format.js
+        #format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
+        #format.json { render json: @venue }
       else
-        format.html { render :new }
-        format.json { render json: @venue.errors.full_messages, status: :unprocessable_entity }
+        #format.html { render :new }
+        format.js { render :new }
+        #format.json { render json: @venue.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -67,8 +84,19 @@ class VenuesController < ApplicationController
       @venue = Venue.find(params[:id])
     end
 
+    def new_object params
+      venue=Hash[params[:venue].map{|u,v| [u, v.split('-')[0]] if u!="image"}]
+      company=Hash[params[:venue].map{|u,v| [u, v.split('-')[1]] if u!="image"}]
+      image=Hash[params[:venue].map{|u,v| [u,v] if u=="image"}]
+      return venue,company,image
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def venue_params
       params.require(:venue).permit(:name, :address1, :address2, :city, :zipcode, :state, :country, :description, :email, :addr_fb, :addr_tw, :addr_ins, :addr_lin, :website, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :phone, :year_founded)
+    end
+
+    def company_params
+      params.require(:company).permit(:name, :address1, :address2, :city, :zipcode, :state, :country, :description, :email, :addr_fb, :addr_tw, :addr_ins, :addr_lin, :website, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :phone, :year_founded)
     end
 end

@@ -1,0 +1,49 @@
+<h3>Attributes Info:</h3>
+<div class="form-group">
+  <label for="inputEmail3" class="col-sm-2 control-label"></label>
+  <div class="col-sm-3">
+  <div class="form-group">
+  <%#= a.select(:gender, [['Male', 'Male'], ['Female', "Female"], ['Other', "Other"] ],:class=>"form-control", :prompt => 'Select Gender') %>
+    <%= a.text_field :gender,:class=>"form-control",:placeholder=>"Gender" %>
+  </div>
+  </div>
+  <div class="col-sm-3">
+    <%= a.text_field :age,:class=>"form-control",:placeholder=>"Age or Age range" %>
+  </div>
+
+  <div class="col-sm-2">
+   <div class="form-group">
+    <%= a.select :height, options_for_select(heigth_parameters, a.object.height) %>
+
+   <%#= a.select(:height, heigth_parameters,:class=>"form-control", :prompt => 'Select Height') %>
+    <%#= a.text_field :height,:class=>"form-control",:placeholder=>"Height" %>
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <%= a.text_field :weight,:class=>"form-control",:placeholder=>"Weight"%>
+  </div>
+
+</div> 
+
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label"></label>
+    <div class="col-sm-3">
+      <%= a.text_field :hair_color,:class=>"form-control",:placeholder=>"Hair Color" %>
+    </div>
+    <div class="col-sm-3">
+      <%= a.text_field :hair_lenght,:class=>"form-control",:placeholder=>"Hair Length" %>
+    </div>
+    <div class="col-sm-4">
+      <%= a.text_field :eye_color,:class=>"form-control",:placeholder=>"Eye Color" %>
+    </div>              
+  </div>
+
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label"></label>
+    <div class="col-sm-5">
+      <%= a.text_field :vocal_range,:class=>"form-control",:placeholder=>"Vocal Range" %>
+    </div>
+    <div class="col-sm-5">
+      <%= a.text_field :ethnicity,:class=>"form-control",:placeholder=>"Ethnicity" %>
+    </div>              
+  </div>

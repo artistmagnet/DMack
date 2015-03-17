@@ -1,0 +1,79 @@
+<div class="form-group">
+  <label for="inputEmail3" class="col-sm-2 control-label"></label>
+    <div class="col-sm-3">
+      <%= c.text_field :nick_name,:required => true,:class=>"form-control",:placeholder=>"Stage Name" %>
+      <span class='astrick'>*</span>
+
+    </div>
+  </div>
+  <div class="form-group">
+  <label for="inputEmail3" class="col-sm-2 control-label"></label>
+    <div class="col-sm-3">
+      <%= c.text_field :first_name,:required => true,:class=>"form-control",:placeholder=>"First Name" %>
+      <span class='astrick'>*</span>
+    </div>
+
+    <div class="col-sm-3">
+      <%= c.text_field :middle_name,:class=>"form-control",:placeholder=>"Middle Name" %>
+    </div>
+    <div class="col-sm-2">
+      <%= c.text_field :last_name,:required => true,:class=>"form-control",:placeholder=>"Last Name"%>
+      <span class='astrick'>*</span>
+    </div>
+    <div class="col-sm-2">
+      <%= c.text_field :suffix,:class=>"form-control",:placeholder=>"Suffix" %>
+    </div>
+    </div>
+
+    <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label"></label>
+    <div class="col-sm-5">
+      <%= c.text_field :street_address1,:class=>"form-control",:placeholder=>"Street Address1" %>
+    </div>
+    <div class="col-sm-5">
+      <%= c.text_field :street_address2,:class=>"form-control",:placeholder=>"Street Address2" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label"></label>
+    <div class="col-sm-2">
+      <%= c.text_field :city,:class=>"form-control",:placeholder=>"City" %>
+    </div>
+    <div class="col-sm-2">
+      <%= c.text_field :state,:class=>"form-control",:placeholder=>"State" %>
+    </div>
+    <div class="col-sm-2">
+      <%= c.text_field :zip_code,:class=>"form-control",:placeholder=>"Zip Code" %>
+    </div>
+    <div class="col-sm-2">
+      <%= c.text_field :country,:class=>"form-control",:placeholder=>"Country" %>
+  </div>
+  </div>
+
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label"></label>
+    <div class="col-sm-3">
+      <%= c.text_field :phone1,:class=>"form-control",:placeholder=>"Phone1" %>
+    </div>
+    <div class="col-sm-3">
+      <%= c.text_field :phone2,:class=>"form-control",:placeholder=>"Phone2" %>
+    </div>
+    <div class="col-sm-4">
+      <%= c.text_field :email,:class=>"form-control",:placeholder=>"Email" %>
+    </div>                  
+  </div>
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label"></label>
+    <div class="col-sm-3">
+      <%= c.text_field :website,:class=>"form-control",:placeholder=>"Website" %>
+    </div>
+    <div class="col-sm-3">
+      <%= c.text_field :facebook,:class=>"form-control",:placeholder=>"Facebook" %>
+    </div>
+    <div class="col-sm-2">
+      <%= c.text_field :twitter,:class=>"form-control",:placeholder=>"Twitter" %>
+    </div> 
+    <div class="col-sm-2">
+      <%= c.text_field :linkedin,:class=>"form-control",:placeholder=>"Linkedin" %>
+    </div>                 
+  </div>

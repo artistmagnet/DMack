@@ -1,0 +1,17 @@
+<h1>Upgrade Your Account</h1>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Custom</th>
+      <th>Standard</th>
+      <th>Premium</th>      
+    </tr>
+  </thead>
+  <tbody>    
+    <tr>
+      <td>$10<br /><%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), express_orders_path(:price=>10) %></td>
+      <td>$20<br /><%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), express_orders_path(:price=>20) %></td>
+      <td>$30<br /><%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), express_orders_path(:price=>30) %></td>
+    </tr>    
+  </tbody>
+</table>

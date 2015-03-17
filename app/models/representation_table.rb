@@ -1,0 +1,2 @@
+class RepresentationTable < Rtable
+end

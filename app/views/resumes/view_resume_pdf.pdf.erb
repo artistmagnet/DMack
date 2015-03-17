@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <meta name="pdfkit-orientation" content="Landscape"/>
+  </head>
+  <body>
+    <div class="container-fluid m-top-20">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-body" id="show-resume">
+              <section class="list-resumes">            
+                <div class="row">
+                   <div class="col-md-8">
+                     <h4> <%=@resume.contact_info.try(:name)%></h4>
+                     <span><%=@resume.contact_info.try(:address)%>  </span><br/>
+                     <span>mobile: <%=@resume.contact_info.try(:phone1)%>  </span><br/>
+                     <span>e-mail: <%=@resume.contact_info.try(:email)%>  </span><br/>
+                     <span><%=@resume.contact_info.try(:facebook)%> , <%=@resume.contact_info.try(:twitter)%>, <%=@resume.contact_info.try(:linkedin)%> </span><br/>
+                   </div>
+                   <div class="col-md-4">                   
+                     <%= wicked_pdf_image_tag @resume.try(:image).try(:url),:style=>"width: 250px;" if @resume.image.present?%>
+                   </div>
+                  </div>       
+                </section>
+                <br/> <hr/>
+                <section class="list-resumes">
+                  <h3>Theatre:</h3>
+                  <div data-example-id="striped-table" >
+                    <table class="table table-striped">
+                      <tbody>
+                        <tr>
+                          <th>Production</th>
+                          <th>Venue</th>
+                          <th>Role</th>
+                          <th>Company</th>
+                          <th>Directed By</th>
+                          <th>Date of Performance</th>
+                          <th>Location</th>                      
+                        </tr>
+                       <% @resume.theatres.each do |theatre|%>
+                        <tr>
+                          <td><h4><%= theatre.production%></h4></td>
+                          <td><h4><%=theatre.venue %></td>
+                          <td><%= theatre.role %></h4></td>
+                          <td><h4><%=theatre.company %></h4></td>
+                          <td><%= theatre.directed_by  %></td>
+                          <td><%= theatre.performance_date  %></td>
+                          <td><%= theatre.location  %></td>
+                        </tr> 
+                        <%end%>                 
+                      </tbody>
+                    </table>
+                  </div>
+                </section ><br/>
+                
+                <section class="list-resumes">
+                  <h3>Education/Training:</h3>
+                  <div data-example-id="striped-table" class="bs-example">
+                    <table class="table table-striped">            
+                      <tbody>
+                      <%=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>""%>
+                       <% @resume.educations.each do |education|%>
+                        <tr>
+                          <td><%= education.school %></td>
+                          <td><%= education.city %></td>
+                          <td><%= education.state  %></td>
+                          <td><%= education.country  %></td>
+                          <td><%= education.degree  %></td>
+                          <td><%= education.year  %></td>
+                        </tr> 
+                        <%end%>                 
+                      </tbody>
+                    </table>
+                  </div>
+                </section><br/>
+         
+                <%if @resume.resume_type== "Performing Artist"%>
+                  <section class="list-resumes">
+                    <h3>Attributes:</h3>
+                      <div data-example-id="striped-table" class="bs-example">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>Gender</th>
+                              <th>Age</th>
+                              <th>Height</th>
+                              <th>Weight</th>
+                              <th>Hair color</th>
+                              <th>Hair Lenght</th>
+                              <th>Eye color</th>
+                              <th>Vocal Range</th>
+                              <th>Ethnicity</th>
+
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td><%= @resume.try(:resume_attribute).try(:gender) %></td>
+                              <td><%= @resume.try(:resume_attribute).try(:age) %></td>
+                              <td><%= @resume.try(:resume_attribute).try(:height) %></td>
+                              <td><%= @resume.try(:resume_attribute).try(:weight) %></td>
+                              <td><%= @resume.try(:resume_attribute).try(:hair_color) %></td>
+                              <td><%= @resume.try(:resume_attribute).try(:hair_lenght) %></td>
+                              <td><%= @resume.try(:resume_attribute).try(:eye_color) %></td>
+                              <td><%= @resume.try(:resume_attribute).try(:vocal_range) %></td>
+                              <td><%= @resume.try(:resume_attribute).try(:ethnicity) %></td>
+                            </tr>                  
+                          </tbody>
+                        </table>
+                      </div> 
+                    </section>
+                  <%end%><br/>
+                
+               <!--  <h3>Contact Info</h3>
+                <div data-example-id="striped-table" class="bs-example">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>Nick Name</th>
+                        <th>First Name</th>
+                        <th>Middle Name</th>
+                        <th>Last Name</th>
+                        <th>Suffix</th>
+                        <th>Street Address 2</th>
+                        <th>street Address 2</th>
+                        <th>city</th>
+                        <th>State</th>
+                        <th>Zip Code</th>
+                        <th>Country</th>
+                        <th>Email</th>
+                        <th>Website</th>
+                        <th>Facebook</th>
+                        <th>Twitter</th>
+                        <th>Linkedin</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><%= @resume.contact_info.nick_name %></td>
+                        <td><%= @resume.contact_info.first_name %></td>
+                        <td><%= @resume.contact_info.middle_name %></td>
+                        <td><%= @resume.contact_info.last_name %></td>
+                        <td><%= @resume.contact_info.suffix %></td>
+                        <td><%= @resume.contact_info.street_address1 %></td>
+                        <td><%= @resume.contact_info.street_address2 %></td>
+                        <td><%= @resume.contact_info.city %></td>
+                        <td><%= @resume.contact_info.state %></td>
+                        <td><%= @resume.contact_info.zip_code %></td>
+                        <td><%= @resume.contact_info.country %></td>
+                        <td><%= @resume.contact_info.email %></td>
+                        <td><%= @resume.contact_info.website %></td>
+                        <td><%= @resume.contact_info.facebook %></td>
+                        <td><%= @resume.contact_info.twitter %></td>
+                        <td><%= @resume.contact_info.linkedin %></td>
+                      </tr>              
+                    </tbody>
+                  </table>
+                </div> -->     
+                    
+                    
+                  <section class="list-resumes">
+                    <h3>Representation:</h3>
+                    <div data-example-id="striped-table" class="bs-example">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Company</th>
+                            <th>Contact_name</th>
+                            <th>Title</th>
+                            <th>Phone</th>
+                            <th>Adrress</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                         <% @resume.representations.each do |representation|%>
+                          <tr>
+                            <td><%= representation.company %></td>
+                            <td><%= representation.contact_name %></td>
+                            <td><%= representation.title  %></td>
+                            <td><%= representation.phone  %></td>
+                            <td><%= representation.address  %></td>
+                          </tr> 
+                          <%end%>                 
+                        </tbody>
+                      </table>
+                    </div>
+                  </section><br />
+
+                  <section class="list-resumes">
+                    <h3>Skills:</h3>
+                    <div data-example-id="striped-table" class="bs-example">
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
+                            <th>Category</th>
+                            <th>Skills</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                         <% @resume.skills.each do |skill|%>
+                          <tr>
+                            <td><%= skill.category.try(:name) %></td>
+                            <td><li style="list-style-type: none;"><%= skill.skills  if !skill.skills.blank?%></li></td>
+                          </tr> 
+                          <%end%>                 
+                        </tbody>
+                      </table>
+                    </div>
+                  </section><br />
+
+                  <section class="list-resumes">
+                  <h3>Custom:</h3>
+                  <div data-example-id="striped-table" class="bs-example">
+                    <table class="table table-striped">            
+                      <tbody>
+                      <%=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>"custom"%>
+                       <% @resume.customs.each do |custom|%>
+                        <tr>
+                          <td><%= custom.custom1 %></td>
+                          <td><%= custom.custom2 %></td>
+                          <td><%= custom.custom3  %></td>
+                          <td><%= custom.custom4  %></td>
+                          <td><%= custom.custom5  %></td>
+                          <td><%= custom.custom6  %></td>
+                        </tr> 
+                        <%end%>                 
+                      </tbody>
+                    </table>
+                  </div>
+                </section><br/>
+
+                <section class="list-resumes">
+                  <h3>Others:</h3>
+                  <div data-example-id="striped-table" class="bs-example">
+                    <table class="table table-striped">                  
+                      <tbody>
+                       <% @resume.others.each do |other|%>
+                        <tr>
+                          <td><%= other.content %></td>
+                        </tr> 
+                        <%end%>
+                      </tbody>
+                    </table>
+                  </div>
+                </section><br />
+                </div>
+                
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

@@ -1,0 +1,178 @@
+<div class="form-group">
+  <%= form_tag(new_theatre_resumes_path, class: "new_theatre_resumes", :remote=>true) do %>
+    <div class="row">
+      <div class="col-sm-4">
+        <%=label_tag :production%>
+      </div>
+      <div class="col-sm-8">
+        <%= text_field_tag :production,nil,:required=>true,:class=>"form-control productions_name",:placeholder=>"production" %>
+          <span class='astrick'>*</span>
+        <ul class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all" id="add-new-production" tabindex="0" style="display: none;width: 273px;  padding: 12px;"><li class="ui-menu-item add-new-organisation" ><a href="#" data-remote="true" id="ui-id-2" class="ui-corner-all" tabindex="-1"><h4>Add <strong><span id="add-org-text" class="add-new-production"></span></strong> as a new Production</h4></a></li></ul>
+      </div>
+    </div>
+     <%= hidden_field_tag "theatre_id", nil, class: "theatre_id" %>
+    <div class="row">
+      <div class="col-sm-4">
+        <%=label_tag :role%>
+      </div>
+      <div class="col-sm-8">
+        <%= text_field_tag :role,nil,:class=>"form-control",:placeholder=>"Role" %>
+      </div>
+    </div><br />
+
+    <div class="row">
+      <div class="col-sm-4">
+        <%=label_tag :venue%>
+      </div>
+      <div class="col-sm-8">        
+        <%= text_field_tag :venue,nil,:required=>true,:class=>"form-control venues_name",:placeholder=>"Venue" %>
+        <span class='astrick'>*</span>
+        <ul class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all" id="add-new-venue" tabindex="0" style="display: none;width: 273px;  padding: 12px;"><li class="ui-menu-item add-new-organisation" ><a href="#" data-remote="true" id="ui-id-2" class="ui-corner-all" tabindex="-1"><h4>Add <strong><span id="add-venue-text" class="add-new-venue"></span></strong> as a new Venue</h4></a></li></ul>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <%=label_tag :company%>
+      </div>
+      <div class="col-sm-8">        
+        <%= text_field_tag :company,nil,:required=>true,:class=>"form-control company_name",:placeholder=>"Company" %>
+      <span class='astrick'>*</span>
+        <ul class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all" id="add-new-company" tabindex="0" style="display: none;width: 273px;  padding: 12px;"><li class="ui-menu-item add-new-organisation" ><a href="#" data-remote="true" id="ui-id-2" class="ui-corner-all" tabindex="-1"><h4>Add <strong><span id="add-company-text" class="add-new-company"></span></strong> as a new Company</h4></a></li></ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-4">
+        <%=label_tag :directed_by%>
+      </div>
+      <div class="col-sm-8">
+        <%= text_field_tag :directed_by,nil,:class=>"form-control director_name",:placeholder=>"Director"%>
+        <ul class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all" id="add-new-director" tabindex="0" style="display: none;width: 273px;  padding: 12px;"><li class="ui-menu-item add-new-organisation" ><a href="#" data-remote="true" id="ui-id-2" class="ui-corner-all" tabindex="-1"><h4>Add <strong><span id="add-director-text" class="add-new-director"></span></strong> as a new Director</h4></a></li></ul>
+      </div>
+    </div><br />
+
+    <div class="row">
+      <div class="col-sm-4">
+        <%=label_tag :performance_date%>
+      </div>
+      <div class="col-sm-8">
+        <%= text_field_tag :performance_date,nil,:class=>"form-control datepicker",:placeholder=>"Dates",:id=>""%>
+      </div>
+    </div><br />
+    <div class="row">
+      <div class="col-sm-4">
+        <%=label_tag :location%>
+      </div>
+      <div class="col-sm-8">
+        <%= text_field_tag :location,nil,:class=>"form-control",:placeholder=>"Loc" %>
+      </div>
+    </div>
+     <div class="col-sm-1">
+      <%= link_to "Done","#-", class: "new_theatre"%>
+    <%#= t.link_to_remove "Remove",:class=>"btn btn-default" %>
+    </div> 
+  <%end%>
+</div>
+
+<script>
+  $(function() {
+   var productionsArray = <%=  raw @productions_name%>;
+  $( ".productions_name" ).autocomplete({
+  source:  productionsArray,
+  minLength: 0,
+  response: function(event, ui) {
+      if (ui.content.length === 0) {
+          $("#add-new-production").show();
+          $("#add-new-production #add-org-text").text($('.productions_name').val())
+      } else {
+          $("#add-new-production").hide();
+          $(".edit-organisation").hide();
+          $("#add-new-production #add-org-text").text()
+      }
+    }
+
+  }).focus(function(){            
+     $(this).autocomplete('search', $(this).val())
+   });
+  });
+
+  //Venues search
+  $(function() {
+  var venuesArray = <%=  raw @venues_name%>;
+  $( ".venues_name" ).autocomplete({
+  source: venuesArray,
+  minLength: 0,
+  response: function(event, ui) {
+      if (ui.content.length === 0) {
+          $("#add-new-venue").show();
+          $("#add-venue-text").text($('.venues_name').val())          
+      } else {
+          $("#add-new-venue").hide();
+          $(".edit-organisation").hide();
+          $("#add-new-company #add-org-text").text()
+      }
+    }
+
+  }).focus(function(){            
+     $(this).autocomplete('search', $(this).val())
+   });
+  });
+
+    //Comapany search
+$(function() {
+  var companiesArray = <%=  raw @companies_name.compact%>;
+  $( ".company_name" ).autocomplete({
+  source: companiesArray,
+  minLength: 0,
+  response: function(event, ui) {
+      if (ui.content.length === 0) {
+          $("#add-new-company").show();
+          $("#add-company-text").text($('.company_name').val())          
+      } else {
+          $("#add-new-company").hide();
+          $(".edit-organisation").hide();
+          $("#add-new-company #add-org-text").text()
+      }
+    }
+
+  }).focus(function(){            
+     $(this).autocomplete('search', $(this).val())
+   });
+  });
+
+    //Directer search
+  $(function() {
+  var directorsArray = <%=  raw @directors_name%>;
+  $( ".director_name" ).autocomplete({
+  source: directorsArray,
+  minLength: 0,
+  response: function(event, ui) {
+      if (ui.content.length === 0) {
+          $("#add-new-director").show();
+          $("#add-director-text").text($('.director_name').val())          
+      } else {
+          $("#add-new-director").hide();
+          $(".edit-organisation").hide();
+          $("#add-new-director #add-org-text").text()
+      }
+    }
+
+  }).focus(function(){            
+     $(this).autocomplete('search', $(this).val())
+   });
+  });
+
+  //Remove Confirmation
+  // $(".remove_nested_fields").click(function(){
+  //   if (confirm("Are you sure?")) {
+  //         $(this).trigger();
+  //     }
+  //     return false;
+  // });
+
+  $(function() {
+    $('.datepicker').datepicker({ dateFormat: 'dd-mm-yy' })
+  });
+
+</script>
+

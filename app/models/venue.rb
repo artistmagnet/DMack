@@ -2,12 +2,15 @@ class Venue < ActiveRecord::Base
   has_many :shows
   has_many :productions, :through => :shows
   has_many :simple_invitations, :as => :to
-
+  has_many :theatres,foreign_key: :venue
   validate :validate_properties
-  validates :email, :primary_contact_email, :email => true
-  validates :addr_fb, :addr_tw, :website, uri: true
+  validates :name, :uniqueness => true
+  has_many :photos, as: :imageable
+  #validates :email, :primary_contact_email, :email => true
+  #validates :addr_fb, :addr_tw, :website, uri: true
   # validates :addr_fb, :addr_tw, :addr_ins, :addr_lin, uri: true
-
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/fallback/union_station-180.png"
+  validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   def validate_properties
     if name.blank?
       errors.add :name, "is required"

@@ -1,29 +1,108 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+ <br>
+<div class="panel panel-danger"></div>
+  <div class="container">
+      <div class='row'>
+        <div class='col-md-8'>
+          <div class='col-md-12 form-group'>
+            <h1>Profile Information</h1>
+          </div>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>             
+            <%= devise_error_messages! %>
+            <%= flash[:error]%>
+              
+            <div class='form-row'>
+              <div class='col-xs-6 form-group '>
+                <label class='control-label'>First Name</label>
+                 <%= f.text_field :first_name, autofocus: true,:class=>'form-control ' ,:placeholder=>'First Name' %>
+              </div>
+              <div class='col-xs-6 form-group'>
+                <label class='control-label'>Last Name</label>
+                <%= f.text_field :last_name,:class=>'form-control ' ,:placeholder=>'Last Name' %>
+              </div>             
+            </div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+              <div class='form-row'>
+                <div class='col-xs-6 form-group '>
+                  <label class='control-label'>Date Of Birth</label>
+                   <%= f.text_field :dob,:class=>'form-control ' ,:placeholder=>'Date of Birth',:id=>"datepicker" %>
+                </div>
+                <div class='col-xs-6 form-group '>
+                  <label class='control-label'>Gender</label>
+                   <label class="radio-inline">
+                     <%= f.radio_button :gender,"Male" %>Male
+                  </label>
+                  <label class="radio-inline">         
+                    <%= f.radio_button :gender,"Femele" %>Femele
+                  </label>        
+                </div>             
+              </div>
+            <div class='form-row'>
+            <div class='col-md-2 form-group'>  
+             <%= f.submit "Update",:class=>'form-control btn btn-primary' %>      
+            </div> 
+           </div> 
+                   
+            <div class='form-row'>
+              <div class='col-xs-6 form-group '>
+                <label class='control-label'>Email</label>
+                <%= f.text_field :email,:class=>'form-control ' ,:placeholder=>'Email',:id=>"email" %>
+              </div>
+              <div class='col-xs-6 form-group '>
+                <label class='control-label'>Confirm  Email</label>
+                <%= f.text_field :email,:class=>'form-control ' ,:placeholder=>'Email',:id=>"confirm_email" %>
+              </div>
+            </div>
 
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+            <div class='form-row'>
+              <div class='col-xs-6 form-group  '>
+                <label class='control-label'>Password</label><i>(leave blank if you don't want to change it)</i><br/>
+                <%= f.password_field :password, autocomplete: "off",:class=>'form-control ' %>
+              </div>
+              <div class='col-xs-6 form-group expiration '>
+                <label class='control-label'>Password Confirmation</label>
+                <%= f.password_field :password_confirmation, autocomplete: "off",:class=>'form-control ' %>
+              </div>             
+            </div>
+            <div class='col-md-2 form-group'>  
+              <%= f.submit "Update",:class=>'form-control btn btn-primary submit-button' %>              
+              </div> 
+        <%= link_to image_tag("https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"), express_orders_path %>
+            <div class='form-row'>
+              <div class='col-xs-12 form-group '>
+                <label class='control-label'>Member Type</label><br/>
+                <label class="radio-inline">
+           <%= f.radio_button :member_type,"Artist" %>Artist(?)
+        </label>
+        <label class="radio-inline">         
+          <%= f.radio_button :member_type,"Company" %>Company(?)
+        </label>
+              </div>
+            </div>
+           
+           <!-- <div class='form-row'>
+              <div class='col-xs-12 form-group required'>
+                <label class='control-label'>Current Password</label><i>(we need your current password to confirm your changes)</i><br/>
+                <%#= f.password_field :current_password, autocomplete: "off" %></div>
+            </div> -->
+      
+            <div class='form-row'>
+              <div class='col-md-12 form-group'>  
+              <%= f.submit "Update",:class=>'form-control btn btn-primary submit-button' %>              
+              </div>             
+            </div>      
+          <%end%>
+        </div>          
+        <div class='col-md-4'></div>
+      </div>
+      <h3>Delete account</h3>
+      <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete,:class=>"btn btn-default" %>
+      <%= link_to "Back", :back %>
+  </div>
+</div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div><%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
-
-  <div><%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %></div>
-
-  <div><%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %></div>
-
-  <div><%= f.submit "Update" %></div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+<script>  
+  $(document).ready(function() {
+    var f19 = new LiveValidation('confirm_email');
+    f19.add( Validate.Confirmation, { match: 'email' } );
+      });
+  </script>

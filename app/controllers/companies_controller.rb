@@ -1,6 +1,5 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
-
   # GET /companies
   # GET /companies.json
   def index
@@ -14,7 +13,10 @@ class CompaniesController < ApplicationController
 
   # GET /companies/new
   def new
-    @company = Company.new
+    @company = Company.new(:name=>params[:name])
+    respond_to do |format|
+      format.js
+    end
   end
 
   # GET /companies/1/edit
@@ -25,14 +27,16 @@ class CompaniesController < ApplicationController
   # POST /companies.json
   def create
     @company = Company.new(company_params)
-
     respond_to do |format|
       if @company.save
-        format.html { redirect_to @company, notice: 'Company was successfully created.' }
-        format.json { render json: @company }
+        flash[:notice] ='Company was successfully created.'
+        format.js
+        #format.html { redirect_to @company, notice: 'Company was successfully created.' }
+        #format.json { render json: @company }
       else
-        format.html { render :new }
-        format.json { render json: @company.errors.full_messages, status: :unprocessable_entity }
+        format.js { render :new }
+        #format.html { render :new }
+        #format.json { render json: @company.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

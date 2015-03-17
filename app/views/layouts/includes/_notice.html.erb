@@ -1,11 +1,8 @@
-
-
-        <% if !flash[:notice].blank? %>
-          <div class="row">
-            <div class="col-md-offset-2 col-md-10">
-              <div class="am-notice m-bottom-20">
-                <span> <%= flash[:notice] %></span>
-              </div>
-            </div>
-          </div>
-        <% end %>
+<% if !flash[:alert].blank? || !notice.blank? ||  !flash[:notice].blank? %>
+	<div class="alert " id="notice">
+	  <button type="button" class="close">×</button>
+	  <%= flash[:alert] %>
+	  <%= notice %>
+	  <%#= flash[:notice] %>
+	</div>
+<% end %>

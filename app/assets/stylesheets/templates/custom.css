@@ -30,7 +30,7 @@
   position: absolute;  /* makes the div go into a position that’s absolute to the browser viewing area */
   left: 0%; /* makes the div span all the way across the viewing area */
   top: 0%; /* makes the div span all the way across the viewing area */
-  background-color: black;
+  background-color: transparent;
   -moz-opacity: 0.7; /* makes the div transparent, so you have a cool overlay effect */
   opacity: .70;
   filter: alpha(opacity=70);
@@ -47,4 +47,167 @@
 .fade-3{
     z-index: 290;
     height: 91%;
+}
+.btn-block-large {
+    display: block;
+    font-size: 27px;
+    font-weight: bold;
+    height: 66px;
+    line-height: -moz-block-height;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+    width: 100%;
+}
+  .footer {
+  position: relative;
+  height: 80px;
+  clear:both;
+  padding-top:20px;
+  background: grey;
+} 
+
+/**Makes the items appear in a line. But you can't define the width of an inline element.**/
+.footer li{
+    display:inline;
+    float:left;
+    color: #25B5D0;
+    padding: 12px 30px;
+    cursor: pointer;
+}
+
+.footer ul{
+      text-align: center;
+
+}
+
+.footer a{
+    display:block; /**Allows you to define a width.*/
+    text-align:center;
+    color: #25B5D0
+}
+
+#notice{
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+
+#notice-success{
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+    color: #3c763d;
+}
+
+.sidebar-header img {
+border: 0;
+width: 100%;
+}
+
+.astrick {
+       color: red;
+        margin-left: -5px;
+        position: relative;
+        top: -40px;
+      }
+.modal-backdrop {
+    background-color: #000;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+/*    z-index: 1040;
+*/}
+ .list-resumes{
+    background: none repeat scroll 0 0 #eeeeee;
+    border-radius: 2px;
+    padding: 10px;
+}
+
+#holder { border: 10px dashed #ccc;  min-height: 170px; margin: 20px auto;}
+#holder.hover { border: 10px dashed #0c0; }
+#holder img { display: block; margin: 1px auto; float: left;padding-bottom: 20px;}
+#holder p { margin: 10px; font-size: 14px; }
+progress { width: 100%; }
+progress:after { content: '%'; }
+.fail { background: #c00; padding: 2px; color: #fff; }
+.hidden { display: none !important;}
+
+.modal-backdrop {
+    background-color: #000;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+    z-index: 0 !important;
+}
+
+ul#add-new-company{
+    position:absolute;
+}
+#org-content.selected-company {
+  line-height: 21px;
+}
+#org-content span.change-company,span.edit-organisation {
+    color: #006699;
+    cursor: pointer;
+    font-size: 10px;
+    padding-left: 10px;
+}
+#org-content span.change-company:hover,span.edit-organisation:hover {
+    text-decoration: underline;
+} 
+.add-new-organisation{ cursor: pointer; }
+.add-new-organisation:hover{ text-decoration: underline;}
+
+.friends-list{
+  max-height: 300px;
+  overflow: auto;
+}
+ .friends-list li {
+  float: left;
+  padding: 14px;
+  list-style-type: none;
+  }
+
+ .friend-box {
+    height: 90px;
+    background: grey;
+    padding: 25px;
+    text-align: center;
+
+    }
+    .friend-box a {
+    color: #000;
+    }
+    #previewarea{
+      height: 90px;
+    }
+    .tag-show li { 
+      list-style-type: none; float: left; 
+      background: #5bc0de;
+      padding: 0.2em 0.6em 0.3em}
+.ui-autocomplete {
+max-height: 200px;
+overflow-y: auto;
+/* prevent horizontal scrollbar */
+overflow-x: hidden;
+}
+/* IE 6 doesn't support max-height
+* we use height instead, but this forces the menu to always be this tall
+*/
+* html .ui-autocomplete {
+height: 200px;
+}
+
+.preview-area > li img {
+    width: 100%;
 }

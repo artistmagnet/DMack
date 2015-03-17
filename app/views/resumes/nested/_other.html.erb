@@ -1,0 +1,16 @@
+ <div class="form-group">
+  <%= o.hidden_field :position,:class=>"nested_other_attr"%>
+  <div class="col-sm-2" >
+    <%#= s.text_field :category_id,:class=>"form-control",:placeholder=>"Category" %>
+  </div>
+  <div class="col-sm-8" >
+  	<div class="other_test">
+    <%= o.text_field :content,:class=>"form-control tag-input",:placeholder=>"Enter custom information" %>    </div>
+  </div>  
+   <div class="col-sm-2">
+    <%= o.link_to_remove "Remove",:class=>"btn btn-default" %>
+   </div>   
+</div>
+<script>
+	$('.tag-input').tagsinput('add', '');
+</script>

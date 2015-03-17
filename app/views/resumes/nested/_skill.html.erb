@@ -1,0 +1,17 @@
+<div class="form-group">
+  <%#= s.hidden_field :position, :class => 'bar' %>
+  <div class="col-sm-4" >
+    <%= s.collection_select :category_id, Category.all, :id, :name, { :prompt => 'Select a Category' },:class=>"form-control" %>
+    <%#= s.text_field :category_id,:class=>"form-control",:placeholder=>"Category" %>
+  </div>
+  <div class="col-sm-6" >
+    <%= s.text_field :skills,:class=>"form-control tag-input",:placeholder=>"Enter Custom Text" %>
+    <%= s.hidden_field :position,:class=>"nested_skill_attr"%>
+  </div>  
+   <div class="col-sm-2">
+    <%= s.link_to_remove "Remove",:class=>"btn btn-default" %>
+   </div>  
+</div>
+<script>
+  $('.tag-input').tagsinput('add', '');
+</script>

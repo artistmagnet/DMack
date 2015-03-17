@@ -7,15 +7,17 @@ class Production < ActiveRecord::Base
   has_many :resumes, :through => :roles
   has_many :artist_invitations, :as => :to
   has_many :director_invitations, :as => :to
+  has_many :theatres
 
   accepts_nested_attributes_for :shows, allow_destroy: true, reject_if: :all_blank
   # accepts_nested_attributes_for :director_invitations, allow_destroy: true
   # accepts_nested_attributes_for :artist_invitations, allow_destroy: true
 
   validate :validate_properties
-
+  validates :name, :presence => true
+  validates :name, :uniqueness => true
   # delegate :name, :to => :director, :prefix => true
-  delegate :name, :to => :company, :prefix => true
+  #delegate :name, :to => :company, :prefix => true
 
   def company_name
     company.nil? ? "" : company.name
@@ -41,12 +43,15 @@ class Production < ActiveRecord::Base
   def masked_date(date, mask)
     case mask
       when 7
-        date.to_formatted_s(:long)
+        #date.to_formatted_s(:long)
+        created_at.to_formatted_s(:month_and_year)
       when 6
-        date.to_formatted_s(:month_and_year)
+        #date.to_formatted_s(:month_and_year)
+        created_at.to_formatted_s(:month_and_year)
         # date.month + ', ' + date.year
       when 4
-        date.to_formatted_s(:year)
+        #date.to_formatted_s(:year)
+        created_at.to_formatted_s(:year)
         # date.year
       else
         ''
@@ -55,7 +60,8 @@ class Production < ActiveRecord::Base
 
   def opening_show
     # puts "Prod ##{id} has #{shows.count} shows"
-    shows.order("date ASC").first #if current_venue
+    #shows.order("date ASC").first #if current_venue
+    shows.order("created_at ASC").first #if current_venue
   end
 
 
@@ -76,10 +82,10 @@ class Production < ActiveRecord::Base
     #   errors.add :premiere_info, "is invalid"
     # end
 
-    if company.nil? && shows[0].venue.nil?
-      puts "COMPANY: #{company.to_json}"
-      errors.add :company_and_venue, "are blank. Please provide at least one"
-    end
+    # if company.nil? && shows[0].venue.nil?
+    #   puts "COMPANY: #{company.to_json}"
+    #   errors.add :company_and_venue, "are blank. Please provide at least one"
+    # end
 
     # director_invitation = last_director_invitation
     # puts "Invitation #{director_invitation.nil? ? 'had NOT been initialized' : 'had been initialized'}"
@@ -114,9 +120,11 @@ class Production < ActiveRecord::Base
       when 0
         'Not featured'
       when 1
-        shows.first.date.to_formatted_s(:long)
+        #shows.first.date.to_formatted_s(:long)
+        shows.first.created_at.to_formatted_s(:long)
       else
-        [shows.first.date.to_formatted_s(:compact), shows.last.date.to_formatted_s(:compact)].join(' - ')
+        #[shows.first.date.to_formatted_s(:compact), shows.last.date.to_formatted_s(:compact)].join(' - ')
+        [shows.first.created_at.to_formatted_s(:compact), shows.last.created_at.to_formatted_s(:compact)].join(' - ')
     end
   end
 

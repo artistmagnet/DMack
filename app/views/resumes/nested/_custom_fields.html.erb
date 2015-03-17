@@ -1,0 +1,26 @@
+<%education(cust,"custom")%>
+<div class="fields">
+ <div class="form-group ">
+    <div class="col-sm-2">
+      <input class="form-control custom_cols col1" name="custom1" value="<%= education(cust,"custom").present? ? !education(cust,"custom")[1].blank? ? education(cust,"custom")[1] : "" : ""%>" placeholder="Enter Custom Title" type="text", id="1">
+    </div>
+    <div class="col-sm-2">
+      <input class="form-control custom_cols col2" name="custom2" value="<%= education(cust,"custom").present? ? !education(cust,"custom")[2].blank? ? education(cust,"custom")[2] : "" : ""%>" placeholder="Enter Custom Title" type="text" id="2">
+    </div>
+    <div class="col-sm-2">
+      <input class="form-control custom_cols col3" name="custom3" value="<%= education(cust,"custom").present? ? !education(cust,"custom")[3].blank? ? education(cust,"custom")[3] : "" : ""%>" placeholder="Enter Custom Title" type="text" id="3">
+    </div>
+    <div class="col-sm-2">
+      <input class="form-control custom_cols col4" name="custom4" value="<%= education(cust,"custom").present? ? !education(cust,"custom")[4].blank? ? education(cust,"custom")[4] : "" : ""%>" placeholder="Enter Custom Title" type="text" id="4">
+    </div>
+    <div class="col-sm-2">
+      <input class="form-control custom_cols col5 custom" name="custom5" value="<%= education(cust,"custom").present? ? !education(cust,"custom")[5].blank? ? education(cust,"custom")[5] : "" : ""%>"  placeholder="Enter Custom Title" type="text" id="5">
+    </div>
+    <div class="col-sm-1">
+      <input class="form-control custom_cols col6 custom" name="custom6" value="<%= education(cust,"custom").present? ? !education(cust,"custom")[6].blank? ? education(cust,"custom")[6] : "" : ""%>" placeholder="Enter Custom Title" style="width: 59px;" type="text" id="6" data-association="customs">
+    </div>
+    <div class="col-sm-1">
+      <a class="btn btn-default remove_nested_fields remove_columns" data-association="customs" data-success="true" href="javascript:void(0)">Remove</a>
+    </div>
+  </div>
+</div>

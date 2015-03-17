@@ -1,0 +1,27 @@
+<%= form_for(@director,:remote=>true, html: {class: 'director_form form-horizontal'}) do |f| %>
+ 
+     <%= render 'layouts/includes/error_explanation', entity: @director, offset: 4, span: 8 %>
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name,:class=>"form-control",:placeholder=>"Name" %>
+  </div>
+  <div class="field">
+    <%= f.label :first_name %><br>
+    <%= f.text_field :first_name,:class=>"form-control",:placeholder=>"First Name" %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br>
+    <%= f.text_field :last_name,:class=>"form-control",:placeholder=>"Last Name" %>
+  </div>
+  <div class="field">
+    <%= f.label :email %><br>
+    <%= f.text_field :email ,:class=>"form-control",:placeholder=>"Email"%>
+  </div>
+  <div class="field">
+    <%= f.label :text %><br>
+    <%= f.text_area :text,:class=>"form-control" %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Submit",:class=>"btn btn-primary" %>
+  </div>
+<% end %>
