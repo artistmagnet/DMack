@@ -6,6 +6,7 @@ ruby '2.1.2'
 gem 'rails', '4.1.8'
 # Use postgresql as the database for Active Record
 gem 'pg'
+gem 'mysql2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.4'
 # Use Uglifier as compressor for JavaScript assets
@@ -38,6 +39,7 @@ group :development, :test do
   gem 'poltergeist'
   gem 'factory_girl_rails', "~> 4.0", group: :test
   gem 'database_cleaner'
+  gem 'byebug'
 end
 
 
@@ -60,5 +62,24 @@ gem 'thin'
 # gem 'activeadmin', github: 'activeadmin'
 
 gem 'devise'
+gem 'devise_invitable', '~> 1.3.4'
 # gem 'chosen-rails', '1.2.0.j', :git => 'https://github.com/gior/chosen-rails.git', :branch => 'feature/vanilla-search'
 gem 'chosen-rails', '1.2.0.j', :git => 'https://github.com/gior/chosen-rails.git', :branch => 'master'
+gem 'simple_captcha2', require: 'simple_captcha'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem "fb_graph"
+gem "koala", "~> 1.11.0rc"
+gem 'oauth2'
+
+#image or file  uplaod
+gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem "nested_form"
+
+gem 'remotipart', '~> 1.2'
+
+#Export pdf
+gem "pdfkit"
+gem 'wicked_pdf'
+gem "wkhtmltopdf-binary"
+gem 'activemerchant'

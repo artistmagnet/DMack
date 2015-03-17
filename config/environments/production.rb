@@ -27,7 +27,7 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs.
   config.assets.digest = true
@@ -67,6 +67,16 @@ Rails.application.configure do
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
   config.i18n.fallbacks = true
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+    paypal_options = {
+      :login => "arvindyuvasoft112-facilitator_api1.gmail.com",
+      :password => "1381412536",
+      :signature => "ABAXPA6E4bx7kbvfR8FDomA.2M5UAw9Go1aCM--SvoBUePOuS8x0sLbZ"
+    }
+    ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
+    ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end
 
   # Send deprecation notices to registered listeners.
   config.active_support.deprecation = :notify
@@ -83,4 +93,20 @@ Rails.application.configure do
 
   #devise --> TODO: set real host
   # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+    #mailer
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { :host => 'http://artistmagnet.herokuapp.com' }  
+  config.action_mailer.smtp_settings = {
+    address: "smtp.gmail.com",
+    port: 587,
+    domain: "gmail.com",
+    authentication: "plain",
+    enable_starttls_auto: true,
+    :user_name => 'yuvasoftest@gmail.com',
+    :password => 'yuva123456789'
+  }
+  
 end

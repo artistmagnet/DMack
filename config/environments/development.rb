@@ -5,6 +5,16 @@ Rails.application.configure do
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
+  config.after_initialize do
+    ActiveMerchant::Billing::Base.mode = :test
+    paypal_options = {
+      :login => "arvindyuvasoft112-facilitator_api1.gmail.com",
+      :password => "1381412536",
+      :signature => "ABAXPA6E4bx7kbvfR8FDomA.2M5UAw9Go1aCM--SvoBUePOuS8x0sLbZ"
+    }
+    ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
+    ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
+  end
 
   # Do not eager load code on boot.
   config.eager_load = false
@@ -32,7 +42,6 @@ Rails.application.configure do
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
-
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 
@@ -41,15 +50,15 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.default_url_options = { :host => 'http://artistmagnet.herokuapp.com' }  
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    authentication: "plain",
-    user_name: "proptestr@gmail.com",
-    password: "n00nnoon",
     domain: "gmail.com",
-    enable_starttls_auto: true
+    authentication: "plain",
+    enable_starttls_auto: true,
+    :user_name => 'yuvasoftest@gmail.com',
+    :password => 'yuva123456789'
   }
 
 end
