@@ -21,6 +21,7 @@
 //= require plugins/footable.min
 //= require plugins/icheck.min
 //= require main
+//= require custom
 //= require layouts
 //= require productions
 //= require chosen-jquery

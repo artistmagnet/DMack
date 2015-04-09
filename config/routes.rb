@@ -83,6 +83,7 @@ Rails.application.routes.draw do
       get :account_tier
       get :new_theatre
       post :new_theatre
+      get :page_view
     end
     resources :roles
 
@@ -109,6 +110,9 @@ Rails.application.routes.draw do
     resources :roles
     resources :director_invitations
     resources :artist_invitations
+    collection do
+      get :find_company
+    end
   end
 
   resources :rtables do
@@ -138,7 +142,7 @@ Rails.application.routes.draw do
   get  '/copyright'  => 'home#copyright', :as => 'copyright'
 
   match "/404", :to => "errors#file_not_found", via: 'get'
-  match "/422", :to => "errors#unprocessable", via: 'get'
-  match "/500", :to => "errors#internal_server_error", via: 'get'
+  # match "/422", :to => "errors#unprocessable", via: 'get'
+  # match "/500", :to => "errors#internal_server_error", via: 'get'
 
 end

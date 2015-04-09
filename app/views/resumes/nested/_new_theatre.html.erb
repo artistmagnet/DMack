@@ -1,6 +1,6 @@
 <div class="form-group">
   <div class="col-sm-2">
-    <label for="resume_theatres_attributes_Production:"><%=@theatre.production%></label>
+    <label for="resume_theatres_attributes_Production:"><%= link_to @theatre.production,production_path(Production.find_by_name(@theatre.production)) if !@theatre.production.blank?%></label>
     <input type="hidden" placeholder="production" name="resume[theatres_attributes][<%=@id%>][production]" value="<%=@theatre.production%>"id="resume_theatres_attributes_<%=@id%>_production" class="form-control productions_name ui-autocomplete-input" autocomplete="off">
     
     <ul style="display: none;width: 273px;  padding: 12px;" tabindex="0" id="add-new-production" class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all"><li class="ui-menu-item add-new-organisation"><a tabindex="-1" class="ui-corner-all" id="ui-id-2" data-remote="true" href="#"><h4>Add <strong><span class="add-new-production" id="add-org-text"></span></strong> as a new Production</h4></a></li></ul>
@@ -12,13 +12,13 @@
   </div>
 
   <div class="col-sm-2">
-    <label for="resume_theatres_attributes_Venue:"><%=@theatre.venue%></label>
+    <label for="resume_theatres_attributes_Venue:"><%=link_to @theatre.venue,venue_path(Venue.find_by_name(@theatre.venue)) if !@theatre.venue.blank? %></label>
      <input type="hidden" placeholder="Venue" name="resume[theatres_attributes][<%=@id%>][venue]" value="<%=@theatre.venue%>" id="resume_theatres_attributes_<%=@id%>_venue" class="form-control venues_name ui-autocomplete-input" autocomplete="off" >
     
     <ul style="display: none;width: 273px;  padding: 12px;" tabindex="0" id="add-new-venue" class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all"><li class="ui-menu-item add-new-organisation"><a tabindex="-1" class="ui-corner-all" id="ui-id-2" data-remote="true" href="#"><h4>Add <strong><span class="add-new-venue" id="add-venue-text"></span></strong> as a new Venue</h4></a></li></ul>
   </div>
   <div class="col-sm-2">
-    <label for="resume_theatres_attributes_Company:"><%=@theatre.company%></label>
+    <label for="resume_theatres_attributes_Company:"><%=link_to @theatre.company,company_path(Company.find_by_name(@theatre.company)) if !@theatre.company.blank?%></label>
     <input type="hidden" placeholder="Company" name="resume[theatres_attributes][<%=@id%>][company]" value="<%=@theatre.company%>" id="resume_theatres_attributes_<%=@id%>_company" class="form-control company_name ui-autocomplete-input" autocomplete="off">
     
     <ul style="display: none;width: 273px;  padding: 12px;" tabindex="0" id="add-new-company" class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all"><li class="ui-menu-item add-new-organisation"><a tabindex="-1" class="ui-corner-all" id="ui-id-2" data-remote="true" href="#"><h4>Add <strong><span class="add-new-company" id="add-company-text"></span></strong> as a new Company</h4></a></li></ul>

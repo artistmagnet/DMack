@@ -34,8 +34,9 @@ class ResumesController < ApplicationController
     $session_image_id =[]
   end
 
-  def edit
+  def edit    
     @role = @resume.roles.build
+    @section_order=@resume.resume_sections.last(5).collect(&:section_id)
     $session_image_id =[]   
   end
 
@@ -61,7 +62,9 @@ class ResumesController < ApplicationController
       if @resume.save
         update_photo(@resume)
         # add_education_table(@resume)  #moved to model
-        format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully created'}
+        # format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully created'}
+        format.html { render "/resumes/page_view.html.erb", notice: 'Resume was succesfully created'}
+        
         format.json { render json: @resume}
       else
         format.html { render :new }
@@ -70,7 +73,11 @@ class ResumesController < ApplicationController
     end
   end
 
-  def update    
+  def page_view
+    
+  end
+
+  def update
     @resume.columns = params[:column]
     @resume.positions = params[:positions]
     @resume.custom_cols = params[:custom_cols]
@@ -82,7 +89,8 @@ class ResumesController < ApplicationController
       if @resume.update(resume_params)
         # @resume.education_columns = params[:columns]
         update_photo(@resume)
-        format.html { redirect_to edit_resume_path(@resume), notice: 'Updated' }
+        # format.html { redirect_to edit_resume_path(@resume), notice: 'Updated' }
+        format.html { render "/resumes/page_view.html.erb", notice: 'Resume was succesfully Updated'}
         format.json { render json: @resume }
       else
         format.html { render :edit }
@@ -92,10 +100,12 @@ class ResumesController < ApplicationController
   end
 
   def destroy_other
-    params[:resume].require(:others_attributes).each do |oth|
-      if oth[1][:id].present?
-        @oth=Other.find(oth[1][:id])
-        @oth.destroy if @oth.content.blank?
+    if params[:resume][:others_attributes]
+      params[:resume].require(:others_attributes).each do |oth|
+        if oth[1][:id].present?
+          @oth=Other.find(oth[1][:id])
+          @oth.destroy if @oth.content.blank?
+        end
       end
     end
   end
@@ -115,7 +125,7 @@ class ResumesController < ApplicationController
   def new_theatre
     params[:new_theatre]=Hash[params.map{|u,v|[u,v]}]
     @theatre=Theatre.new(new_theatre_params)
-    @id=params[:id]
+    @id=params[:theatre_id]
     respond_to do |format|      
       format.js      
     end
@@ -274,7 +284,7 @@ class ResumesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def resume_params
-    params.require(:resume).permit(:performer_type,:union_guild,:image,:role_id,:resume_type,:other,:skills, roles_attributes: [:id, :production_id, :resume_id, :name, :_destroy],contact_info_attributes: [:id,:position,:nick_name,:first_name,:middle_name,:last_name,:suffix,:street_address1,:street_address2,:city,:state,:zip_code,:phone1,:phone2,:email,:website,:facebook,:twitter,:linkedin,:country,:_destroy],photos_attributes: [:id,:position, :image, :_destroy],theatres_attributes: [:id, :production_id,:production,:venue,:company,:venue_id,:company_id,:role,:director_id,:directed_by,:position,:performance_date,:location, :_destroy],educations_attributes: [:id,:position, :school,:city,:state,:country,:degree,:year, :_destroy],representations_attributes: [:id,:position, :company,:contact_name,:address,:title,:phone, :_destroy],skills_attributes: [:id, :category_id,:skills,:position, :_destroy],resume_attribute_attributes: [:id,:position, :height,:weighr,:gender,:age,:hair_color,:hair_lenght,:street_address2,:weight,:eye_color,:vocal_range,:ethnicity, :_destroy],customs_attributes: [:id, :custom1, :custom2, :custom3, :custom4, :custom5, :custom6, :position, :resume_id, :_destroy], others_attributes: [:id, :content, :position, :_destroy])
+    params.require(:resume).permit(:performer_type,:union_guild,:image,:role_id,:resume_type,:other,:skills, roles_attributes: [:id, :production_id, :resume_id, :name, :_destroy],contact_info_attributes: [:id,:position,:nick_name,:first_name,:middle_name,:last_name,:suffix,:street_address1,:street_address2,:city,:state,:zip_code,:phone1,:phone2,:email,:website,:facebook,:twitter,:linkedin,:country,:_destroy],photos_attributes: [:id,:position, :image, :_destroy],theatres_attributes: [:id, :production_id,:production,:venue,:company,:venue_id,:company_id,:role,:director_id,:directed_by,:position,:performance_date,:location, :_destroy],educations_attributes: [:id,:position, :school,:city,:state,:country,:degree,:year, :_destroy],representations_attributes: [:id,:position, :company,:contact_name,:address,:title,:phone, :_destroy],skills_attributes: [:id, :category_id,:skills,:position, :_destroy],resume_attribute_attributes: [:id,:position, :height,:weighr,:gender,:age,:hair_color,:hair_lenght,:street_address2,:weight,:eye_color,:vocal_range,:ethnicity, :_destroy],customs_attributes: [:id, :custom1, :custom2, :custom3, :custom4, :custom5, :custom6, :position, :resume_id, :_destroy], others_attributes: [:id, :content, :position, :_destroy], resume_sections_attributes: [:id, :position, :section_id, :_destroy])
   end
 
   def initialize_images_session
@@ -306,11 +316,13 @@ class ResumesController < ApplicationController
   end
 
   def load_data
-    @productions_name = Production.all.collect(&:name)
-    @venues_name = Venue.all.collect(&:name)
-    @companies_name = Company.all.collect(&:name)
-    @directors_name = Director.all.collect(&:name)
+    @productions_name = Production.all.flatten.map{ |u| {value: u.id, label: u.name}}
+    # @productions_name = Production.all.collect(&:name)
+    @venues_name = Venue.all.collect(&:name).flatten
+    @companies_name = Company.all.collect(&:name).flatten
+    @directors_name = Director.all.collect(&:name).flatten
   end
+
 
  
 end

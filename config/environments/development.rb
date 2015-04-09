@@ -7,11 +7,19 @@ Rails.application.configure do
   config.cache_classes = false
   config.after_initialize do
     ActiveMerchant::Billing::Base.mode = :test
+    # paypal_options = {
+    #   :login => "arvindyuvasoft112-facilitator_api1.gmail.com",
+    #   :password => "1381412536",
+    #   :signature => "ABAXPA6E4bx7kbvfR8FDomA.2M5UAw9Go1aCM--SvoBUePOuS8x0sLbZ"
+    # }
+
     paypal_options = {
       :login => "arvindyuvasoft112-facilitator_api1.gmail.com",
       :password => "1381412536",
       :signature => "ABAXPA6E4bx7kbvfR8FDomA.2M5UAw9Go1aCM--SvoBUePOuS8x0sLbZ"
     }
+
+    
     ::STANDARD_GATEWAY = ActiveMerchant::Billing::PaypalGateway.new(paypal_options)
     ::EXPRESS_GATEWAY = ActiveMerchant::Billing::PaypalExpressGateway.new(paypal_options)
   end

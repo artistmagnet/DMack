@@ -1,9 +1,12 @@
  <div class="form-group">
-   <%= r.hidden_field :position, :class => 'nested_repr_attr' %>   
+   <%= r.hidden_field :position, :class => 'nested_repr_attr' %>
+    <div class="col-sm-1"> 
+      <img width="30px;" alt="Icon" src="/assets/drag.jpg">
+    </div>
     <div class="col-sm-2" >
       <%= r.text_field :company,:class=>"form-control col1",:placeholder=>"Company" %>
     </div>
-    <div class="col-sm-2" >
+    <div class="col-sm-1" >
       <%= r.text_field :contact_name,:class=>"form-control col2",:placeholder=>"Contact Name" %>
     </div>
     <div class="col-sm-2" >

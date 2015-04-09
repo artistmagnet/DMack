@@ -1,11 +1,14 @@
 <div class="form-group">
   <%#= s.hidden_field :position, :class => 'bar' %>
-  <div class="col-sm-4" >
-    <%= s.collection_select :category_id, Category.all, :id, :name, { :prompt => 'Select a Category' },:class=>"form-control" %>
+  <div class="col-sm-1" >
+    <img width="30px;" alt="Icon" src="/assets/drag.jpg">    
+    <%#= s.collection_select :category_id, Category.all, :id, :name, { :prompt => 'Select a Category' },:class=>"form-control" %>
     <%#= s.text_field :category_id,:class=>"form-control",:placeholder=>"Category" %>
   </div>
-  <div class="col-sm-6" >
-    <%= s.text_field :skills,:class=>"form-control tag-input",:placeholder=>"Enter Custom Text" %>
+  <div class="col-sm-8" >
+    <div class="other_test">
+      <%= s.text_field :skills,:class=>"form-control tag-input",:placeholder=>"Enter Custom Text" %>
+    </div>
     <%= s.hidden_field :position,:class=>"nested_skill_attr"%>
   </div>  
    <div class="col-sm-2">

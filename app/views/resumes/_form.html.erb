@@ -1,6 +1,6 @@
-<%if ((current_user.role!="premium")) &&  (!current_user.resumes.blank?) %>
-  <div class='photo-popover'><%= render('/resumes/nested/payment_form') %></div>
-<%else%>
+<%#if (((current_user.role!="premium")) &&  (!current_user.resumes.blank?)) && params[:action]!="edit" %>
+  <!-- <div class='photo-popover'><%#= render('/resumes/nested/payment_form') %></div> -->
+<%#else%>
   <div id="add-resume">
     <%= nested_form_for(@resume, html: {class: 'form-horizontal'}) do |f| %>
     <div class="container-fluid m-top-20">
@@ -26,13 +26,12 @@
                   </div>
                 </div>
                 <div class="attributes-info">
-                <%=f.fields_for :resume_attribute do |a|%>                 
-                    <%= render "resumes/nested/attributes_info" ,:a=>a%>
-                <%end%>
-                <%if @resume.resume_attribute.blank?%>
-                 <%= f.link_to_add "Add attributes Section", :resume_attribute ,:class=>"btn btn-default" ,:class=>"attributes-info-add"%>
-                 <%end%>
-
+                  <%=f.fields_for :resume_attribute do |a|%>                 
+                      <%= render "resumes/nested/attributes_info" ,:a=>a%>
+                  <%end%>
+                  <%if @resume.resume_attribute.blank?%>
+                  <%= f.link_to_add "Add attributes Section", :resume_attribute ,:class=>"btn btn-default" ,:class=>"attributes-info-add"%>
+                  <%end%>
                 </div>
                 <%= f.fields_for :contact_info do |c|%>
                 <h3>Contact Info:</h3>
@@ -92,89 +91,102 @@
                 </section><br/>
                 
                 <ul>
-                  <div class="ui-state-default sections threatr-section ">
-                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                  <h3> Theatre:</h3>
-                  <li class="sortable">
-                    <%=render 'resumes/nested/theatre_fields'%>
-                    <div class="add_new_theatre"></div>
-                    <div class='photo-popover1' style="display:none"></div>
-                    <%#= f.fields_for :theatres do |t|%>
-                      <%#= render "resumes/nested/theatre"%>
-                    <%#end%>
-                    <%= link_to "Add Credit","#-",:class=>"btn btn-default add-threatre-section"%>
-                    <%#= f.link_to_add "Add More", :theatres ,:class=>"btn btn-default add-threatre-section"%>
-                  </li>
-                </section><br/>
-                
-                <div class="ui-state-default sections education">
-                  <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                  <h3>Education/Training:</h3>
-                  <%=render 'resumes/nested/education_remove_cols', :section => "educations"%>
-                  <li class="sortable">
-                    <div class="rtable_cols"></div>
-                    <%=render 'resumes/nested/education_fields',:e=>f%>
-                    <%=f.fields_for :educations do |e|%>
-                      <%= render "resumes/nested/education",:e=>e%>
-                    <%end%>                
-                    <%= f.link_to_add "Add More", :educations ,:class=>"btn btn-default"%> 
-                  </li>
-                </div><br/>
-
-                <div class="ui-state-default sections representation">
-                  <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                  <h3>Representation:</h3>
-                  <%=render 'resumes/nested/education_remove_cols', :section => "representations"%>
-                  <li class="sortable">
-                    <%=render 'resumes/nested/representation_fields',:repr=>f%>
-                    <%=f.fields_for :representations do |r|%>                
-                       <%= render "resumes/nested/representation" ,:r=>r%>
-                    <%end%>
-                    <%= f.link_to_add "Add More", :representations ,:class=>"btn btn-default"%>
-                  </li>
-                </div><br/>
-
-                <div class="ui-state-default sections">
-                  <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                  <h3>Skills Info:</h3>
-                  <li class="sortable">
-                    <%=f.fields_for :skills do |s|%>                 
-                       <%= render "resumes/nested/skill" ,:s=>s%>
-                    <%end%>                
-                    <%= f.link_to_add "Add More", :skills ,:class=>"btn btn-default"%> 
-                  </li>
-                </div> <br/>
-
-                <div class="ui-state-default sections customs">
-                  <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                  <h3>Custom:</h3>
-                  <%=render 'resumes/nested/education_remove_cols',:section=>"customs"%>
-                  <li class="sortable">
-                    <div class="rtable_cols"></div>
-                    <%=render 'resumes/nested/custom_fields',:cust=>f%>
-                    <%=f.fields_for :customs do |cust|%>
-                      <%= render "resumes/nested/custom",:cust=>cust%>
-                    <%end%>                
-                    <%= f.link_to_add "Add More", :customs ,:class=>"btn btn-default"%> 
-                  </li>
-                </div><br/>
-
-                <div class="ui-state-default sections others">
-                  <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                    <h3>Other:</h3>
-                    <li class="sortable">
-                      <%=f.fields_for :others do |o|%>                 
-                        <%= render "resumes/nested/other" ,:o=>o%>
-                      <%end%>
-                      <%= f.link_to_add "Add More", :others ,:class=>"btn btn-default"%> 
-                    </li>
+                  <div class="ui-state-default sections threatr-section ">                      
+                    <h3> Theatre:</h3>
+                    <li>
+                      <%=render 'resumes/nested/theatre_fields'%>
+                      <div class="add_new_theatre"></div>
+                      <div class='photo-popover1' style="display:none"></div>
+                      <%#= f.fields_for :theatres do |t|%>
+                        <%#= render "resumes/nested/theatre"%>
+                      <%#end%>
+                      <%= link_to "Add Credit","#-",:class=>"btn btn-default add-threatre-section"%>
+                      <%#= f.link_to_add "Add More", :theatres ,:class=>"btn btn-default add-threatre-section"%>
+                    </li><br/>
                   </div>
-                </div> <br/>             
-              </ul>
-                <div class="form-group">                 
-                    <div class="col-sm-3">
-                      <%= f.submit @resume.id.blank? ? 'Save & Finish!' : 'Update $ Finish',:class=>"form-control btn btn-primary get_columns" %>
-                    </div>
+                <div id="sort-section" class="sortable12">
+                  <div class="ui-state-default sections education" id="resume_section_1">
+                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                    <h3>Education/Training:</h3>
+
+                    <input class="resume_section" id="resume_resume_sections_attributes_0_position" name="resume[resume_sections_attributes][0][position]" type="hidden">
+                    <input id="resume_resume_sections_attributes_0_section_id" name="resume[resume_sections_attributes][0][section_id]" value="1" type="hidden">
+                    <%=render 'resumes/nested/education_remove_cols', :section => "educations"%>
+                    <li class="sortable">
+                      <div class="rtable_cols"></div>
+                      <%=render 'resumes/nested/education_fields',:e=>f%>
+                      <%=f.fields_for :educations do |e|%>
+                        <%= render "resumes/nested/education",:e=>e%>
+                      <%end%>
+                      <%= f.link_to_add "Add More", :educations ,:class=>"btn btn-default"%> 
+                    </li><br/>
+                  </div>
+                
+                  <div class="ui-state-default sections representation" id="resume_section_2">
+                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                    <h3>Representation:</h3>
+                    <input class="resume_section" id="resume_resume_sections_attributes_1_position" name="resume[resume_sections_attributes][1][position]" type="hidden">
+                    <input id="resume_resume_sections_attributes_1_section_id" name="resume[resume_sections_attributes][1][section_id]" value="2" type="hidden">
+
+                    <%=render 'resumes/nested/education_remove_cols', :section => "representations"%>
+                    <li class="sortable">
+                      <%=render 'resumes/nested/representation_fields',:repr=>f%>
+                      <%=f.fields_for :representations do |r|%>                
+                         <%= render "resumes/nested/representation" ,:r=>r%>
+                      <%end%>
+                      <%= f.link_to_add "Add More", :representations ,:class=>"btn btn-default"%>
+                    </li><br/>
+                  </div>
+                
+                  <div class="ui-state-default sections" id="resume_section_3">
+                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                    <h3>Skills:</h3>
+                    <input class="resume_section" id="resume_resume_sections_attributes_2_position" name="resume[resume_sections_attributes][2][position]" type="hidden">
+                    <input id="resume_resume_sections_attributes_2_section_id" name="resume[resume_sections_attributes][2][section_id]" value="3" type="hidden">
+
+                    <li class="sortable">                    
+                      <%=f.fields_for :skills do |s|%>                 
+                         <%= render "resumes/nested/skill" ,:s=>s%>
+                      <%end%>                
+                      <%= f.link_to_add "Add More", :skills ,:class=>"btn btn-default"%> 
+                    </li><br/>
+                  </div>
+                  
+                  <div class="ui-state-default sections customs" id="resume_section_4">
+                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                    <h3>Custom:</h3>
+                    <input class="resume_section" id="resume_resume_sections_attributes_3_position" name="resume[resume_sections_attributes][3][position]" type="hidden">
+                    <input id="resume_resume_sections_attributes_3_section_id" name="resume[resume_sections_attributes][3][section_id]" value="4" type="hidden">
+                    <%=render 'resumes/nested/education_remove_cols',:section=>"customs"%>
+                    <li class="sortable">
+                      <div class="rtable_cols"></div>
+                      <%=render 'resumes/nested/custom_fields',:cust=>f%>
+                      <%=f.fields_for :customs do |cust|%>
+                        <%= render "resumes/nested/custom",:cust=>cust%>
+                      <%end%>                
+                      <%= f.link_to_add "Add More", :customs ,:class=>"btn btn-default"%> 
+                    </li><br/>
+                  </div>
+                  
+                  <div class="ui-state-default sections others" id="resume_section_5">
+                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                      <h3>Other:</h3>
+                      <input class="resume_section" id="resume_resume_sections_attributes_4_position" name="resume[resume_sections_attributes][4][position]" type="hidden">
+                      <input id="resume_resume_sections_attributes_4_section_id" name="resume[resume_sections_attributes][4][section_id]" value="5" type="hidden">
+
+                      <li class="sortable">
+                        <%=f.fields_for :others do |o|%>
+                          <%= render "resumes/nested/other" ,:o=>o%>
+                        <%end%>
+                        <%= f.link_to_add "Add More", :others ,:class=>"btn btn-default"%> 
+                      </li>
+                    </div><br/>
+                  </div>
+                </ul>
+                <div class="form-group">
+                  <div class="col-sm-3">
+                    <%= f.submit @resume.id.blank? ? 'Save & Finish!' : 'Save',:class=>"form-control btn btn-primary get_columns" %>
+                  </div>
                 </div>
             </div>
           </div>
@@ -250,6 +262,10 @@
   <script>
   $(function() {
     $( ".sortable" ).sortable({
+      revert: true
+    });
+
+    $( ".sortable12" ).sortable({
       revert: true
     });
   });
@@ -415,13 +431,13 @@
 
 
     $("#select_resume_type").change(function(){
+      $(".attributes-info").toggle();
+      $("#resume_section_3").toggle();
       if ($("#select_resume_type").val()=="Production Member") 
-        {
-          $(".attributes-info").hide(); 
+        {          
           $('.photo-section').text("Photos")
         }
-        else{
-          $(".attributes-info").show();
+        else{          
           $('.photo-section').text("Headshots")
         }
     
@@ -502,6 +518,7 @@
   });
 
   $(document).on('click','.get_columns',function(){
+    // debugger
     $($(this).parents().eq(2).find('.nested_skill_attr')).each(function(index){return this.value=index})
     $($(this).parents().eq(2).find('.nested_theatre_attr')).each(function(index){return this.value=index})  
     $($(this).parents().eq(2).find('.nested_education_attr')).each(function(index){return this.value=index})
@@ -517,22 +534,36 @@
     var repr_pos=$('.repr_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.id}}).get();
     
     $('.rtable_cols').html("<input type='hidden' name='column' value='"+columns+"'><input type='hidden' name='positions' value='"+positions+"'>").append("<input type='hidden' name='custom_cols' value='"+custom_cols+"'><input type='hidden' name='custom_pos' value='"+custom_pos+"'><input type='hidden' name='repr_cols' value='"+repr_cols+"'><input type='hidden' name='repr_pos' value='"+repr_pos+"'>")
-    
+    // debugger
     $($(this).parents().eq(2)).find(".sections.education .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
     $($(this).parents().eq(2)).find(".sections.customs .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
     $($(this).parents().eq(2)).find(".sections.representation .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
     // return false
+    $($(this).parents().eq(2)).find(".sections.others .fields").filter(function() { 
+      if ($(this).css("display") == "none"){
+        $(this).find('.form-control').val('')
+      }
+    })    
+    $('.ui-state-default').find('input.resume_section').map(function(index){return this.value=index})
     // get_status()
     return get_status()
   });
 
-  $(document).on("click",'.tag',function(){    
+  $(document).on("click",".remove_others",function(){
+    $(this).parents().eq(2).hide().after( "<div align='right'><input type='button' name='undo' value='Undo' class='show_others'></div>" );
+  });
+
+  $(document).on("click",".show_others",function(){
+    $(this).parent().hide().prev().show();
+  });
+
+  $(document).on("click",'.tag',function(){
     if ($('.sections.others').find('.tag').length==0){
       $('.sections.others').hide().after('<li class="ui-state-default sections"><a class="btn btn-default add_other_section">Undo others</a></li>');
     }
   })
 
-  $('body').keyup(function(e){
+  $('.ui-state-default.sections.others').keyup(function(e){    
     if(e.keyCode == 8){
        // user has pressed backspace
       if ($('.sections.others').find('.tag').length==0){
@@ -542,22 +573,22 @@
   });
 
 
-  function get_status(){
-    var stats=true
-    $.ajax({
-      method: "GET",    
-      url: "/resumes/find_user_role",
-      async : false,
-      success: function(status){        
-        var prices="<%= escape_javascript(render('/resumes/nested/payment_form') )%>"
-        if (status) {
-          $('.photo-popover').show().html(prices)
-          stats=false
-        }
-      }
-    })
-    return stats
-  }
+  // function get_status(){
+  //   var stats=true
+  //   $.ajax({
+  //     method: "GET",    
+  //     url: "/resumes/find_user_role",
+  //     async : false,
+  //     success: function(status){        
+  //       var prices="<%= escape_javascript(render('/resumes/nested/payment_form') )%>"
+  //       if (status) {
+  //         $('.photo-popover').show().html(prices)
+  //         stats=false
+  //       }
+  //     }
+  //   })
+  //   return stats
+  // }
 
 
 
@@ -619,6 +650,15 @@
     var col6=$(".custom.col6").map(function(){if (this.value!=''){return this.value}})
     if (col5.length!=0){$(".custom.col5").map(function(){return $(this).css("display","block")})}else{$('.custom.col5').hide();}
     if (col6.length!=0){$(".custom.col6").map(function(){return $(this).css("display","block")})}else{$('.custom.col6').hide();}
+   
+    var $modules = $('#sort-section .ui-state-default');
+    var order = "<%=@section_order if @section_order.present? %>"
+
+    var wrapper = document.getElementById('sort-section');
+    for (var i = 0, l = order.length; i < l; i++) {
+        wrapper.appendChild($modules.get(order[i]-1));
+    }
+
     // $('.custom').slice(0,2).map(function(){
     //   that=this
     //   $('.custom').map(function(){
@@ -635,6 +675,7 @@
   });
 
   $("body").on("click",".new_theatre",function(){
+    // debugger
     // var inputs=$(".theatre_inputs").map(function(){return this.value})
     var id=$.now()
     $(".theatre_id").val(id)
@@ -692,5 +733,26 @@
     $(document).on("click",".remove_new_theatre",function(){
       $(this).parents().eq(1).remove()
     });
+
   </script>
-<%end%>
+  <%if params[:action]!="edit"%>
+    <script>
+      function get_status(){
+        var stats=true
+        $.ajax({
+          method: "GET",    
+          url: "/resumes/find_user_role",
+          async : false,
+          success: function(status){        
+            var prices="<%= escape_javascript(render('/resumes/nested/payment_form') )%>"
+            if (status) {
+              $('.photo-popover').show().html(prices)
+              stats=false
+            }
+          }
+        })
+        return stats
+      }
+    </script>
+  <%end%>  
+<%#end%>

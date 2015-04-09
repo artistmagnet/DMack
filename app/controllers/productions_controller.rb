@@ -22,6 +22,16 @@ class ProductionsController < ApplicationController
   def show
   end
 
+
+  def find_company
+    procduction=Production.find(params[:id])
+    @company=procduction.company
+    @venue=procduction.venues.first
+    respond_to do |format|
+      format.json { render :json=>{:company=>@company,:venue=>@venue}}
+    end
+  end
+
   # GET /productions/new
   def new
     @production = Production.new(:name=>params[:name])

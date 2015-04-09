@@ -117,6 +117,7 @@ img.chat-avatar {
 .form-control {
   box-shadow: none;
   border-radius: 0;
+  padding: 6px 7px;
   /*border-color: white;*/
    }
   /* line 127, ../scss/main.scss */
