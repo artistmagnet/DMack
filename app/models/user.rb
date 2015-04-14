@@ -25,22 +25,21 @@ class User < ActiveRecord::Base
   def self.from_omniauth(auth)
     authorization = Authentication.where(:provider => auth.provider, :uid => auth.uid.to_s).first_or_initialize
     if authorization.user.blank?
-      @user = where(email: auth.info.email).first_or_create do |user|
-        user.email = auth.info.email
-        user.first_name =  auth.info.first_name
-        user.last_name =  auth.info.last_name
-        user.password = Devise.friendly_token[0,10]
-        user.save!
-        authorization.user_id = user.id
-        authorization.token = auth["credentials"]["token"]
-        authorization.token_secret =  auth["credentials"]["secret"]
-        authorization.save
-      end
+      user = where(email: auth.info.email).first_or_create
+      user.email = auth.info.email
+      user.first_name =  auth.info.first_name
+      user.last_name =  auth.info.last_name
+      user.password = Devise.friendly_token[0,10]
+      user.save!
+      authorization.user_id = user.id
+      authorization.token = auth["credentials"]["token"]
+      authorization.token_secret =  auth["credentials"]["secret"]
+      authorization.save      
     end
-    return (@user ? @user : authorization.user)
+    return authorization.user
   end
 
-  def self.get_facebook_friends(current_user)   
+  def self.get_facebook_friends(current_user)    
     @graph = Koala::Facebook::API.new(current_user.authentications[0].token)
     user = @graph.get_object("me")
     friends = @graph.get_connections(user["id"], "friends")

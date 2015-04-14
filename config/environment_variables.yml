@@ -4,7 +4,7 @@ development:
   BASE_URL: localhost:3000
 production:
   FACEBOOK_KEY: '844112285668674'
-  FACEBOOK_SECRET: 8f7d2ce2530b7df784b32e1e694970ae
+  FACEBOOK_SECRET: 6bc6e8b73370c3b6e15590fb09f0191a
   BASE_URL: http://artistmagnet.herokuapp.com/
 staging:
   FACEBOOK_KEY: '1568874036664703'

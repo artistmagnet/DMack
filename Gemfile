@@ -68,8 +68,8 @@ gem 'chosen-rails', '1.2.0.j', :git => 'https://github.com/gior/chosen-rails.git
 gem 'simple_captcha2', require: 'simple_captcha'
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem "fb_graph"
-gem "koala", "~> 1.11.0rc"
+# gem "fb_graph"
+gem "koala", "~> 2.0"
 gem 'oauth2'
 
 #image or file  uplaod

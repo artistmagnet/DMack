@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all.order(:email)
   end
-  def oauth_login    
+  def oauth_login
     $fb_friends=nil
     user = User.from_omniauth(env["omniauth.auth"])
     if !current_user
