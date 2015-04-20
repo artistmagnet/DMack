@@ -9,17 +9,28 @@
           <div class="panel panel-default">
             <div class="panel-body">
                <div class="form-group">
-                  <label for="inputEmail3" class="col-sm-2 control-label">Resume type</label>
-                  <div class="col-sm-10">
-                  <%= f.select(:resume_type, options_for_select([['Performing Artist', 'Performing Artist'], ['Production Member', 'Production Member']], :selected=>@resume.resume_type ),{},:class=>"form-control",:id=>"select_resume_type") %>
+                <div class="col-sm-2">
+                  <label for="inputEmail3" class="">Resume Type</label>
+                  <span class='astrick' style="top:-5px;">*</span>
+                  </div>
+
+                  <%#= f.select(:resume_type,options_for_select([['Performing Artist', 'Performing Artist'], ['Production Member', 'Production Member']],:selected=>@resume.resume_type ),{},:class=>"form-control",:id=>"select_resume_type") %>
+                  <div class="col-sm-3">
+                  <%= f.radio_button :resume_type,'Performing Artist',label:'Performing Artist', :class=>"",:id=>"select_resume_type" %> 
+                  <%= f.label :resume_type,'Performing Artist',class: '' %>
+                  </div>
+                  <div class="col-sm-3">
+                  <%= f.radio_button :resume_type,'Production Member' ,label:'Production Member', :class=>"",:id=>"select_resume_type" %> 
+                  <%= f.label :resume_type,'Production Member',class: '' %>
                   </div>
                 </div>
                 <hr/>
 
                 <div class="form-group">
-                  <div class="col-sm-2"></div>
+                  <div class="col-sm-2"><label for="inputEmail3" class="control-label">Resume Type</label></div>
                   <div class="col-sm-5">
-                  <%= f.text_field :performer_type,:class=>"form-control", :placeholder =>"Type of Performer" %>
+
+                  <%= f.text_field :performer_type,:class=>"form-control"%>
                   </div>
                   <div class="col-sm-5">
                   <%= f.text_field :union_guild,:class=>"form-control", :placeholder =>"Union/Guild Affiliations" %>
@@ -34,7 +45,7 @@
                   <%end%>
                 </div>
                 <%= f.fields_for :contact_info do |c|%>
-                <h3>Contact Info:</h3>
+                <h3>Contact Info</h3>
                   <%= render "resumes/nested/contact_info" ,:c=>c%>
                 <%end%>
                 <div class='photo-popover' style="display:none;"></div>
@@ -92,7 +103,7 @@
                 
                 <ul>
                   <div class="ui-state-default sections threatr-section ">                      
-                    <h3> Theatre:</h3>
+                    <h3> Theatre</h3>
                     <li>
                       <%=render 'resumes/nested/theatre_fields'%>
                       <div class="add_new_theatre"></div>
@@ -107,7 +118,7 @@
                 <div id="sort-section" class="sortable12">
                   <div class="ui-state-default sections education" id="resume_section_1">
                     <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                    <h3>Education/Training:</h3>
+                    <h3>Education/Training</h3>
 
                     <input class="resume_section" id="resume_resume_sections_attributes_0_position" name="resume[resume_sections_attributes][0][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_0_section_id" name="resume[resume_sections_attributes][0][section_id]" value="1" type="hidden">
@@ -124,7 +135,7 @@
                 
                   <div class="ui-state-default sections representation" id="resume_section_2">
                     <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                    <h3>Representation:</h3>
+                    <h3>Representation</h3>
                     <input class="resume_section" id="resume_resume_sections_attributes_1_position" name="resume[resume_sections_attributes][1][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_1_section_id" name="resume[resume_sections_attributes][1][section_id]" value="2" type="hidden">
 
@@ -140,7 +151,7 @@
                 
                   <div class="ui-state-default sections" id="resume_section_3">
                     <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                    <h3>Skills:</h3>
+                    <h3>Skills</h3>
                     <input class="resume_section" id="resume_resume_sections_attributes_2_position" name="resume[resume_sections_attributes][2][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_2_section_id" name="resume[resume_sections_attributes][2][section_id]" value="3" type="hidden">
 
@@ -154,7 +165,7 @@
                   
                   <div class="ui-state-default sections customs" id="resume_section_4">
                     <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                    <h3>Custom:</h3>
+                    <h3>Custom</h3>
                     <input class="resume_section" id="resume_resume_sections_attributes_3_position" name="resume[resume_sections_attributes][3][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_3_section_id" name="resume[resume_sections_attributes][3][section_id]" value="4" type="hidden">
                     <%=render 'resumes/nested/education_remove_cols',:section=>"customs"%>
@@ -170,7 +181,7 @@
                   
                   <div class="ui-state-default sections others" id="resume_section_5">
                     <img alt="Icon" src="/assets/drag.jpg" width="30px;">
-                      <h3>Other:</h3>
+                      <h3>Other</h3>
                       <input class="resume_section" id="resume_resume_sections_attributes_4_position" name="resume[resume_sections_attributes][4][position]" type="hidden">
                       <input id="resume_resume_sections_attributes_4_section_id" name="resume[resume_sections_attributes][4][section_id]" value="5" type="hidden">
 
@@ -430,20 +441,22 @@
   }
 
 
-    $("#select_resume_type").change(function(){
+    $(document).on('click',"#select_resume_type",function(){
       $(".attributes-info").toggle();
       $("#resume_section_3").toggle();
-      if ($("#select_resume_type").val()=="Production Member") 
+      if($("#select_resume_type:checked").val()=="Production Member") 
         {          
-          $('.photo-section').text("Photos")
+          
+          $('.sections >.photo-section').text("Photos");
         }
-        else{          
-          $('.photo-section').text("Headshots")
+        else{
+                 
+          $('.sections >.photo-section').text("Headshots");
         }
     
     });
 
-     if ($("#select_resume_type").val()=="Production Member") 
+     if($("#select_resume_type:checked").val()=="Production Member") 
       {
         $(".attributes-info").hide(); 
       }
