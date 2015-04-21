@@ -10,24 +10,24 @@
             <div class="panel-body">
                <div class="form-group">
                 <div class="col-sm-2">
-                  <label for="inputEmail3" class="">Resume Type</label>
+                  <label for="inputEmail3" class="" title="Selecting 'Performing Artist' reveals the Demographics and Skills Sections and selecting 'Production Member' removes those Sections">Resume Type</label>
                   <span class='astrick' style="top:-5px;">*</span>
                   </div>
 
                   <%#= f.select(:resume_type,options_for_select([['Performing Artist', 'Performing Artist'], ['Production Member', 'Production Member']],:selected=>@resume.resume_type ),{},:class=>"form-control",:id=>"select_resume_type") %>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Performing Artist',label:'Performing Artist', :class=>"",:id=>"select_resume_type" %> 
-                  <%= f.label :resume_type,'Performing Artist',class: '' %>
+                  <%= f.radio_button :resume_type,'Performing Artist',:class=>"",:id=>"select_resume_type" %> 
+                  <%= f.label :resume_type,'Performing Artist',class: '',:title=>"Actor, Dancer, Musician, Singer, etc." %>
                   </div>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Production Member' ,label:'Production Member', :class=>"",:id=>"select_resume_type" %> 
-                  <%= f.label :resume_type,'Production Member',class: '' %>
+                  <%= f.radio_button :resume_type,'Production Member',:class=>"",:id=>"select_resume_type" %> 
+                  <%= f.label :resume_type,'Production Member',class: '',:title=>"Choreographer, Designer, Director, Dramaturg, Playwright, Stage Manager, etc." %>
                   </div>
                 </div>
                 <hr/>
 
                 <div class="form-group">
-                  <div class="col-sm-2"><label for="inputEmail3" class="control-label">Resume Type</label></div>
+                  <div class="col-sm-2"><label for="inputEmail3" class="control-label" title="This name will appear on your Resume below your Stage Name and Union/Guild Affiliation.  Examples of common Resume Titles include: Actor, Music Director, Production Stage Manager, Sound Designer, etc.">Resume Title</label></div>
                   <div class="col-sm-5">
 
                   <%= f.text_field :performer_type,:class=>"form-control"%>
@@ -51,47 +51,42 @@
                 <div class='photo-popover' style="display:none;"></div>
                 <%= hidden_field_tag "removed_images" %>
                 <%= hidden_field_tag "removed_drag_images" %>
+                <!-- Media Section --> 
                 <section class="sections">              
-                  <h3 class="photo-section"> Headshots</h3>
+                  <h3 class="photo-section" data-toggle="tooltip" data-placement="top" title="Your image must be less than 250kb"> Media</h3>
                   <div class="form-group">
                     <div class="col-sm-12">
                       <div class="form-group">
                         <div class="col-sm-4">
                           <label for="file-input">
-                            <img src="<%=@resume.image.try(:url)%>" class="main-image" width="128" height="128" />
+                           
+                            <%= image_tag "blankUser.png",:width=>"128",:class=>"main-image",:height=>"128"%>
                             </label>
-                          <%= f.file_field :image,:class=>"form-control",:onchange=>"Test.UpdatePreviewMain(this)",:accept=>"image/*" ,:id=>"file-input",:style=>"display: none"%>
+                          <input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'media_image')" name="resume[image]" id="file-input" class="form-control" accept="image/*">
                         </div>
-                        <div class="col-sm-8"  style="margin-top: -45px;">
+                        <div style="margin-top: -45px;" class="col-sm-8">
                           <section id="wrapper">
-                            <h4>Drag and drop, automatic upload(Multiple Extra Images)</h4>
                               <article>
                                 <div id="holder">
-                                  <%if @resume.photos%> 
                                     <ul class="preview-area">
-                                      <%@resume.photos.each_with_index do |photo,index|%>
-                                      <li>
-                                        <%= hidden_field_tag "old_image_#{index.to_s}", nil, value: photo, :class=>"hidden_images" %>
-                                      <label for="files-input" class="main-image">
-                                        <%=image_tag photo.image.try(:url),:width=>"60"%>
-                                      </label>
-                                      </li>
-                                      <%end%>                          
+                                    <li>
+                                    <%= image_tag "blankUser.png",:width=>"80",:class=>"additional_media_1 additional"%>
+                                    <input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'1')" name="resume[image]" id="file-input-1" data=1 class="form-control" accept="image/*">
+                                    </li>
+                                     <li>
+                                    <%= image_tag "blankUser.png",:width=>"80",:class=>"additional_media_2 additional"%>
+                                    <input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'2')" name="resume[image]" id="file-input-2" data=2 class="form-control" accept="image/*">
+                                    </li>
                                     </ul> 
-                                  <%else%>
-                                    <ul class="preview-area"></ul> 
-                                  <%end%>  
-                                  
-                                  <p id="upload" class="hidden"><label><br>
-                                  <input type="file" name="image"></label></p>
-                                  <p id="filereader">File API & FileReader API not supported</p>
-                                  <p id="formdata">XHR2's FormData is not supported</p>
-                                  <p id="progress">XHR2's upload progress isn't supported</p>
-                                  <%if current_user.role.present?%>        
-                                    <%= file_field_tag "photos[]",:id=>"files-input",:class=>"form-control", :multiple =>:true %>
-                                  <%else%>
-                                    <%= file_field_tag "photos[]",:id=>"files-input",:class=>"form-control"%>
-                                  <%end%>                          
+                                    <%= link_to "Add More Images","javascript:void(0)",:id=>"add_more_images"%>
+                                 
+                                   <div style="clear:both"></div>
+                                   <ul class="preview-video">
+                                   <li>
+                                   <%= link_to image_tag("video.jpeg",:width=>"60"),"javascript:void(0)",:class=>"additional_video_url"%>
+                                   </li>
+                                   </ul>
+                                  <%= link_to "Add more videos","javascript:void(0)",:class=>"add_video"%>
                                 </div>                    
                               </article>
                          </section>
@@ -99,8 +94,33 @@
                       </div>
                     </div>
                   </div>  
-                </section><br/>
-                
+                  </section>
+                <!-- Media Section -->    
+                <br/>
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myVideoModal" class="modal ">
+                 <div class="modal-dialog">
+                    <div class="modal-content">
+                       <div class="modal-header">
+                          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">
+                                ×
+                          </button>
+                          <h4 id="myModalLabel" class="modal-title">
+                             
+                          </h4>
+                       </div>
+                       <div class="modal-body">
+                        
+                       Video URL: <input type="text" name="resume[video_url]" id="resume_video"/>
+
+                       </div>
+                       <div class="modal-footer">
+                          <button data-dismiss="modal" class="btn btn-default submit_button" type="button">Submit
+                          </button>
+                       </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal -->
+                </div>
+
                 <ul>
                   <div class="ui-state-default sections threatr-section ">                      
                     <h3> Theatre</h3>
@@ -236,6 +256,9 @@
   <div class="form-javascipt">
     <%= render "load_form_json"%>
   </div>
+  <div class="more-video">
+    <%= render 'resumes/more_videos',:@videos => @videos,:@resume=>@resume %>
+  </div>
   <style type="text/css">
     .theatre-fields{
       background-color: #DDD !important;
@@ -281,165 +304,109 @@
     });
   });
 
-
   </script>
-
-
-
 
   <script>
   //File upload
-    $(function(){
-      Test = {
-          UpdatePreviewMain: function(obj){
-            // if IE < 10 doesn't support FileReader
-            if(!window.FileReader){
-               // don't know how to proceed to assign src to image tag
-            } else {
-               var reader = new FileReader();
-               var target = null;
-               
-               reader.onload = function(e) {
-                target =  e.target || e.srcElement;
-                 $(".main-image").prop("src", target.result);
-               };
-                reader.readAsDataURL(obj.files[0]);
-            }
-          }
-      };
-    });
-  //File upload
-    $(function(){
-      Test2 = {
-          UpdatePreviewExtra: function(obj){
-            // if IE < 10 doesn't support FileReader
-            if(!window.FileReader){
-               // don't know how to proceed to assign src to image tag
-            } else {
-               var reader = new FileReader();
-               var target = null;
-               
-               reader.onload = function(e) {
-                target =  e.target || e.srcElement;
-                 $(".extra-image").prop("src", target.result);
-               };
-                reader.readAsDataURL(obj.files[0]);
-            }
-          }
-      };
-  });
-
-
-  var holder = document.getElementById('holder'),
-      tests = {
-        filereader: typeof FileReader != 'undefined',
-        dnd: 'draggable' in document.createElement('span'),
-        formdata: !!window.FormData,
-        progress: "upload" in new XMLHttpRequest
-      }, 
-      support = {
-        filereader: document.getElementById('filereader'),
-        formdata: document.getElementById('formdata'),
-        progress: document.getElementById('progress')
-      },
-      acceptedTypes = {
-        'image/png': true,
-        'image/jpeg': true,
-        'image/gif': true
-      },
-      // progress = document.getElementById('uploadprogress'),
-      fileupload = document.getElementById('upload');
-
-  "filereader formdata progress".split(' ').forEach(function (api) {
-    if (tests[api] === false) {
-      support[api].className = 'fail';
-    } else {
-      // FFS. I could have done el.hidden = true, but IE doesn't support
-      // hidden, so I tried to create a polyfill that would extend the
-      // Element.prototype, but then IE10 doesn't even give me access
-      // to the Element object. Brilliant.
-      support[api].className = 'hidden';
+  function getSize(obj,reader){
+    var file = obj.files[0];
+    if(file.size/1024 > 250){
+      alert("The image you are attempting to upload is over 250kb. Please select an image less than 250kb.");
     }
-  });
-
-  function previewfile(file, validate) {
-    if (tests.filereader === true && acceptedTypes[file.type] === true) {
-      var reader = new FileReader();
-      reader.onload = function (event) {
-        var image = new Image();
-        image.src = event.target.result;
-        image.width = 65; // a fake resize
-        // holder.appendChild(image);
-        // $(holder).append('<a href="#-"><img src="/assets/cross.png" alt="remove" class="remove cross_icon1 cross_icon"/></a>')
-        // debugger
-
-        var index=($('.remove_dragged_image').size()!=0) ? Math.max.apply(Math, $('.remove_dragged_image').map(function(){return this.id.split('_')[3]})) : 0
-        $($(holder).append("<div></div>")).find("div:last").attr("id","dragged_image_"+(index+1)).append(image).append('<a href="#-" class="remove_dragged_image" id="remove_dragged_image_'+(index+1)+'" ><img src="/assets/cross.png" alt="remove" class="remove cross_icon1"/></a>')
-        
-
-        if (!validate){
-          // debugger
-          $(image).css("border","2px solid red")
-        }
-      };
-
+    else{
       reader.readAsDataURL(file);
-    }  else {
-      holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
-      console.log(file);
     }
   }
-
-  function readfiles(files) {
-      var formData = tests.formdata ? new FormData() : null;
-      if (!get_status()){return false}
-      for (var i = 0; i < files.length; i++) {
-        if (files[i].size>250000){
-          // debugger
-          if (tests.formdata) formData.append('file', files[i]);
-          previewfile(files[i], false);
-        }else{
-          if (tests.formdata) formData.append('file', files[i]);
-          previewfile(files[i], true);
-          // now post a new XHR request
-          if (tests.formdata) {
-            // debugger
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', '/upload');
-            xhr.onload = function() {
-              progress.value = progress.innerHTML = 100;
-            };
-
-            if (tests.progress) {
-              xhr.upload.onprogress = function (event) {
-                if (event.lengthComputable) {
-                  var complete = (event.loaded / event.total * 100 | 0);
-                  progress.value = progress.innerHTML = complete;
-                }
-              }
-            }
-
-            xhr.send(formData);
-          }
-            }      
-          }
-  }
-
-  if (tests.dnd) { 
-    holder.ondragover = function () { this.className = 'hover'; return false; };
-    holder.ondragend = function () { this.className = ''; return false; };
-    holder.ondrop = function (e) {
-      this.className = '';
-      e.preventDefault();
-      readfiles(e.dataTransfer.files);
-    }
-  } else {
-    fileupload.className = 'hidden';
-    fileupload.querySelector('input').onchange = function () {
-      readfiles(this.files);
+//File upload
+$(function(){
+  Test = {
+  UpdatePreviewMain: function(obj,data){
+  // if IE < 10 doesn't support FileReader
+  if(!window.FileReader){
+  // don't know how to proceed to assign src to image tag
+    } else {
+    var reader = new FileReader();
+    var target = null;
+    reader.onload = function(e) {
+      target = e.target || e.srcElement;
+      if(data == 'media_image')
+        $(".main-image").prop("src", target.result);
+      else
+        $(".additional_media_"+data).prop("src", target.result);
+        $(".additional_media_"+data).parent().prepend("<a href='javascript:void(0)' class='close_button'>X</a>");
     };
-  }
+    getSize(obj,reader);
+    }
 
+  }
+  };
+});
+$(document).on('click','#holder > ul.preview-area > li a.close_button',function(){
+   $(this).closest('li').remove();
+
+});
+$(document).on('click','li a.additional_headshot',function(){
+  $(".headshot").show();
+  $(".video").hide();
+  $("#myModal").modal('show');  
+});
+$(document).on('click','a.additional_video',function(){
+  $(".video").show();
+  $(".headshot").hide();
+  $("#myModal").modal('show');  
+});
+$('.photo-section').tooltip();
+$(document).on('click','#holder > ul.preview-area > li > img',function(){
+  var data_val = $(this).closest('li').find('input[type="file"]').attr('data');
+  $("#file-input-"+data_val).trigger('click');
+});
+// $(document).on('click','.additional_media_2',function(){
+//   $("#file-input-2").trigger('click');
+// });
+$(document).on('click','a.additional_video_url,a.add_video',function(){
+  $("#myVideoModal").modal('show');  
+});
+$(document).on('click','.submit_button',function(){
+  
+  var url = $("#resume_video").val();
+   
+  $.ajax({
+    type: 'POST',
+    // url: '<%= add_videos_path %>',
+    // data: {video:{video_url : url,resume_id : <%= @resume.id %>}},
+    success: function (result) {
+        //do somthing here
+       
+     }
+  });
+});
+$(document).on('click','#add_more_images',function(){
+  
+  var img1 = $(".additional_media_1").attr('src') || undefined;
+  var img2 = $(".additional_media_2").attr('src') || undefined;
+  var img3 = $(".main-image").attr('src');
+
+  if((img1 == undefined || img2 == undefined || (img1 == undefined && img2 == undefined)) || img1.search("data:image") != -1 && img2.search("data:image") != -1 && img3.search("data:image") != -1){
+    
+    if(img3.search("blankUser")==-1){
+    
+      var li_data = parseInt($("#holder > ul.preview-area > li:last-child > input").attr('data'));
+      
+      if (isNaN(li_data)) 
+        li_data = 1;
+      else
+        li_data++; 
+      $("#holder > ul.preview-area").append('<li><img src="<%= asset_path('blankUser.png')%>" width="60" class="additional additional_media_'+li_data+'"/><input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'+li_data+')" name="resume[image]" id="file-input-'+li_data+'" class="form-control" data="'+li_data+'" accept="image/*"></li>');
+   }
+    else{
+      alert("Please use the available media first");
+    }
+  }
+  else{
+    alert("Please use the available media first");
+  } 
+  
+});
 
     $(document).on('click',"#select_resume_type",function(){
       $(".attributes-info").toggle();
@@ -447,11 +414,11 @@
       if($("#select_resume_type:checked").val()=="Production Member") 
         {          
           
-          $('.sections >.photo-section').text("Photos");
+          // $('.sections >.photo-section').text("Photos");
         }
         else{
                  
-          $('.sections >.photo-section').text("Headshots");
+          // $('.sections >.photo-section').text("Headshots");
         }
     
     });
@@ -460,55 +427,7 @@
       {
         $(".attributes-info").hide(); 
       }
-  $("#files-input").val("")
-
-  var inputLocalFont = document.getElementById("files-input");
-  inputLocalFont.addEventListener("change",previewImages,false); //bind the function to the input
-
-  function previewImages(){
-    $('.preview-area').html("");
-      var fileList = this.files;
-
-      var anyWindow = window.URL || window.webkitURL;
-
-          for(var i = 0; i < fileList.length; i++){
-            // var  index=($('.remove_dropped_image').size()!=0) ? Math.max.apply(Math, $('.remove_dropped_image').map(function(){return this.id.split('_')[3]})) : i
-            //get a blob to play with
-            var objectUrl = anyWindow.createObjectURL(fileList[i]);
-            // for the next line to work, you need something class="preview-area" in your html
-            if (fileList[i].size>250000){
-              $('.preview-area').append('<li style="border:2px solid red" id="dropped_image_'+i+'">Img size UpTo 250kb<img src="' + objectUrl + '" width="60"/><a href="#-" class="remove_dropped_image" id="remove_dropped_image_'+i+'"><img src="/assets/cross.png" alt="remove" class="remove cross_icon" /></a></li>');
-            }else{
-              $('.preview-area').append('<li id="dropped_image_'+i+'"><img src="' + objectUrl + '" width="60"/><a href="#-" class="remove_dropped_image" id="remove_dropped_image_'+i+'" ><img src="/assets/cross.png" alt="remove" class="remove cross_icon"/></a></li>');
-            }
-            // get rid of the blob
-            window.URL.revokeObjectURL(fileList[i]);
-            
-          }
-
-
-  }
-
-  var removed_images = []
-  var removed_drag_images = []
-
-  $("body").on("click",".remove_dropped_image",function(){
-    // debugger
-    var id = this.id.split("_")[3]
-    $("#dropped_image_"+id).remove()
-    removed_images.push(id)
-    $("#removed_images").val(removed_images)    
-  })
-
-  $("body").on("click",".remove_dragged_image",function(){
-    // debugger
-    var id = this.id.split("_")[3]
-    $("#dragged_image_"+id).remove()
-    removed_drag_images.push(id)
-    $("#removed_drag_images").val(removed_drag_images)
-  })
   
-
   $(".attributes-info-add").click(function(){
     $(this).hide();
   });

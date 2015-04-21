@@ -3,7 +3,7 @@ class ResumesController < ApplicationController
   before_filter :authenticate_user!  
 
   before_action :new_resume, only: [:new]
-  before_action :set_resume, only: [:email_resume,:show, :edit, :edit_with_role, :update, :destroy, :add_table, :destroy_table]
+  before_action :set_resume, only: [:email_resume,:show, :edit, :edit_with_role, :update, :destroy, :add_table, :destroy_table,:remove_video]
   #before_action :new_production, only: [:new, :edit, :edit_with_role, :create]
   before_action :new_production, only: [:edit_with_role]
 
@@ -32,12 +32,14 @@ class ResumesController < ApplicationController
 
   def new
     $session_image_id =[]
+    @videos = @resume.videos
   end
 
   def edit    
     @role = @resume.roles.build
     @section_order=@resume.resume_sections.last(5).collect(&:section_id)
     $session_image_id =[]   
+    @videos = @resume.videos
   end
 
   def edit_with_role
@@ -203,7 +205,20 @@ class ResumesController < ApplicationController
   def sort_sections
     # debugger
   end
+  def add_videos
+    @resume = Resume.find(params[:video][:resume_id])
+    @resume.videos.create(video_params)
+    @videos = @resume.videos
+    respond_to do |format|
+      format.js
+    end  
+  end 
 
+  def remove_video
+    @video = Video.find(params[:video_id])
+    @video.destroy
+    render :js => "window.location.href = '/resumes/#{@resume.id}/edit'"  
+  end 
 
 
   private
@@ -323,6 +338,8 @@ class ResumesController < ApplicationController
     @directors_name = Director.all.collect(&:name).flatten
   end
 
-
+  def video_params
+      params.require(:video).permit(:id,:resume_id,:video_url)
+  end 
  
 end

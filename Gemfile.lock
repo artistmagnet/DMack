@@ -301,6 +301,7 @@ PLATFORMS
 
 DEPENDENCIES
   activemerchant
+  addressable
   byebug
   capybara
   chosen-rails (= 1.2.0.j)!

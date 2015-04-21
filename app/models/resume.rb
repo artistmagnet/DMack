@@ -31,6 +31,7 @@ class Resume < ActiveRecord::Base
   has_many :others, dependent: :destroy
   has_many :customs, dependent: :destroy
   has_many :resume_sections, dependent: :destroy
+  has_many :videos, dependent: :destroy
   accepts_nested_attributes_for :resume_attribute,:allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :contact_info,:allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :photos,:allow_destroy => true, reject_if: :all_blank

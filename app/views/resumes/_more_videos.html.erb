@@ -1,0 +1,18 @@
+<% if @videos.present? %>
+  <div class="more-videos">
+  <% @videos.each do |video| %>
+
+    <%=embed(video.video_url)%>
+    <%= link_to image_tag("edit_delete.png"),"javascript:void(0)",:class=>"video_#{video.id}" %>
+    <script>
+      $(document).on('click','.video_<%=video.id%>',function(){
+        $.ajax({
+          url: '<%=destroy_resume_video_path(@resume.id,:video_id => video.id)%>',
+          method: 'delete'
+        });
+      });
+    </script>
+
+  <%end%>
+  </div>
+<%end%>

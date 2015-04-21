@@ -1,9 +1,11 @@
 <div class="form-group">
-  <label for="inputEmail3" class="col-sm-2 control-label"></label>
+  <div class="col-sm-2">
+                  <label for="inputEmail3" class="" title="This name will appear at the top of your Resume.  If you do not have a Stage Name, you can enter your Full Name.">Stage Name</label>
+                  <span class='astrick' style="top:-5px;">*</span>
+                  </div>
     <div class="col-sm-3">
-      <%= c.text_field :nick_name,:required => true,:class=>"form-control",:placeholder=>"Stage Name" %>
-      <!-- <span class='astrick'>*</span> -->
-
+      <%= c.text_field :nick_name,:required => true,:class=>"form-control"%>
+      
     </div>
   </div>
   <!-- <div class="form-group">

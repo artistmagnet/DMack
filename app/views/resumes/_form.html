@@ -121,3 +121,254 @@
   <%= render 'venues/form' %>
 </div>
 <div class="fade fade-3"></div>
+
+<!-- <section class="sections">              
+                  <h3 class="photo-section"> Headshots</h3>
+                  <div class="form-group">
+                    <div class="col-sm-12">
+                      <div class="form-group">
+                        <div class="col-sm-4">
+                          <label for="file-input">
+                            <img src="<%#=@resume.image.try(:url)%>" class="main-image" width="128" height="128" />
+                            </label>
+                          <%#= f.file_field :image,:class=>"form-control",:onchange=>"Test.UpdatePreviewMain(this)",:accept=>"image/*" ,:id=>"file-input",:style=>"display: none"%>
+                        </div>
+                        <div class="col-sm-8"  style="margin-top: -45px;">
+                          <section id="wrapper">
+                            <h4>Drag and drop, automatic upload(Multiple Extra Images)</h4>
+                              <article>
+                                <div id="holder">
+                                  <%#if @resume.photos%> 
+                                    <ul class="preview-area">
+                                      <%#@resume.photos.each_with_index do |photo,index|%>
+                                      <li>
+                                        <%#= hidden_field_tag "old_image_#{index.to_s}", nil, value: photo, :class=>"hidden_images" %>
+                                      <label for="files-input" class="main-image">
+                                        <%#=image_tag photo.image.try(:url),:width=>"60"%>
+                                      </label>
+                                      </li>
+                                      <%#end%>                          
+                                    </ul> 
+                                  <%#else%>
+                                    <ul class="preview-area"></ul> 
+                                  <%#end%>  
+                                  
+                                  <p id="upload" class="hidden"><label><br>
+                                  <input type="file" name="image"></label></p>
+                                  <p id="filereader">File API & FileReader API not supported</p>
+                                  <p id="formdata">XHR2's FormData is not supported</p>
+                                  <p id="progress">XHR2's upload progress isn't supported</p>
+                                  <%#if current_user.role.present?%>        
+                                    <%#= file_field_tag "photos[]",:id=>"files-input",:class=>"form-control", :multiple =>:true %>
+                                  <%#else%>
+                                    <%#= file_field_tag "photos[]",:id=>"files-input",:class=>"form-control"%>
+                                  <%#end%>                          
+                                </div>                    
+                              </article>
+                         </section>
+                        </div>
+                      </div>
+                    </div>
+                  </div>  
+                </section> -->
+<script>
+  $(function(){
+      Test = {
+          UpdatePreviewMain: function(obj){
+            // if IE < 10 doesn't support FileReader
+            if(!window.FileReader){
+               // don't know how to proceed to assign src to image tag
+            } else {
+               var reader = new FileReader();
+               var target = null;
+               
+               reader.onload = function(e) {
+                target =  e.target || e.srcElement;
+                 $(".main-image").prop("src", target.result);
+               };
+                reader.readAsDataURL(obj.files[0]);
+            }
+          }
+      };
+    });
+  //File upload
+    $(function(){
+      Test2 = {
+          UpdatePreviewExtra: function(obj){
+            // if IE < 10 doesn't support FileReader
+            if(!window.FileReader){
+               // don't know how to proceed to assign src to image tag
+            } else {
+               var reader = new FileReader();
+               var target = null;
+               
+               reader.onload = function(e) {
+                target =  e.target || e.srcElement;
+                 $(".extra-image").prop("src", target.result);
+               };
+                reader.readAsDataURL(obj.files[0]);
+            }
+          }
+      };
+  });
+
+
+  var holder = document.getElementById('holder'),
+      tests = {
+        filereader: typeof FileReader != 'undefined',
+        dnd: 'draggable' in document.createElement('span'),
+        formdata: !!window.FormData,
+        progress: "upload" in new XMLHttpRequest
+      }, 
+      support = {
+        filereader: document.getElementById('filereader'),
+        formdata: document.getElementById('formdata'),
+        progress: document.getElementById('progress')
+      },
+      acceptedTypes = {
+        'image/png': true,
+        'image/jpeg': true,
+        'image/gif': true
+      },
+      // progress = document.getElementById('uploadprogress'),
+      fileupload = document.getElementById('upload');
+
+  "filereader formdata progress".split(' ').forEach(function (api) {
+    if (tests[api] === false) {
+      support[api].className = 'fail';
+    } else {
+      // FFS. I could have done el.hidden = true, but IE doesn't support
+      // hidden, so I tried to create a polyfill that would extend the
+      // Element.prototype, but then IE10 doesn't even give me access
+      // to the Element object. Brilliant.
+      support[api].className = 'hidden';
+    }
+  });
+
+  function previewfile(file, validate) {
+    if (tests.filereader === true && acceptedTypes[file.type] === true) {
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        var image = new Image();
+        image.src = event.target.result;
+        image.width = 65; // a fake resize
+        // holder.appendChild(image);
+        // $(holder).append('<a href="#-"><img src="/assets/cross.png" alt="remove" class="remove cross_icon1 cross_icon"/></a>')
+        // debugger
+
+        var index=($('.remove_dragged_image').size()!=0) ? Math.max.apply(Math, $('.remove_dragged_image').map(function(){return this.id.split('_')[3]})) : 0
+        $($(holder).append("<div></div>")).find("div:last").attr("id","dragged_image_"+(index+1)).append(image).append('<a href="#-" class="remove_dragged_image" id="remove_dragged_image_'+(index+1)+'" ><img src="/assets/cross.png" alt="remove" class="remove cross_icon1"/></a>')
+        
+
+        if (!validate){
+          // debugger
+          $(image).css("border","2px solid red")
+        }
+      };
+
+      reader.readAsDataURL(file);
+    }  else {
+      holder.innerHTML += '<p>Uploaded ' + file.name + ' ' + (file.size ? (file.size/1024|0) + 'K' : '');
+      console.log(file);
+    }
+  }
+
+  function readfiles(files) {
+      var formData = tests.formdata ? new FormData() : null;
+      if (!get_status()){return false}
+      for (var i = 0; i < files.length; i++) {
+        if (files[i].size>250000){
+          // debugger
+          if (tests.formdata) formData.append('file', files[i]);
+          previewfile(files[i], false);
+        }else{
+          if (tests.formdata) formData.append('file', files[i]);
+          previewfile(files[i], true);
+          // now post a new XHR request
+          if (tests.formdata) {
+            // debugger
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/upload');
+            xhr.onload = function() {
+              progress.value = progress.innerHTML = 100;
+            };
+
+            if (tests.progress) {
+              xhr.upload.onprogress = function (event) {
+                if (event.lengthComputable) {
+                  var complete = (event.loaded / event.total * 100 | 0);
+                  progress.value = progress.innerHTML = complete;
+                }
+              }
+            }
+
+            xhr.send(formData);
+          }
+            }      
+          }
+  }
+
+  if (tests.dnd) { 
+    holder.ondragover = function () { this.className = 'hover'; return false; };
+    holder.ondragend = function () { this.className = ''; return false; };
+    holder.ondrop = function (e) {
+      this.className = '';
+      e.preventDefault();
+      readfiles(e.dataTransfer.files);
+    }
+  } else {
+    fileupload.className = 'hidden';
+    fileupload.querySelector('input').onchange = function () {
+      readfiles(this.files);
+    };
+  }
+  $("#files-input").val("")
+
+  var inputLocalFont = document.getElementById("files-input");
+  inputLocalFont.addEventListener("change",previewImages,false); //bind the function to the input
+
+  function previewImages(){
+    $('.preview-area').html("");
+      var fileList = this.files;
+
+      var anyWindow = window.URL || window.webkitURL;
+
+          for(var i = 0; i < fileList.length; i++){
+            // var  index=($('.remove_dropped_image').size()!=0) ? Math.max.apply(Math, $('.remove_dropped_image').map(function(){return this.id.split('_')[3]})) : i
+            //get a blob to play with
+            var objectUrl = anyWindow.createObjectURL(fileList[i]);
+            // for the next line to work, you need something class="preview-area" in your html
+            if (fileList[i].size>250000){
+              $('.preview-area').append('<li style="border:2px solid red" id="dropped_image_'+i+'">Img size UpTo 250kb<img src="' + objectUrl + '" width="60"/><a href="#-" class="remove_dropped_image" id="remove_dropped_image_'+i+'"><img src="/assets/cross.png" alt="remove" class="remove cross_icon" /></a></li>');
+            }else{
+              $('.preview-area').append('<li id="dropped_image_'+i+'"><img src="' + objectUrl + '" width="60"/><a href="#-" class="remove_dropped_image" id="remove_dropped_image_'+i+'" ><img src="/assets/cross.png" alt="remove" class="remove cross_icon"/></a></li>');
+            }
+            // get rid of the blob
+            window.URL.revokeObjectURL(fileList[i]);
+            
+          }
+
+
+  }
+
+  var removed_images = []
+  var removed_drag_images = []
+
+  $("body").on("click",".remove_dropped_image",function(){
+    // debugger
+    var id = this.id.split("_")[3]
+    $("#dropped_image_"+id).remove()
+    removed_images.push(id)
+    $("#removed_images").val(removed_images)    
+  })
+
+  $("body").on("click",".remove_dragged_image",function(){
+    // debugger
+    var id = this.id.split("_")[3]
+    $("#dragged_image_"+id).remove()
+    removed_drag_images.push(id)
+    $("#removed_drag_images").val(removed_drag_images)
+  })
+  
+
+</script>
