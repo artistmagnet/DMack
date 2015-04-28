@@ -3,7 +3,7 @@ class ResumesController < ApplicationController
   before_filter :authenticate_user!  
 
   before_action :new_resume, only: [:new]
-  before_action :set_resume, only: [:email_resume,:show, :edit, :edit_with_role, :update, :destroy, :add_table, :destroy_table,:remove_video]
+  before_action :set_resume, only: [:email_resume,:show, :edit, :edit_with_role, :update, :destroy, :add_table, :destroy_table]
   #before_action :new_production, only: [:new, :edit, :edit_with_role, :create]
   before_action :new_production, only: [:edit_with_role]
 
@@ -31,8 +31,8 @@ class ResumesController < ApplicationController
   end
 
   def new
-    $session_image_id =[]
-    @videos = @resume.videos
+    $session_image_id,$session_video_id = [],[]
+    @videos = current_user.videos
   end
 
   def edit    
@@ -63,6 +63,7 @@ class ResumesController < ApplicationController
     respond_to do |format|
       if @resume.save
         update_photo(@resume)
+        update_video(@resume)
         # add_education_table(@resume)  #moved to model
         # format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully created'}
         format.html { render "/resumes/page_view.html.erb", notice: 'Resume was succesfully created'}
@@ -91,6 +92,7 @@ class ResumesController < ApplicationController
       if @resume.update(resume_params)
         # @resume.education_columns = params[:columns]
         update_photo(@resume)
+        update_video(@resume)
         # format.html { redirect_to edit_resume_path(@resume), notice: 'Updated' }
         format.html { render "/resumes/page_view.html.erb", notice: 'Resume was succesfully Updated'}
         format.json { render json: @resume }
@@ -206,18 +208,28 @@ class ResumesController < ApplicationController
     # debugger
   end
   def add_videos
-    @resume = Resume.find(params[:video][:resume_id])
-    @resume.videos.create(video_params)
-    @videos = @resume.videos
-    respond_to do |format|
-      format.js
-    end  
+    # @resume = Resume.find(params[:video][:resume_id])
+    # @resume.videos.create(video_params)
+    # @videos = @resume.videos
+    if current_user
+      @video = current_user.videos.create(video_params)
+      $session_video_id << @video.id  
+      if @video.save
+        @videos = current_user.videos
+        respond_to do |format|
+          format.js
+        end 
+      end
+    end     
   end 
 
   def remove_video
-    @video = Video.find(params[:video_id])
+    @video = Video.find(params[:id])
     @video.destroy
-    render :js => "window.location.href = '/resumes/#{@resume.id}/edit'"  
+    @videos = current_user.videos
+    respond_to do |format|
+      format.js{render :add_videos}
+    end   
   end 
 
 
@@ -237,6 +249,7 @@ class ResumesController < ApplicationController
     @resume.skills.build
     @resume.others.build
     @resume.customs.build
+    @resume.videos.build
   end
 
   def set_resume
@@ -329,6 +342,23 @@ class ResumesController < ApplicationController
     current_user.photos.where(:resume_id=>nil).destroy_all
   
   end
+  def update_video(resume)
+    # if !params[:videos].blank?
+    #   resume.videos.destroy_all
+    #   params[:videos].each_with_index do |video,index|       
+    #     resume.videos.create(:video_url=>video,:user_id=>current_user.id) if !params[:removed_images].include? index.to_s
+    #   end
+    # end
+    # debugger
+    if $session_video_id.present?
+      $session_video_id.compact.each_with_index do |id,index|        
+        video = Video.find(id)
+        video.update_attributes(:resume_id=>resume.id,:user_id=>current_user.id) 
+      end
+      $session_video_id=nil
+    end
+    current_user.videos.where(:resume_id=>nil).destroy_all
+  end
 
   def load_data
     @productions_name = Production.all.flatten.map{ |u| {value: u.id, label: u.name}}
@@ -339,7 +369,7 @@ class ResumesController < ApplicationController
   end
 
   def video_params
-      params.require(:video).permit(:id,:resume_id,:video_url)
+    params.require(:video).permit(:id,:resume_id,:video_url)
   end 
  
 end

@@ -96,7 +96,7 @@
                   </div>  
                   </section>
                 <!-- Media Section -->    
-                <br/>
+                 <div class="clearfix"></div>
                 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myVideoModal" class="modal ">
                  <div class="modal-dialog">
                     <div class="modal-content">
@@ -114,13 +114,16 @@
 
                        </div>
                        <div class="modal-footer">
-                          <button data-dismiss="modal" class="btn btn-default submit_button" type="button">Submit
-                          </button>
+                          <button data-dismiss="modal" class="btn btn-default submit_button" type="button">Submit</button>
                        </div>
                     </div><!-- /.modal-content -->
                   </div><!-- /.modal -->
                 </div>
-
+               
+                <div class="more-video">
+                  <%= render 'resumes/more_videos',:@videos => @videos %>
+                </div>
+                <br/>
                 <ul>
                   <div class="ui-state-default sections threatr-section ">                      
                     <h3> Theatre</h3>
@@ -256,9 +259,7 @@
   <div class="form-javascipt">
     <%= render "load_form_json"%>
   </div>
-  <div class="more-video">
-    <%= render 'resumes/more_videos',:@videos => @videos,:@resume=>@resume %>
-  </div>
+  
   <style type="text/css">
     .theatre-fields{
       background-color: #DDD !important;
@@ -269,6 +270,7 @@
       padding: 10px; 
       background: #dddddd;
       border-radius: 5px;
+      clear: both;
     }
     .main-image{
       cursor: pointer;
@@ -366,20 +368,16 @@ $(document).on('click','#holder > ul.preview-area > li > img',function(){
 $(document).on('click','a.additional_video_url,a.add_video',function(){
   $("#myVideoModal").modal('show');  
 });
-$(document).on('click','.submit_button',function(){
-  
+
+$(document).on('click','button.submit_button',function(){
   var url = $("#resume_video").val();
-   
   $.ajax({
-    type: 'POST',
-    // url: '<%= add_videos_path %>',
-    // data: {video:{video_url : url,resume_id : <%= @resume.id %>}},
-    success: function (result) {
-        //do somthing here
-       
-     }
+    type: "POST",
+    url: "<%= add_videos_url %>",
+    data: {"video":{"video_url" : url}}
   });
 });
+
 $(document).on('click','#add_more_images',function(){
   
   var img1 = $(".additional_media_1").attr('src') || undefined;

@@ -144,7 +144,7 @@ Rails.application.routes.draw do
   match "/404", :to => "errors#file_not_found", via: 'get'
   # match "/422", :to => "errors#unprocessable", via: 'get'
   # match "/500", :to => "errors#internal_server_error", via: 'get'
-  delete '/resumes/:id/remove_video/:video_id'  => 'resumes#remove_video',:as => 'destroy_resume_video'
+  delete '/remove_video/:id'  => 'resumes#remove_video',:as => 'destroy_resume_video'
   post 'add_videos' => 'resumes#add_videos',:as=>'add_videos'
 
 end
