@@ -83,7 +83,7 @@
                                    <div style="clear:both"></div>
                                    <ul class="preview-video">
                                    <li>
-                                   <%= link_to image_tag("video.jpeg",:width=>"60"),"javascript:void(0)",:class=>"additional_video_url"%>
+                                   <%= link_to image_tag("video.jpeg",:width=>"60"),"javascript:void(0)",:class=>"additional_video_url",:title=>"for YouTube and Vimeo videos only"%>
                                    </li>
                                    </ul>
                                   <%= link_to "Add more videos","javascript:void(0)",:class=>"add_video"%>
@@ -407,25 +407,19 @@ $(document).on('click','#add_more_images',function(){
 });
 
     $(document).on('click',"#select_resume_type",function(){
-      $(".attributes-info").toggle();
-      $("#resume_section_3").toggle();
       if($("#select_resume_type:checked").val()=="Production Member") 
         {          
-          
+          $(".attributes-info,#resume_section_3").hide();
           // $('.sections >.photo-section').text("Photos");
         }
         else{
-                 
+           $(".attributes-info,#resume_section_3").show();
+
           // $('.sections >.photo-section').text("Headshots");
         }
     
     });
-
-     if($("#select_resume_type:checked").val()=="Production Member") 
-      {
-        $(".attributes-info").hide(); 
-      }
-  
+    
   $(".attributes-info-add").click(function(){
     $(this).hide();
   });
