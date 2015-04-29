@@ -1,7 +1,7 @@
 .sections{
   border: 2px dashed #a1a1a1;
   padding: 10px; 
-  background: #dddddd;
+  /*background: #dddddd;*/
   border-radius: 5px;
 }
 .main-image{

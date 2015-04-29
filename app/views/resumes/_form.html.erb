@@ -16,11 +16,11 @@
 
                   <%#= f.select(:resume_type,options_for_select([['Performing Artist', 'Performing Artist'], ['Production Member', 'Production Member']],:selected=>@resume.resume_type ),{},:class=>"form-control",:id=>"select_resume_type") %>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Performing Artist',:class=>"",:id=>"select_resume_type" %> 
+                  <%= f.radio_button :resume_type,'Performing Artist',:class=>"",:id=>"select_resume_type",:required => true%> 
                   <%= f.label :resume_type,'Performing Artist',class: '',:title=>"Actor, Dancer, Musician, Singer, etc." %>
                   </div>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Production Member',:class=>"",:id=>"select_resume_type" %> 
+                  <%= f.radio_button :resume_type,'Production Member',:class=>"",:id=>"select_resume_type",:required => true%> 
                   <%= f.label :resume_type,'Production Member',class: '',:title=>"Choreographer, Designer, Director, Dramaturg, Playwright, Stage Manager, etc." %>
                   </div>
                 </div>
@@ -134,7 +134,7 @@
                       <%#= f.fields_for :theatres do |t|%>
                         <%#= render "resumes/nested/theatre"%>
                       <%#end%>
-                      <%= link_to "Add Credit","#-",:class=>"btn btn-default add-threatre-section"%>
+                      <%= link_to "Add Credit","#-",:class=>"btn btn-default btn btn-primary add-threatre-section"%>
                       <%#= f.link_to_add "Add More", :theatres ,:class=>"btn btn-default add-threatre-section"%>
                     </li><br/>
                   </div>
@@ -268,7 +268,7 @@
     .sections{
       border: 2px dashed #a1a1a1;
       padding: 10px; 
-      background: #dddddd;
+      /*background: #dddddd;*/
       border-radius: 5px;
       clear: both;
     }
@@ -291,6 +291,12 @@
       width: 15px;
       margin-left: -65px !important;
       position: relative;
+    }
+    .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default{
+      background: none;
+    }
+    .btn-primary {
+      color: #fff !important;
     }
     
 
