@@ -88,6 +88,8 @@ Rails.application.routes.draw do
     resources :roles
 
   end
+  resources :roles
+  
   post   '/sort_sections'      => 'resumes#sort_sections',      :as => 'sort_sections'
 
   get    '/resumes/view_resume_pdf/:id'  => 'resumes#view_resume_pdf', :as => 'view_resume_pdf'
@@ -146,5 +148,6 @@ Rails.application.routes.draw do
   # match "/500", :to => "errors#internal_server_error", via: 'get'
   delete '/remove_video/:id'  => 'resumes#remove_video',:as => 'destroy_resume_video'
   post 'add_videos' => 'resumes#add_videos',:as=>'add_videos'
+  post 'create_role' => 'resumes#create_role',:as=>'create_role'
 
 end

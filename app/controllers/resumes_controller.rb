@@ -5,7 +5,7 @@ class ResumesController < ApplicationController
   before_action :new_resume, only: [:new]
   before_action :set_resume, only: [:email_resume,:show, :edit, :edit_with_role, :update, :destroy, :add_table, :destroy_table]
   #before_action :new_production, only: [:new, :edit, :edit_with_role, :create]
-  before_action :new_production, only: [:edit_with_role]
+  
 
   before_action :new_show, only: [:new, :edit, :edit_with_role]
   before_action :new_venue, only: [:edit, :edit_with_role, :new, :create]
@@ -13,7 +13,7 @@ class ResumesController < ApplicationController
   before_action :load_data,only: [:new,:edit]
   skip_before_filter :verify_authenticity_token  
   #before_action :initialize_images_session ,only: [:new,:edit]
-
+  before_action :new_production, only: [:edit_with_role,:new]
   before_action :set_role, only: [:edit_with_role]
   # before_action :set_production,  only: [:edit_with_role]
   # before_action :set_show,        only: [:edit_with_role]
@@ -21,7 +21,8 @@ class ResumesController < ApplicationController
   # before_action :set_venue,       only: [:edit_with_role]
 
   #before_action :new_director_invitation, only: [:edit, :edit_with_role, :new]
-  before_action :new_director_invitation, only: [ :edit_with_role]
+  before_action :new_director_invitation, only: [ :edit_with_role,:new]
+ 
 
   after_action :destroy_other, only: [:update]
 
@@ -31,8 +32,9 @@ class ResumesController < ApplicationController
   end
 
   def new
-    $session_image_id,$session_video_id = [],[]
+    $session_image_id,$session_video_id,$session_role = [],[],[] 
     @videos = current_user.videos
+    @roles = Role.where(:resume_id=>nil)
   end
 
   def edit    
@@ -62,6 +64,7 @@ class ResumesController < ApplicationController
     
     respond_to do |format|
       if @resume.save
+        update_role(@resume)
         update_photo(@resume)
         update_video(@resume)
         # add_education_table(@resume)  #moved to model
@@ -91,6 +94,7 @@ class ResumesController < ApplicationController
     respond_to do |format|
       if @resume.update(resume_params)
         # @resume.education_columns = params[:columns]
+        update_role(@resume)
         update_photo(@resume)
         update_video(@resume)
         # format.html { redirect_to edit_resume_path(@resume), notice: 'Updated' }
@@ -216,9 +220,7 @@ class ResumesController < ApplicationController
       $session_video_id << @video.id  
       if @video.save
         @videos = current_user.videos
-        respond_to do |format|
-          format.js
-        end 
+        respond_to :js
       end
     end     
   end 
@@ -232,6 +234,16 @@ class ResumesController < ApplicationController
     end   
   end 
 
+  def create_role
+    @role = Role.create(role_params)
+    @roles = $session_role << @role
+    if @role.save
+      respond_to do |format|
+        # format.html { redirect_to after_create_path(request, @role), notice: 'Role was successfully created.' }
+        format.js 
+      end  
+    end
+  end  
 
   private
   # Use c
@@ -302,7 +314,8 @@ class ResumesController < ApplicationController
   end
 
   def new_director_invitation
-    @invitation = @production.director_invitations.build(by: @resume.user)
+    #@invitation = @production.director_invitations.build(by: @resume.user)
+    @invitation = @production.director_invitations.build(by: current_user)
   end
 
   # def add_education_table(resume)
@@ -360,6 +373,17 @@ class ResumesController < ApplicationController
     current_user.videos.where(:resume_id=>nil).destroy_all
   end
 
+  def update_role(resume)
+    if $session_role.present?
+      $session_role.compact.each do |role|        
+        # role = Role.find(role.id)
+        role.update_attribute(:resume_id,resume.id) 
+      end
+      $session_role=nil
+    end
+    Role.where(:resume_id=>nil).destroy_all
+  end
+
   def load_data
     @productions_name = Production.all.flatten.map{ |u| {value: u.id, label: u.name}}
     # @productions_name = Production.all.collect(&:name)
@@ -371,5 +395,13 @@ class ResumesController < ApplicationController
   def video_params
     params.require(:video).permit(:id,:resume_id,:video_url)
   end 
+
+  def after_create_path(request, role)
+    request.path == production_roles_path(role.production) ? production_artist_invitations_path(role.production) : request.path
+  end
+
+  def role_params
+    params.require(:role).permit(:production_id,:director_id,:resume_id, :name, :dirname,:diremail)
+  end
  
 end

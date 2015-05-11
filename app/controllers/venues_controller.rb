@@ -27,29 +27,29 @@ class VenuesController < ApplicationController
   # POST /venues
   # POST /venues.json
   def create    
-    venue,company,image=new_object params
+    # venue,company,image=new_object params
     
-    params[:venue]=venue
-    params[:company]=company
-    params[:image]=image
+    # params[:venue]=venue
+    # params[:company]=company
+    # params[:image]=image
     @venue = Venue.new(venue_params)
-    @company = Company.new(company_params)
-    @company.state=params[:venue][:state]
-    @company.country=params[:venue][:country]
-    @company.save
-    @company.photos.create(params.require(:image).permit!) if params[:image].present?
+    # @company = Company.new(company_params)
+    # @company.state=params[:venue][:state]
+    # @company.country=params[:venue][:country]
+    # @company.save
+    # @company.photos.create(params.require(:image).permit!) if params[:image].present?
 
     respond_to do |format|
       if @venue.save
-        @venue.photos.create(params.require(:image).permit!) if params[:image].present?
-        flash[:notice] ="Venue/Company was successfully created."
-        format.js
-        #format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
-        #format.json { render json: @venue }
+        # @venue.photos.create(params.require(:image).permit!) if params[:image].present?
+        # flash[:notice] ="Venue was successfully created."
+        # format.js
+        format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
+        format.json { render json: @venue }
       else
-        #format.html { render :new }
-        format.js { render :new }
-        #format.json { render json: @venue.errors.full_messages, status: :unprocessable_entity }
+        # format.js { render :new }
+        format.html { render :new }
+        format.json { render json: @venue.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -85,6 +85,7 @@ class VenuesController < ApplicationController
     end
 
     def new_object params
+      debugger
       venue=Hash[params[:venue].map{|u,v| [u, v.split('-')[0]] if u!="image"}]
       company=Hash[params[:venue].map{|u,v| [u, v.split('-')[1]] if u!="image"}]
       image=Hash[params[:venue].map{|u,v| [u,v] if u=="image"}]

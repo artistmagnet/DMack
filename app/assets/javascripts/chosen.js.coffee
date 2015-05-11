@@ -104,6 +104,7 @@ jQuery ->
 # activation
 jQuery ->
   $('#add-resume-role-link').click ->
+    console.log('was res log')
     if selectChain.length == 0
       selectChain.push('#add-resume-role')
     popupModal('#add-resume-role')

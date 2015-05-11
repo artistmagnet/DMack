@@ -40,6 +40,7 @@ group :development, :test do
   gem 'factory_girl_rails', "~> 4.0", group: :test
   gem 'database_cleaner'
   gem 'byebug'
+  gem 'quiet_assets'
 end
 
 

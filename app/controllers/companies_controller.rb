@@ -29,14 +29,14 @@ class CompaniesController < ApplicationController
     @company = Company.new(company_params)
     respond_to do |format|
       if @company.save
-        flash[:notice] ='Company was successfully created.'
-        format.js
-        #format.html { redirect_to @company, notice: 'Company was successfully created.' }
-        #format.json { render json: @company }
+        # flash[:notice] ='Company was successfully created.'
+        # format.js
+        format.html { redirect_to @company, notice: 'Company was successfully created.' }
+        format.json { render json: @company }
       else
-        format.js { render :new }
-        #format.html { render :new }
-        #format.json { render json: @company.errors.full_messages, status: :unprocessable_entity }
+        # format.js { render :new }
+        format.html { render :new }
+        format.json { render json: @company.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

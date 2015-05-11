@@ -1,1 +1,1 @@
-$(".more-video").html("<%=j render 'resumes/more_videos',:@videos=>@videos%>");
+$(".more-video").html("<%=escape_javascript(render 'resumes/more_videos',:@videos=>@videos)%>");

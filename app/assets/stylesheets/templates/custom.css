@@ -11,12 +11,14 @@
 }
 .overlay-1{
     left: 3%;
-    top: 3%;
+    /*top: 3%;*/
+    top: 17%;
     z-index: 100; /* makes the div the top layer, so it’ll lay on top of the other content */
 }
 .overlay-2{
     left: 6%;
-    top: 6%;
+    /*top: 6%;*/
+    top: 20%;
     z-index: 200; /* makes the div the top layer, so it’ll lay on top of the other content */
 }
 .overlay-3{
@@ -30,7 +32,8 @@
   position: absolute;  /* makes the div go into a position that’s absolute to the browser viewing area */
   left: 0%; /* makes the div span all the way across the viewing area */
   top: 0%; /* makes the div span all the way across the viewing area */
-  background-color: transparent;
+  /*background-color: transparent;*/
+  background-color: black;
   -moz-opacity: 0.7; /* makes the div transparent, so you have a cool overlay effect */
   opacity: .70;
   filter: alpha(opacity=70);
@@ -211,3 +214,5 @@ height: 200px;
 .preview-area > li img {
     width: 100%;
 }
+
+

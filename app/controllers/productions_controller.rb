@@ -50,24 +50,26 @@ class ProductionsController < ApplicationController
   # POST /productions
   # POST /productions.json
   def create
-    venue = Venue.find(params[:production][:venues])
-    @production = venue.productions.create(production_params)
+    # venue = Venue.find(params[:production][:venues])
+    # @production = venue.productions.create(production_params)
     # if (@show = @production.opening_show).nil?
     #   @production.shows.build
     #   @show = @production.shows.first
     # end
-
+    @production = Production.new(production_params)
     respond_to do |format|
-      flash[:notice] ='Production was successfully created.'
-      if @production.save        
-        format.js
+      # flash[:notice] ='Production was successfully created.'
+      if @production.save   
+        # format.js
         #TO DO: save current user
         # @production.set_director_inviter User.first
         # send_director_invitation(@production)
-        #format.html { redirect_to @production, notice: 'Production was successfully created.' }
-        #format.json { render json: @production }
+        format.html { redirect_to @production, notice: 'Production was successfully created.' }
+        format.json { render json: @production }
       else
-        format.js { render :new }
+        format.html { render :new }
+        format.json { render json: @production.errors.full_messages, status: :unprocessable_entity }
+        # format.js { render :new }
         #format.json { render json: @production.errors.full_messages, status: :unprocessable_entity }
       end
     end

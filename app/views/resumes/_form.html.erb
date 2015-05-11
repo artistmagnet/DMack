@@ -110,7 +110,7 @@
                        </div>
                        <div class="modal-body">
                         
-                       Video URL: <input type="text" name="resume[video_url]" id="resume_video"/>
+                       Video URL: <input type="text" name="resume[video_url]" id="resume_video" style="width:80%"/>
 
                        </div>
                        <div class="modal-footer">
@@ -130,17 +130,25 @@
                     <li>
                       <%=render 'resumes/nested/theatre_fields'%>
                       <div class="add_new_theatre"></div>
-                      <div class='photo-popover1' style="display:none"></div>
+                      <!-- <div class='photo-popover1' style="display:none"></div> -->
                       <%#= f.fields_for :theatres do |t|%>
                         <%#= render "resumes/nested/theatre"%>
                       <%#end%>
-                      <%= link_to "Add Credit","#-",:class=>"btn btn-default btn btn-primary add-threatre-section"%>
+                      <%#= link_to "Add Credit","#-",:class=>"btn btn-default btn btn-primary add-threatre-section"%>
+                       <div class="row">
+                        <div class="col-md-12">
+                          <%= link_to 'Add Credit', 'javascript:void(0)', {id: "add-resume-role-link", class: "btn btn-primary m-top-10"} %>
+                        </div>
+                      </div>
                       <%#= f.link_to_add "Add More", :theatres ,:class=>"btn btn-default add-threatre-section"%>
                     </li><br/>
                   </div>
+
+
+
                 <div id="sort-section" class="sortable12">
                   <div class="ui-state-default sections education" id="resume_section_1">
-                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <h3>Education/Training</h3>
 
                     <input class="resume_section" id="resume_resume_sections_attributes_0_position" name="resume[resume_sections_attributes][0][position]" type="hidden">
@@ -157,7 +165,7 @@
                   </div>
                 
                   <div class="ui-state-default sections representation" id="resume_section_2">
-                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <h3>Representation</h3>
                     <input class="resume_section" id="resume_resume_sections_attributes_1_position" name="resume[resume_sections_attributes][1][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_1_section_id" name="resume[resume_sections_attributes][1][section_id]" value="2" type="hidden">
@@ -173,7 +181,7 @@
                   </div>
                 
                   <div class="ui-state-default sections" id="resume_section_3">
-                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <h3>Skills</h3>
                     <input class="resume_section" id="resume_resume_sections_attributes_2_position" name="resume[resume_sections_attributes][2][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_2_section_id" name="resume[resume_sections_attributes][2][section_id]" value="3" type="hidden">
@@ -187,7 +195,7 @@
                   </div>
                   
                   <div class="ui-state-default sections customs" id="resume_section_4">
-                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <h3>Custom</h3>
                     <input class="resume_section" id="resume_resume_sections_attributes_3_position" name="resume[resume_sections_attributes][3][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_3_section_id" name="resume[resume_sections_attributes][3][section_id]" value="4" type="hidden">
@@ -203,7 +211,7 @@
                   </div>
                   
                   <div class="ui-state-default sections others" id="resume_section_5">
-                    <img alt="Icon" src="/assets/drag.jpg" width="30px;">
+                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                       <h3>Other</h3>
                       <input class="resume_section" id="resume_resume_sections_attributes_4_position" name="resume[resume_sections_attributes][4][position]" type="hidden">
                       <input id="resume_resume_sections_attributes_4_section_id" name="resume[resume_sections_attributes][4][section_id]" value="5" type="hidden">
@@ -259,6 +267,30 @@
   <div class="form-javascipt">
     <%= render "load_form_json"%>
   </div>
+  <div id="add-resume-role" class="overlay overlay-1" data-reload-url="<%#= edit_resume_url(@resume) %>" style="display: <%= role_visibility ||= 'none' %>">
+  <%= render 'roles/form' %>
+</div>
+ <div class="fade fade-1" style="display: <%= role_visibility ||= 'none' %>"></div>
+
+<div id="add-resume-production" class="overlay overlay-2">
+  <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
+</div>
+<div class="fade fade-2"></div>
+
+<div id="add-role-director" class="overlay overlay-2">
+  <%= render 'director_invitations/form' %>
+</div>
+<div class="fade fade-2"></div>
+
+<div id="add-company" class="overlay overlay-3">
+  <%= render 'companies/form' %>
+</div>
+<div class="fade fade-3"></div>
+
+<div id="add-venue" class="overlay overlay-3">
+  <%= render 'venues/form' %>
+</div>
+<div class="fade fade-3"></div> 
   
   <style type="text/css">
     .theatre-fields{
@@ -380,6 +412,7 @@ $(document).on('click','button.submit_button',function(){
   $.ajax({
     type: "POST",
     url: "<%= add_videos_url %>",
+    dataType: "script",
     data: {"video":{"video_url" : url}}
   });
 });

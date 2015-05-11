@@ -1,0 +1,33 @@
+<% if @roles.present? %>
+<% @roles.select{|r| !r.new_record?}.each do |role| %>
+            <div class="roles-table h-movable row diminished-font">
+              <!-- <div class="col-md-5"> -->
+                <div class="col-md-3">
+                    <%= link_to role.production_name.upcase, role.production %>
+                </div>
+                <div class="col-md-2">
+                  <%= role.name %>
+                </div>
+              <!-- </div> -->
+              <div class="col-md-2">
+                <%= role.director_name %>
+              </div>
+              <!-- <div class="col-md-5"> -->
+              <div class="col-md-4">
+                <%= get_venue_and_company(role) %>
+              </div> 
+              <div class="col-md-1 actions">
+
+                <%= link_to role, method: :delete, data: { confirm: "Delete role #{role.name}?" } do %>
+                  <i class="fa fa-trash-o text-pale pull-right"></i>
+                <% end %>
+
+                <!--< %= link_to edit_resume_role_path(@resume, role), method: :get, class: 'edit_role_link', data: {'id' => role.id} do %>-->
+                <%= link_to edit_role_path(role), method: :get, class: 'edit_role_link', data: {'id' => role.id} do %>
+                  <i class="fa fa-edit text-pale pull-right"></i>
+                <% end %>
+                <!--<i class="fa fa-arrows-v text-pale pull-right"></i>-->
+              </div>
+            </div>
+            <% end %>
+<%end%>            
