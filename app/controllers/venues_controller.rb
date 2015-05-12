@@ -85,7 +85,6 @@ class VenuesController < ApplicationController
     end
 
     def new_object params
-      debugger
       venue=Hash[params[:venue].map{|u,v| [u, v.split('-')[0]] if u!="image"}]
       company=Hash[params[:venue].map{|u,v| [u, v.split('-')[1]] if u!="image"}]
       image=Hash[params[:venue].map{|u,v| [u,v] if u=="image"}]

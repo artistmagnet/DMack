@@ -27,6 +27,7 @@
 //= require chosen-jquery
 //= require chosen
 //= require live_validation
+
 $(document).ready(function(){
 	$(function () {
 	  $('[data-toggle="tooltip"]').tooltip()

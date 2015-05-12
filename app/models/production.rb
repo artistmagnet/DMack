@@ -82,10 +82,10 @@ class Production < ActiveRecord::Base
     #   errors.add :premiere_info, "is invalid"
     # end
 
-    # if company.nil? && shows[0].venue.nil?
-    #   puts "COMPANY: #{company.to_json}"
-    #   errors.add :company_and_venue, "are blank. Please provide at least one"
-    # end
+    if company.nil? && shows[0].venue.nil?
+      puts "COMPANY: #{company.to_json}"
+      errors.add :company_and_venue, "are blank. Please provide at least one"
+    end
 
     # director_invitation = last_director_invitation
     # puts "Invitation #{director_invitation.nil? ? 'had NOT been initialized' : 'had been initialized'}"

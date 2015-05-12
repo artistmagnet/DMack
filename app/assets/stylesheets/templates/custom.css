@@ -12,13 +12,13 @@
 .overlay-1{
     left: 3%;
     /*top: 3%;*/
-    top: 17%;
+    top: 38%;
     z-index: 100; /* makes the div the top layer, so it’ll lay on top of the other content */
 }
 .overlay-2{
     left: 6%;
     /*top: 6%;*/
-    top: 20%;
+    top: 41%;
     z-index: 200; /* makes the div the top layer, so it’ll lay on top of the other content */
 }
 .overlay-3{

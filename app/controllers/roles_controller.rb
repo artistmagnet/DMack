@@ -73,7 +73,7 @@ class RolesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def role_params
-    params.require(:role).permit(:production_id, :resume_id, :name, :dirname)
+    params.require(:role).permit(:production_id, :resume_id, :name, :dirname,:director_id)
   end
 
   def find_resume

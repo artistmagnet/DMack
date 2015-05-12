@@ -237,11 +237,18 @@ class ResumesController < ApplicationController
   def create_role
     @role = Role.create(role_params)
     @roles = $session_role << @role
-    if @role.save
-      respond_to do |format|
+    respond_to do |format|
+      if @role.save!
+     
         # format.html { redirect_to after_create_path(request, @role), notice: 'Role was successfully created.' }
+        format.json { render json: @role }
         format.js 
+      else
+        format.html { render :new }
+        format.json { render json: @role.errors.full_messages, status: :unprocessable_entity }
+        format.js { render js: @role.errors.full_messages }
       end  
+
     end
   end  
 
