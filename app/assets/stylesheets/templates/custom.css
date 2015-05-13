@@ -23,7 +23,8 @@
 }
 .overlay-3{
     left: 9%;
-    top: 9%;
+    /*top: 9%;*/
+    top: 38%;
     z-index: 300; /* makes the div the top layer, so it’ll lay on top of the other content */
 }
 

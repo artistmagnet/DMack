@@ -17,7 +17,7 @@ class Production < ActiveRecord::Base
   validates :name, :presence => true
   validates :name, :uniqueness => true
   # delegate :name, :to => :director, :prefix => true
-  #delegate :name, :to => :company, :prefix => true
+  delegate :name, :to => :company, :prefix => true
 
   def company_name
     company.nil? ? "" : company.name

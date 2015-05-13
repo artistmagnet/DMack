@@ -1,7 +1,7 @@
 class ProductionsController < ApplicationController
     before_filter :authenticate_user!
 
-  #before_action :set_date_params, only: [:create, :update]
+  before_action :set_date_params, only: [:create, :update]
   before_action :set_production, only: [:show, :edit, :update, :destroy]
   #before_action :new_show, only: [:new]
   before_action :set_show, only: [:edit]
