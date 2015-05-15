@@ -5,7 +5,8 @@ class Venue < ActiveRecord::Base
   has_many :theatres,foreign_key: :venue
   validate :validate_properties
   validates :name, :uniqueness => true
-  has_many :photos, as: :imageable
+  #has_many :photos, as: :imageable
+  has_one :photo, as: :imageable, dependent: :destroy
   #validates :email, :primary_contact_email, :email => true
   #validates :addr_fb, :addr_tw, :website, uri: true
   # validates :addr_fb, :addr_tw, :addr_ins, :addr_lin, uri: true

@@ -7,7 +7,9 @@ class Company < ActiveRecord::Base
   validate :validate_properties
   validates :email, :primary_contact_email, :email => true
   validates :website, :addr_fb, :addr_tw, uri: true
-  has_many :photos, as: :imageable
+  #has_many :photos, as: :imageable
+  has_one :photo, as: :imageable, dependent: :destroy
+  accepts_nested_attributes_for :photo
 
   def validate_properties
     if name.blank?

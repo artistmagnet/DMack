@@ -318,6 +318,7 @@ class ResumesController < ApplicationController
 
   def new_company
     @company = Company.new
+    @company.build_photo
   end
 
   def new_director_invitation

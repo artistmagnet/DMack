@@ -105,9 +105,13 @@ jQuery ->
 jQuery ->
   $('#add-resume-role-link').click ->
     console.log('was res log')
-    if selectChain.length == 0
-      selectChain.push('#add-resume-role')
-    popupModal('#add-resume-role')
+    stage = $('.stage_name').val()
+    if stage.length == 0
+      $('#myStageModal').modal('show')
+    else
+      if selectChain.length == 0
+        selectChain.push('#add-resume-role')
+      popupModal('#add-resume-role')
 
 # invalid data
 jQuery ->
