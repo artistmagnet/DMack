@@ -68,7 +68,7 @@ class ProductionsController < ApplicationController
         format.json { render json: @production }
       else
         format.html { render :new }
-        format.json { render json: @production.errors.full_messages, status: :unprocessable_entity }
+        format.json { render json: {errors: @production.errors.full_messages}, status: :unprocessable_entity }
         # format.js { render :new }
         #format.json { render json: @production.errors.full_messages, status: :unprocessable_entity }
       end

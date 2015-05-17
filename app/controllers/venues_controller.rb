@@ -1,6 +1,8 @@
 class VenuesController < ApplicationController
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
-    before_filter :authenticate_user!
+  before_filter :authenticate_user!
+  skip_before_filter :verify_authenticity_token
+
   # GET /venues
   # GET /venues.json
   def index
@@ -38,14 +40,13 @@ class VenuesController < ApplicationController
     # @company.country=params[:venue][:country]
     # @company.save
     # @company.photos.create(params.require(:image).permit!) if params[:image].present?
-
     respond_to do |format|
       if @venue.save
         # @venue.photos.create(params.require(:image).permit!) if params[:image].present?
         # flash[:notice] ="Venue was successfully created."
         # format.js
         format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
-        format.json { render json: @venue }
+        format.json { render json: @venue.to_json(:methods => [:image_url])}
       else
         # format.js { render :new }
         format.html { render :new }
@@ -93,7 +94,7 @@ class VenuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def venue_params
-      params.require(:venue).permit(:name, :address1, :address2, :city, :zipcode, :state, :country, :description, :email, :addr_fb, :addr_tw, :addr_ins, :addr_lin, :website, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :phone, :year_founded)
+      params.require(:venue).permit(:name, :address1, :address2, :city, :zipcode, :state, :country, :description, :email, :addr_fb, :addr_tw, :addr_ins, :addr_lin, :website, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :phone, :year_founded,:image)
     end
 
     def company_params

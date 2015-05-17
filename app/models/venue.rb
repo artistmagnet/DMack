@@ -30,7 +30,9 @@ class Venue < ActiveRecord::Base
     end
 
   end
-
+  def image_url
+    self.image.url(:medium)
+  end
   def current_production
     productions.first
   end

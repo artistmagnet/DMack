@@ -18,14 +18,19 @@ class Production < ActiveRecord::Base
   validates :name, :uniqueness => true
   # delegate :name, :to => :director, :prefix => true
   delegate :name, :to => :company, :prefix => true
-
+  # delegate :name, :to => :venue, :prefix => true
+  
   def company_name
     company.nil? ? "" : company.name
+  end
+  def venue_name
+    venues.first.nil? ? "" : venues.first.name
   end
 
   def key_info
     info = name
-    info += ' - - - ' + company_name unless company_name.blank?
+    info += ' - ' + company_name unless company_name.blank?
+    info += ' - ' + venue_name unless venue_name.blank?
     info += ', ' + year if year
     info
   end
