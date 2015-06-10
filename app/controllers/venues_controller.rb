@@ -34,25 +34,28 @@ class VenuesController < ApplicationController
     # params[:venue]=venue
     # params[:company]=company
     # params[:image]=image
-    @venue = Venue.new(venue_params)
-    # @company = Company.new(company_params)
-    # @company.state=params[:venue][:state]
-    # @company.country=params[:venue][:country]
-    # @company.save
-    # @company.photos.create(params.require(:image).permit!) if params[:image].present?
-    respond_to do |format|
-      if @venue.save
-        # @venue.photos.create(params.require(:image).permit!) if params[:image].present?
-        # flash[:notice] ="Venue was successfully created."
-        # format.js
-        format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
-        format.json { render json: @venue.to_json(:methods => [:image_url])}
-      else
-        # format.js { render :new }
-        format.html { render :new }
-        format.json { render json: @venue.errors.full_messages, status: :unprocessable_entity }
-      end
-    end
+      @venue = Venue.new(venue_params)
+      # @company = Company.new(company_params)
+      # @company.state=params[:venue][:state]
+      # @company.country=params[:venue][:country]
+      # @company.save
+      # @company.photos.create(params.require(:image).permit!) if params[:image].present?
+        respond_to do |format|
+          
+            if @venue.save
+              # @venue.photos.create(params.require(:image).permit!) if params[:image].present?
+              # flash[:notice] ="Venue was successfully created."
+              # format.js
+              format.html { redirect_to @venue, notice: 'Venue was successfully created.' }
+              format.js 
+              # @venue = @venue.as_json(except: [:image_file_name,:image_content_type,:image_file_size,:image_updated_at])
+              format.json { render json: @venue }
+            else
+              # format.js { render :new }
+              format.html { render :new }
+              format.json { render json: @venue.errors.full_messages, status: :unprocessable_entity }
+            end
+        end  
   end
 
   # PATCH/PUT /venues/1
@@ -94,7 +97,7 @@ class VenuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def venue_params
-      params.require(:venue).permit(:name, :address1, :address2, :city, :zipcode, :state, :country, :description, :email, :addr_fb, :addr_tw, :addr_ins, :addr_lin, :website, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :phone, :year_founded,:image)
+      params.require(:venue).permit(:name,:address1, :address2, :city, :zipcode, :state, :country, :description, :email, :addr_fb, :addr_tw, :addr_ins, :addr_lin, :website, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :phone, :year_founded,:photo_attributes=>[:image])
     end
 
     def company_params

@@ -1,8 +1,8 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
-  before_action :new_production, only: [:edit, :new, :create]
-  before_action :new_venue, only: [:edit, :new, :create]
-  before_action :new_company, only: [:edit, :new, :create]
+  before_action :new_production, only: [:edit]
+  before_action :new_venue, only: [:edit]
+  before_action :new_company, only: [:edit]
 
   def index
     role_params = {}

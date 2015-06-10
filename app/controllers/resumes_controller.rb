@@ -281,6 +281,7 @@ class ResumesController < ApplicationController
 
   def new_production
     @production = Production.new(id:0)
+    @production.build_photo
     @production.shows.build
     @production.director_invitations.build
     # @production.artist_invitations.build
@@ -314,6 +315,7 @@ class ResumesController < ApplicationController
 
   def new_venue
     @venue = Venue.new
+    @venue.build_photo
   end
 
   def new_company
@@ -411,5 +413,5 @@ class ResumesController < ApplicationController
   def role_params
     params.require(:role).permit(:production_id,:director_id,:resume_id, :name, :dirname,:diremail)
   end
- 
+
 end

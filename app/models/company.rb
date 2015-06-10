@@ -7,9 +7,12 @@ class Company < ActiveRecord::Base
   validate :validate_properties
   validates :email, :primary_contact_email, :email => true
   validates :website, :addr_fb, :addr_tw, uri: true
-  #has_many :photos, as: :imageable
   has_one :photo, as: :imageable, dependent: :destroy
-  accepts_nested_attributes_for :photo
+  #has_many :photos, as: :imageable
+  # has_one :photo, as: :imageable, dependent: :destroy
+  accepts_nested_attributes_for :photo,:allow_destroy => true, reject_if: :all_blank
+  # has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/fallback/union_station-180.png"
+  # validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
 
   def validate_properties
     if name.blank?
@@ -31,6 +34,7 @@ class Company < ActiveRecord::Base
     if country.blank?
       errors.add :country, "is required"
     end
+
   end
 
 

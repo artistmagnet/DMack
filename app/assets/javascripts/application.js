@@ -21,11 +21,11 @@
 //= require plugins/footable.min
 //= require plugins/icheck.min
 //= require main
+//= require chosen
 //= require custom
 //= require layouts
 //= require productions
 //= require chosen-jquery
-//= require chosen
 //= require live_validation
 
 $(document).ready(function(){

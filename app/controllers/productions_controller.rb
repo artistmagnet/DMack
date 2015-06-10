@@ -183,7 +183,7 @@ class ProductionsController < ApplicationController
     params.require(:production).permit(:name, :description, :company_id,
                                        # director_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by],
                                        # artist_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by],
-                                       shows_attributes: [:id, :production_id, :venue_id, :date, :opening_date_mask, :_destroy]
+                                       :photo_attributes=>[:image],shows_attributes: [:id, :production_id, :venue_id, :date, :opening_date_mask, :_destroy]
                                        )
   end
 

@@ -1,5 +1,6 @@
 <% if @roles.present? %>
 <% @roles.select{|r| !r.new_record?}.each do |role| %>
+            
             <div class="roles-table h-movable row diminished-font">
               <!-- <div class="col-md-5"> -->
                 <div class="col-md-3">
@@ -29,5 +30,6 @@
                 <!--<i class="fa fa-arrows-v text-pale pull-right"></i>-->
               </div>
             </div>
+           
             <% end %>
 <%end%>            

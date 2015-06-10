@@ -33,7 +33,7 @@ class CompaniesController < ApplicationController
         # flash[:notice] ='Company was successfully created.'
         # format.js
         format.html { redirect_to @company, notice: 'Company was successfully created.' }
-        format.json { render json: @company }
+        format.json { render json: @company, location: @company }
       else
         # format.js { render :new }
         format.html { render :new }
@@ -74,6 +74,6 @@ class CompaniesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
-      params.require(:company).permit(:name, :address1, :address2, :city, :zipcode, :state, :country, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :year_founded, :description, :email, :addr_fb, :addr_tw, :website, :phone,photo_attributes: [:image])
+      params.require(:company).permit(:name, :address1, :address2, :city, :zipcode, :state, :country, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :year_founded, :description, :email, :addr_fb, :addr_tw, :website, :phone,:photo_attributes=>[:image])
     end
 end

@@ -8,7 +8,7 @@
       </a>
     </h3>
 
-  <%= form_for(@company, remote: true,format: :json, html: {:multipart=>true,class: :'company_form form-horizontal'}) do |f| %>
+  <%= form_for(@company, remote: true,format: :json, html: {"data-type" => :json,:multipart=>true,class: 'company_form form-horizontal'}) do |f| %>
      <%= render 'layouts/includes/error_explanation', entity: @company, offset: 4, span: 8 %>
 
     <div class="panel-body">
@@ -44,6 +44,17 @@
           <div class="col-sm-8">
             <%= f.text_field  :address2, {class: 'form-control', placeholder: 'Enter Address (cont.)'} %>
           </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="field">
+        <%= f.fields_for :photo do |img| %>
+          <%= img.label :image, {class: "col-sm-4 control-label"} %>
+          <div class="col-sm-8">
+            <%= img.file_field :image %>
+            
+          </div>
+          <%end%>
         </div>
       </div>
       <div class="form-group">
@@ -161,9 +172,10 @@
           </div>
         </div>
       </div>
+       
       <div class="actions form-group">
         <div class="col-sm-8 pull-right">
-          <%= f.button 'Done', {class: "btn btn-primary m-top-m6"} %>
+          <%= f.button 'Done', {class: "company-btn btn btn-primary m-top-m6"} %>
           <%# f.submit %>
         </div>
       </div>
@@ -172,3 +184,9 @@
   <% end %>
   </div>
 </div>
+<script type="text/javascript">
+  $('.company-btn').click(function(e) {
+    e.preventDefault();
+    $('.company_form').submit();
+  });
+</script>

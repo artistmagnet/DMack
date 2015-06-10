@@ -9,7 +9,12 @@
                 <div class="page-title" style="margin-left: 0px; display: block">
                   <a href="#" id="toggle-menu"><i class="typcn typcn-th-menu"></i></a>
                 </div>
-                <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/curtain-180.jpg')"></span>
+               
+                <%if @production.photo && @production.photo.try(:image).present? %>
+                <span class="pull-right m-left-15"><%=image_tag @production.photo.image(:medium),:style=>"width: 180px; height: 180px; "%></span>
+                <%else%>
+                   <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/curtain-180.jpg')"></span>
+                <%end%>
                 <h3>
                   <%= @production.name %>
                 </h3>

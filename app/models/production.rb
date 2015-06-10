@@ -9,6 +9,7 @@ class Production < ActiveRecord::Base
   has_many :director_invitations, :as => :to
   has_many :theatres
   has_one :photo,as: :imageable, dependent: :destroy
+  accepts_nested_attributes_for :photo,:allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :shows, allow_destroy: true, reject_if: :all_blank
   # accepts_nested_attributes_for :director_invitations, allow_destroy: true
   # accepts_nested_attributes_for :artist_invitations, allow_destroy: true

@@ -109,6 +109,9 @@ jQuery ->
     if stage.length == 0
       $('#myStageModal').modal('show')
     else
+      $('#new_role').trigger('reset')
+      $('#role_production_id').trigger('chosen:updated')
+      $('#role_director_id').val('').trigger("liszt:updated")
       if selectChain.length == 0
         selectChain.push('#add-resume-role')
       popupModal('#add-resume-role')
@@ -131,6 +134,7 @@ jQuery ->
   $(document).bind "ajaxSuccess", '#add-resume-role', (event, xhr, settings) ->
 #    console.log([event.data, selectChain])
 #    console.log('was res log')
+    event.preventDefault()
     $entity_form = $(event.data)
     $entity_form_frame = $(event.data.concat(' + .fade'))
     $error_container = $(".error_explanation", $entity_form)
@@ -141,7 +145,7 @@ jQuery ->
     if event.data == selectChain[selectChain.length-1]
       $entity_form.hide()
       $entity_form_frame.hide()
-      syncGet($($entity_form).data("reload-url"))
+      #syncGet($($entity_form).data("reload-url"))
 
 
 # Child popups
@@ -197,7 +201,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 
   $(document).bind "ajaxError", create_scope_selector, (event, jqxhr, settings, exception) ->
     $entity_form = $(event.data)
-#    console.log event.data
+    #console.log event.data
     if event.data == selectChain[selectChain.length-1]
       $error_container = $entity_form.find(".error_explanation")
       $error_container_ul = $("ul", $error_container)
@@ -211,7 +215,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 
 
 syncGet = (url) ->
-#  alert('calling ' + url)
+  alert('calling ' + url)
   window.location.replace(url)
 
 jQuery ->

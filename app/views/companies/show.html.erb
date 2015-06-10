@@ -12,7 +12,12 @@
                 <div class="page-title" style="margin-left: 0px; display: block">
                   <a href="#" id="toggle-menu"><i class="typcn typcn-th-menu"></i></a>
                 </div>
-                <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/theindustry-180.png')"></span>
+                
+                <%if @company.photo && @company.photo.try(:image).present? %>
+                  <span class="pull-right m-left-15"><%=image_tag @company.photo.image(:medium),:style=>"width: 180px; height: 180px; "%></span>
+                <%else%>
+                  <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/theindustry-180.png')"></span>
+                <%end%>
                 <h3><%= @company.name %></h3>
                 <% unless @company.year_founded.blank? %>
                   <%= "<div>Founded: #{@company.year_founded}</div>".html_safe %>
