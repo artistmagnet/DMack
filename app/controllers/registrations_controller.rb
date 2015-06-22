@@ -9,7 +9,7 @@ class RegistrationsController < Devise::RegistrationsController
     if simple_captcha_valid?     
       respond_to do |format|
         if @user.save
-          UserMailer.welcome_email(@user, params[:user][:password]).deliver
+          #UserMailer.welcome_email(@user, params[:user][:password]).deliver
           format.html {  redirect_to root_url,notice: "Welcome Email has beed sent your email #{@user.email}." }
           format.json { render :show, status: :created, location: @user }
         else

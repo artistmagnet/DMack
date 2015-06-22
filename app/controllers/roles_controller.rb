@@ -30,8 +30,10 @@ class RolesController < ApplicationController
 
     respond_to do |format|
       if @role.save
+        @roles = Role.all
         format.html { redirect_to after_create_path(request, @role), notice: 'Role was successfully created.' }
         format.json { render json: @role }
+        format.js
       else
         format.html { render :new }
         format.json { render json: @role.errors.full_messages, status: :unprocessable_entity }
