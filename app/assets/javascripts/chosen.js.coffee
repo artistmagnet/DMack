@@ -179,6 +179,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 
   $(document).bind "ajaxSuccess", create_scope_selector, (event, xhr, settings) ->
 #    console.log([event.data, selectChain])
+#    console.log selectChain[selectChain.length-1]
     if event.data == selectChain[selectChain.length-1]
       $entity_form = $(event.data)
       $entity_form_frame = $(event.data.concat(' + .fade'))
@@ -198,6 +199,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
         $select.trigger("change");
         $select.trigger("chosen:updated");
         selectChain.pop()
+      scrollElementToLocation('html, body', selectChain[selectChain.length-1])  
 
   $(document).bind "ajaxError", create_scope_selector, (event, jqxhr, settings, exception) ->
     $entity_form = $(event.data)
