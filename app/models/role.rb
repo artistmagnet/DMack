@@ -2,7 +2,7 @@ class Role < ActiveRecord::Base
   belongs_to :resume
   belongs_to :director, :class_name => 'Resume'
   belongs_to :production
-
+  belongs_to  :user
   delegate :name, :to => :resume, :prefix => true
   delegate :name, :to => :production, :prefix => true
   delegate :current_venue, :to => :production, :prefix => true

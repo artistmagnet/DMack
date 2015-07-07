@@ -40,6 +40,7 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
     some_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"}, {"text":$add_as_text, "classes": "add_text", "href": "#"}]
     width: '382px'
 
+
   $select.on 'chosen:no_results', (e) ->
     setAddNewLink(selectSel, targetScopeSel, targetFieldSel, hiddenSel)
     if hiddenSel
@@ -75,6 +76,25 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
       $(hiddenSel).val(new_name)
 
     $(targetScopeSel).find(targetFieldSel).val(new_name)
+    if targetScopeSel == '#add-resume-production'
+      $('.production_form').trigger('reset')
+      $('#production_company_id').val('').trigger('chosen:updated')
+      $('#production_shows_attributes_0_venue_id').val('').trigger('chosen:updated')
+      $('#production_shows_attributes_0_date_1i').val('').trigger('chosen:updated')
+      $('#production_shows_attributes_0_date_2i').val('').trigger('chosen:updated')
+      $('#production_shows_attributes_0_date_3i').val('').trigger('chosen:updated')
+    else
+      if targetScopeSel == '#add-company'
+        $('#new_company').trigger('reset')
+        $('#company_state').val('').trigger('chosen:updated')
+        $('#company_country').val('').trigger('chosen:updated')
+      else
+        if targetScopeSel == '#add-venue'
+          $('#new_venue').trigger('reset')
+          $('#venue_state').val('').trigger('chosen:updated')
+          $('#venue_country').val('').trigger('chosen:updated')  
+
+
     selectChain.push(targetScopeSel)
     popupModal(targetScopeSel)
 
@@ -109,12 +129,13 @@ jQuery ->
     if stage.length == 0
       $('#myStageModal').modal('show')
     else
-      $('#new_role').trigger('reset')
-      $('#role_production_id').trigger('chosen:updated')
-      $('#role_director_id').val('').trigger("liszt:updated")
       if selectChain.length == 0
         selectChain.push('#add-resume-role')
       popupModal('#add-resume-role')
+      $('#new_role').trigger('reset')
+      $('#role_production_id').val('').trigger('chosen:updated')
+      $('#role_director_id').val([]).trigger('chosen:updated')
+      scrollElementToLocation('html, body', '#add-resume-role')
 
 # invalid data
 jQuery ->

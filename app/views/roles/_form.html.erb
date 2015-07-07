@@ -12,7 +12,7 @@
           </a>
         </h3>
       </div>
-    <%= form_for(@role, remote: true, format: 'js', html: {:method=>"POST",class: 'role-form form-horizontal'}) do |f| %>
+    <%= form_for(@role, remote: true, format: 'js', :url=>create_role_path,html: {:method=>"POST",class: 'role-form form-horizontal'}) do |f| %>
       <%= render 'layouts/includes/error_explanation', entity: @role, offset: 2, span: 10 %>
 
       <div class="form-group">

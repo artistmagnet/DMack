@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150610132833) do
+ActiveRecord::Schema.define(version: 20150706150133) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -247,6 +247,7 @@ ActiveRecord::Schema.define(version: 20150610132833) do
     t.string   "director_id"
     t.string   "dirname"
     t.string   "diremail"
+    t.integer  "user_id"
   end
 
   create_table "rtable_items", force: true do |t|

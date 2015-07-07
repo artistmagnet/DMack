@@ -27,7 +27,6 @@ class RolesController < ApplicationController
   def create
     @role = Role.new(role_params)
     @resume = @role.resume
-
     respond_to do |format|
       if @role.save
         @roles = Role.all

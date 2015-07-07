@@ -34,7 +34,7 @@ class ResumesController < ApplicationController
   def new
     $session_image_id,$session_video_id,$session_role = [],[],[] 
     @videos = current_user.videos
-    @roles = Role.where(:resume_id=>nil)
+    @roles = current_user.roles
   end
 
   def edit    
@@ -235,11 +235,11 @@ class ResumesController < ApplicationController
   end 
 
   def create_role
-    @role = Role.create(role_params)
-    @roles = $session_role << @role
+    @role = current_user.roles.create(role_params)
+    @session_roles = $session_role << @role
+    @roles = current_user.roles
     respond_to do |format|
       if @role.save!
-     
         # format.html { redirect_to after_create_path(request, @role), notice: 'Role was successfully created.' }
         format.json { render json: @role }
         format.js 
@@ -403,7 +403,7 @@ class ResumesController < ApplicationController
   end
 
   def video_params
-    params.require(:video).permit(:id,:resume_id,:video_url)
+    params.require(:video).permit(:id,:resume_id,:video_url,:user_id)
   end 
 
   def after_create_path(request, role)
@@ -411,7 +411,7 @@ class ResumesController < ApplicationController
   end
 
   def role_params
-    params.require(:role).permit(:production_id,:director_id,:resume_id, :name, :dirname,:diremail)
+    params.require(:role).permit(:production_id,:director_id,:resume_id, :name, :dirname,:diremail,:user_id)
   end
 
 end
