@@ -77,7 +77,8 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
 
     $(targetScopeSel).find(targetFieldSel).val(new_name)
     if targetScopeSel == '#add-resume-production'
-      $('.production_form').trigger('reset')
+      clearForm('#add-resume-production','production[name]')
+      $('.production_form').find('div.error_explanation').hide();
       $('#production_company_id').val('').trigger('chosen:updated')
       $('#production_shows_attributes_0_venue_id').val('').trigger('chosen:updated')
       $('#production_shows_attributes_0_date_1i').val('').trigger('chosen:updated')
@@ -85,18 +86,28 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
       $('#production_shows_attributes_0_date_3i').val('').trigger('chosen:updated')
     else
       if targetScopeSel == '#add-company'
-        $('#new_company').trigger('reset')
+        clearForm('#add-company','company[name]')
+        $('.company_form').find('div.error_explanation').hide();
         $('#company_state').val('').trigger('chosen:updated')
         $('#company_country').val('').trigger('chosen:updated')
       else
         if targetScopeSel == '#add-venue'
-          $('#new_venue').trigger('reset')
+          clearForm('#add-venue','venue[name]')
+          $('.venue_form').find('div.error_explanation').hide();
           $('#venue_state').val('').trigger('chosen:updated')
           $('#venue_country').val('').trigger('chosen:updated')  
 
-
     selectChain.push(targetScopeSel)
     popupModal(targetScopeSel)
+    if targetScopeSel == '#add-resume-production'
+      scrollElementToLocation('html, body', '#add-resume-production')
+    else
+      if targetScopeSel == '#add-company'
+        scrollElementToLocation('html, body', '#add-company')
+      else
+        if targetScopeSel == '#add-venue'
+          scrollElementToLocation('html, body', '#add-venue')
+
 
 #tells the 'add text' link of the select to populate target hidden field
 setAddTextLink = (selectSel, hiddenSel) ->
@@ -210,6 +221,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 #        $("li", $error_container_ul).remove()
       $entity_form.hide()
       $entity_form_frame.hide()
+      console.log xhr.responseJSON
       entId = xhr.responseJSON.id
       entName = xhr.responseJSON.name
 #      console.log( "entid: " +entId + ", entName: " + entName)
@@ -260,3 +272,11 @@ scrollElementToLocation = (elementSelector, targetSelector, duration) ->
   $(elementSelector).animate({
     scrollTop: $(targetSelector).offset().top
   }, duration);
+
+clearForm = (form,field_name) ->
+  $(':input', form).each ->
+    name = @name
+    if name != field_name
+      @value = ''
+    return
+  return

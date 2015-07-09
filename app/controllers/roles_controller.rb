@@ -1,6 +1,6 @@
 class RolesController < ApplicationController
   before_action :set_role, only: [:show, :edit, :update, :destroy]
-  before_action :new_production, only: [:edit]
+  #before_action :new_production, only: [:edit]
   before_action :new_venue, only: [:edit]
   before_action :new_company, only: [:edit]
 
@@ -22,6 +22,10 @@ class RolesController < ApplicationController
 
   def edit
     @production = @role.production
+    @invitation = @production.director_invitations.build(by: current_user)
+    @show = Show.find_by_production_id(@production.id)
+    @venue = Venue.find(@show.venue_id)
+    @company = Company.find(@production.company_id)
   end
 
   def create
@@ -44,7 +48,7 @@ class RolesController < ApplicationController
     @resume = @role.resume
     respond_to do |format|
       if @role.update(role_params)
-        format.html { redirect_to @resume, notice: 'Show was successfully updated.' }
+        format.html { redirect_to new_resume_path, notice: 'Show was successfully updated.' }
         format.json { render json: @role }
       else
         format.html { render :edit }

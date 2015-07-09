@@ -16,7 +16,7 @@ class Production < ActiveRecord::Base
 
   validate :validate_properties
   validates :name, :presence => true
-  validates :name, :uniqueness => true
+  #validates :name, :uniqueness => true
   # delegate :name, :to => :director, :prefix => true
   delegate :name, :to => :company, :prefix => true
   # delegate :name, :to => :venue, :prefix => true

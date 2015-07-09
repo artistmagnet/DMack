@@ -1,5 +1,32 @@
 <h1>Editing role</h1>
+ <div id="add-resume-role">
+	<%= render 'form' %>
+</div>
+ <div class="fade fade-1" style="display: <%= role_visibility ||= 'none' %>"></div>
 
-<%= render 'form' %>
+<div id="add-resume-production" class="overlay overlay-2">
+  <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
+</div>
+<div class="fade fade-2"></div>
 
-<%= link_to 'Back to resume', @role.resume %>
+<div id="add-role-director" class="overlay overlay-2">
+  <%= render 'director_invitations/form' %>
+</div>
+<div class="fade fade-2"></div>
+
+<div id="add-company" class="overlay overlay-3">
+  <%= render 'companies/form' %>
+</div>
+<div class="fade fade-3"></div>
+
+<div id="add-venue" class="overlay overlay-3">
+  <%= render 'venues/form' %>
+</div>
+<div class="fade fade-3"></div> 
+  
+<%#= link_to 'Back to resume', @role.resume %>
+<style type="text/css">
+	.chosen-container .chosen-drop{
+		z-index: 190 !important;
+	}
+</style>
