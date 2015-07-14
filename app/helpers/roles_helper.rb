@@ -1,9 +1,9 @@
 module RolesHelper
 	def get_values(action,role)
 		if action.eql?("new") 
-		 	path,format,url_method,url_type = create_role_path,'js','POST',true
+		 	path,format,url_method,url_type = roles_path,'js','POST',true
 		else
-		 	path,format,url_method,url_type = role_path(role),'js','PUT',false
+		 	path,format,url_method,url_type = role_path(role),'html','PUT',false
 		end
     end	
 end

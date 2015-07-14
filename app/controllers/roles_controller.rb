@@ -21,25 +21,38 @@ class RolesController < ApplicationController
   end
 
   def edit
-    @production = @role.production
+    # @production = @role.production
+    # @invitation = @production.director_invitations.build(by: current_user)
+    # @show = Show.find_by_production_id(@production.id)
+    # @venue = Venue.find(@show.venue_id)
+    # @company = Company.find(@production.company_id)
+    @production = Production.new(id:0)
+    @production.build_photo
+    @production.shows.build
+    @production.director_invitations.build
+    @show = Show.new(:production => @production)
+    @venue = Venue.new
+    @venue.build_photo
+    @company = Company.new
+    @company.build_photo
     @invitation = @production.director_invitations.build(by: current_user)
-    @show = Show.find_by_production_id(@production.id)
-    @venue = Venue.find(@show.venue_id)
-    @company = Company.find(@production.company_id)
   end
 
   def create
-    @role = Role.new(role_params)
-    @resume = @role.resume
+    @role = current_user.roles.build(role_params)
+    @session_roles = $session_role << @role
+    # @role = Role.new(role_params)
+    # @resume = @role.resume
     respond_to do |format|
       if @role.save
-        @roles = Role.all
+        @roles = current_user.roles
         format.html { redirect_to after_create_path(request, @role), notice: 'Role was successfully created.' }
         format.json { render json: @role }
         format.js
       else
         format.html { render :new }
         format.json { render json: @role.errors.full_messages, status: :unprocessable_entity }
+        format.js{ render json: @role.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

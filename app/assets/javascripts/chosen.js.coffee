@@ -158,7 +158,7 @@ jQuery ->
       $error_container.show()  if $error_container.is(":hidden")
       if $("li", $error_container_ul).length
         $("li", $error_container_ul).remove()
-      $.each jqxhr.responseJSON, (index, message) ->
+      $.each eval(jqxhr.responseText), (index,message) ->
         $("<li>").html(message).appendTo $error_container_ul
       scrollElementToLocation('html, body', '#add-resume-role .error_explanation')
 
@@ -243,6 +243,7 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
       $error_container.show()  if $error_container.is(":hidden")
       if $("li", $error_container_ul).length
         $("li", $error_container_ul).remove()
+      console.log jqxhr
       $.each jqxhr.responseJSON, (index, message) ->
         $("<li>").html(message).appendTo $error_container_ul
       scrollElementToLocation('html, body', event.data + ' .error_explanation')
@@ -280,3 +281,4 @@ clearForm = (form,field_name) ->
       @value = ''
     return
   return
+

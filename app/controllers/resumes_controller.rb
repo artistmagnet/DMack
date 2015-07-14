@@ -1,5 +1,5 @@
 class ResumesController < ApplicationController
-  respond_to :html, :js
+  respond_to :html, :js,:json
   before_filter :authenticate_user!  
 
   before_action :new_resume, only: [:new]
@@ -244,9 +244,9 @@ class ResumesController < ApplicationController
         format.json { render json: @role }
         format.js 
       else
-        format.html { render :new }
+        # format.html { render action: 'new' }
         format.json { render json: @role.errors.full_messages, status: :unprocessable_entity }
-        format.js { render js: @role.errors.full_messages }
+        format.js { render json: @role.errors.full_messages, status: :unprocessable_entity }
       end  
 
     end

@@ -15,7 +15,7 @@
         </h3>
       </div>
       <% path,format,url_method,url_type = get_values(params[:action],@role)%>
-      <%= form_for(@role, remote: url_type, format: format, :url=>path,html: {:method=>url_method,class: 'role-form form-horizontal'}) do |f| %>
+      <%= form_for(@role, remote: url_type,:format=>format,:url=>path,html: {:method=>url_method,class: 'role-form form-horizontal'}) do |f| %>
       <%= render 'layouts/includes/error_explanation', entity: @role, offset: 2, span: 10 %>
 
       <div class="form-group">
