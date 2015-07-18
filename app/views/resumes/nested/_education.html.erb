@@ -1,30 +1,31 @@
 
- <div class="form-group ">
+
    <%= e.hidden_field :position, :class => 'bar' %>
    <%= e.hidden_field :position,:class=>"nested_education_attr"%>
-    <div class="col-sm-1"> 
-      <!-- <img width="30px;" alt="Icon" src="/assets/drag.jpg"> -->
+    <!-- <div class="col-sm-1"> 
+      <img width="30px;" alt="Icon" src="/assets/drag.jpg">
+    </div> -->
+    <div class="col-sm-2" >
+      <%= e.text_field :school,:class=>"form-control col1",:placeholder=>"" %>
     </div>
     <div class="col-sm-2" >
-      <%= e.text_field :school,:class=>"form-control col1",:placeholder=>"Enter Text" %>
-    </div>
-    <div class="col-sm-1" >
-      <%= e.text_field :city,:class=>"form-control col2",:placeholder=>"Enter Text" %>
+      <%= e.text_field :city,:class=>"form-control col2",:placeholder=>"" %>
     </div>
     <div class="col-sm-2" >
-      <%= e.text_field :state,:class=>"form-control col3",:placeholder=>"Enter Text" %>
+      <%= e.text_field :state,:class=>"form-control col3",:placeholder=>"" %>
     </div>
     <div class="col-sm-2" >
-      <%= e.text_field :country,:class=>"form-control col4",:placeholder=>"Enter Text" %>
+      <%= e.text_field :country,:class=>"form-control col4",:placeholder=>"" %>
     </div>
     <div class="col-sm-2" >
-      <%= e.text_field :degree,:class=>"form-control col5",:placeholder=>"Enter Text" %>
+      <%= e.text_field :degree,:class=>"form-control col5",:placeholder=>"" %>
     </div>
     <div class="col-sm-1">
-      <%= e.text_field :year,:class=>"form-control col6",:placeholder=>"Enter Text" ,:style=>"width: 59px;"%>
+      <%= e.text_field :year,:class=>"form-control col6",:placeholder=>""%>
     </div>
     <input name="columns" type="hidden" class="add_column" value="" />
     <div class="col-sm-1">
-      <%= e.link_to_remove "Remove",:class=>"btn btn-default" %>
-    </div>
-</div> 
+      <%= e.link_to_remove "-",:class=>"btn btn-default" %>
+    </div> 
+
+

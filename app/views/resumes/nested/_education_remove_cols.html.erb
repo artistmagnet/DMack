@@ -1,24 +1,24 @@
 <div class="fields">
  <div class="form-group "> 
-    <div class="col-sm-1"></div>                    
+    <!-- <div class="col-sm-1"></div>                     -->
     <div class="col-sm-2">
-      <a class="btn btn-default remove_cols" id="col1" data-association="<%=section%>">Remove</a>
+      <a class="btn btn-default remove_cols" id="col1" data-association="<%=section%>">-</a>
     </div>
     <div class="col-sm-2">
-      <a class="btn btn-default remove_cols" id="col2" data-association="<%=section%>">Remove</a>
+      <a class="btn btn-default remove_cols" id="col2" data-association="<%=section%>">-</a>
     </div>
     <div class="col-sm-2">
-      <a class="btn btn-default remove_cols" id="col3" data-association="<%=section%>">Remove</a>
+      <a class="btn btn-default remove_cols" id="col3" data-association="<%=section%>">-</a>
     </div>
     <div class="col-sm-2">
-      <a class="btn btn-default remove_cols" id="col4" data-association="<%=section%>">Remove</a>
+      <a class="btn btn-default remove_cols" id="col4" data-association="<%=section%>">-</a>
     </div>
     <div class="col-sm-2">
-      <a class="btn btn-default remove_cols section-<%=section%>" id="col5" data-association="<%=section%>"><%=(section=='customs') ? "Undo" : "Remove"%></a>
+      <a class="btn btn-default remove_cols section-<%=section%>" id="col5" data-association="<%=section%>"><%=(section=='customs') ? "X" : "-"%></a>
     </div>
     <%if section!="representations"%>
       <div class="col-sm-1">
-        <a class="btn btn-default remove_cols section-<%=section%>" id="col6" data-association="<%=section%>"><%=(section=='customs') ? "Undo" : "Remove"%></a>
+        <a class="btn btn-default remove_cols section-<%=section%>" id="col6" data-association="<%=section%>"><%=(section=='customs') ? "X" : "-"%></a>
       </div>
     <%end%>
     <br /><br />

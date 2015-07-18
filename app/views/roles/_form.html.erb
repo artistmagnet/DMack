@@ -8,14 +8,19 @@
           <span>Credit</span>
           <!-- <a class="pull-right" href="<%#= edit_resume_path(@resume) %>" > -->
           <% if params[:action].eql?("new") %>
-          <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-1').hide();$('.fade-1').hide();$('#new_role').trigger('reset');$('.role-form').find('div.error_explanation').hide();$('#role_production_id').trigger('chosen:updated');$('#role_director_id').trigger('chosen:updated');">
+          <a class="pull-right back-link" href="javascript:void(0)" >
             <i class="fa fa-undo"></i>
           </a>
+          <%else%>
+           <%= link_to new_resume_path(@resume),:class=>"pull-right" do%>
+              <i class="fa fa-undo"></i>
+           <%end%>
           <%end%>
         </h3>
       </div>
-      <% path,format,url_method,url_type = get_values(params[:action],@role)%>
-      <%= form_for(@role, remote: url_type,:format=>format,:url=>path,html: {:method=>url_method,class: 'role-form form-horizontal'}) do |f| %>
+      <%# path,format,url_method,url_type = get_values(params[:action],@role)%>
+      <%= form_for(@role, :remote=>true,:format=>'js',html: {class: 'role-form form-horizontal'}) do |f| %>
+    
       <%= render 'layouts/includes/error_explanation', entity: @role, offset: 2, span: 10 %>
 
       <div class="form-group">
@@ -85,7 +90,9 @@
 <script type="text/javascript">
   $('.role-btn').click(function(e) {
     e.preventDefault();
+
     $('.role-form').submit();
+    
     return false;
   });
 </script>

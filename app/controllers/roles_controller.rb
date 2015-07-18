@@ -58,14 +58,15 @@ class RolesController < ApplicationController
   end
 
   def update
-    @resume = @role.resume
     respond_to do |format|
       if @role.update(role_params)
         format.html { redirect_to new_resume_path, notice: 'Show was successfully updated.' }
         format.json { render json: @role }
+        format.js {render :js => "window.location.href = '"+new_resume_path+"'"}
       else
-        format.html { render :edit }
+        format.html { render :edit, json: @role.errors.full_messages }
         format.json { render json: @role.errors.full_messages, status: :unprocessable_entity }
+        format.js { render json: @role.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

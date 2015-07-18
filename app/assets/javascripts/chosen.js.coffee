@@ -157,8 +157,8 @@ jQuery ->
       $error_container_ul = $("ul", $error_container)
       $error_container.show()  if $error_container.is(":hidden")
       if $("li", $error_container_ul).length
-        $("li", $error_container_ul).remove()
-      $.each eval(jqxhr.responseText), (index,message) ->
+        $("li", $error_container_ul).remove()   
+      $.each $.parseJSON(jqxhr.responseText), (index,message) ->
         $("<li>").html(message).appendTo $error_container_ul
       scrollElementToLocation('html, body', '#add-resume-role .error_explanation')
 
@@ -243,7 +243,6 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
       $error_container.show()  if $error_container.is(":hidden")
       if $("li", $error_container_ul).length
         $("li", $error_container_ul).remove()
-      console.log jqxhr
       $.each jqxhr.responseJSON, (index, message) ->
         $("<li>").html(message).appendTo $error_container_ul
       scrollElementToLocation('html, body', event.data + ' .error_explanation')
@@ -265,9 +264,50 @@ addAlertTo = (selector, message) ->
 jQuery ->
   $('.fa-undo').closest('.back-link').click ->
     $form = $(this).closest('.overlay').find('form')
+    if selectChain[selectChain.length-1] == '#add-resume-role'
+      $('.overlay-1').hide()
+      $('.fade-1').hide()
+      #$('#new_role').trigger('reset')
+      #$('.role-form').find('div.error_explanation').hide()
+      $('#role_production_id').trigger('chosen:updated')
+      $('#role_director_id').trigger('chosen:updated')
+    else
+      if selectChain[selectChain.length-1] == '#add-resume-production'
+        $('.overlay-2').hide()
+        $('.fade-2').hide()
+        #$('.production_form').trigger('reset')
+        #$('.production_form').find('div.error_explanation').hide()
+        $('#production_company_id').trigger('chosen:updated')
+        $('#role_production_id').trigger('chosen:updated')
+        $('#role_director_id').trigger('chosen:updated')
+        $('#production_shows_attributes_0_venue_id').trigger('chosen:updated')
+        $('#production_shows_attributes_0_date_1i').trigger('chosen:updated')
+        $('#production_shows_attributes_0_date_2i').trigger('chosen:updated')
+        $('#production_shows_attributes_0_date_3i').trigger('chosen:updated')
+      else
+        if selectChain[selectChain.length-1] == '#add-company' 
+          $('.overlay-3').hide()
+          $('.fade-3').hide() 
+          #$('#new_company').trigger('reset')
+          #$('.company_form').find('div.error_explanation').hide()
+          $('#production_company_id').trigger('chosen:updated')
+          $('#production_shows_attributes_0_venue_id').trigger('chosen:updated') 
+        else
+          if selectChain[selectChain.length-1] == '#add-venue'
+            $('.overlay-3').hide()
+            $('.fade-3').hide() 
+            #$('#new_venue').trigger('reset')
+            #$('.venue_form').find('div.error_explanation').hide()
+            $('#venue_state').trigger('chosen:updated')
+            $('#venue_country').trigger('chosen:updated')
+            $('#production_company_id').trigger('chosen:updated')
+            $('#production_shows_attributes_0_venue_id').trigger('chosen:updated')
+    
     $form.trigger('reset')
-    $form.find('.chosen-select').trigger('chosen:updated')
-
+    $form.find('div.error_explanation').hide()
+    if selectChain[selectChain.length-1] == '#add-resume-production' || selectChain[selectChain.length-1] == '#add-venue' || selectChain[selectChain.length-1] == '#add-company' 
+      selectChain.pop()
+      scrollElementToLocation('html,body',selectChain[selectChain.length-1])
 
 scrollElementToLocation = (elementSelector, targetSelector, duration) ->
   $(elementSelector).animate({

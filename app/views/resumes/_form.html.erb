@@ -37,7 +37,7 @@
                   </div>
                 </div>
                 <div class="attributes-info">
-                  <%=f.fields_for :resume_attribute do |a|%>                 
+                  <%= f.fields_for :resume_attribute do |a|%>                 
                       <%= render "resumes/nested/attributes_info" ,:a=>a%>
                   <%end%>
                   <%if @resume.resume_attribute.blank?%>
@@ -144,7 +144,7 @@
                     </li><br/>
                   </div>
 
-
+                  <br/>
 
                 <div id="sort-section" class="sortable12">
                   <div class="ui-state-default sections education" id="resume_section_1">
@@ -158,12 +158,16 @@
                       <div class="rtable_cols"></div>
                       <%=render 'resumes/nested/education_fields',:e=>f%>
                       <%=f.fields_for :educations do |e|%>
+                        <div class="form-group">
                         <%= render "resumes/nested/education",:e=>e%>
+                       
+                        </div>
+                       
                       <%end%>
-                      <%= f.link_to_add "Add More", :educations ,:class=>"btn btn-default"%> 
+                       <%= f.link_to_add "+", :educations ,:class=>"btn btn-default add_edu_row"%>  
                     </li><br/>
                   </div>
-                
+                  <br/>
                   <div class="ui-state-default sections representation" id="resume_section_2">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <h3>Representation</h3>
