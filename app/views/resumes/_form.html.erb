@@ -149,8 +149,11 @@
                 <div id="sort-section" class="sortable12">
                   <div class="ui-state-default sections education" id="resume_section_1">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
+                   
+                <a class="btn btn-default remove_nested_fields remove_education pull-right" data-association="educations" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
+                    
                     <h3>Education/Training</h3>
-
+                    
                     <input class="resume_section" id="resume_resume_sections_attributes_0_position" name="resume[resume_sections_attributes][0][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_0_section_id" name="resume[resume_sections_attributes][0][section_id]" value="1" type="hidden">
                     <%=render 'resumes/nested/education_remove_cols', :section => "educations"%>
@@ -164,7 +167,7 @@
                         </div>
                        
                       <%end%>
-                       <%= f.link_to_add "+", :educations ,:class=>"btn btn-default add_edu_row"%>  
+                       <%= f.link_to_add "+", :educations ,:class=>"btn btn-default add_edu_row",:title=>"Add Row"%>  
                     </li><br/>
                   </div>
                   <br/>
@@ -497,10 +500,17 @@ $(document).on('click','#add_more_images',function(){
   $("body").on("click",".remove_nested_fields",function(){
     if (confirm("Are you sure?")) {      
       if (($(this).data("success")) || ($(this).data("association")=="skills") || ($(this).data("association")=="others")){
+
         if (($(this).hasClass("remove_columns")) || ($($(this).parents().eq(3)).find(".fields").filter(function() { return $(this).css("display") == "block" }).length==1)){
           $($(this).parents().eq(4).hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Undo '+$(this).data("association")+'</a></li>');
-        }else{
-          $(this).trigger();
+        }
+        else{
+          if($(this).hasClass("remove_education")){
+            $($(this).parent().hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Undo '+$(this).data("association")+'</a></li>');
+          }
+          else{
+            $(this).trigger();
+          }
         }
       }else{
         $(this).trigger();
@@ -625,17 +635,27 @@ $(document).on('click','#add_more_images',function(){
     // tags()
   })
 
+  // $(document).on("click",".remove_cols",function(){    
+  //   ($(this).text()=="Remove") ? ($(this).text("Undo")) : ($(this).text("Remove"))
+  //   $(this).parents().eq(3).find("."+this.id+"").toggle()
+  //     // .filter(function() { return $(this).css("display") == "block" }).length!=0) ?  $(this).text("Remove") : $(this).text("Undo")
+  //   var arr=$($(this).parents().eq(1).find('.remove_cols').map(function(e){return $(this).text()})).get();
+  //   if (arr.indexOf("Remove")==-1){    
+  //     $($(this).parents().eq(3).hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Undo '+$(this).data("association")+'</a></li>');
+  //     // $(this).parent().parent().parent().parent().find('.fields').slice(0,12).css("display","block")
+  //     $(this).parents().eq(1).find('.remove_cols').map(function(){return $(this).text("Remove")});
+  //   }
+  // });
+
   $(document).on("click",".remove_cols",function(){    
-    ($(this).text()=="Remove") ? ($(this).text("Undo")) : ($(this).text("Remove"))
-    $(this).parents().eq(3).find("."+this.id+"").toggle()
-      // .filter(function() { return $(this).css("display") == "block" }).length!=0) ?  $(this).text("Remove") : $(this).text("Undo")
-    var arr=$($(this).parents().eq(1).find('.remove_cols').map(function(e){return $(this).text()})).get();
-    if (arr.indexOf("Remove")==-1){    
-      $($(this).parents().eq(3).hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Undo '+$(this).data("association")+'</a></li>');
-      // $(this).parent().parent().parent().parent().find('.fields').slice(0,12).css("display","block")
-      $(this).parents().eq(1).find('.remove_cols').map(function(){return $(this).text("Remove")});
-    }
-  });
+    // ($(this).text()=="-") ? ($(this).text("X")) : ($(this).text("-"))
+    if (confirm("Are you sure?")) {      
+      var id = $(this).attr('id');
+      var my_attr = ".education ."+id;
+      $(my_attr).parent().remove();
+      $(this).parent().remove();
+    }  
+  });  
 
   $(window).on('load',function(){
     var col5=$(".custom.col5").map(function(){if (this.value!=''){return this.value}})
