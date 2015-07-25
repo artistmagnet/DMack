@@ -1,31 +1,32 @@
-
-
+<ul class="sortable">
    <%= e.hidden_field :position, :class => 'bar' %>
    <%= e.hidden_field :position,:class=>"nested_education_attr"%>
     <!-- <div class="col-sm-1"> 
       <img width="30px;" alt="Icon" src="/assets/drag.jpg">
     </div> -->
-    <div class="col-sm-2" >
-      <%= e.text_field :school,:class=>"form-control col1 education",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-2" >
-      <%= e.text_field :city,:class=>"form-control col2 education",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-2" >
-      <%= e.text_field :state,:class=>"form-control col3 education",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-2" >
-      <%= e.text_field :country,:class=>"form-control col4 education",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-2" >
-      <%= e.text_field :degree,:class=>"form-control col5 education",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-1">
-      <%= e.text_field :year,:class=>"form-control col6 education",:placeholder=>""%>
-    </div>
+
+    <li class="col-sm-2" >
+      <%= e.text_field :school,:class=>"form-control diminished-font col1 educations",:placeholder=>"" %>
+    </li>
+    <li class="col-sm-2" >
+      <%= e.text_field :city,:class=>"form-control diminished-font col2 educations",:placeholder=>"" %>
+    </li>
+    <li class="col-sm-2" >
+      <%= e.text_field :state,:class=>"form-control diminished-font col3 educations",:placeholder=>"" %>
+    </li>
+    <li class="col-sm-2" >
+      <%= e.text_field :country,:class=>"form-control diminished-font col4 educations",:placeholder=>"" %>
+    </li>
+    <li class="col-sm-2" >
+      <%= e.text_field :degree,:class=>"form-control diminished-font col5 educations",:placeholder=>"" %>
+    </li>
+    <li class="col-sm-1">
+      <%= e.text_field :year,:class=>"form-control diminished-font col6 educations",:placeholder=>""%>
+    </li>
     <input name="columns" type="hidden" class="add_column" value="" />
     <div class="col-sm-1">
       <%= e.link_to_remove "-",:class=>"btn btn-default",:title=>"Remove Row"%>
     </div> 
+</ul>
 
 

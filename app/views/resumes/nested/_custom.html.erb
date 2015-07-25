@@ -1,28 +1,28 @@
 <div class="form-group ">   
    <%= cust.hidden_field :position,:class=>"nested_custom_attr"%>
-    <div class="col-sm-1"> 
-      <!-- <img width="30px;" alt="Icon" src="/assets/drag.jpg"> -->
+    <!-- <div class="col-sm-1"> 
+      <img width="30px;" alt="Icon" src="/assets/drag.jpg">
+    </div> -->
+    <div class="col-sm-2" >
+      <%= cust.text_field :custom1,:class=>"form-control diminished-font col1",:placeholder=>"Enter Custom Text" %>      
     </div>
     <div class="col-sm-2" >
-      <%= cust.text_field :custom1,:class=>"form-control col1",:placeholder=>"Enter Custom Text" %>      
+      <%= cust.text_field :custom2,:class=>"form-control diminished-font col2",:placeholder=>"Enter Custom Text" %>
     </div>
     <div class="col-sm-2" >
-      <%= cust.text_field :custom2,:class=>"form-control col2",:placeholder=>"Enter Custom Text" %>
+      <%= cust.text_field :custom3,:class=>"form-control diminished-font col3",:placeholder=>"Enter Custom Text" %>
     </div>
     <div class="col-sm-2" >
-      <%= cust.text_field :custom3,:class=>"form-control col3",:placeholder=>"Enter Custom Text" %>
-    </div>
-    <div class="col-sm-2" >
-      <%= cust.text_field :custom4,:class=>"form-control col4",:placeholder=>"Enter Custom Text" %>
+      <%= cust.text_field :custom4,:class=>"form-control diminished-font col4",:placeholder=>"Enter Custom Text" %>
     </div>
     <div class="col-sm-1" >
-      <%= cust.text_field :custom5,:class=>"form-control col5 custom",:placeholder=>"Enter Custom Text" %>
+      <%= cust.text_field :custom5,:class=>"form-control diminished-font col5 custom",:placeholder=>"Enter Custom Text" %>
     </div>
     <div class="col-sm-1">
-      <%= cust.text_field :custom6,:class=>"form-control col6 custom",:placeholder=>"Enter Custom Text" ,:style=>"width: 59px;"%>
+      <%= cust.text_field :custom6,:class=>"form-control diminished-font col6 custom",:placeholder=>"Enter Custom Text" ,:style=>"width: 59px;"%>
     </div>
     <input name="columns" type="hidden" class="add_column" value="" />
     <div class="col-sm-1">
-      <%= cust.link_to_remove "Remove",:class=>"btn btn-default" %>
+      <%= cust.link_to_remove "-",:class=>"btn btn-default" %>
     </div>
 </div> 

@@ -1,24 +1,24 @@
  <div class="form-group">
    <%= r.hidden_field :position, :class => 'nested_repr_attr' %>
-    <div class="col-sm-1"> 
-      <!-- <img width="30px;" alt="Icon" src="/assets/drag.jpg"> -->
+   <!--  <div class="col-sm-1"> 
+      <img width="30px;" alt="Icon" src="/assets/drag.jpg">
+    </div> -->
+    <div class="col-sm-2" >
+      <%= r.text_field :company,:class=>"form-control representations diminished-font col1",:placeholder=>"" %>
     </div>
     <div class="col-sm-2" >
-      <%= r.text_field :company,:class=>"form-control col1",:placeholder=>"Company" %>
-    </div>
-    <div class="col-sm-1" >
-      <%= r.text_field :contact_name,:class=>"form-control col2",:placeholder=>"Contact Name" %>
+      <%= r.text_field :contact_name,:class=>"form-control representations diminished-font col2",:placeholder=>"" %>
     </div>
     <div class="col-sm-2" >
-      <%= r.text_field :title,:class=>"form-control col3",:placeholder=>"Title" %>
+      <%= r.text_field :title,:class=>"form-control representations diminished-font col3",:placeholder=>"" %>
     </div>
     <div class="col-sm-2" >
-      <%= r.text_field :phone,:class=>"form-control col4",:placeholder=>"Phone" %>
+      <%= r.text_field :phone,:class=>"form-control representations diminished-font col4",:placeholder=>"" %>
     </div>
     <div class="col-sm-2" >
-      <%= r.text_field :address,:class=>"form-control col5",:placeholder=>"Address" %>
+      <%= r.text_field :address,:class=>"form-control representations diminished-font col5",:placeholder=>"" %>
     </div>   
-    <div class="col-sm-2">
-    <%= r.link_to_remove "Remove",:class=>"btn btn-default" %>
+    <div class="col-sm-1">
+    <%= r.link_to_remove "-",:class=>"btn btn-default",:title=>"Remove Row" %>
     </div>        
   </div>
