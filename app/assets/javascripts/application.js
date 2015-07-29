@@ -27,6 +27,7 @@
 //= require productions
 //= require chosen-jquery
 //= require live_validation
+//= require jquery.dragtable
 
 $(document).ready(function(){
 	$(function () {
@@ -45,7 +46,16 @@ $(document).ready(function(){
   $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
   });
-
+  $(function () {
+  window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
+    if($(link).hasClass('insert_in_table')){
+      return $(content).insertBefore($(link).parent().parent());
+    }
+    else{
+      return $(content).insertBefore(link);
+    }
+  };
+});
 });
 // function tags(){
 // 	$('.tag-input').tagsinput('add', 'some tag');

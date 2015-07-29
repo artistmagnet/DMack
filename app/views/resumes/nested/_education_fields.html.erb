@@ -1,30 +1,31 @@
 <%education(e)%>
- <div class="form-group">
+ <!-- <div class="form-group"> -->
 
     <!-- <div class="col-sm-1"> 
         <img width="30px;" alt="Icon" src="/assets/drag.jpg">
       </div> -->
-  <ul class="sortable">    
-    <li class="col-sm-2">      
+  <tr class="">    
+    <td class="col-sm-2">      
       <input class="form-control diminished-font educations col1" name="school" value="<%= education(e).present? ? !education(e)[1].blank? ? education(e)[1] : "Institution" : "Institution"%>" placeholder="Institution" type="text", id="1">   
-    </li>
-    <li class="col-sm-2">
+    </td>
+    <td class="col-sm-2">
       <input class="form-control diminished-font educations col2" name="city" value="<%= education(e).present? ? !education(e)[2].blank? ? education(e)[2] : "City"  : "City" %>" placeholder="City" type="text" id="2">
-    </li>
-    <li class="col-sm-2">
+    </td>
+    <td class="col-sm-2">
       <input class="form-control diminished-font educations col3" name="state" value="<%= education(e).present? ? !education(e)[3].blank? ? education(e)[3] : "State/Region" : "State/Region" %>" placeholder="State/Region" type="text" id="3">
-    </li>
-    <li class="col-sm-2">
+    </td>
+    <td class="col-sm-2">
       <input class="form-control diminished-font educations col4" name="country" value="<%= education(e).present? ? !education(e)[4].blank? ? education(e)[4] : "Country" : "Country" %>" placeholder="Country" type="text" id="4">
-    </li>
-    <li class="col-sm-2">
+    </td>
+    <td class="col-sm-2">
       <input class="form-control diminished-font educations col5" name="degree" value="<%= education(e).present? ? !education(e)[5].blank? ? education(e)[5] : "Degree/Concentration" : "Degree/Concentration" %>" placeholder="Degree/Concentration" type="text" id="5">
-    </li>
-    <li class="col-sm-1">
+    </td>
+    <td class="col-sm-1">
       <input class="form-control diminished-font educations col6" name="year" value="<%= education(e).present?  ? !education(e)[6].blank? ? education(e)[6] : "Year" : "Year" %>" placeholder="Year" type="text" id="6">
-    </li>
+    </td>
+   </tr> 
    <!--  <div class="col-sm-1">
       <a class="btn btn-default remove_nested_fields remove_columns" data-association="educations" data-success="true" href="javascript:void(0)">-</a>
     </div> -->
-    </ul>
-</div>
+    
+<!-- </div> -->
