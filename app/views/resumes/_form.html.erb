@@ -165,7 +165,7 @@
                     <tbody class="sortable">
                     <!-- <li class="sortable"> -->
                     
-                      <div class="rtable_cols"></div>
+                      <!-- <div class="rtable_cols"></div> -->
                       
                       <%=render 'resumes/nested/education_fields',:e=>f%>
                       
@@ -180,8 +180,8 @@
                       <tr> 
                       <td colspan="6"></td> 
                      
-                        <td><%= f.link_to_add "+", :educations ,:class=>"btn btn-default insert_in_table add_edu_row",:title=>"Add Row"%></td>
-                       
+                        <td ><%= f.link_to_add "+", :educations ,:class=>"btn btn-default insert_in_table add_edu_row",:title=>"Add Row"%></td>
+                       </tr>
                        </tbody>
                       </table>
                        <script type="text/javascript">
