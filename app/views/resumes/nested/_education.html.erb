@@ -1,34 +1,30 @@
 <tr class="fields">
    
-    <!-- <div class="col-sm-1"> 
-      <img width="30px;" alt="Icon" src="/assets/drag.jpg">
-    </div> -->
-
-    <td class="col-sm-2">
+    <td class="col-sm-2 drag-enable">
       <%= e.text_field :school,:class=>"form-control diminished-font col1 educations",:placeholder=>"" %>
     </td>
-    <td class="col-sm-2" >
+    <td class="col-sm-2 drag-enable" >
       <%= e.text_field :city,:class=>"form-control diminished-font col2 educations",:placeholder=>"" %>
     </td>
-    <td class="col-sm-2" >
+    <td class="col-sm-2 drag-enable" >
       <%= e.text_field :state,:class=>"form-control diminished-font col3 educations",:placeholder=>"" %>
     </td>
-    <td class="col-sm-2" >
+    <td class="col-sm-2 drag-enable" >
       <%= e.text_field :country,:class=>"form-control diminished-font col4 educations",:placeholder=>"" %>
     </td>
-    <td class="col-sm-2" >
+    <td class="col-sm-2 drag-enable" >
       <%= e.text_field :degree,:class=>"form-control diminished-font col5 educations",:placeholder=>"" %>
     </td>
-    <td class="col-sm-1">
+    <td class="col-sm-1 drag-enable">
       <%= e.text_field :year,:class=>"form-control diminished-font col6 educations",:placeholder=>""%>
     </td>
-    <td>
-      <%= e.hidden_field :position, :class => 'bar' %>
-      <%= e.hidden_field :position,:class=>"nested_education_attr"%>
-    </td>
-    <input name="columns" type="hidden" class="add_column" value="" />
+     
     <td class="col-sm-1">
       <%= e.link_to_remove "-",:class=>"btn btn-default",:title=>"Remove Row"%>
     </td> 
 </tr>
+<%= e.hidden_field :position, :class => 'bar' %>
+  <%= e.hidden_field :position,:class=>"nested_education_attr"%>
+
+<input name="columns" type="hidden" class="add_column" value="" /> 
 

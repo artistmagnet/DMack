@@ -47,15 +47,27 @@ $(document).ready(function(){
       $(this).parent().hide();
   });
   $(function () {
-  window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
-    if($(link).hasClass('insert_in_table')){
-      return $(content).insertBefore($(link).parent().parent());
-    }
-    else{
-      return $(content).insertBefore(link);
-    }
-  };
-});
+	  window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
+	  // alert(link);
+	  var $tr = $(link).closest('table').find('tbody tr:last');
+	  var new_id = new Date().getTime();
+	  // console.log(new_id);
+	  var new_tr = $tr;
+	  new_tr = "<tr class='fields'>"+new_tr.html().replace(/0/g,new_id)+"</tr>";
+	  // var dataArray = new Array();
+	  // new_tr = new_tr.html().replace(/0/g,new_id);
+	  
+	  // var new_tr = $tr.find('td').each(function (i) {
+	  // 	if(i<6){
+   //      	var td_class = $(this).find('input').attr('id').replace("0",new_id);
+   //      	var name_tds = $(this).find('input').attr('name').replace("0",new_id);
+   //      	dataArray.push(td_class);
+   //      }
+   //     })
+	  // alert(new_tr);
+	  return $(new_tr).insertAfter($tr);
+   }
+  });
 });
 // function tags(){
 // 	$('.tag-input').tagsinput('add', 'some tag');
