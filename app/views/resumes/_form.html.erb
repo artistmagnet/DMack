@@ -22,7 +22,11 @@
                   </div>
                   <div class="col-sm-3">
                   <%= f.radio_button :resume_type,'Production Member',:class=>"",:id=>"select_resume_type",:required => true%> 
-                  <%= f.label :resume_type,'Production Member',class: '',:title=>"Choreographer, Designer, Director, Dramaturg, Playwright, Stage Manager, etc." %>
+                  <%= f.label :resume_type,'Production Member',class: '',:title=>"Choreographer, Designer, Dramaturg, Playwright, Stage Manager, etc." %>
+                  </div>
+                  <div class="col-sm-3">
+                  <%= f.radio_button :resume_type,'Director',:class=>"",:id=>"select_resume_type",:required => true%> 
+                  <%= f.label :resume_type,'Director',class: '',:title=>"" %>
                   </div>
                 </div>
                 <hr/>
@@ -152,53 +156,31 @@
                   <div class="ui-state-default sections education" id="resume_section_1">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                    
-                <a class="btn btn-default remove_nested_fields remove_education pull-right" data-association="Education/Training" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
-                   <input class="resume_section section_heading" id="resume_resume_sections_attributes_0_name" name="resume[resume_sections_attributes][0][name]" type="" value="Education/Training"> 
-                    
-                    
-                    <input class="resume_section" id="resume_resume_sections_attributes_0_position" name="resume[resume_sections_attributes][0][position]" type="hidden">
-                    <input id="resume_resume_sections_attributes_0_section_id" name="resume[resume_sections_attributes][0][section_id]" value="1" type="hidden">
-                    <table id="demo">
-                     <thead> 
-                    <%=render 'resumes/nested/education_cols_remove', :section => "educations"%>
-                    </thead>
-                    <tbody class="sortable render_table">
-                    <!-- <li class="sortable"> -->
-                    
-                      <div class="rtable_cols"></div>
-                      
-                      <%=render 'resumes/nested/education_fields',:e=>f%>
-                      
-                       <tr>
-                        <%=f.fields_for :educations,:wrapper => false do |e|%>
-                         
-                          <%= render "resumes/nested/education",:e=>e%>
-                         
-                        <%end%>
-                       </tr>
-                      <tfoot>
-    
-                      <tr> 
-                     
-                        <th colspan="8"><%= f.link_to_add "+", :educations ,:class=>"btn btn-default insert_in_table add_edu_row",:title=>"Add Row"%></th>
-                       </tr>
-                       </tfoot>
-                       </tbody>
-                      </table>
-                       <script type="text/javascript">
-                       $(document).ready(function(){
-                        $('table#demo').dragtable({
-                          revert: true,               // smooth revert
-                          dragHandle: '.table-handle',
-                          cursor: 'move',
-                          dragaccept: '.drag-enable',
-                          excludeFooter: true
-                        });
-                       }); 
+                    <%=render 'resumes/nested/education_part',:f=>f%>
 
-                       </script>
-                   <!-- </li> <br/> -->
                   </div>
+                  <script type="text/javascript">
+                    $(document).on("click",'.add_section',function(){
+                       
+                        $(this).parent().hide();
+                        if (this.text=="Undo others"){       
+                          $(this).parent().prev().css("display","block").find('.fields').slice(1,100).css("display","none").slice(0,1).css("display","block").find('.bootstrap-tagsinput').css("display","block")
+                        }
+                        $(this).parent().prev().find('.remove_cols').map(function(){return $(this).text("-")})
+                        if (this.text=="Undo skills") {
+                          $(this).parent().prev().css("display","block").find('.fields').slice(1,100).css("display","none").slice(0,1).css("display","block").find('.form-control').css("display","block")
+                        }else{ 
+                          // $(this).parent().prev().show();
+                          // $('tbody.render_table tr.fields:not(:first)').remove();
+                          // $('tbody.render_table tr.fields input').val('');
+                          $(this).parent().prev().show();
+                          $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
+                          $( ".sortable" ).sortable({revert: true});
+                        }
+                        $(this).parents().eq(1).find('.custom').hide();
+                        $('.section-customs').map(function(){return $(this).text("Undo")});
+                      });
+                  </script>
                   <br/>
                   <div class="ui-state-default sections representation" id="resume_section_2">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
@@ -398,8 +380,7 @@
     }
 
     .table-handle, .table-handle-disabled {
-    /*background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyIiBoZWlnaHQ9IjEzIj48cmVjdCBzdHlsZT0iZmlsbDojMzMzO2ZpbGwtb3BhY2l0eTouODsiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIHg9IjEiIHk9IjIiLz4JPHJlY3Qgc3R5bGU9ImZpbGw6IzMzMztmaWxsLW9wYWNpdHk6Ljg7IiB3aWR0aD0iMSIgaGVpZ2h0PSIxIiB4PSIxIiB5PSI0Ii8+CTxyZWN0IHN0eWxlPSJmaWxsOiMzMzM7ZmlsbC1vcGFjaXR5Oi44OyIgd2lkdGg9IjEiIGhlaWdodD0iMSIgeD0iMSIgeT0iNiIvPjxyZWN0IHN0eWxlPSJmaWxsOiMzMzM7ZmlsbC1vcGFjaXR5Oi44OyIgd2lkdGg9IjEiIGhlaWdodD0iMSIgeD0iMSIgeT0iOCIvPjxyZWN0IHN0eWxlPSJmaWxsOiMzMzM7ZmlsbC1vcGFjaXR5Oi44OyIgd2lkdGg9IjEiIGhlaWdodD0iMSIgeD0iMSIgeT0iMTAiLz48L3N2Zz4=");
-    background-repeat: repeat-x;*/
+    
     cursor: move;
     height: 13px;
     margin: 0 10px;
@@ -529,9 +510,10 @@ $(document).on('click','#add_more_images',function(){
 });
 
     $(document).on('click',"#select_resume_type",function(){
-      if($("#select_resume_type:checked").val()=="Production Member") 
+      if($("#select_resume_type:checked").val()=="Production Member" || $("#select_resume_type:checked").val()=='Director') 
         {          
           $(".attributes-info,#resume_section_3").hide();
+          $("div.roles-table > div.col-md-2.director_col").hide();
           // $('.sections >.photo-section').text("Photos");
         }
         else{
@@ -547,9 +529,9 @@ $(document).on('click','#add_more_images',function(){
   });
 
   //Remove Confirmation
-
+  
   $("body").on("click",".remove_nested_fields",function(){
-    if (confirm("Are you sure?")) {      
+    if (confirm("Are you sure? This will delete the entire Section and all your changes will be lost.")) {      
       if (($(this).data("success")) || ($(this).data("association")=="skills") || ($(this).data("association")=="others")){
 
         if (($(this).hasClass("remove_columns")) || ($($(this).parents().eq(3)).find(".fields").filter(function() { return $(this).css("display") == "block" }).length==1)){
@@ -557,7 +539,8 @@ $(document).on('click','#add_more_images',function(){
         }
         else{
           if($(this).hasClass("remove_education")){
-            $($(this).parent().hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Add '+$(this).data("association")+'</a></li>');
+            $($(this).parent().hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Add New '+$(this).data("association")+' Section</a></li>');
+            
           }
           else{
             $(this).trigger();
@@ -648,25 +631,11 @@ $(document).on('click','#add_more_images',function(){
   $("body").on("click",".cross_icon1",function(){
     // $(this).parents().eq(1).remove()
   })
-  var edu_clone = $("#resume_section_1").clone();
-  $(document).on("click",'.add_section',function(){
-    $(this).parent().hide();
-    if (this.text=="Undo others"){       
-      $(this).parent().prev().css("display","block").find('.fields').slice(1,100).css("display","none").slice(0,1).css("display","block").find('.bootstrap-tagsinput').css("display","block")
-    }
-    $(this).parent().prev().find('.remove_cols').map(function(){return $(this).text("-")})
-    if (this.text=="Undo skills") {
-      $(this).parent().prev().css("display","block").find('.fields').slice(1,100).css("display","none").slice(0,1).css("display","block").find('.form-control').css("display","block")
-    }else{ 
-      // $(this).parent().prev().show();
-      // $('tbody.render_table tr.fields:not(:first)').remove();
-      // $('tbody.render_table tr.fields input').val('');
-      $(this).parent().prev().show();
-      $(this).parent().prev().replaceWith(edu_clone);
-    }
-    $(this).parents().eq(1).find('.custom').hide();
-    $('.section-customs').map(function(){return $(this).text("Undo")});
-  });
+  // var edu_clone = [];
+  // $(document).ready(function(){
+  //    edu_clone.push($("#resume_section_1").clone());
+  // });  
+  
 
   $(document).on("click",".add_other_section",function(){
     $(this).parent().hide()
@@ -710,24 +679,22 @@ $(document).on('click','#add_more_images',function(){
     {
       $(table).find('tr').each(function (i,el) {
         if(i==0){
-          console.log(el);
           $(el).find("th:nth-last-child(2)").after("<th class='col-sm-2 drag-enable'><div class='table-handle'></div><a class='btn btn-default remove_cols' id='col"+new_id+"' title='Remove Column' data-association='educations'>-</a></th>");
         }
         else{
-          if(i==1){
-            $(el).find("td:nth-last-child(1)").after("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' name='' value='' placeholder='' type='text' id='"+new_id+"'' /></td>");
-          }
-          else{
+         
             $(el).find("td:nth-last-child(2)").after("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' name='' value='' placeholder='' type='text'/></td>");
-          }  
-        }
+        }  
+        
         
       });
     }
     else{
       alert('You cannot add more columns');
     }
+    $('table#demo').find('thead').contents().unwrap();
   });
+
   $(document).on("click",".remove_cols",function(){    
     // ($(this).text()=="-") ? ($(this).text("X")) : ($(this).text("-"))
     if (confirm("Are you sure?")) {      
@@ -737,7 +704,10 @@ $(document).on('click','#add_more_images',function(){
       $(my_attr).parent().remove();
       $(this).parent().remove();
     }  
-  });  
+  }); 
+  $(document).on("click",".remove_row",function(){
+      $(this).closest('tr').remove();
+  }) ;
 
   $(window).on('load',function(){
     var col5=$(".custom.col5").map(function(){if (this.value!=''){return this.value}})

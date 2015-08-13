@@ -28,6 +28,7 @@
 //= require chosen-jquery
 //= require live_validation
 //= require jquery.dragtable
+//= require dragtable
 
 $(document).ready(function(){
 	$(function () {
@@ -48,23 +49,34 @@ $(document).ready(function(){
   });
   $(function () {
 	  window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
-	  // alert(link);
 	  var $tr = $(link).closest('table').find('tbody tr:last');
 	  var new_id = new Date().getTime();
-	  // console.log(new_id);
-	  var new_tr = $tr;
-	  new_tr = "<tr class='fields'>"+new_tr.html().replace(/0/g,new_id)+"</tr>";
-	  // var dataArray = new Array();
-	  // new_tr = new_tr.html().replace(/0/g,new_id);
+	  var new_tr = $($tr).clone();
 	  
-	  // var new_tr = $tr.find('td').each(function (i) {
-	  // 	if(i<6){
-   //      	var td_class = $(this).find('input').attr('id').replace("0",new_id);
-   //      	var name_tds = $(this).find('input').attr('name').replace("0",new_id);
-   //      	dataArray.push(td_class);
-   //      }
-   //     })
-	  // alert(new_tr);
+	  new_tr.find('td').each(function(i,el){
+        var tr_input = $(el).find('input');
+        tr_input.attr('placeholder','').val('');
+        var id_val = tr_input.attr('id');
+        if(i<6){
+	        
+	        if(id_val=="1"||id_val=="2"||id_val=="3"||id_val=="4"||id_val=="5"||id_val=="6"){
+	        	var name = tr_input.attr('name');
+	        	var new_name = "resume[educations_attributes]["+new_id+"]["+name+"]";
+	        	tr_input.attr('name',new_name);
+	        	tr_input.attr('id',"resume_educations_attributes_"+new_id+"_"+name);
+	        	
+	        }
+	        else{
+		        var id_arr = id_val.split("_");
+		        id_arr[3] = new_id; 
+		        var new_name = id_arr[0]+"["+id_arr[1]+"_"+id_arr[2]+"]"+"["+id_arr[3]+"]"+"["+id_arr[4]+"]";
+		        tr_input.attr('name',new_name);
+		        $(el).find('input').attr('id',id_arr.join("_"));
+		        
+	    	} 
+	    } 
+	  });
+	  new_tr = "<tr class='fields'>"+new_tr.html()+"</tr>";
 	  return $(new_tr).insertAfter($tr);
    }
   });

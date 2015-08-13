@@ -1,0 +1,46 @@
+<a class="btn btn-default remove_nested_fields remove_education pull-right" data-association="Education/Training" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
+                   <input class="resume_section section_heading" id="resume_resume_sections_attributes_0_name" name="resume[resume_sections_attributes][0][name]" type="" value="Education/Training"> 
+                    
+                    
+                    <input class="resume_section" id="resume_resume_sections_attributes_0_position" name="resume[resume_sections_attributes][0][position]" type="hidden">
+                    <input id="resume_resume_sections_attributes_0_section_id" name="resume[resume_sections_attributes][0][section_id]" value="1" type="hidden">
+                    <table id="demo">
+                     <thead> 
+                    <%=render 'resumes/nested/education_cols_remove', :section => "educations"%>
+                    </thead>
+                    <tbody class="sortable render_table">
+                    <!-- <li class="sortable"> -->
+                    
+                      <div class="rtable_cols"></div>
+                      
+                      <%=render 'resumes/nested/education_fields',:e=>f%>
+                      
+                       <tr>
+                        <%=f.fields_for :educations,:wrapper => false do |e|%>
+                         
+                          <%= render "resumes/nested/education",:e=>e%>
+                         
+                        <%end%>
+                       </tr>
+                      <tfoot>
+    
+                      <tr> 
+                     
+                        <th colspan="8"><%= f.link_to_add "+", :educations ,:class=>"btn btn-default insert_in_table add_edu_row",:title=>"Add Row"%></th>
+                       </tr>
+                       </tfoot>
+                       </tbody>
+                      </table>
+                       <script type="text/javascript">
+                       $(document).ready(function(){
+                        $('table#demo').dragtable({
+                          revert: true,               // smooth revert
+                          dragHandle: '.table-handle',
+                          cursor: 'move',
+                          dragaccept: '.drag-enable',
+                          excludeFooter: true
+                        });
+                       }); 
+
+                       </script>
+                   <!-- </li> <br/> -->
