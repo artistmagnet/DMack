@@ -184,7 +184,7 @@
                   <br/>
                   <div class="ui-state-default sections representation" id="resume_section_2">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                     <a class="btn btn-default remove_nested_fields remove_education pull-right" data-association="representations" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
+                     <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="representations" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
                     <h3>Representation</h3>
                     <input class="resume_section" id="resume_resume_sections_attributes_1_position" name="resume[resume_sections_attributes][1][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_1_section_id" name="resume[resume_sections_attributes][1][section_id]" value="2" type="hidden">
@@ -201,7 +201,7 @@
                   <br/>
                   <div class="ui-state-default sections" id="resume_section_3">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                    <a class="btn btn-default remove_nested_fields remove_education pull-right" data-association="skills" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
+                    <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="skills" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
                     <h3>Skills</h3>
                     <input class="resume_section" id="resume_resume_sections_attributes_2_position" name="resume[resume_sections_attributes][2][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_2_section_id" name="resume[resume_sections_attributes][2][section_id]" value="3" type="hidden">
@@ -216,7 +216,7 @@
                    <br/>            
                   <div class="ui-state-default sections customs" id="resume_section_4">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                   <a class="btn btn-default remove_nested_fields remove_education pull-right" data-association="custom" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
+                   <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="custom" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
                     
                     <h3>Custom</h3>
                     <input class="resume_section" id="resume_resume_sections_attributes_3_position" name="resume[resume_sections_attributes][3][position]" type="hidden">
@@ -530,7 +530,7 @@ $(document).on('click','#add_more_images',function(){
 
   //Remove Confirmation
   
-  $("body").on("click",".remove_nested_fields",function(){
+  $("body").on("click",".remove_nested_field",function(){
     if (confirm("Are you sure? This will delete the entire Section and all your changes will be lost.")) {      
       if (($(this).data("success")) || ($(this).data("association")=="skills") || ($(this).data("association")=="others")){
 
@@ -552,7 +552,8 @@ $(document).on('click','#add_more_images',function(){
     }
       return false;
   });
-
+ 
+  
   $(document).on('click','.get_columns',function(){
     // debugger
     $($(this).parents().eq(2).find('.nested_skill_attr')).each(function(index){return this.value=index})
@@ -675,24 +676,34 @@ $(document).on('click','#add_more_images',function(){
     var table  = $(this).closest('table');
     var count = table.find('tbody tr:last').find('td.drag-enable').length;
     var new_id = new Date().getTime();
-    if(count<6)
-    {
+    if(count==0){
       $(table).find('tr').each(function (i,el) {
         if(i==0){
-          $(el).find("th:nth-last-child(2)").after("<th class='col-sm-2 drag-enable'><div class='table-handle'></div><a class='btn btn-default remove_cols' id='col"+new_id+"' title='Remove Column' data-association='educations'>-</a></th>");
+          $(el).find("th:nth-last-child(1)").before("<th class='col-sm-2 drag-enable'><div class='table-handle'></div><a class='btn btn-default remove_cols' id='col"+new_id+"' title='Remove Column' data-association='educations'>-</a></th>");
         }
         else{
-         
-            $(el).find("td:nth-last-child(2)").after("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' name='' value='' placeholder='' type='text'/></td>");
-        }  
-        
-        
-      });
+          $(el).find("td:nth-last-child(1)").before("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' name='' value='' placeholder='' type='text'/></td>");
+        }
+      });    
     }
     else{
-      alert('You cannot add more columns');
+      if(count<6 && count>0)
+      {
+        $(table).find('tr').each(function (i,el) {
+          if(i==0){
+            $(el).find("th:nth-last-child(2)").after("<th class='col-sm-2 drag-enable'><div class='table-handle'></div><a class='btn btn-default remove_cols' id='col"+new_id+"' title='Remove Column' data-association='educations'>-</a></th>");
+          }
+          else{
+            $(el).find("td:nth-last-child(2)").after("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' name='' value='' placeholder='' type='text'/></td>");
+          }  
+        });
+      }
+      else{
+        if(count==6){
+          alert('You cannot add more columns');
+        }
+      }  
     }
-    $('table#demo').find('thead').contents().unwrap();
   });
 
   $(document).on("click",".remove_cols",function(){    

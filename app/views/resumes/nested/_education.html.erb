@@ -20,7 +20,7 @@
     </td>
      
     <td class="col-sm-1">
-      <%= e.link_to_remove "-",:class=>"btn btn-default",:title=>"Remove Row"%>
+      <%= e.link_to_remove "-",:class=>"btn btn-default",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
     </td> 
 </tr>
 <%= e.hidden_field :position, :class => 'bar' %>
