@@ -510,17 +510,23 @@ $(document).on('click','#add_more_images',function(){
 });
 
     $(document).on('click',"#select_resume_type",function(){
-      if($("#select_resume_type:checked").val()=="Production Member" || $("#select_resume_type:checked").val()=='Director') 
+      if($("#select_resume_type:checked").val()=="Production Member")  
         {          
           $(".attributes-info,#resume_section_3").hide();
-          $("div.roles-table > div.col-md-2.director_col").hide();
+          $("div.roles-table > div.col-md-2.director_col").show();
           // $('.sections >.photo-section').text("Photos");
         }
         else{
+          if($("#select_resume_type:checked").val()=='Director'){
+            $(".attributes-info,#resume_section_3").hide();
+            $("div.roles-table > div.col-md-2.director_col").hide();
+          }
+          else{
            $(".attributes-info,#resume_section_3").show();
-
-          // $('.sections >.photo-section').text("Headshots");
+           $("div.roles-table > div.col-md-2.director_col").show();
+          }
         }
+        
     
     });
     
