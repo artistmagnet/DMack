@@ -103,7 +103,8 @@ dragtable = {
     }
 
     var headers = table.tHead.rows[0].cells;
-    for (var i = 0; i < headers.length; i++) {
+    console.log(headers);
+    for (var i = 0; i < (headers.length)-1; i++) {
       headers[i].onmousedown = dragtable.dragStart;
     }
 
@@ -128,6 +129,8 @@ dragtable = {
 
   // clone an element, copying its style and class.
   fullCopy: function(elt, deep) {
+    console.log(elt);
+    console.log(deep);
     var new_elt = elt.cloneNode(deep);
     new_elt.className = elt.className;
     forEach(elt.style,
@@ -204,7 +207,7 @@ dragtable = {
     dragObj.table = table;
     dragObj.startCol = dragtable.findColumn(table, pos.x);
     if (dragObj.startCol == -1) return;
-
+    // table = $(table).find('tfoot').remove();
     var new_elt = dragtable.fullCopy(table, false);
     new_elt.style.margin = '0';
 

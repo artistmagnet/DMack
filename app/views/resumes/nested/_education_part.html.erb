@@ -4,7 +4,7 @@
                     
                     <input class="resume_section" id="resume_resume_sections_attributes_0_position" name="resume[resume_sections_attributes][0][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_0_section_id" name="resume[resume_sections_attributes][0][section_id]" value="1" type="hidden">
-                    <table id="demo">
+                    <table id="demo" class="draggable">
                      <thead> 
                     <%=render 'resumes/nested/education_cols_remove', :section => "educations"%>
                     </thead>
@@ -15,13 +15,13 @@
                       
                       <%=render 'resumes/nested/education_fields',:e=>f%>
                       
-                       <tr>
+                       <!-- <tr> -->
                         <%=f.fields_for :educations,:wrapper => false do |e|%>
                          
                           <%= render "resumes/nested/education",:e=>e%>
                          
                         <%end%>
-                       </tr>
+                       <!-- </tr> -->
                       <tfoot>
     
                       <tr> 

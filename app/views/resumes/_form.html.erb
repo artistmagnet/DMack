@@ -513,17 +513,17 @@ $(document).on('click','#add_more_images',function(){
       if($("#select_resume_type:checked").val()=="Production Member")  
         {          
           $(".attributes-info,#resume_section_3").hide();
-          $("div.roles-table > div.col-md-2.director_col").show();
+          $("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").show();
           // $('.sections >.photo-section').text("Photos");
         }
         else{
           if($("#select_resume_type:checked").val()=='Director'){
             $(".attributes-info,#resume_section_3").hide();
-            $("div.roles-table > div.col-md-2.director_col").hide();
+            $("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").hide();
           }
           else{
            $(".attributes-info,#resume_section_3").show();
-           $("div.roles-table > div.col-md-2.director_col").show();
+           $("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").show();
           }
         }
         
@@ -688,6 +688,7 @@ $(document).on('click','#add_more_images',function(){
         var tr_input = $(el).find('input');
         tr_input.attr('placeholder','').val('');
         var id_val = tr_input.attr('id');
+        console.log(id_val);
         if(i<6){
           
           if(id_val=="1"||id_val=="2"||id_val=="3"||id_val=="4"||id_val=="5"||id_val=="6"){
@@ -727,14 +728,11 @@ $(document).on('click','#add_more_images',function(){
           $(el).find("th:nth-last-child(1)").before("<th class='col-sm-2 drag-enable'><div class='table-handle'></div><a class='btn btn-default remove_cols' id='col"+new_id+"' title='Remove Column' data-association='educations'>-</a></th>");
         }
         else{
-          $(el).find("td:nth-last-child(1)").before("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' name='' value='' placeholder='' type='text'/></td>");
+          $(el).find("td:nth-last-child(1)").before("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' id='resume_educations_attributes_"+new_id+"_x' name='' value='' placeholder='' type='text'/></td>");
         }
       });  
-      $('table#demo').dragtable({
-        rearrangeTable: function(){
-
-        }
-      });     
+      var $table = $("table#demo")[0];
+      dragtable.makeDraggable($table);  
     }
     else{
       if(count<6 && count>0)
@@ -744,16 +742,11 @@ $(document).on('click','#add_more_images',function(){
             $(el).find("th:nth-last-child(2)").after("<th class='col-sm-2 drag-enable'><div class='table-handle'></div><a class='btn btn-default remove_cols' id='col"+new_id+"' title='Remove Column' data-association='educations'>-</a></th>");
           }
           else{
-            $(el).find("td:nth-last-child(2)").after("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' name='' value='' placeholder='' type='text'/></td>");
+            $(el).find("td:nth-last-child(2)").after("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' id='resume_educations_attributes_"+new_id+"_x' name='' value='' placeholder='' type='text'/></td>");
           }  
         });
-        var $table = $('table#demo');
-        $('table#demo').dragtable({
-          clickDelay: 10,
-          rearrangeTable: function(){
-            alert(1);
-          }
-        });  
+        var $table = $("table#demo")[0];
+        dragtable.makeDraggable($table);
       }
       else{
         if(count==6){
