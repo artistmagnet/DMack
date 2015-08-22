@@ -1,24 +1,24 @@
- <div class="form-group">
-   <%= r.hidden_field :position, :class => 'nested_repr_attr' %>
+ <tr class="fields">
    <!--  <div class="col-sm-1"> 
       <img width="30px;" alt="Icon" src="/assets/drag.jpg">
     </div> -->
-    <div class="col-sm-2" >
+    <td class="col-sm-2 drag-enable" >
       <%= r.text_field :company,:class=>"form-control representations diminished-font col1",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-2" >
+    </td>
+    <td class="col-sm-2 drag-enable" >
       <%= r.text_field :contact_name,:class=>"form-control representations diminished-font col2",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-2" >
+    </td>
+    <td class="col-sm-2 drag-enable" >
       <%= r.text_field :title,:class=>"form-control representations diminished-font col3",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-2" >
+    </td>
+    <td class="col-sm-2 drag-enable" >
       <%= r.text_field :phone,:class=>"form-control representations diminished-font col4",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-2" >
+    </td>
+    <td class="col-sm-2 drag-enable" >
       <%= r.text_field :address,:class=>"form-control representations diminished-font col5",:placeholder=>"" %>
-    </div>   
-    <div class="col-sm-1">
-    <%= r.link_to_remove "-",:class=>"btn btn-default",:title=>"Remove Row" %>
-    </div>        
-  </div>
+    </td>   
+    <td class="col-sm-1">
+    <%= r.link_to_remove "-",:class=>"btn btn-default",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
+    </td>        
+  </tr>
+     <%= r.hidden_field :position, :class => 'nested_repr_attr' %>

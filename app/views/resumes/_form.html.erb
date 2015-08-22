@@ -174,7 +174,13 @@
                           // $('tbody.render_table tr.fields:not(:first)').remove();
                           // $('tbody.render_table tr.fields input').val('');
                           $(this).parent().prev().show();
+                          var section = $(this).parent().attr('section');
+                          if(section=='Representation'){
+                            $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/representation_part',:f=>f)%>");
+                          }
+                          else{
                           $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
+                        }
                           $( ".sortable" ).sortable({revert: true});
                         }
                         $(this).parents().eq(1).find('.custom').hide();
@@ -184,19 +190,7 @@
                   <br/>
                   <div class="ui-state-default sections representation" id="resume_section_2">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                     <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="representations" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
-                    <h3>Representation</h3>
-                    <input class="resume_section" id="resume_resume_sections_attributes_1_position" name="resume[resume_sections_attributes][1][position]" type="hidden">
-                    <input id="resume_resume_sections_attributes_1_section_id" name="resume[resume_sections_attributes][1][section_id]" value="2" type="hidden">
-
-                    <%=render 'resumes/nested/education_remove_cols', :section => "representations"%>
-                    <li class="sortable">
-                      <%=render 'resumes/nested/representation_fields',:repr=>f%>
-                      <%=f.fields_for :representations do |r|%>                
-                         <%= render "resumes/nested/representation" ,:r=>r%>
-                      <%end%>
-                      <%= f.link_to_add "+", :representations ,:class=>"btn btn-default add_edu_row",:title=>"Add Row"%>
-                    </li><br/>
+                     <%=render 'resumes/nested/representation_part',:f=>f%>
                   </div>
                   <br/>
                   <div class="ui-state-default sections" id="resume_section_3">
@@ -545,7 +539,7 @@ $(document).on('click','#add_more_images',function(){
         }
         else{
           if($(this).hasClass("remove_education")){
-            $($(this).parent().hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Add New '+$(this).data("association")+' Section</a></li>');
+            $($(this).parent().hide()).after('<li class="ui-state-default sections" section='+$(this).data("association")+'><a class="btn btn-default add_section">Add New '+$(this).data("association")+' Section</a></li>');
             
           }
           else{
@@ -731,8 +725,7 @@ $(document).on('click','#add_more_images',function(){
           $(el).find("td:nth-last-child(1)").before("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' id='resume_educations_attributes_"+new_id+"_x' name='' value='' placeholder='' type='text'/></td>");
         }
       });  
-      var $table = $("table#demo")[0];
-      dragtable.makeDraggable($table);  
+      
     }
     else{
       if(count<6 && count>0)
@@ -745,8 +738,7 @@ $(document).on('click','#add_more_images',function(){
             $(el).find("td:nth-last-child(2)").after("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' id='resume_educations_attributes_"+new_id+"_x' name='' value='' placeholder='' type='text'/></td>");
           }  
         });
-        var $table = $("table#demo")[0];
-        dragtable.makeDraggable($table);
+        
       }
       else{
         if(count==6){
