@@ -706,7 +706,13 @@ $(document).on('click','#add_more_images',function(){
     return $(new_tr).insertAfter($tr);
   }
   else{
+    var in_val = $(link).closest('table').parent().find('input.resume_section.section_heading').val();
+    if(in_val =='Representation'){
+      $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/representation_cols_remove',:section=>'representations')%>");
+    }
+    else{  
     $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/education_cols_remove',:section=>'educations')%>");
+   }
     return $(link).closest('table').find("tbody").html(content);
     // return $(content).insertAfter(tbody);
   }
