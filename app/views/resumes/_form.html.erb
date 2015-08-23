@@ -706,8 +706,8 @@ $(document).on('click','#add_more_images',function(){
     return $(new_tr).insertAfter($tr);
   }
   else{
-    $("table#demo thead").html("<%=escape_javascript render('resumes/nested/education_cols_remove',:section=>'educations')%>");
-    return $("table#demo tbody").html(content);
+    $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/education_cols_remove',:section=>'educations')%>");
+    return $(link).closest('table').find("tbody").html(content);
     // return $(content).insertAfter(tbody);
   }
    }

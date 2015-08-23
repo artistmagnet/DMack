@@ -7,7 +7,7 @@
                     <%=render 'resumes/nested/representation_cols_remove', :section => "representations"%>
                     </thead>
                     <!-- <li class="sortable"> -->
-                    <tbody class="sortable render_table">
+                    <tbody class="sortable render_representation_table">
                       <%=render 'resumes/nested/representation_fields',:repr=>f%>
                       <%=f.fields_for :representations do |r|%>                
                          <%= render "resumes/nested/representation" ,:r=>r%>
