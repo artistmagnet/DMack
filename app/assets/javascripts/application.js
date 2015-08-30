@@ -28,7 +28,6 @@
 //= require chosen-jquery
 //= require live_validation
 //= require jquery.dragtable
-//= require dragtable
 
 $(document).ready(function(){
 	$(function () {

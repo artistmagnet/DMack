@@ -730,7 +730,15 @@ $(document).on('click','#add_more_images',function(){
         else{
           $(el).find("td:nth-last-child(1)").before("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' id='resume_educations_attributes_"+new_id+"_x' name='' value='' placeholder='' type='text'/></td>");
         }
-      });  
+      }); 
+      var table = $('table#demo');
+      $(table).dragtable('destroy').dragtable({
+                          revert: true,               // smooth revert
+                          dragHandle: '.table-handle',
+                          cursor: 'move',
+                          dragaccept: '.drag-enable',
+                          excludeFooter: true
+                        });
       
     }
     else{
@@ -744,7 +752,14 @@ $(document).on('click','#add_more_images',function(){
             $(el).find("td:nth-last-child(2)").after("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' id='resume_educations_attributes_"+new_id+"_x' name='' value='' placeholder='' type='text'/></td>");
           }  
         });
-        
+        var table = $('table#demo');
+        $(table).dragtable('destroy').dragtable({
+                          revert: true,               // smooth revert
+                          dragHandle: '.table-handle',
+                          cursor: 'move',
+                          dragaccept: '.drag-enable',
+                          excludeFooter: true
+                        });
       }
       else{
         if(count==6){
