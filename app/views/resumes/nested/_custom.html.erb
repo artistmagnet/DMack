@@ -1,28 +1,30 @@
-<div class="form-group ">   
-   <%= cust.hidden_field :position,:class=>"nested_custom_attr"%>
+<tr class="fields">   
+   
     <!-- <div class="col-sm-1"> 
       <img width="30px;" alt="Icon" src="/assets/drag.jpg">
     </div> -->
-    <div class="col-sm-2" >
+    <td class="col-sm-2 drag-enable" >
       <%= cust.text_field :custom1,:class=>"form-control diminished-font col1",:placeholder=>"" %>      
-    </div>
-    <div class="col-sm-2" >
+    </td>
+    <td class="col-sm-2 drag-enable" >
       <%= cust.text_field :custom2,:class=>"form-control diminished-font col2",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-2" >
+    </td>
+    <td class="col-sm-2 drag-enable" >
       <%= cust.text_field :custom3,:class=>"form-control diminished-font col3",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-2" >
+    </td>
+    <td class="col-sm-2 drag-enable" >
       <%= cust.text_field :custom4,:class=>"form-control diminished-font col4",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-1" >
-      <%= cust.text_field :custom5,:class=>"form-control diminished-font col5 custom",:placeholder=>"" %>
-    </div>
-    <div class="col-sm-1">
-      <%= cust.text_field :custom6,:class=>"form-control diminished-font col6 custom",:placeholder=>"" ,:style=>"width: 59px;"%>
-    </div>
-    <input name="columns" type="hidden" class="add_column" value="" />
-    <div class="col-sm-1">
-      <%= cust.link_to_remove "-",:class=>"btn btn-default",:title=>"Remove Row"%>
-    </div>
-</div> 
+    </td>
+   <!--  <td class="col-sm-1 drag-enable" >
+      <%#= cust.text_field :custom5,:class=>"form-control diminished-font col5 custom",:placeholder=>"" %>
+    </td>
+    <td class="col-sm-1 drag-enable">
+      <%#= cust.text_field :custom6,:class=>"form-control diminished-font col6 custom",:placeholder=>"" ,:style=>"width: 59px;"%>
+    </td> -->
+    
+    <td class="col-sm-1">
+      <%= cust.link_to_remove "-",:class=>"btn btn-default",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
+    </td>
+</tr> 
+<%= cust.hidden_field :position,:class=>"nested_custom_attr"%>
+<input name="columns" type="hidden" class="add_column" value="" />

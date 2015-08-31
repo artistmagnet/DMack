@@ -1,0 +1,38 @@
+ <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="custom" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
+                    
+                    <input class="resume_section section_heading" id="resume_resume_sections_attributes_3_name" name="resume[resume_sections_attributes][3][name]" type="" value="Enter Custom Title"> 
+                    <input class="resume_section" id="resume_resume_sections_attributes_3_position" name="resume[resume_sections_attributes][3][position]" type="hidden">
+                    <input id="resume_resume_sections_attributes_3_section_id" name="resume[resume_sections_attributes][3][section_id]" value="4" type="hidden">
+                    <table id="demo" class="draggable">
+                     <thead> 
+                    <%=render 'resumes/nested/custom_cols_remove', :section=>"customs"%>
+                    </thead>
+                    <tbody class="sortable render_education_table">
+                    <!-- <li class="sortable"> -->
+                      <div class="rtable_cols"></div>
+                      <%=render 'resumes/nested/custom_fields',:cust=>f%>
+                      <%=f.fields_for :customs do |cust|%>
+                        <%= render "resumes/nested/custom",:cust=>cust%>
+                      <%end%>   
+                       <tfoot>
+    
+                      <tr> 
+                     
+                        <th colspan="8"><%= f.link_to_add "+", :customs ,:class=>"btn btn-default insert_in_table add_edu_row",:title=>"Add Row"%></th>
+                       </tr>
+                       </tfoot>
+                       </tbody>
+                      </table>             
+                     <script type="text/javascript">
+                     $(document).ready(function(){
+                      $('table#demo').dragtable({
+                        revert: true,               // smooth revert
+                        dragHandle: '.table-handle',
+                        cursor: 'move',
+                        dragaccept: '.drag-enable',
+                        excludeFooter: true
+                      });
+                     }); 
+
+                       </script>
+                    <!-- </li><br/> -->

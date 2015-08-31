@@ -52,3 +52,6 @@ textarea.LV_invalid_field:active {
 	height: 70px !important;
 	vertical-align: top;
 }
+.bootstrap-tagsinput{
+    margin-left: 105px;
+}

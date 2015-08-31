@@ -178,9 +178,19 @@
                           if(section=='Representation'){
                             $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/representation_part',:f=>f)%>");
                           }
-                          else{
-                          $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
-                        }
+                          else
+                            if(section=='Skill'){
+                              $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/skill_part',:f=>f)%>");
+                            }
+                            else{
+                              if(section=='Other'){
+                                $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/other_part',:f=>f)%>");
+                              }
+                              else{
+                                $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
+                              }
+                            }
+                            
                           $( ".sortable" ).sortable({revert: true});
                         }
                         $(this).parents().eq(1).find('.custom').hide();
@@ -195,49 +205,17 @@
                   <br/>
                   <div class="ui-state-default sections" id="resume_section_3">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                    <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="Skill" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
-                    <h3>Skills</h3>
-                    <input class="resume_section" id="resume_resume_sections_attributes_2_position" name="resume[resume_sections_attributes][2][position]" type="hidden">
-                    <input id="resume_resume_sections_attributes_2_section_id" name="resume[resume_sections_attributes][2][section_id]" value="3" type="hidden">
-
-                    <li class="sortable">                    
-                      <%=f.fields_for :skills do |s|%>                 
-                         <%= render "resumes/nested/skill" ,:s=>s%>
-                      <%end%>                
-                      <%#= f.link_to_add "+", :skills ,:class=>"btn btn-default add_edu_row",:title=>"Add Row"%> 
-                    </li><br/>
+                    <%=render 'resumes/nested/skill_part',:f=>f%>
                   </div>
                    <br/>            
                   <div class="ui-state-default sections customs" id="resume_section_4">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                   <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="custom" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
-                    
-                    <input class="resume_section section_heading" id="resume_resume_sections_attributes_3_name" name="resume[resume_sections_attributes][3][name]" type="" value="Enter Custom Title"> 
-                    <input class="resume_section" id="resume_resume_sections_attributes_3_position" name="resume[resume_sections_attributes][3][position]" type="hidden">
-                    <input id="resume_resume_sections_attributes_3_section_id" name="resume[resume_sections_attributes][3][section_id]" value="4" type="hidden">
-                    <%=render 'resumes/nested/education_remove_cols',:section=>"customs"%>
-                    <li class="sortable">
-                      <div class="rtable_cols"></div>
-                      <%=render 'resumes/nested/custom_fields',:cust=>f%>
-                      <%=f.fields_for :customs do |cust|%>
-                        <%= render "resumes/nested/custom",:cust=>cust%>
-                      <%end%>                
-                      <%= f.link_to_add "+", :customs ,:class=>"btn btn-default add_edu_row",:title=>"Add Row"%> 
-                    </li><br/>
+                    <%=render 'resumes/nested/custom_part',:f=>f%>
                   </div>
                   <br/>
                   <div class="ui-state-default sections others" id="resume_section_5">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                      <h3>Other</h3>
-                      <input class="resume_section" id="resume_resume_sections_attributes_4_position" name="resume[resume_sections_attributes][4][position]" type="hidden">
-                      <input id="resume_resume_sections_attributes_4_section_id" name="resume[resume_sections_attributes][4][section_id]" value="5" type="hidden">
-
-                      <li class="sortable">
-                        <%=f.fields_for :others do |o|%>
-                          <%= render "resumes/nested/other" ,:o=>o%>
-                        <%end%>
-                        <%= f.link_to_add "Add More", :others ,:class=>"btn btn-default"%> 
-                      </li>
+                      <%=render 'resumes/nested/other_part',:f=>f%>
                     </div><br/>
                   </div>
                 </ul>
