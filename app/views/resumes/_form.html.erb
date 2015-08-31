@@ -195,7 +195,7 @@
                   <br/>
                   <div class="ui-state-default sections" id="resume_section_3">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                    <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="skills" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
+                    <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="Skill" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
                     <h3>Skills</h3>
                     <input class="resume_section" id="resume_resume_sections_attributes_2_position" name="resume[resume_sections_attributes][2][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_2_section_id" name="resume[resume_sections_attributes][2][section_id]" value="3" type="hidden">
@@ -212,7 +212,7 @@
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                    <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="custom" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
                     
-                    <h3>Custom</h3>
+                    <input class="resume_section section_heading" id="resume_resume_sections_attributes_3_name" name="resume[resume_sections_attributes][3][name]" type="" value="Enter Custom Title"> 
                     <input class="resume_section" id="resume_resume_sections_attributes_3_position" name="resume[resume_sections_attributes][3][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_3_section_id" name="resume[resume_sections_attributes][3][section_id]" value="4" type="hidden">
                     <%=render 'resumes/nested/education_remove_cols',:section=>"customs"%>
@@ -682,7 +682,6 @@ $(document).on('click','#add_more_images',function(){
         var tr_input = $(el).find('input');
         tr_input.attr('placeholder','').val('');
         var id_val = tr_input.attr('id');
-        console.log(id_val);
         if(i<6){
           
           if(id_val=="1"||id_val=="2"||id_val=="3"||id_val=="4"||id_val=="5"||id_val=="6"){
@@ -713,7 +712,16 @@ $(document).on('click','#add_more_images',function(){
     else{  
     $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/education_cols_remove',:section=>'educations')%>");
    }
+    var table = $('table#demo');
+      $(table).dragtable('destroy').dragtable({
+                          revert: true,               // smooth revert
+                          dragHandle: '.table-handle',
+                          cursor: 'move',
+                          dragaccept: '.drag-enable',
+                          excludeFooter: true
+                        });
     return $(link).closest('table').find("tbody").html(content);
+
     // return $(content).insertAfter(tbody);
   }
    }
