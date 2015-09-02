@@ -187,8 +187,14 @@
                                 $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/other_part',:f=>f)%>");
                               }
                               else{
-                                $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
+                                if(section=='Custom'){
+                                  $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/custom_part',:f=>f)%>");
+                                }
+                                else{
+                                  $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
+                                }
                               }
+                              
                             }
                             
                           $( ".sortable" ).sortable({revert: true});
@@ -572,20 +578,20 @@ $(document).on('click','#add_more_images',function(){
     $(this).parent().hide().prev().show();
   });
 
-  $(document).on("click",'.tag',function(){
-    if ($('.sections.others').find('.tag').length==0){
-      $('.sections.others').hide().after('<li class="ui-state-default sections"><a class="btn btn-default add_other_section">Undo others</a></li>');
-    }
-  })
+  // $(document).on("click",'.tag',function(){
+  //   if ($('.sections.others').find('.tag').length==0){
+  //     $('.sections.others').hide().after('<li class="ui-state-default sections"><a class="btn btn-default add_other_section">Undo others</a></li>');
+  //   }
+  // })
 
-  $('.ui-state-default.sections.others').keyup(function(e){    
-    if(e.keyCode == 8){
-       // user has pressed backspace
-      if ($('.sections.others').find('.tag').length==0){
-        $('.sections.others').hide().after('<li class="ui-state-default sections"><a class="btn btn-default add_other_section">Undo others</a></li>');
-      }
-    }    
-  });
+  // $('.ui-state-default.sections.others').keyup(function(e){    
+  //   if(e.keyCode == 8){
+  //      // user has pressed backspace
+  //     if ($('.sections.others').find('.tag').length==0){
+  //       $('.sections.others').hide().after('<li class="ui-state-default sections"><a class="btn btn-default add_other_section">Undo others</a></li>');
+  //     }
+  //   }    
+  // });
 
 
   // function get_status(){
