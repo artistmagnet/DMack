@@ -6,7 +6,7 @@
   <br/>
   <div class="col-sm-8" >
   	<div class="other_test diminished-font">
-      <%= o.text_field :content,:class=>"form-control diminished-font tag-input",:placeholder=>"" %>    
+      <%= o.text_area :content,:class=>"form-control diminished-font tag-input",:placeholder=>"",:onkeyup=>"auto_grow(this)"%>    
     </div>
   </div>  
   <div class="col-sm-2">

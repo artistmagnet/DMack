@@ -611,7 +611,10 @@ $(document).on('click','#add_more_images',function(){
   //   return stats
   // }
 
-
+  function auto_grow(element) {
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight)+"px";
+        }
 
   $("body").on("click",".cross_icon1",function(){
     // $(this).parents().eq(1).remove()
@@ -655,6 +658,7 @@ $(document).on('click','#add_more_images',function(){
   //     $(this).parents().eq(1).find('.remove_cols').map(function(){return $(this).text("Remove")});
   //   }
   // });
+  
   $(function () {
     window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
     var $tr = $(link).closest('table').find('tbody tr:last');
@@ -693,9 +697,14 @@ $(document).on('click','#add_more_images',function(){
     if(in_val =='Representation'){
       $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/representation_cols_remove',:section=>'representations')%>");
     }
-    else{  
-    $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/education_cols_remove',:section=>'educations')%>");
-   }
+    else{
+      if(in_val =='Custom'){
+        $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/custom_cols_remove',:section=>'customs')%>");
+      }
+      else{  
+        $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/education_cols_remove',:section=>'educations')%>");
+      }
+    }
     var table = $('table#demo');
       $(table).dragtable('destroy').dragtable({
                           revert: true,               // smooth revert
