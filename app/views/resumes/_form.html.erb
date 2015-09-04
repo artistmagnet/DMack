@@ -569,7 +569,7 @@ $(document).on('click','#add_more_images',function(){
     // get_status()
     // return get_status()
   });
-   $('table#demo td > input[type=text],.form-group input[type=text]').keydown( function(e) {
+   $(document).on('keydown','#resume_section_1 > input,#resume_section_2 > input,#resume_section_3 > input,#resume_section_4 > input,#resume_section_5 > input,table#demo td > input[type=text],.form-group input[type=text]',function(e) {
         var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
         if(key == 13) {
             e.preventDefault();
