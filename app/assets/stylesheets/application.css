@@ -50,7 +50,7 @@ textarea.LV_invalid_field:active {
 
 .other_test textarea{
     resize:none;
-    overflow:hidden;
+    overflow:auto;
     min-height:50px;
     max-height:100px;
     border-radius: 5px;
