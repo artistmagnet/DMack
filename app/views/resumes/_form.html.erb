@@ -537,7 +537,7 @@ $(document).on('click','#add_more_images',function(){
       return false;
   });
  
-  
+
   $(document).on('click','.get_columns',function(){
     // debugger
     $($(this).parents().eq(2).find('.nested_skill_attr')).each(function(index){return this.value=index})
@@ -569,7 +569,14 @@ $(document).on('click','#add_more_images',function(){
     // get_status()
     // return get_status()
   });
-
+   $('table#demo td > input[type=text],.form-group input[type=text]').keydown( function(e) {
+        var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
+        if(key == 13) {
+            e.preventDefault();
+            var inputs = $(this).closest('form').find(':input:visible');
+            inputs.eq( inputs.index(this)+ 1 ).focus();
+        }
+    });
   $(document).on("click",".remove_others",function(){
     $(this).parents().eq(2).hide().after( "<div align='right'><input type='button' name='undo' value='Undo' class='show_others'></div>" );
   });
