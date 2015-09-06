@@ -700,12 +700,12 @@ $(document).on('click','#add_more_images',function(){
     return $(new_tr).insertAfter($tr);
   }
   else{
-    var in_val = $(link).closest('table').parent().find('input.resume_section.section_heading').val();
-    if(in_val =='Representation'){
+    var in_val = $(link).closest('table').attr('class').split(" ")[0];
+    if(in_val =='representation'){
       $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/representation_cols_remove',:section=>'representations')%>");
     }
     else{
-      if(in_val =='Custom'){
+      if(in_val =='custom'){
         $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/custom_cols_remove',:section=>'customs')%>");
       }
       else{  
