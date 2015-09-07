@@ -130,6 +130,11 @@
                 </div>
                 <br/>
                 <ul>
+                 <div class="ui-state-default sections" id="resume_section_2">
+                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
+                    <%=render 'resumes/nested/representation_part',:f=>f%>
+                  </div>
+                  <br/>
                   <div class="ui-state-default sections threatr-section ">                      
                     <h3> Theatre</h3>
                     <li >
@@ -204,11 +209,7 @@
                       });
                   </script>
                   <br/>
-                  <div class="ui-state-default sections representation" id="resume_section_2">
-                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                     <%=render 'resumes/nested/representation_part',:f=>f%>
-                  </div>
-                  <br/>
+                  
                   <div class="ui-state-default sections" id="resume_section_3">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <%=render 'resumes/nested/skill_part',:f=>f%>
@@ -226,8 +227,13 @@
                   </div>
                 </ul>
                 <div class="form-group">
+                  <div class="row">
                   <div class="col-sm-3">
                     <%= f.submit @resume.id.blank? ? 'Save & Finish!' : 'Save',:class=>"form-control btn btn-primary get_columns" %>
+                    </div>
+                    <div class="col-sm-3">
+                    <%=link_to 'Cancel',root_path,:class=>"form-control btn btn-primary get_columns","data-confirm"=>"Are you sure? This will delete the entire Resume and all your changes will be lost"%>
+                  </div>
                   </div>
                 </div>
             </div>
@@ -577,6 +583,22 @@ $(document).on('click','#add_more_images',function(){
             inputs.eq( inputs.index(this)+ 1 ).focus();
         }
     });
+    $(document).on("click",".add_bold",function(){
+      var tr_val = $(this).siblings('.draggable').find('tbody tr:first');
+      $(tr_val).find('td').each(function(i,el){
+        var tr_input = $(el).find('input').toggleClass('add_unbold');
+      });
+      if($(this).text() == 'B') {
+        $(this).text('UB');
+        $(this).attr('title','Unbold the Title Row');
+      }
+      else{
+        $(this).text('B');
+        $(this).attr('title','Bold the Title Row');
+      }      
+    });
+
+
   $(document).on("click",".remove_others",function(){
     $(this).parents().eq(2).hide().after( "<div align='right'><input type='button' name='undo' value='Undo' class='show_others'></div>" );
   });

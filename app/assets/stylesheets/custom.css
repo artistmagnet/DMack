@@ -38,3 +38,9 @@ ul.preview-area li {
   text-align: center;
   color: #333333;
 }
+.add_unbold{
+  font-weight: bold;
+}
+.btn.btn-default.add_bold{
+  margin-right: 9px;
+}
