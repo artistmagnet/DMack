@@ -232,6 +232,9 @@
                     <%= f.submit @resume.id.blank? ? 'Save & Finish!' : 'Save',:class=>"form-control btn btn-primary get_columns" %>
                     </div>
                     <div class="col-sm-3">
+                    <%= f.submit 'Save',:class=>"form-control btn btn-primary save get_columns" %>
+                    </div>
+                    <div class="col-sm-3">
                     <%=link_to 'Cancel',root_path,:class=>"form-control btn btn-primary get_columns","data-confirm"=>"Are you sure? This will delete the entire Resume and all your changes will be lost"%>
                   </div>
                   </div>
@@ -261,6 +264,30 @@
            </div>
            <div class="modal-body">
              <%#= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
+           </div>
+           <div class="modal-footer">
+              <button type="button" class="btn btn-default" 
+                 data-dismiss="modal">Close
+              </button>
+           </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>
+    <div class="modal " id="saveModal" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <button type="button" class="close" 
+                 data-dismiss="modal" aria-hidden="true">
+                    &times;
+              </button>
+              <h4 class="modal-title" id="myModalLabel">
+                 Resume Title
+              </h4>
+           </div>
+           <div class="modal-body">
+             <%= text_field "resume_name",:class=>"resume_name"%>
            </div>
            <div class="modal-footer">
               <button type="button" class="btn btn-default" 
@@ -434,6 +461,9 @@ $(document).on('click','li a.additional_headshot',function(){
   $(".headshot").show();
   $(".video").hide();
   $("#myModal").modal('show');  
+});
+$(document).on('click','.save',function(){
+  $("#saveModal").modal('show');  
 });
 $(document).on('click','a.additional_video',function(){
   $(".video").show();
