@@ -4,15 +4,15 @@
                     <input class="resume_section section_heading" id="resume_resume_sections_attributes_3_name" name="resume[resume_sections_attributes][3][name]" type="" value="Custom"> 
                     <input class="resume_section" id="resume_resume_sections_attributes_3_position" name="resume[resume_sections_attributes][3][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_3_section_id" name="resume[resume_sections_attributes][3][section_id]" value="4" type="hidden">
-                    <table id="demo" class="custom draggable">
+                    <table id="demo" class="customs draggable">
                      <thead> 
-                    <%=render 'resumes/nested/custom_cols_remove', :section=>"customs"%>
+                      <%=render 'resumes/nested/custom_cols_remove', :section=>"customs"%>
                     </thead>
                     <tbody class="sortable render_education_table">
                     <!-- <li class="sortable"> -->
                       <div class="rtable_cols"></div>
                       <%=render 'resumes/nested/custom_fields',:cust=>f%>
-                      <%=f.fields_for :customs do |cust|%>
+                      <%=f.fields_for :customs,:wrapper => false do |cust|%>
                         <%= render "resumes/nested/custom",:cust=>cust%>
                       <%end%>   
                        <tfoot>
@@ -22,18 +22,18 @@
                         <th colspan="8"><%= f.link_to_add "+", :customs ,:class=>"btn btn-default insert_in_table add_edu_row",:title=>"Add Row"%></th>
                        </tr>
                        </tfoot>
-                       </tbody>
+                    </tbody>
                       </table>             
                      <script type="text/javascript">
-                     $(document).ready(function(){
-                      $('table#demo').dragtable({
-                        revert: true,               // smooth revert
-                        dragHandle: '.table-handle',
-                        cursor: 'move',
-                        dragaccept: '.drag-enable',
-                        excludeFooter: true
-                      });
-                     }); 
+                       $(document).ready(function(){
+                        $('table#demo').dragtable({
+                          revert: true,               // smooth revert
+                          dragHandle: '.table-handle',
+                          cursor: 'move',
+                          dragaccept: '.drag-enable',
+                          excludeFooter: true
+                        });
+                       }); 
 
                        </script>
                     <!-- </li><br/> -->

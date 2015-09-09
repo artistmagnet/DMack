@@ -10,7 +10,7 @@
                     <!-- <li class="sortable"> -->
                     <tbody class="sortable render_representation_table">
                       <%=render 'resumes/nested/representation_fields',:repr=>f%>
-                      <%=f.fields_for :representations do |r|%>                
+                      <%=f.fields_for :representations,:wrapper => false do |r|%>                
                          <%= render "resumes/nested/representation" ,:r=>r%>
                       <%end%>
                       <tfoot>

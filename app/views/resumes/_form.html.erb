@@ -157,7 +157,7 @@
                   <br/>
 
                 <!-- <div id="sort-section" class="sortable12"> -->
-                <div id="sort-section" class="">
+                <div id="sort-section" class="sortable12">
                   <div class="ui-state-default sections education" id="resume_section_1">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                    
@@ -614,10 +614,7 @@ $(document).on('click','#add_more_images',function(){
         }
     });
     $(document).on("click",".add_bold",function(){
-      var tr_val = $(this).siblings('.draggable').find('tbody tr:first');
-      $(tr_val).find('td').each(function(i,el){
-        var tr_input = $(el).find('input').toggleClass('add_unbold');
-      });
+      var tr_val = $(this).siblings('.draggable').find('tbody tr.title_row').toggleClass('add_unbold');
       if($(this).text() == 'B') {
         $(this).text('UB');
         $(this).attr('title','Unbold the Title Row');
@@ -757,7 +754,7 @@ $(document).on('click','#add_more_images',function(){
       $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/representation_cols_remove',:section=>'representations')%>");
     }
     else{
-      if(in_val =='custom'){
+      if(in_val =='customs'){
         $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/custom_cols_remove',:section=>'customs')%>");
       }
       else{  
@@ -772,12 +769,15 @@ $(document).on('click','#add_more_images',function(){
                           dragaccept: '.drag-enable',
                           excludeFooter: true
                         });
-    return $(link).closest('table').find("tbody").html(content);
+    content = content.replace("fields","title_row fields");
+    return $(link).closest('table').find("tbody").html(content);;
 
     // return $(content).insertAfter(tbody);
   }
    }
   });
+ 
+
   $(document).on("click",".add_cols",function(){
     var table  = $(this).closest('table');
     var count = table.find('tbody tr:last').find('td.drag-enable').length;
