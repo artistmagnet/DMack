@@ -28,6 +28,7 @@
 //= require chosen-jquery
 //= require live_validation
 //= require jquery.dragtable
+//= require nested_forms
 
 $(document).ready(function(){
 	$(function () {

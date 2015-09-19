@@ -129,7 +129,7 @@
                   <%= render 'resumes/more_videos',:@videos => @videos %>
                 </div>
                 <br/>
-                <ul>
+                <ul class="resume_sec">
                  <div class="ui-state-default sections" id="resume_section_2">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <%=render 'resumes/nested/representation_part',:f=>f%>
@@ -215,20 +215,34 @@
                     <%=render 'resumes/nested/skill_part',:f=>f%>
                   </div>
                    <br/>            
-                  <div class="ui-state-default sections customs" id="resume_section_4">
+                  <div class="ui-state-default sections customs duplicatable_nested_custom_form" id="resume_section_4">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <%=render 'resumes/nested/custom_part',:f=>f%>
                   </div>
-                  <br/>
-                  <div class="ui-state-default sections others" id="resume_section_5">
+                   <br/>
+                    
+                  <div class="ui-state-default sections others duplicatable_nested_other_form" id="resume_section_5">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                       <%=render 'resumes/nested/other_part',:f=>f%>
-                    </div><br/>
+                      
+                    </div>
+                    <br/>
+                    
                   </div>
                 </ul>
                 <div class="form-group">
                   <div class="row">
+                    <div class="col-sm-3">
+                    <%=link_to 'Additional Custom Section', 'javascript:void(0)', :class => 'duplicate_nested_custom_form btn btn-primary get_columns'%>
+                    </div>
+                    <div class="col-sm-3">
+                    <%=link_to 'Additional Other Section', 'javascript:void(0)', :class => 'duplicate_nested_other_form btn btn-primary get_columns'%>
+                    </div>
+                  </div>
+                  <br/>
+                  <div class="row">
                   <div class="col-sm-3">
+
                     <%= f.submit @resume.id.blank? ? 'Save & Finish!' : 'Save',:class=>"form-control btn btn-primary get_columns" %>
                     </div>
                     <div class="col-sm-3">
@@ -719,7 +733,7 @@ $(document).on('click','#add_more_images',function(){
         tr_input.attr('placeholder','').val('');
         var id_val = tr_input.attr('id');
         if(i<6){
-          
+           
           if(id_val=="1"||id_val=="2"||id_val=="3"||id_val=="4"||id_val=="5"||id_val=="6"){
             var name = tr_input.attr('name');
             var new_name = "resume[educations_attributes]["+new_id+"]["+name+"]";
@@ -728,14 +742,15 @@ $(document).on('click','#add_more_images',function(){
             
           }
           else{
-            var id_arr = id_val.split("_");
-            id_arr[3] = new_id; 
-            var new_name = id_arr[0]+"["+id_arr[1]+"_"+id_arr[2]+"]"+"["+id_arr[3]+"]"+"["+id_arr[4]+"]";
-            tr_input.attr('name',new_name);
-            $(el).find('input').attr('id',id_arr.join("_"));
-            
+            if(id_val){
+              var id_arr = id_val.split("_");
+              id_arr[3] = new_id; 
+              var new_name = id_arr[0]+"["+id_arr[1]+"_"+id_arr[2]+"]"+"["+id_arr[3]+"]"+"["+id_arr[4]+"]";
+              tr_input.attr('name',new_name);
+              $(el).find('input').attr('id',id_arr.join("_"));
+            }
+          } 
         } 
-      } 
     });
     new_tr = "<tr class='fields'>"+new_tr.html()+"</tr>";
     return $(new_tr).insertAfter($tr);
