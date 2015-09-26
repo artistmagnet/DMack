@@ -1,15 +1,25 @@
 jQuery ($) ->
   $('.duplicate_nested_custom_form').click (e) ->
     e.preventDefault()
+    lastNestedForm = $('#sort-section').children().last();
+    newNestedForm  = $('.duplicatable_nested_custom_form').first().clone()
 
-    lastNestedForm = $('ul.resume_sec').children('div').last();
-    newNestedForm  = $('.duplicatable_nested_custom_form').last().clone()
+    $( newNestedForm ).insertAfter( lastNestedForm ) 
+    table = $('table#demo')
+    $(table).dragtable
+      revert: true
+      dragHandle: '.table-handle'
+      cursor: 'move'
+      dragaccept: '.drag-enable'
+      excludeFooter: true
 
-    $( newNestedForm ).insertAfter( lastNestedForm )    
 
   $('.duplicate_nested_other_form').click (e) ->
     e.preventDefault()
-    lastNestedForm = $('ul.resume_sec').children('div').last();
+    lastNestedForm = $('#sort-section').children().last();
     console.log(lastNestedForm)
-    newNestedForm  = $('.duplicatable_nested_other_form').last().clone()
-    $( newNestedForm ).insertAfter( lastNestedForm )  
+    newNestedForm  = $('.duplicatable_nested_other_form').first().clone()
+    $( newNestedForm ).insertAfter( lastNestedForm )
+    
+
+  

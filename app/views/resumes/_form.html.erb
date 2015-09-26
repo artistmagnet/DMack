@@ -128,13 +128,13 @@
                 <div class="more-video">
                   <%= render 'resumes/more_videos',:@videos => @videos %>
                 </div>
-                <br/>
+                <!-- <br/> -->
                 <ul class="resume_sec">
                  <div class="ui-state-default sections" id="resume_section_2">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <%=render 'resumes/nested/representation_part',:f=>f%>
                   </div>
-                  <br/>
+                  <!-- <br/> -->
                   <div class="ui-state-default sections threatr-section ">                      
                     <h3> Theatre</h3>
                     <li >
@@ -154,7 +154,7 @@
                     </li><br/>
                   </div>
 
-                  <br/>
+                  <!-- <br/> -->
 
                 <!-- <div id="sort-section" class="sortable12"> -->
                 <div id="sort-section" class="sortable12">
@@ -208,25 +208,25 @@
                         $('.section-customs').map(function(){return $(this).text("Undo")});
                       });
                   </script>
-                  <br/>
+                  <!-- <br/> -->
                   
                   <div class="ui-state-default sections" id="resume_section_3">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <%=render 'resumes/nested/skill_part',:f=>f%>
                   </div>
-                   <br/>            
+                   <!-- <br/>             -->
                   <div class="ui-state-default sections customs duplicatable_nested_custom_form" id="resume_section_4">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                     <%=render 'resumes/nested/custom_part',:f=>f%>
                   </div>
-                   <br/>
+                   <!-- <br/> -->
                     
                   <div class="ui-state-default sections others duplicatable_nested_other_form" id="resume_section_5">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                       <%=render 'resumes/nested/other_part',:f=>f%>
                       
                     </div>
-                    <br/>
+                    <!-- <br/> -->
                     
                   </div>
                 </ul>
@@ -372,6 +372,7 @@
       /*background: #dddddd;*/
       border-radius: 5px;
       clear: both;
+      margin-bottom: 30px;
     }
     .main-image{
       cursor: pointer;
