@@ -6,11 +6,12 @@
           <section class="list-resumes">            
             <div class="row">
                <div class="col-md-8">
-                 <h4> <%=@resume.contact_info.name%></h4>
-                 <span><%=@resume.contact_info.address%>  </span><br/>
-                 <span>mobile: <%=@resume.contact_info.phone1%>  </span><br/>
-                 <span>e-mail: <%=@resume.contact_info.email%>  </span><br/>
-                 <span><%=@resume.contact_info.try(:facebook)%> , <%=@resume.contact_info.try(:twitter)%>, <%=@resume.contact_info.try(:linkedin)%> </span><br/>
+                 <h4>Name: <%=@resume.contact_info.name%></h4>
+                 <span>Address: <%=@resume.contact_info.address%> </span><br/>
+                 <span>Mobile: <%=@resume.contact_info.phone1%>  </span><br/>
+                 <span>Email: <%=@resume.contact_info.email%>  </span><br/>
+                <!--  <span>Social: <%#=@resume.contact_info.try(:facebook)%> , <%#=@resume.contact_info.try(:twitter)%>, <%#=@resume.contact_info.try(:linkedin)%> </span> -->
+                <span>Social: <%=@resume.contact_info.social%> </span><br/>
                </div>
                <div class="col-md-4">
                  <%= image_tag @resume.image.try(:url),:style=>"width: 250px;"%>

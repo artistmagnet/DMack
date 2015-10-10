@@ -42,7 +42,7 @@
               <% @resumes.each do |resume| %>
                 <li>
                   <%= link_to resume, id: "resume-#{resume.id}-link" do %>
-                    Resume #<%= resume.id %>
+                    <%= resume.resume_name %>
                   <% end %>
                 </li>
               <% end %>

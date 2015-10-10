@@ -13,7 +13,7 @@ class ResumesController < ApplicationController
   before_action :load_data,only: [:new,:edit]
   skip_before_filter :verify_authenticity_token  
   #before_action :initialize_images_session ,only: [:new,:edit]
-  before_action :new_production, only: [:edit_with_role,:new]
+  before_action :new_production, only: [:edit_with_role,:new,:edit]
   before_action :set_role, only: [:edit_with_role]
   # before_action :set_production,  only: [:edit_with_role]
   # before_action :set_show,        only: [:edit_with_role]
@@ -21,7 +21,7 @@ class ResumesController < ApplicationController
   # before_action :set_venue,       only: [:edit_with_role]
 
   #before_action :new_director_invitation, only: [:edit, :edit_with_role, :new]
-  before_action :new_director_invitation, only: [ :edit_with_role,:new]
+  before_action :new_director_invitation, only: [ :edit_with_role,:new,:edit]
  
 
   after_action :destroy_other, only: [:update]
@@ -69,8 +69,9 @@ class ResumesController < ApplicationController
         update_video(@resume)
         # add_education_table(@resume)  #moved to model
         # format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully created'}
-        format.html { render "/resumes/page_view.html.erb", notice: 'Resume was succesfully created'}
-        
+        # format.html { render "/resumes/page_view.html.erb", notice: 'Resume was succesfully created'}
+        @render = params[:resume][:save_option].eql?('Save') ? edit_resume_path(@resume) : resume_path(@resume)
+        format.html { redirect_to @render, notice: 'Resume was succesfully created'}
         format.json { render json: @resume}
       else
         format.html { render :new }
@@ -335,7 +336,18 @@ class ResumesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def resume_params
-    params.require(:resume).permit(:performer_type,:union_guild,:image,:role_id,:resume_type,:other,:skills, roles_attributes: [:id, :production_id, :resume_id, :name, :_destroy],contact_info_attributes: [:id,:position,:nick_name,:first_name,:middle_name,:last_name,:suffix,:street_address1,:street_address2,:city,:state,:zip_code,:phone1,:phone2,:email,:website,:facebook,:twitter,:linkedin,:country,:_destroy],photos_attributes: [:id,:position, :image, :_destroy],theatres_attributes: [:id, :production_id,:production,:venue,:company,:venue_id,:company_id,:role,:director_id,:directed_by,:position,:performance_date,:location, :_destroy],educations_attributes: [:id,:position, :school,:city,:state,:country,:degree,:year, :_destroy],representations_attributes: [:id,:position, :company,:contact_name,:address,:title,:phone, :_destroy],skills_attributes: [:id, :category_id,:skills,:position, :_destroy],resume_attribute_attributes: [:id,:position, :height,:weighr,:gender,:age,:hair_color,:hair_lenght,:street_address2,:weight,:eye_color,:vocal_range,:ethnicity, :_destroy],customs_attributes: [:id, :custom1, :custom2, :custom3, :custom4, :custom5, :custom6, :position, :resume_id, :_destroy], others_attributes: [:id, :content, :position, :_destroy], resume_sections_attributes: [:id, :position, :section_id, :_destroy])
+    params.require(:resume).permit(:performer_type,:union_guild,:image,:role_id,:resume_type,:resume_name,:other,:skills, 
+      roles_attributes: [:id, :production_id, :resume_id, :name, :_destroy],
+      contact_info_attributes: [:id,:position,:nick_name,:first_name,:middle_name,:last_name,:suffix,:street_address1,:street_address2,:city,:state,:zip_code,:phone1,:phone2,:email,:website,:facebook,:twitter,:linkedin,:country,:_destroy],
+      photos_attributes: [:id,:position, :image, :_destroy],
+      theatres_attributes: [:id, :production_id,:production,:venue,:company,:venue_id,:company_id,:role,:director_id,:directed_by,:position,:performance_date,:location, :_destroy],
+      educations_attributes: [:id,:position, :school,:city,:state,:country,:degree,:year, :_destroy],
+      representations_attributes: [:id,:position, :company,:contact_name,:address,:title,:phone, :_destroy],
+      skills_attributes: [:id, :category_id,:skills,:position, :_destroy],
+      resume_attribute_attributes: [:id,:position, :height,:weighr,:gender,:age,:hair_color,:hair_lenght,:street_address2,:weight,:eye_color,:vocal_range,:ethnicity, :_destroy],
+      customs_attributes: [:id, :custom1, :custom2, :custom3, :custom4, :custom5, :custom6, :position, :resume_id, :_destroy], 
+      others_attributes: [:id, :content, :position, :_destroy], 
+      resume_sections_attributes: [:id, :position, :section_id, :_destroy])
   end
 
   def initialize_images_session

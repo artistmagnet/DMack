@@ -17,15 +17,15 @@
 
                   <%#= f.select(:resume_type,options_for_select([['Performing Artist', 'Performing Artist'], ['Production Member', 'Production Member']],:selected=>@resume.resume_type ),{},:class=>"form-control",:id=>"select_resume_type") %>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Performing Artist',:class=>"",:id=>"select_resume_type",:required => true%> 
+                  <%= f.radio_button :resume_type,'Performing Artist',:class=>"LV_valid_field",:id=>"select_resume_type",:required => true%> 
                   <%= f.label :resume_type,'Performing Artist',class: '',:title=>"Actor, Dancer, Musician, Singer, etc." %>
                   </div>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Production Member',:class=>"",:id=>"select_resume_type",:required => true%> 
+                  <%= f.radio_button :resume_type,'Production Member',:class=>"LV_valid_field",:id=>"select_resume_type",:required => true%> 
                   <%= f.label :resume_type,'Production Member',class: '',:title=>"Choreographer, Designer, Dramaturg, Playwright, Stage Manager, etc." %>
                   </div>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Director',:class=>"",:id=>"select_resume_type",:required => true%> 
+                  <%= f.radio_button :resume_type,'Director',:class=>"LV_valid_field",:id=>"select_resume_type",:required => true%> 
                   <%= f.label :resume_type,'Director',class: '',:title=>"" %>
                   </div>
                 </div>
@@ -41,6 +41,7 @@
                   <%= f.text_field :union_guild,:class=>"form-control", :placeholder =>"Union/Guild Affiliations" %>
                   </div>
                 </div>
+                <%= f.hidden_field :resume_name,:class=>"form-control"%>
                 <div class="attributes-info">
                   <%= f.fields_for :resume_attribute do |a|%>                 
                       <%= render "resumes/nested/attributes_info" ,:a=>a%>
@@ -56,6 +57,7 @@
                 <div class='photo-popover' style="display:none;"></div>
                 <%= hidden_field_tag "removed_images" %>
                 <%= hidden_field_tag "removed_drag_images" %>
+                 <%= hidden_field_tag "save_option","",:class=>"save_option",:name=>"resume[save_option]" %>
                 <!-- Media Section --> 
                 <section class="sections">              
                   <h3 class="photo-section" data-toggle="tooltip" data-placement="top" title="Your image must be less than 250kb"> Media</h3>
@@ -101,7 +103,7 @@
                   </div>  
                   </section>
                 <!-- Media Section -->    
-                 <div class="clearfix"></div>
+                <div class="clearfix"></div>
                 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myVideoModal" class="modal ">
                  <div class="modal-dialog">
                     <div class="modal-content">
@@ -242,8 +244,7 @@
                   <br/>
                   <div class="row">
                   <div class="col-sm-3">
-
-                    <%= f.submit @resume.id.blank? ? 'Save & Finish!' : 'Save',:class=>"form-control btn btn-primary get_columns" %>
+                    <%= f.submit 'Save & View!',:class=>"form-control btn btn-primary get_columns save" %>
                     </div>
                     <div class="col-sm-3">
                     <%= f.submit 'Save',:class=>"form-control btn btn-primary save get_columns" %>
@@ -296,16 +297,18 @@
                  data-dismiss="modal" aria-hidden="true">
                     &times;
               </button>
-              <h4 class="modal-title" id="myModalLabel">
-                 Resume Title
+              <h4 class="modal-title" id="myModalLabel" title="Enter a unique name for your Resume to be saved in your ArtistSpace">
+                 Save Resume
               </h4>
            </div>
            <div class="modal-body">
-             <%= text_field "resume_name",:class=>"resume_name"%>
+             <%= text_field_tag "resume_name","",:class=>"resume_name",:name=>"resume[name]",:style=>"width:80%"%>
+            
+
            </div>
            <div class="modal-footer">
-              <button type="button" class="btn btn-default" 
-                 data-dismiss="modal">Close
+              <button type="button" class="btn resume_save btn-default" 
+                 data-dismiss="modal">Save
               </button>
            </div>
         </div><!-- /.modal-content -->
@@ -416,6 +419,9 @@
       font-weight :500;
       font-family :"Montserrat",sans-serif;
     }
+    .ui-sortable-handle,#container{
+      cursor: move;
+    }
 
   </style>
   
@@ -426,7 +432,8 @@
     });
 
     $( ".sortable12" ).sortable({
-      revert: true
+      revert: true,
+      handle: '#container'
     });
   
   });
@@ -468,6 +475,7 @@ $(function(){
   }
   };
 });
+
 $(document).on('click','#holder > ul.preview-area > li a.close_button',function(){
    $(this).closest('li').remove();
 
@@ -477,8 +485,47 @@ $(document).on('click','li a.additional_headshot',function(){
   $(".video").hide();
   $("#myModal").modal('show');  
 });
-$(document).on('click','.save',function(){
-  $("#saveModal").modal('show');  
+
+$(document).on('click','.save',function(e){
+  e.preventDefault();
+  var value = $(this).val();
+  if(value == 'Save'){
+    $(".save_option").val("Save");
+  }
+  else{
+    $(".save_option").val("Save & View!");
+  }
+  $("#new_resume").validate({
+
+        rules: {
+          "resume[contact_info_attributes][nick_name]": {
+            required: true
+          },
+          "resume[resume_type]":{
+            required: true
+          }
+        }
+
+       });
+  if($("#new_resume").valid()){
+    $("#saveModal").modal('show');
+  } 
+});
+$(document).on('click','.resume_save',function(){
+  $("#new_user").validate({
+    debug: true,
+    rules: {
+        "resume[name]":{
+            required: true
+          }
+    }
+    });
+  
+  if($("#new_resume").valid()){
+    var name = $(".resume_name").val();
+    $("#resume_resume_name").val(name);
+    $("#new_resume").submit();
+  }
 });
 $(document).on('click','a.additional_video',function(){
   $(".video").show();
