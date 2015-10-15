@@ -6,6 +6,9 @@ jQuery ($) ->
 
     $( newNestedForm ).insertAfter( lastNestedForm ) 
     table = $('table#demo')
+    $('.sortable').sortable
+      revert: true
+    
     $(table).dragtable
       revert: true
       dragHandle: '.table-handle'
@@ -17,7 +20,6 @@ jQuery ($) ->
   $('.duplicate_nested_other_form').click (e) ->
     e.preventDefault()
     lastNestedForm = $('#sort-section').children().last();
-    console.log(lastNestedForm)
     newNestedForm  = $('.duplicatable_nested_other_form').first().clone()
     $( newNestedForm ).insertAfter( lastNestedForm )
     

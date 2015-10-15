@@ -621,7 +621,7 @@ $(document).on('click','#add_more_images',function(){
         }
         else{
           if($(this).hasClass("remove_education")){
-            $($(this).parent().hide()).after('<li class="ui-state-default sections" section='+$(this).data("association")+'><a class="btn btn-default add_section">Add New '+$(this).data("association")+' Section</a></li>');
+            $($(this).parent().parent().hide()).after('<li class="ui-state-default sections" section='+$(this).data("association")+'><a class="btn btn-default add_section">Add New '+$(this).data("association")+' Section</a></li>');
             
           }
           else{
@@ -676,7 +676,7 @@ $(document).on('click','#add_more_images',function(){
         }
     });
     $(document).on("click",".add_bold",function(){
-      var tr_val = $(this).siblings('.draggable').find('tbody tr:first').toggleClass('add_unbold');  
+       $(this).parents().find('table tbody tr:first').toggleClass('add_unbold');  
     });
 
 
