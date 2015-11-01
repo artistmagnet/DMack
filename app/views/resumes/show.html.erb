@@ -5,73 +5,108 @@
         <div class="panel-body" id="show-resume">         
           <section class="list-resumes">            
             <div class="row">
-               <div class="col-md-8">
-                 <h4>Name: <%=@resume.contact_info.name%></h4>
-                 <span>Address: <%=@resume.contact_info.address%> </span><br/>
-                 <span>Mobile: <%=@resume.contact_info.phone1%>  </span><br/>
-                 <span>Email: <%=@resume.contact_info.email%>  </span><br/>
-                <!--  <span>Social: <%#=@resume.contact_info.try(:facebook)%> , <%#=@resume.contact_info.try(:twitter)%>, <%#=@resume.contact_info.try(:linkedin)%> </span> -->
-                <span>Social: <%=@resume.contact_info.social%> </span><br/>
+                
+              <div class="col-md-3 resume_attribute">
+               
+                <% if @resume.resume_attribute.try(:age) %>
+                <span><strong>Age: <%=@resume.resume_attribute.age%> </strong></span><br/>
+                <%end%>
+                <% if @resume.resume_attribute.try(:height) %>
+                <span><strong>Height: <%=@resume.resume_attribute.height%> </strong></span><br/>
+                <%end%>
+                <% if @resume.resume_attribute.try(:weight) %>
+                 <span><strong>Weight: <%=@resume.resume_attribute.weight%>  </strong></span><br/>
+                 <%end%>
+                  <% if @resume.resume_attribute.try(:hair_color) %>
+                 <span><strong>Hair Color: <%=@resume.resume_attribute.hair_color.capitalize%>  </strong></span><br/>
+                 <%end%>
+                 <% if @resume.resume_attribute.try(:hair_lenght) %>
+                 <span><strong>Hair Length: <%=@resume.resume_attribute.hair_lenght%></strong>  </span><br/>
+                 <% end %>
+                 <% if @resume.resume_attribute.try(:eye_color) %>
+                 <span><strong>Eyes: <%=@resume.resume_attribute.eye_color.capitalize%></strong>  </span><br/>
+                 <%end%>
+                 <% if @resume.resume_attribute.try(:vocal_range) %>
+                 <span><strong>Voice: <%=@resume.resume_attribute.vocal_range.capitalize%></strong>  </span><br/>
+                 <%end%>
+                 <%if @resume.resume_attribute.try(:ethnicity) %>
+                 <span><strong>Ethnicity: <%=@resume.resume_attribute.ethnicity.capitalize%></strong>  </span><br/>
+                 <%end%>
                </div>
-               <div class="col-md-4">
+
+               
+              <div class="col-md-4 contact_block">
+                 <h2><%=@resume.contact_info.nick_name.upcase%></h2>
+                 <h4><%=@resume.try(:performer_type).upcase%></h4>
+                 <h5><%=@resume.try(:union_guild).upcase%></h5>
+                 
+                 <br/>
+                 <span><strong><%=@resume.contact_info.try(:email)%> </strong></span><br/>
+               
+                <span><strong><%=@resume.contact_info.try(:facebook)%></strong></span><br/>
+                <span><strong><%=@resume.contact_info.try(:twitter)%></strong></span><br/>
+                <span><strong><%=@resume.contact_info.try(:linkedin)%></strong></span><br/>
+                <span><strong><%=@resume.contact_info.try(:address)%></strong></span><br/>
+                 <span><strong><%=@resume.contact_info.try(:phone1)%> </strong></span><br/>
+               </div>
+
+                <div class="col-md-4">
                  <%= image_tag @resume.image.try(:url),:style=>"width: 250px;"%>
                </div>
-              </div>       
+              
+                
+             </div>
+                   
             </section>
-            <br/> <hr/>
+            <br/> 
+            <!-- <hr/> -->
+             <section class="list-resumes">
+                <h3>Representation:</h3>
+              
+                     <% @resume.representations.each do |representation|%>
+                      <div class="row">
+                        <div class="col-md-2"><%= representation.company %></div>
+                        <div class="col-md-2"><%= representation.contact_name %></div>
+                        <div class="col-md-2"><%= representation.title  %></div>
+                        <div class="col-md-2"><%= representation.phone  %></div>
+                        <div class="col-md-2"><%= representation.address  %></div>
+                      </div>
+                      <%end%>                 
+              </section><br />
+
+
+
             <section class="list-resumes">
-              <h3>Theatre:</h3>
-              <div data-example-id="striped-table" >
-                <table class="table table-striped">
-                  <tbody>
-                    <tr>
-                      <th>Production</th>
-                      <th>Venue</th>
-                      <th>Role</th>
-                      <th>Company</th>
-                      <th>Directed By</th>
-                      <th>Date of Performance</th>
-                      <th>Location</th>                      
-                    </tr>
-                   <% @resume.theatres.each do |theatre|%>
-                    <tr>
-                      <td><h4><%= link_to theatre.production,production_path(Production.find_by(:name=>theatre.production).id) ,:target=>"_blank" if !theatre.production.blank?%></h4></td>
-                      <td><h4><%=link_to theatre.venue,venue_path(Venue.find_by(:name=>theatre.venue).id) ,:target=>"_blank" if !theatre.venue.blank? %></td>
-                      <td><%= theatre.role  %></h4></td>
-                      <td><h4><%=link_to theatre.company,company_path(Company.find_by(:name=>theatre.company).id) ,:target=>"_blank" if !theatre.company.blank?%></h4></td>
-                      <td><%= theatre.directed_by  %></td>
-                      <td><%= theatre.performance_date  %></td>
-                      <td><%= theatre.location  %></td>
-                    </tr> 
-                    <%end%>                 
-                  </tbody>
-                </table>
-              </div>
+              <h3>THEATRE</h3>
+             
+                <% @resume.roles.each do |theatre|%>
+                <div class="row">
+                  <div class="col-md-3"><%= link_to theatre.production_name.upcase,theatre.production ,:target=>"_blank" if !theatre.production.blank?%></div>
+                  <div class="col-md-3"><%= theatre.name.capitalize%></div>
+                  <div class="col-md-3"><%= theatre.director_name.capitalize%></div>
+                  <div class="col-md-3"><%= get_venue_and_company(theatre) %></div>
+                </div>
+                <%end%>
+              
             </section ><br/>
             
             <section class="list-resumes">
-              <h3>Education/Training:</h3>
-              <div data-example-id="striped-table" class="bs-example">
-                <table class="table table-striped">            
-                  <tbody>
-                  <%=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>""%>
+              <h3>TRAINING</h3>
+              
                    <% @resume.educations.each do |education|%>
-                    <tr>
-                      <td><%= education.school %></td>
-                      <td><%= education.city %></td>
-                      <td><%= education.state  %></td>
-                      <td><%= education.country  %></td>
-                      <td><%= education.degree  %></td>
-                      <td><%= education.year  %></td>
-                    </tr> 
+                    <div class="row">
+                      <div class="col-md-2"><%= education.school.capitalize %></div>
+                      <div class="col-md-2"><%= education.city.capitalize %></div>
+                      <div class="col-md-2"><%= education.state.capitalize  %></div>
+                      <div class="col-md-2"><%= education.country.capitalize  %></div>
+                      <div class="col-md-2"><%= education.degree.capitalize  %></div>
+                      <div class="col-md-2"><%= education.year%></div>
+                    </div> 
                     <%end%>                 
-                  </tbody>
-                </table>
-              </div>
             </section><br/>
      
-            <%if @resume.resume_type== "Performing Artist"%>
-              <section class="list-resumes">
+            <!-- <%#if @resume.resume_type== "Performing Artist"%> -->
+             <!--  <section class="list-resumes">
                 <h3>Attributes:</h3>
                   <div data-example-id="striped-table" class="bs-example">
                     <table class="table table-striped">
@@ -91,21 +126,21 @@
                       </thead>
                       <tbody>
                         <tr>
-                          <td><%= @resume.try(:resume_attribute).try(:gender) %></td>
-                          <td><%= @resume.try(:resume_attribute).try(:age) %></td>
-                          <td><%= @resume.try(:resume_attribute).try(:height) %></td>
-                          <td><%= @resume.try(:resume_attribute).try(:weight) %></td>
-                          <td><%= @resume.try(:resume_attribute).try(:hair_color) %></td>
-                          <td><%= @resume.try(:resume_attribute).try(:hair_lenght) %></td>
-                          <td><%= @resume.try(:resume_attribute).try(:eye_color) %></td>
-                          <td><%= @resume.try(:resume_attribute).try(:vocal_range) %></td>
-                          <td><%= @resume.try(:resume_attribute).try(:ethnicity) %></td>
+                          <td><%#= @resume.try(:resume_attribute).try(:gender) %></td>
+                          <td><%#= @resume.try(:resume_attribute).try(:age) %></td>
+                          <td><%#= @resume.try(:resume_attribute).try(:height) %></td>
+                          <td><%#= @resume.try(:resume_attribute).try(:weight) %></td>
+                          <td><%#= @resume.try(:resume_attribute).try(:hair_color) %></td>
+                          <td><%#= @resume.try(:resume_attribute).try(:hair_lenght) %></td>
+                          <td><%#= @resume.try(:resume_attribute).try(:eye_color) %></td>
+                          <td><%#= @resume.try(:resume_attribute).try(:vocal_range) %></td>
+                          <td><%#= @resume.try(:resume_attribute).try(:ethnicity) %></td>
                         </tr>                  
                       </tbody>
                     </table>
                   </div> 
-                </section>
-              <%end%><br/>
+                </section> -->
+              <!-- <%#end%><br/> -->
             
            <!--  <h3>Contact Info</h3>
             <div data-example-id="striped-table" class="bs-example">
@@ -154,90 +189,40 @@
             </div> -->     
                 
                 
-              <section class="list-resumes">
-                <h3>Representation:</h3>
-                <div data-example-id="striped-table" class="bs-example">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Company</th>
-                        <th>Contact_name</th>
-                        <th>Title</th>
-                        <th>Phone</th>
-                        <th>Adrress</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                     <% @resume.representations.each do |representation|%>
-                      <tr>
-                        <td><%= representation.company %></td>
-                        <td><%= representation.contact_name %></td>
-                        <td><%= representation.title  %></td>
-                        <td><%= representation.phone  %></td>
-                        <td><%= representation.address  %></td>
-                      </tr> 
-                      <%end%>                 
-                    </tbody>
-                  </table>
-                </div>
-              </section><br />
+             
 
               <section class="list-resumes">
-                <h3>Skills:</h3>
+                <h3>SPECIAL SKILLS</h3>
                 <div data-example-id="striped-table" class="bs-example">
-                  <table class="table table-striped">
-                    <thead>
-                      <tr>
-                        <th>Category</th>
-                        <th>Skills</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                     <% @resume.skills.each do |skill|%>
-                      <tr>
-                        <td><%= skill.category.try(:name) %></td>
-                        <td><li style="list-style-type: none;"><%= skill.skills  if !skill.skills.blank?%></li></td>
-                      </tr> 
-                      <%end%>                 
-                    </tbody>
-                  </table>
+                <p>
+                    
+                       <%#= skill.category.try(:name) %>
+                        <li style="list-style-type: none;"><%= @resume.skills.map { |tag| tag.skills.capitalize }.join(', ')  if !@resume.skills.blank?%></li>
+                     
+                </p>
                 </div>
               </section><br />
 
               <section class="list-resumes">
               <h3>Custom:</h3>
-              <div data-example-id="striped-table" class="bs-example">
-                <table class="table table-striped">            
-                  <tbody>
-                  <%=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>"custom"%>
+             
+                  <%#=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>"custom"%>
                    <% @resume.customs.each do |custom|%>
-                    <tr>
-                      <td><%= custom.custom1 %></td>
-                      <td><%= custom.custom2 %></td>
-                      <td><%= custom.custom3  %></td>
-                      <td><%= custom.custom4  %></td>
-                      <td><%= custom.custom5  %></td>
-                      <td><%= custom.custom6  %></td>
-                    </tr> 
-                    <%end%>                 
-                  </tbody>
-                </table>
-              </div>
+                    <div class="row">
+                      <div class="col-md-2"><%= custom.custom1 %></div>
+                      <div class="col-md-2"><%= custom.custom2 %></div>
+                      <div class="col-md-2"><%= custom.custom3  %></div>
+                      <div class="col-md-2"><%= custom.custom4  %></div>
+                      <div class="col-md-2"><%= custom.custom5  %></div>
+                      <div class="col-md-2"><%= custom.custom6  %></div>
+                    </div> 
+                    <%end%>
             </section><br/>
 
             <section class="list-resumes">
               <h3>Other:</h3>
-              <div data-example-id="striped-table" class="bs-example">
-                <table class="table table-striped">                  
-                  <tbody>
-                   <% @resume.others.each do |other|%>
-                    <tr>
-                      <td><%= other.content %></td>
-                    </tr> 
-                    <%end%>
-                  </tbody>
-                </table>
-              </div>
+           
+            <li style="list-style-type: none;"><%= @resume.others.map { |tag| tag.content.capitalize }.join(', ')  if !@resume.others.blank?%></li>
             </section><br />
 
             </div>
@@ -265,3 +250,8 @@
     </div>
   </div>
 </div>
+<style type="text/css">
+  .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th{
+     background-color: white ;
+  }
+</style>

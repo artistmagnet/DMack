@@ -17,18 +17,19 @@
 
                   <%#= f.select(:resume_type,options_for_select([['Performing Artist', 'Performing Artist'], ['Production Member', 'Production Member']],:selected=>@resume.resume_type ),{},:class=>"form-control",:id=>"select_resume_type") %>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Performing Artist',:class=>"LV_valid_field",:id=>"select_resume_type",:required => true%> 
+                  <%= f.radio_button :resume_type,'Performing Artist',:class=>"",:id=>"select_resume_type",:required => true%> 
                   <%= f.label :resume_type,'Performing Artist',class: '',:title=>"Actor, Dancer, Musician, Singer, etc." %>
                   </div>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Production Member',:class=>"LV_valid_field",:id=>"select_resume_type",:required => true%> 
+                  <%= f.radio_button :resume_type,'Production Member',:class=>"",:id=>"select_resume_type",:required => true%> 
                   <%= f.label :resume_type,'Production Member',class: '',:title=>"Choreographer, Designer, Dramaturg, Playwright, Stage Manager, etc." %>
                   </div>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Director',:class=>"LV_valid_field",:id=>"select_resume_type",:required => true%> 
+                  <%= f.radio_button :resume_type,'Director',:class=>"",:id=>"select_resume_type",:required => true%> 
                   <%= f.label :resume_type,'Director',class: '',:title=>"" %>
                   </div>
                 </div>
+                <label class="error" for="resume[resume_type]"></label>
                 <hr/>
 
                 <div class="form-group">
@@ -303,12 +304,12 @@
            </div>
            <div class="modal-body">
              <%= text_field_tag "resume_name","",:class=>"resume_name",:name=>"resume[name]",:style=>"width:80%"%>
-            
+             <br/>
+             <span class="err_name" id="err_name">This field is required.</span>
 
            </div>
            <div class="modal-footer">
-              <button type="button" class="btn resume_save btn-default" 
-                 data-dismiss="modal">Save
+              <button type="button" class="btn resume_save btn-default">Save
               </button>
            </div>
         </div><!-- /.modal-content -->
@@ -422,6 +423,9 @@
     .ui-sortable-handle,#container{
       cursor: move;
     }
+    input[type=text].error,input[type=radio].error {border:solid 2px red;}
+    label.error{color: red;}
+    .err_name{display: none;color: red;}
 
   </style>
   
@@ -496,37 +500,47 @@ $(document).on('click','.save',function(e){
     $(".save_option").val("Save & View!");
   }
   $("#new_resume").validate({
+    focusInvalid: false,
+    messages: {
+      "resume[resume_type]": "You are required to select a Resume Type"
+    },
+    invalidHandler: function(form, validator) {
+        
+        if (!validator.numberOfInvalids())
+            return;
+        
+        $('html, body').animate({
+            scrollTop: $(validator.errorList[0].element).offset().top
+        }, 1000);
+        
+    }
+  });  
 
-        rules: {
-          "resume[contact_info_attributes][nick_name]": {
-            required: true
-          },
-          "resume[resume_type]":{
-            required: true
-          }
-        }
-
-       });
   if($("#new_resume").valid()){
     $("#saveModal").modal('show');
   } 
 });
 $(document).on('click','.resume_save',function(){
-  $("#new_user").validate({
-    debug: true,
-    rules: {
-        "resume[name]":{
-            required: true
-          }
+  var toReturn = true;
+   if (!$(".resume_name").val()) {
+       $("#err_name").show();    
+       toReturn = false;
+   }
+
+  else{  
+    if($.isEmptyObject($.find(".threatr-section .roles-table.h-movable"))){
+      alert("You must add at least 1 Theatre Credit on order to save your Resume");
     }
-    });
-  
-  if($("#new_resume").valid()){
-    var name = $(".resume_name").val();
-    $("#resume_resume_name").val(name);
-    $("#new_resume").submit();
+    else{ 
+      $("#new_resume").valid();
+      var name = $(".resume_name").val();
+      $("#resume_resume_name").val(name);
+      $("#new_resume").submit();
+    }
   }
+  return toReturn;
 });
+
 $(document).on('click','a.additional_video',function(){
   $(".video").show();
   $(".headshot").hide();
@@ -667,7 +681,7 @@ $(document).on('click','#add_more_images',function(){
     // get_status()
     // return get_status()
   });
-   $(document).on('keydown','#resume_section_1 > input,#resume_section_2 > input,#resume_section_3 > input,#resume_section_4 > input,#resume_section_5 > input,table#demo td > input[type=text],.form-group input[type=text]',function(e) {
+   $(document).on('keydown','#container > input,table#demo td > input[type=text],.form-group input[type=text]',function(e) {
         var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
         if(key == 13) {
             e.preventDefault();

@@ -45,7 +45,7 @@ class RolesController < ApplicationController
     # @resume = @role.resume
     respond_to do |format|
       if @role.save
-        @roles = current_user.roles
+        @roles = current_user.roles.where(:resume_id=>nil)
         format.html { redirect_to after_create_path(request, @role), notice: 'Role was successfully created.' }
         format.json { render json: @role }
         format.js

@@ -24,9 +24,20 @@
                 <% end %>
 
                 <!--< %= link_to edit_resume_role_path(@resume, role), method: :get, class: 'edit_role_link', data: {'id' => role.id} do %>-->
-                <%= link_to edit_role_path(role), method: :get, class: 'edit_role_link', data: {'id' => role.id} do %>
+                <%= link_to 'javascript:void(0)', method: :get, class: "edit_role_link_#{role.id}", data: {'id' => role.id} do %>
                   <i class="fa fa-edit text-pale pull-right"></i>
                 <% end %>
+                <script type="text/javascript">
+                  $(document).on('click','.edit_role_link_<%=role.id%>',function(e){
+                    e.preventDefault();
+                    if("<%=params[:action].eql?('new')%>"){
+                      alert("You need to save your resume before go to edit page otherwise your change will be lost.");
+                    }
+                    else{
+                      window.location.href = "<%=edit_role_path(role)%>";
+                    }
+                  });
+                </script>
                 <!--<i class="fa fa-arrows-v text-pale pull-right"></i>-->
               </div>
             </div>

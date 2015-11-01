@@ -34,7 +34,7 @@ class ResumesController < ApplicationController
   def new
     $session_image_id,$session_video_id,$session_role = [],[],[] 
     @videos = current_user.videos
-    @roles = current_user.roles
+    @roles = current_user.roles.where(:resume_id=>nil)
   end
 
   def edit    
@@ -237,7 +237,7 @@ class ResumesController < ApplicationController
 
   def create_role
     @role = current_user.roles.create(role_params)
-    @session_roles = $session_role << @role
+    $session_role << @role
     @roles = current_user.roles
     respond_to do |format|
       if @role.save!
