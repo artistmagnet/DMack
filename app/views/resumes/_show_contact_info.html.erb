@@ -1,0 +1,30 @@
+<% if @resume.contact_info.try(:email).present?%>
+ <span><strong><%=@resume.contact_info.try(:email)%> </strong></span><br/>
+<%end%>
+<% if @resume.contact_info.try(:facebook).present?%>
+<span><strong><%=@resume.contact_info.try(:facebook)%></strong></span><br/>
+<%end%>
+<% if @resume.contact_info.try(:twitter).present?%>
+<span><strong><%=@resume.contact_info.try(:twitter)%></strong></span><br/>
+<%end%>
+<% if @resume.contact_info.try(:linkedin).present?%>
+<span><strong><%=@resume.contact_info.try(:linkedin)%></strong></span><br/>
+<%end%>
+<% if @resume.contact_info.try(:street_address1).present?%>
+<span><strong><%=@resume.contact_info.try(:street_address1)%></strong></span><br/>
+<%end%>
+<% if @resume.contact_info.try(:city).present?%>
+<span><strong><%=@resume.contact_info.try(:city)%></strong></span><br/>
+<%end%>
+<% if @resume.contact_info.try(:state).present?%>
+<span><strong><%=@resume.contact_info.try(:state)%></strong></span><br/>
+<%end%>
+<% if @resume.contact_info.try(:country).present?%>
+ <span><strong><%=@resume.contact_info.try(:country)%></strong></span><br/>
+<%end%>
+<% if @resume.contact_info.try(:zip_code).present?%>
+ <span><strong><%=@resume.contact_info.try(:zip_code)%></strong></span><br/>
+<%end%>
+<% if @resume.contact_info.try(:phone1).present?%>
+ <span><strong><%=@resume.contact_info.try(:phone1)%> </strong></span><br/>
+<%end%> 

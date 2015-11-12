@@ -91,5 +91,26 @@ module ResumesHelper
                
 	end	
 
+	def show_image(resume)
+		if resume.resume_type == 'Performing Artist'
+			if resume.image.try(:url).present?
+	          image_tag resume.image.try(:url),:style=>"width: 250px;"
+	        else
+	          render 'resumes/show_contact_info',:@resume=>resume		
+	        end	
+	    end
+	        
+	end	
+
+	def show_attribute(resume)
+		if resume.resume_type == 'Performing Artist'
+			 render 'resumes/show_attribute',:@resume=>resume
+		elsif resume.resume_type == 'Production Member' || resume.resume_type == 'Director'
+			if resume.image.try(:url).present?
+			 render 'resumes/show_contact_info',:@resume=>resume
+			end 	
+		end	
+	end	
+
 
 end

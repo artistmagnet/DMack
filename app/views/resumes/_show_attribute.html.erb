@@ -1,0 +1,24 @@
+<% if @resume.resume_attribute.try(:age).present? %>
+                <span><strong>Age Range:</strong> <%=@resume.resume_attribute.age%> </span><br/>
+                <%end%>
+                <% if @resume.resume_attribute.try(:height).present? %>
+                <span><strong>Height:</strong> <%=@resume.resume_attribute.height%> </span><br/>
+                <%end%>
+                <% if @resume.resume_attribute.try(:weight).present? %>
+                 <span><strong>Weight:</strong> <%=@resume.resume_attribute.weight%>  </span><br/>
+                 <%end%>
+                  <% if @resume.resume_attribute.try(:hair_color).present? %>
+                 <span><strong>Hair Color:</strong> <%=@resume.resume_attribute.hair_color.capitalize%> </span><br/>
+                 <%end%>
+                 <% if @resume.resume_attribute.try(:hair_lenght).present? %>
+                 <span><strong>Hair Length:</strong> <%=@resume.resume_attribute.hair_lenght%>  </span><br/>
+                 <% end %>
+                 <% if @resume.resume_attribute.try(:eye_color).present? %>
+                 <span><strong>Eye Color:</strong> <%=@resume.resume_attribute.eye_color.capitalize%>  </span><br/>
+                 <%end%>
+                 <% if @resume.resume_attribute.try(:vocal_range).present? %>
+                 <span><strong>Vocal Range:</strong> <%=@resume.resume_attribute.vocal_range.capitalize%> </span><br/>
+                 <%end%>
+                 <%if @resume.resume_attribute.try(:ethnicity).present? %>
+                 <span><strong>Ethnicity:</strong> <%=@resume.resume_attribute.ethnicity.capitalize%>  </span><br/>
+                 <%end%>

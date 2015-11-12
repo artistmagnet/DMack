@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151010123538) do
+ActiveRecord::Schema.define(version: 20151104113806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20151010123538) do
     t.integer  "resume_id"
     t.string   "gender"
     t.string   "age"
-    t.float    "height"
-    t.float    "weight"
+    t.string   "height"
+    t.string   "weight"
     t.string   "hair_color"
-    t.float    "hair_lenght"
+    t.string   "hair_lenght"
     t.string   "eye_color"
     t.string   "vocal_range"
     t.string   "ethnicity"
