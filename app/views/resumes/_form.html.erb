@@ -142,6 +142,9 @@
                     <h3> Theatre</h3>
                     <li >
                       <%=render 'resumes/nested/theatre_fields'%>
+                      <li class="sortable">
+                          <%= render 'resumes/nested/theatre_data' %>
+                      </li>
                       <!-- <div class="add_new_theatre"></div> -->
                       <!-- <div class='photo-popover1' style="display:none"></div> -->
                       <%#= f.fields_for :theatres do |t|%>
@@ -236,10 +239,10 @@
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-3">
-                    <%=link_to 'Additional Custom Section', 'javascript:void(0)', :class => 'duplicate_nested_custom_form btn btn-primary get_columns'%>
+                    <%=link_to 'Additional Custom Section', 'javascript:void(0)', :class => 'duplicate_nested_custom_form btn btn-primary'%>
                     </div>
                     <div class="col-sm-3">
-                    <%=link_to 'Additional Other Section', 'javascript:void(0)', :class => 'duplicate_nested_other_form btn btn-primary get_columns'%>
+                    <%=link_to 'Additional Other Section', 'javascript:void(0)', :class => 'duplicate_nested_other_form btn btn-primary'%>
                     </div>
                   </div>
                   <br/>
@@ -251,7 +254,7 @@
                     <%= f.submit 'Save',:class=>"form-control btn btn-primary save get_columns" %>
                     </div>
                     <div class="col-sm-3">
-                    <%=link_to 'Cancel',root_path,:class=>"form-control btn btn-primary get_columns","data-confirm"=>"Are you sure? This will delete the entire Resume and all your changes will be lost"%>
+                    <%=link_to 'Cancel',root_path,:class=>"form-control btn btn-primary","data-confirm"=>"Are you sure? This will delete the entire Resume and all your changes will be lost"%>
                   </div>
                   </div>
                 </div>
@@ -426,7 +429,7 @@
     input[type=text].error,input[type=radio].error {border:solid 2px red;}
     label.error{color: red;}
     .err_name{display: none;color: red;}
-
+    .row{margin-left: 0px;}
   </style>
   
   <script>
@@ -690,7 +693,11 @@ $(document).on('click','#add_more_images',function(){
         }
     });
     $(document).on("click",".add_bold",function(){
-       $(this).parents().find('table tbody tr:first').toggleClass('add_unbold');  
+       var tr_class = $(this).parents().find('table tbody tr:first')
+       tr_class.toggleClass('add_unbold');
+       tr_bold = tr_class.find(".tr_bold");
+       val = tr_bold.val();
+       tr_bold.val(val === "true" ? "false" : "true");
     });
 
 
@@ -786,7 +793,10 @@ $(document).on('click','#add_more_images',function(){
   $(function () {
     window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
     var $tr = $(link).closest('table').find('tbody tr:last');
-    var new_id = new Date().getTime();
+    var one_day = 24 * 3600 * 1000;
+    var d = new Date();
+    var new_id = d.getTime() % one_day + 10000;
+    // var new_id = new Date().getTime();
     var new_tr = $($tr).clone();
     var count = new_tr.find('td').length;
     if(count>1){
@@ -795,10 +805,10 @@ $(document).on('click','#add_more_images',function(){
         tr_input.attr('placeholder','').val('');
         var id_val = tr_input.attr('id');
         if(i<6){
-           
+           alert(id_val);
           if(id_val=="1"||id_val=="2"||id_val=="3"||id_val=="4"||id_val=="5"||id_val=="6"){
             var name = tr_input.attr('name');
-            var new_name = "resume[educations_attributes]["+new_id+"]["+name+"]";
+            var new_name = "resume[educations_attributes]["+new_id+"]["+name+"][]";
             tr_input.attr('name',new_name);
             tr_input.attr('id',"resume_educations_attributes_"+new_id+"_"+name);
             
@@ -807,7 +817,7 @@ $(document).on('click','#add_more_images',function(){
             if(id_val){
               var id_arr = id_val.split("_");
               id_arr[3] = new_id; 
-              var new_name = id_arr[0]+"["+id_arr[1]+"_"+id_arr[2]+"]"+"["+id_arr[3]+"]"+"["+id_arr[4]+"]";
+              var new_name = id_arr[0]+"["+id_arr[1]+"_"+id_arr[2]+"]"+"["+id_arr[3]+"]"+"["+id_arr[4]+"][]";
               tr_input.attr('name',new_name);
               $(el).find('input').attr('id',id_arr.join("_"));
             }

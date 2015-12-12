@@ -3,22 +3,27 @@
       <img width="30px;" alt="Icon" src="/assets/drag.jpg">
     </div> -->
     <td class="col-sm-2 drag-enable" >
-      <%= r.text_field :company,:class=>"form-control representations diminished-font col1",:placeholder=>"" %>
+    
+      <%= text_field_tag 'resume[representations_attributes][1][rcolumns][]',"",:class=>"form-control representations repr_cols diminished-font col1",:placeholder=>"" %>
     </td>
     <td class="col-sm-2 drag-enable" >
-      <%= r.text_field :contact_name,:class=>"form-control representations diminished-font col2",:placeholder=>"" %>
+     
+      <%= text_field_tag 'resume[representations_attributes][1][rcolumns][]',"",:class=>"form-control representations repr_cols diminished-font col2",:placeholder=>"" %>
     </td>
     <td class="col-sm-2 drag-enable" >
-      <%= r.text_field :title,:class=>"form-control representations diminished-font col3",:placeholder=>"" %>
+  
+      <%= text_field_tag 'resume[representations_attributes][1][rcolumns][]',"",:class=>"form-control representations repr_cols diminished-font col3",:placeholder=>"" %>
     </td>
     <td class="col-sm-2 drag-enable" >
-      <%= r.text_field :phone,:class=>"form-control representations diminished-font col4",:placeholder=>"" %>
+    
+      <%= text_field_tag 'resume[representations_attributes][1][rcolumns][]',"",:class=>"form-control representations repr_cols diminished-font col4",:placeholder=>"" %>
     </td>
     <td class="col-sm-2 drag-enable" >
-      <%= r.text_field :address,:class=>"form-control representations diminished-font col5",:placeholder=>"" %>
+      <%= text_field_tag 'resume[representations_attributes][1][rcolumns][]',"",:class=>"form-control representations repr_cols diminished-font col5",:placeholder=>"" %>
     </td>   
     <td class="col-sm-1">
     <%= r.link_to_remove "-",:class=>"btn btn-default remove_row",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
+    <%=hidden_field_tag 'resume[representations_attributes][1][is_bold]',"",:class=>"tr_bold"%>
     </td>        
   </tr>
-     <%= r.hidden_field :position, :class => 'nested_repr_attr' %>
+     <%#= r.hidden_field :position, :class => 'nested_repr_attr' %>

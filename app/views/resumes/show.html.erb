@@ -15,7 +15,7 @@
               <div class="col-md-4 contact_block">
                  <h2><%=@resume.contact_info.nick_name.upcase%></h2>
                  
-                 <% if (@resume.image.try(:url).present? && @resume.resume_type == 'Performing Artist') || ( !@resume.image.try(:url).present? && (@resume.resume_type == 'Production Member' || @resume.resume_type == 'Director'))%>
+                 <% if (@resume.image.file? && @resume.resume_type == 'Performing Artist') || ( !@resume.image.file? && (@resume.resume_type == 'Production Member' || @resume.resume_type == 'Director'))%>
  
                   <% if @resume.try(:performer_type).present?%>
                   <h4><%=@resume.try(:performer_type).upcase%></h4>
@@ -41,16 +41,13 @@
           
             <!-- <hr/> -->
              <section class="list-resumes">
-                <h3>REPRESENTATION</h3>
+                <h3><%=@resume.resume_sections.where(:section_id=>1).first.try(:section_name)%></h3>
               
                      <% @resume.representations.each do |representation|%>
                       <div class="row">
-                       <div class="col-md-2"><%= representation.title.upcase  %></div>
-                        <div class="col-md-2"><%= representation.company %></div>
-                        <div class="col-md-2"><%= representation.contact_name %></div>
-                       
-                        <div class="col-md-2"><%= representation.phone  %></div>
-                        <div class="col-md-2"><%= representation.address  %></div>
+                       <% representation.rcolumns.each do |col|%>
+                      <div class="col-md-2"><%= col.capitalize %></div>
+                      <%end%>
                       </div>
                       <%end%>                 
               </section><br />
@@ -58,30 +55,27 @@
 
 
             <section class="list-resumes">
-              <h3>THEATRE</h3>
-             
+              <h3><%=@resume.resume_sections.where(:section_id=>2).first.try(:section_name)%></h3>
+              <%=render 'resumes/nested/theatre_fields'%>
                 <% @resume.roles.each do |theatre|%>
                 <div class="row">
                   <div class="col-md-3"><%= link_to theatre.production_name.upcase,theatre.production ,:target=>"_blank" if !theatre.production.blank?%></div>
-                  <div class="col-md-3"><%= theatre.name.capitalize%></div>
-                  <div class="col-md-3"><%= theatre.director_name.capitalize%></div>
-                  <div class="col-md-3"><%= get_venue_and_company(theatre) %></div>
+                  <div class="col-md-2"><%= theatre.name.capitalize%></div>
+                  <div class="col-md-2"><%= theatre.director_name.capitalize%></div>
+                  <div class="col-md-4"><%= get_venue_and_company(theatre) %></div>
                 </div>
                 <%end%>
               
             </section ><br/>
             
             <section class="list-resumes">
-              <h3>EDUCATION/TRAINING</h3>
+              <h3><%=@resume.resume_sections.where(:section_id=>3).first.try(:section_name)%></h3>
               
                    <% @resume.educations.each do |education|%>
                     <div class="row">
-                      <div class="col-md-2"><%= education.school.capitalize %></div>
-                      <div class="col-md-2"><%= education.city.capitalize %></div>
-                      <div class="col-md-2"><%= education.state.capitalize  %></div>
-                      <div class="col-md-2"><%= education.country.capitalize  %></div>
-                      <div class="col-md-2"><%= education.degree.capitalize  %></div>
-                      <div class="col-md-2"><%= education.year%></div>
+                      <% education.ecolumns.each do |col|%>
+                      <div class="col-md-2"><%= col.capitalize %></div>
+                      <%end%>
                     </div> 
                     <%end%>                 
             </section><br/>
@@ -173,7 +167,7 @@
              
 
               <section class="list-resumes">
-                <h3>SKILLS</h3>
+                <h3><%=@resume.resume_sections.where(:section_id=>4).first.try(:section_name)%></h3>
                 <div data-example-id="striped-table" class="bs-example">
                 <p>
                     
@@ -185,17 +179,14 @@
               </section><br />
 
               <section class="list-resumes">
-              <h3>CUSTOM</h3>
+              <h3><%=@resume.resume_sections.where(:section_id=>5).first.try(:section_name)%></h3>
              
                   <%#=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>"custom"%>
                    <% @resume.customs.each do |custom|%>
                     <div class="row">
-                      <div class="col-md-2"><%= custom.custom1 %></div>
-                      <div class="col-md-2"><%= custom.custom2 %></div>
-                      <div class="col-md-2"><%= custom.custom3  %></div>
-                      <div class="col-md-2"><%= custom.custom4  %></div>
-                      <div class="col-md-2"><%= custom.custom5  %></div>
-                      <div class="col-md-2"><%= custom.custom6  %></div>
+                     <% custom.ccolumns.each do |col|%>
+                      <div class="col-md-2"><%= col.capitalize %></div>
+                      <%end%>
                     </div> 
                     <%end%>
             </section><br/>

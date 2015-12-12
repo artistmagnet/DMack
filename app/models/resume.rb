@@ -1,7 +1,7 @@
 class Resume < ActiveRecord::Base
-  after_save :remove_data
-  after_save :add_education_table
-  after_save :add_custom_table
+  # after_save :remove_data
+  # after_save :add_education_table
+  # after_save :add_custom_table
   after_save :add_representation_table
   
   attr_accessor :columns, :positions, :custom_cols, :custom_pos, :repr_cols, :repr_pos
@@ -19,7 +19,8 @@ class Resume < ActiveRecord::Base
   has_many :section_slots, -> { order('position ASC') }, :dependent => :destroy
   # has_one  :education_table, :dependent => :destroy
   # has_one  :skill_list, :dependent => :destroy
-  has_many :rtables, :through => :section_slots, :dependent => :destroy
+  # has_many :rtables, :through => :section_slots, :dependent => :destroy
+  has_many :rtables
   # has_many :custom_lists,  :dependent => :destroy
   has_one :resume_attribute,:class_name=>"Attribute", dependent: :destroy
   has_one :contact_info, dependent: :destroy
@@ -43,14 +44,14 @@ class Resume < ActiveRecord::Base
   accepts_nested_attributes_for :customs,:allow_destroy => true, reject_if: :all_blank
   accepts_nested_attributes_for :resume_sections,:allow_destroy => true, reject_if: :all_blank
 
-
+  accepts_nested_attributes_for :rtables,:allow_destroy => true, reject_if: :all_blank
 
   accepts_nested_attributes_for :roles, allow_destroy: true, reject_if: :all_blank
   delegate :name, :to => :user, :prefix => true
 
   validates :user, :presence => true
   validate :validate_resumes
-  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "../assets/blankUser.png"
+  has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }#, :default_url => "../assets/blankUser.png"
   validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
   def validate_resumes
     if roles.any? && !roles[0].valid?
@@ -69,17 +70,17 @@ class Resume < ActiveRecord::Base
     resume.destroy_all if !resume.blank?
   end
   def add_education_table
-    table = EducationTable.create(title: 'Education', columns: '{'+self.columns+'}', positions: '{'+self.positions+'}', resume_id: id)
+    table = Rtable.create(title: 'Education', columns: '{'+self.columns+'}', positions: '{'+self.positions+'}', resume_id: id)
     SectionSlot.create(section_id: table.id, section_type: 'Rtable', resume_id: id, position: 1)
   end
 
   def add_custom_table
-    table = CustomTable.create(title: 'Custom', columns: '{'+self.custom_cols+'}', positions: '{'+self.custom_pos+'}', resume_id: id)
+    table = Rtable.create(title: 'Custom', columns: '{'+self.custom_cols+'}', positions: '{'+self.custom_pos+'}', resume_id: id)
     SectionSlot.create(section_id: table.id, section_type: 'Rtable', resume_id: id, position: 1)
   end
 
   def add_representation_table
-    table = RepresentationTable.create(title: 'Representation', columns: '{'+self.repr_cols+'}', positions: '{'+self.repr_pos+'}', resume_id: id)
+    table = Rtable.create(title: 'Representation', columns: '{'+self.repr_cols+'}', positions: '{'+self.repr_pos+'}', resume_id: id)
     SectionSlot.create(section_id: table.id, section_type: 'Rtable', resume_id: id, position: 1)
   end
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151104113806) do
+ActiveRecord::Schema.define(version: 20151207151922) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,6 +114,8 @@ ActiveRecord::Schema.define(version: 20151104113806) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "ccolumns",   default: [],    array: true
+    t.boolean  "is_bold",    default: false
   end
 
   create_table "directors", force: true do |t|
@@ -137,6 +139,8 @@ ActiveRecord::Schema.define(version: 20151104113806) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "position"
+    t.string   "ecolumns",   default: [],    array: true
+    t.boolean  "is_bold",    default: false
   end
 
   create_table "invitations", force: true do |t|
@@ -212,6 +216,8 @@ ActiveRecord::Schema.define(version: 20151104113806) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
+    t.string   "rcolumns",     default: [],    array: true
+    t.boolean  "is_bold",      default: false
   end
 
   create_table "resume_sections", force: true do |t|
@@ -220,6 +226,7 @@ ActiveRecord::Schema.define(version: 20151104113806) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "section_id"
+    t.string   "section_name"
   end
 
   create_table "resumes", force: true do |t|

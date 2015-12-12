@@ -1,4 +1,4 @@
-<%education(repr,"custom","representation")%>
+<%#education(repr,"custom","representation")%>
 <!-- <div class="fields">
  <div class="form-group "> -->
   <!--   <div class="col-sm-1"> 
@@ -6,22 +6,23 @@
     </div> -->
     <tr class="">
     <td class="col-sm-2 drag-enable">
-      <input class="form-control diminished-font representations repr_cols col1" name="company" value="<%= education(repr,"custom","representation").present? ? !education(repr,"custom","representation")[1].blank? ? education(repr,"custom","representation")[1] : "" : ""%>" placeholder="Company" type="text", id="1">
+      <input class="form-control diminished-font representations repr_cols col1" name="resume[representations_attributes][0][rcolumns][]" value="<%#= education(repr,"custom","representation").present? ? !education(repr,"custom","representation")[1].blank? ? education(repr,"custom","representation")[1] : "" : ""%>" placeholder="Company" type="text", id="1">
     </td>
     <td class="col-sm-2 drag-enable">
-      <input class="form-control diminished-font representations repr_cols col2" name="contact_name" value="<%= education(repr,"custom","representation").present? ? !education(repr,"custom","representation")[2].blank? ? education(repr,"custom","representation")[2] : "" : ""%>" placeholder="Contact Name" type="text" id="2">
+      <input class="form-control diminished-font representations repr_cols col2" name="resume[representations_attributes][0][rcolumns][]" value="<%#= education(repr,"custom","representation").present? ? !education(repr,"custom","representation")[2].blank? ? education(repr,"custom","representation")[2] : "" : ""%>" placeholder="Contact Name" type="text" id="2">
     </td>
     <td class="col-sm-2 drag-enable">
-      <input class="form-control diminished-font representations repr_cols col3" name="title" value="<%= education(repr,"custom","representation").present? ? !education(repr,"custom","representation")[3].blank? ? education(repr,"custom","representation")[3] : "" : ""%>" placeholder="Title" type="text" id="3">
+      <input class="form-control diminished-font representations repr_cols col3" name="resume[representations_attributes][0][rcolumns][]" value="<%#= education(repr,"custom","representation").present? ? !education(repr,"custom","representation")[3].blank? ? education(repr,"custom","representation")[3] : "" : ""%>" placeholder="Title" type="text" id="3">
     </td>
     <td class="col-sm-2 drag-enable">
-      <input class="form-control diminished-font representations repr_cols col4" name="phone" value="<%= education(repr,"custom","representation").present? ? !education(repr,"custom","representation")[4].blank? ? education(repr,"custom","representation")[4] : "" : ""%>" placeholder="Phone" type="text" id="4">
+      <input class="form-control diminished-font representations repr_cols col4" name="resume[representations_attributes][0][rcolumns][]" value="<%#= education(repr,"custom","representation").present? ? !education(repr,"custom","representation")[4].blank? ? education(repr,"custom","representation")[4] : "" : ""%>" placeholder="Phone" type="text" id="4">
     </td>
     <td class="col-sm-2 drag-enable">
-      <input class="form-control diminished-font representations repr_cols col5" name="address" value="<%= education(repr,"custom","representation").present? ? !education(repr,"custom","representation")[5].blank? ? education(repr,"custom","representation")[5] : "" : ""%>"  placeholder="Address" type="text" id="5">
+      <input class="form-control diminished-font representations repr_cols col5" name="resume[representations_attributes][0][rcolumns][]" value="<%#= education(repr,"custom","representation").present? ? !education(repr,"custom","representation")[5].blank? ? education(repr,"custom","representation")[5] : "" : ""%>"  placeholder="Address" type="text" id="5">
     </td> 
     <td class="col-sm-1 drag-enable">
       <a class="btn btn-default remove_row" title="Remove Row" data-association="representations" data-success="true" href="javascript:void(0)" data-confirm='Are you sure?'>-</a>
+      <%=hidden_field_tag 'resume[representations_attributes][0][is_bold]',"",:class=>"tr_bold"%>
     </td>
     </tr>   
     <!-- <div class="col-sm-1">

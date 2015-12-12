@@ -93,10 +93,12 @@ module ResumesHelper
 
 	def show_image(resume)
 		if resume.resume_type == 'Performing Artist'
-			if resume.image.try(:url).present?
+			if resume.image.file?
 	          image_tag resume.image.try(:url),:style=>"width: 250px;"
 	        else
-	          render 'resumes/show_contact_info',:@resume=>resume		
+	          content_tag(:div,:class=>"resume_attribute") do	
+	          	render 'resumes/show_contact_info',:@resume=>resume		
+	          end	
 	        end	
 	    end
 	        
@@ -106,7 +108,7 @@ module ResumesHelper
 		if resume.resume_type == 'Performing Artist'
 			 render 'resumes/show_attribute',:@resume=>resume
 		elsif resume.resume_type == 'Production Member' || resume.resume_type == 'Director'
-			if resume.image.try(:url).present?
+			if resume.image.file?
 			 render 'resumes/show_contact_info',:@resume=>resume
 			end 	
 		end	

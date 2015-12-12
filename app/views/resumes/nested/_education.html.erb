@@ -1,30 +1,37 @@
 <tr class="fields">
    
     <td class="col-sm-2 drag-enable">
-      <%= e.text_field :school,:class=>"form-control diminished-font col1 educations",:placeholder=>"" %>
+      <%= text_field_tag 'resume[educations_attributes][1][ecolumns][]',"",:class=>"form-control diminished-font col1 educations educations",:placeholder=>"" %>
+      <%#=hidden_field_tag 'resume[rtables_attributes][1][positions][]'%>
     </td>
     <td class="col-sm-2 drag-enable" >
-      <%= e.text_field :city,:class=>"form-control diminished-font col2 educations",:placeholder=>"" %>
+      <%= text_field_tag 'resume[educations_attributes][1][ecolumns][]',"",:class=>"form-control diminished-font col2 educations educations",:placeholder=>"" %>
+      <%#=hidden_field_tag 'resume[rtables_attributes][1][positions][]'%>
     </td>
     <td class="col-sm-2 drag-enable" >
-      <%= e.text_field :state,:class=>"form-control diminished-font col3 educations",:placeholder=>"" %>
+      <%= text_field_tag 'resume[educations_attributes][1][ecolumns][]',"",:class=>"form-control diminished-font col3 educations educations",:placeholder=>"" %>
+      <%#=hidden_field_tag 'resume[rtables_attributes][1][positions][]'%>
     </td>
     <td class="col-sm-2 drag-enable" >
-      <%= e.text_field :country,:class=>"form-control diminished-font col4 educations",:placeholder=>"" %>
+      <%= text_field_tag 'resume[educations_attributes][1][ecolumns][]',"",:class=>"form-control diminished-font col4 educations educations",:placeholder=>"" %>
+      <%#=hidden_field_tag 'resume[rtables_attributes][1][positions][]'%>
     </td>
     <td class="col-sm-2 drag-enable" >
-      <%= e.text_field :degree,:class=>"form-control diminished-font col5 educations",:placeholder=>"" %>
+      <%= text_field_tag 'resume[educations_attributes][1][ecolumns][]',"",:class=>"form-control diminished-font col5 educations educations",:placeholder=>"" %>
+      <%#=hidden_field_tag 'resume[rtables_attributes][1][positions][]'%>
     </td>
     <td class="col-sm-1 drag-enable">
-      <%= e.text_field :year,:class=>"form-control diminished-font col6 educations",:placeholder=>""%>
+      <%= text_field_tag 'resume[educations_attributes][1][ecolumns][]',"",:class=>"form-control diminished-font col6 educations educations",:placeholder=>""%>
+      
     </td>
      
     <td class="col-sm-1">
       <%= e.link_to_remove "-",:class=>"btn btn-default remove_row",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
+      <%=hidden_field_tag 'resume[educations_attributes][1][is_bold]',"",:class=>"tr_bold"%>
     </td> 
 </tr>
-<%= e.hidden_field :position, :class => 'bar' %>
-  <%= e.hidden_field :position,:class=>"nested_education_attr"%>
+<%#= e.hidden_field :position, :class => 'bar' %>
+  <%#= e.hidden_field :position,:class=>"nested_education_attr"%>
 
-<input name="columns" type="hidden" class="add_column" value="" /> 
+<!-- <input name="columns" type="hidden" class="add_column" value="" />  -->
 

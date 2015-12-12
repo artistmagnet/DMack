@@ -2,11 +2,11 @@
 <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="Education/Training" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
 <a class="btn btn-default add_bold pull-right" data-association="Education/Training" href="javascript:void(0)" title="Toogle Bold/Unbold the Title Row">B</a>
                    
-                   <input class="resume_section section_heading" id="resume_resume_sections_attributes_0_name" name="resume[resume_sections_attributes][0][name]" type="" value="Education/Training"> 
+                   <input class="resume_section section_heading" id="resume_resume_sections_attributes_1_name" name="resume[resume_sections_attributes][1][section_name]" type="" value="Education/Training"> 
                   </div>
                     
-                    <input class="resume_section" id="resume_resume_sections_attributes_0_position" name="resume[resume_sections_attributes][0][position]" type="hidden">
-                    <input id="resume_resume_sections_attributes_0_section_id" name="resume[resume_sections_attributes][0][section_id]" value="1" type="hidden">
+                    <input class="resume_section" id="resume_resume_sections_attributes_1_position" name="resume[resume_sections_attributes][1][position]" type="hidden">
+                    <input id="resume_resume_sections_attributes_1_section_id" name="resume[resume_sections_attributes][1][section_id]" value="2" type="hidden">
                     <table id="demo" class="education draggable">
                      <thead> 
                     <%=render 'resumes/nested/education_cols_remove', :section => "educations"%>
@@ -14,9 +14,9 @@
                     <tbody class="sortable render_education_table">
                     <!-- <li class="sortable"> -->
                     
-                      <div class="rtable_cols"></div>
+                      <!-- <div class="rtable_cols"></div> -->
                       
-                      <%=render 'resumes/nested/education_fields',:e=>f%>
+                      <%=render 'resumes/nested/education_fields'%>
                       
                        <!-- <tr> -->
                         <%=f.fields_for :educations,:wrapper => false do |e|%>
