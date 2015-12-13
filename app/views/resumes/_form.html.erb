@@ -805,7 +805,6 @@ $(document).on('click','#add_more_images',function(){
         tr_input.attr('placeholder','').val('');
         var id_val = tr_input.attr('id');
         if(i<6){
-           alert(id_val);
           if(id_val=="1"||id_val=="2"||id_val=="3"||id_val=="4"||id_val=="5"||id_val=="6"){
             var name = tr_input.attr('name');
             var new_name = "resume[educations_attributes]["+new_id+"]["+name+"][]";
