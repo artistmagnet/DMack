@@ -2,7 +2,7 @@ class Resume < ActiveRecord::Base
   # after_save :remove_data
   # after_save :add_education_table
   # after_save :add_custom_table
-  after_save :add_representation_table
+  # after_save :add_representation_table
   
   attr_accessor :columns, :positions, :custom_cols, :custom_pos, :repr_cols, :repr_pos
 
