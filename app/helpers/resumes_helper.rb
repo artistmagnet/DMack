@@ -82,11 +82,11 @@ module ResumesHelper
 		venue = role.production_current_venue
 		company = role.production_company
 		if venue.present? && company.present?
-       		link_to(role.production_current_venue_name,venue_path(venue.id)) +" - " +link_to(role.production_company_name,company_path(company.id))
+       		link_to(role.production_current_venue_name,venue_path(venue.id),:target=>"_blank") +" - " +link_to(role.production_company_name,company_path(company.id),:target=>"_blank")
         elsif role.production_current_venue.present?  
-            link_to(role.production_current_venue_name,venue_path(venue.id))
+            link_to(role.production_current_venue_name,venue_path(venue.id),:target=>"_blank")
         else
-           link_to(role.production_company_name,company_path(company.id))
+           link_to(role.production_company_name,company_path(company.id),:target=>"_blank")
         end
                
 	end	

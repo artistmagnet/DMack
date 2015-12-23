@@ -14,17 +14,19 @@
                
               <div class="col-md-4 contact_block">
                  <h2><%=@resume.contact_info.nick_name.upcase%></h2>
-                 
-                 <% if (@resume.image.file? && @resume.resume_type == 'Performing Artist') || ( !@resume.image.file? && (@resume.resume_type == 'Production Member' || @resume.resume_type == 'Director'))%>
- 
-                  <% if @resume.try(:performer_type).present?%>
+                 <% if @resume.try(:performer_type).present?%>
                   <h4><%=@resume.try(:performer_type).upcase%></h4>
                  <%end%>
                  <% if @resume.try(:union_guild).present?%>
                   <h5><%=@resume.try(:union_guild).upcase%></h5>
                 <%end%>
+
+                <br/>
+                 <% if (@resume.image.file? && @resume.resume_type == 'Performing Artist') || ( !@resume.image.file? && (@resume.resume_type == 'Production Member' || @resume.resume_type == 'Director'))%>
+ 
+                  
                 
-                  <br/>
+                  
                    <%= render 'resumes/show_contact_info',:@resume=>@resume%>
                  <%end%>
                 
@@ -41,21 +43,22 @@
           
             <!-- <hr/> -->
              <section class="list-resumes">
-                <h3><%=@resume.resume_sections.where(:section_id=>1).first.try(:section_name)%></h3>
+              <div class="row">
+                <strong><div class="col-md-2"><%=@resume.resume_sections.where(:section_id=>1).first.try(:section_name)%>:</div></strong>
               
                      <% @resume.representations.each do |representation|%>
-                      <div class="row">
+                     
                        <% representation.rcolumns.each do |col|%>
                       <div class="col-md-2"><%= col.capitalize %></div>
                       <%end%>
-                      </div>
+              </div>
                       <%end%>                 
               </section><br />
 
 
 
             <section class="list-resumes">
-              <h3><%=@resume.resume_sections.where(:section_id=>2).first.try(:section_name)%></h3>
+              <strong>THEATRE</strong>
               <%=render 'resumes/nested/theatre_fields'%>
                 <% @resume.roles.each do |theatre|%>
                 <div class="row">
@@ -69,12 +72,12 @@
             </section ><br/>
             
             <section class="list-resumes">
-              <h3><%=@resume.resume_sections.where(:section_id=>3).first.try(:section_name)%></h3>
+              <strong><%=@resume.resume_sections.where(:section_id=>2).first.try(:section_name)%></strong>
               
                    <% @resume.educations.each do |education|%>
                     <div class="row">
                       <% education.ecolumns.each do |col|%>
-                      <div class="col-md-2"><%= col.capitalize %></div>
+                      <div class="col-md-2" id="<%=education.is_bold.present? ? "bold_col" : ""%>"><%= col.capitalize %></div>
                       <%end%>
                     </div> 
                     <%end%>                 
@@ -167,7 +170,7 @@
              
 
               <section class="list-resumes">
-                <h3><%=@resume.resume_sections.where(:section_id=>4).first.try(:section_name)%></h3>
+                <strong><%=@resume.resume_sections.where(:section_id=>3).first.try(:section_name)%></strong>
                 <div data-example-id="striped-table" class="bs-example">
                 <p>
                     
@@ -179,20 +182,20 @@
               </section><br />
 
               <section class="list-resumes">
-              <h3><%=@resume.resume_sections.where(:section_id=>5).first.try(:section_name)%></h3>
+              <strong><%=@resume.resume_sections.where(:section_id=>4).first.try(:section_name)%></strong>
              
                   <%#=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>"custom"%>
                    <% @resume.customs.each do |custom|%>
                     <div class="row">
                      <% custom.ccolumns.each do |col|%>
-                      <div class="col-md-2"><%= col.capitalize %></div>
+                      <div class="col-md-2" id="<%=custom.is_bold.present? ? "bold_col" : ""%>"><%= col.capitalize %></div>
                       <%end%>
                     </div> 
                     <%end%>
             </section><br/>
 
             <section class="list-resumes">
-              <h3>OTHER</h3>
+              <strong><%=@resume.resume_sections.where(:section_id=>5).first.try(:section_name)%></strong>
            
             <li style="list-style-type: none;"><%= @resume.others.map { |tag| tag.content.capitalize }.join(', ')  if !@resume.others.blank?%></li>
             </section><br />

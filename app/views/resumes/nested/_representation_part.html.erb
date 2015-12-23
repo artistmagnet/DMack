@@ -6,36 +6,56 @@
                      </div>
                     <input class="resume_section" id="resume_resume_sections_attributes_0_position" name="resume[resume_sections_attributes][0][position]" type="hidden">
                     <input id="resume_resume_sections_attributes_0_section_id" name="resume[resume_sections_attributes][0][section_id]" value="1" type="hidden">
-                    <table id="demo" class="representation draggable">
+                   <%=f.fields_for :representations,:wrapper => false do |r|%>
+                    <div class="form-group">
+  
+                      <div class="col-sm-1" >
+                        
+                      </div>
+                      <br/>
+                      <div class="col-sm-8" >
+                        <div class="other_test diminished-font">
+                          <%= text_area_tag 'resume[representations_attributes][0][rcolumns][]',"",:class=>"form-control diminished-font tag-input",:placeholder=>"",:onkeyup=>"auto_grow(this)" %>
+                        </div>
+                      </div>  
+
+                    </div>  
+                   <%end%> 
+                    
+
+
+
+
+                    <!-- <table id="demo" class="representation draggable">
                      <thead> 
-                    <%=render 'resumes/nested/representation_cols_remove', :section => "representations"%>
+                    <%#=render 'resumes/nested/representation_cols_remove', :section => "representations"%>
                     </thead>
-                    <!-- <li class="sortable"> -->
+                    
                     <tbody class="sortable render_representation_table">
-                      <%=render 'resumes/nested/representation_fields',:repr=>f%>
-                      <%=f.fields_for :representations,:wrapper => false do |r|%>                
-                         <%= render "resumes/nested/representation" ,:r=>r%>
-                      <%end%>
+                      <%#=render 'resumes/nested/representation_fields',:repr=>f%>
+                      <%#=f.fields_for :representations,:wrapper => false do |r|%>                
+                         <%#= render "resumes/nested/representation" ,:r=>r%>
+                      <%#end%>
                       <tfoot>
     
                       <tr> 
                      
-                        <th colspan="8"><%= f.link_to_add "+", :representations ,:class=>"btn btn-default add_edu_row",:title=>"Add Row"%></th>
+                        <th colspan="8"><%#= f.link_to_add "+", :representations ,:class=>"btn btn-default add_edu_row",:title=>"Add Row"%></th>
                        </tr>
                        </tfoot>
                        </tbody>
-                       </table>
+                       </table> -->
                        <script type="text/javascript">
-                       $(document).ready(function(){
-                        $('table#demo').dragtable({
-                          revert: true,               // smooth revert
-                          dragHandle: '.table-handle',
-                          cursor: 'move',
-                          dragaccept: '.drag-enable',
-                          excludeFooter: true
-                        });
-                       }); 
+                       // $(document).ready(function(){
+                       //  $('table#demo').dragtable({
+                       //    revert: true,               // smooth revert
+                       //    dragHandle: '.table-handle',
+                       //    cursor: 'move',
+                       //    dragaccept: '.drag-enable',
+                       //    excludeFooter: true
+                       //  });
+                       // }); 
 
                        </script>
                       
-                    <!-- </li><br/> -->
+                  

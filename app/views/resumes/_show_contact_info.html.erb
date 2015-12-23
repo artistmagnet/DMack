@@ -1,30 +1,36 @@
 <% if @resume.contact_info.try(:email).present?%>
- <span><strong><%=@resume.contact_info.try(:email)%> </strong></span><br/>
+ <span><%=@resume.contact_info.try(:email)%> </span><br/>
 <%end%>
 <% if @resume.contact_info.try(:facebook).present?%>
-<span><strong><%=@resume.contact_info.try(:facebook)%></strong></span><br/>
+<span><%=@resume.contact_info.try(:facebook)%></span><br/>
 <%end%>
 <% if @resume.contact_info.try(:twitter).present?%>
-<span><strong><%=@resume.contact_info.try(:twitter)%></strong></span><br/>
+<span><%=@resume.contact_info.try(:twitter)%></span><br/>
 <%end%>
 <% if @resume.contact_info.try(:linkedin).present?%>
-<span><strong><%=@resume.contact_info.try(:linkedin)%></strong></span><br/>
+<span><%=@resume.contact_info.try(:linkedin)%></span><br/>
 <%end%>
 <% if @resume.contact_info.try(:street_address1).present?%>
-<span><strong><%=@resume.contact_info.try(:street_address1)%></strong></span>,
+<span><%=@resume.contact_info.try(:street_address1)%></span>,<br/>
+<%end%>
+<% if @resume.contact_info.try(:street_address2).present?%>
+<span><%=@resume.contact_info.try(:street_address2)%></span>,<br/>
 <%end%>
 <% if @resume.contact_info.try(:city).present?%>
-<span><strong><%=@resume.contact_info.try(:city)%></strong></span>,
+<span><%=@resume.contact_info.try(:city)%></span>,
 <%end%>
 <% if @resume.contact_info.try(:state).present?%>
-<span><strong><%=@resume.contact_info.try(:state)%></strong></span>,<br/>
+<span><%=@resume.contact_info.try(:state)%></span>,<br/>
 <%end%>
 <% if @resume.contact_info.try(:country).present?%>
- <span><strong><%=@resume.contact_info.try(:country)%></strong></span>,
+ <span><%=@resume.contact_info.try(:country)%></span>,
 <%end%>
 <% if @resume.contact_info.try(:zip_code).present?%>
- <span><strong><%=@resume.contact_info.try(:zip_code)%></strong></span><br/>
+ <span><%=@resume.contact_info.try(:zip_code)%></span><br/>
 <%end%>
 <% if @resume.contact_info.try(:phone1).present?%>
- <span><strong><%=@resume.contact_info.try(:phone1)%> </strong></span><br/>
+ <span><%=@resume.contact_info.try(:phone1)%> </span>
+<%end%> 
+<% if @resume.contact_info.try(:phone2).present?%>
+ ,<br/><span><%=@resume.contact_info.try(:phone2)%> </span>
 <%end%> 
