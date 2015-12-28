@@ -1,1 +1,6 @@
 <%= render 'form' %>
+<script>
+$(window).bind("pageshow", function() { 
+  $('#new_resume')[0].reset(); 
+});
+</script>

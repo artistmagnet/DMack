@@ -11,16 +11,16 @@
 <span><%=@resume.contact_info.try(:linkedin)%></span><br/>
 <%end%>
 <% if @resume.contact_info.try(:street_address1).present?%>
-<span><%=@resume.contact_info.try(:street_address1)%></span>,<br/>
+<span><%=@resume.contact_info.try(:street_address1)%></span><br/>
 <%end%>
 <% if @resume.contact_info.try(:street_address2).present?%>
-<span><%=@resume.contact_info.try(:street_address2)%></span>,<br/>
+<span><%=@resume.contact_info.try(:street_address2)%></span><br/>
 <%end%>
 <% if @resume.contact_info.try(:city).present?%>
 <span><%=@resume.contact_info.try(:city)%></span>,
 <%end%>
 <% if @resume.contact_info.try(:state).present?%>
-<span><%=@resume.contact_info.try(:state)%></span>,<br/>
+<span><%=@resume.contact_info.try(:state)%></span>,
 <%end%>
 <% if @resume.contact_info.try(:country).present?%>
  <span><%=@resume.contact_info.try(:country)%></span>,
@@ -32,5 +32,5 @@
  <span><%=@resume.contact_info.try(:phone1)%> </span>
 <%end%> 
 <% if @resume.contact_info.try(:phone2).present?%>
- ,<br/><span><%=@resume.contact_info.try(:phone2)%> </span>
+ <br/><span><%=@resume.contact_info.try(:phone2)%> </span>
 <%end%> 

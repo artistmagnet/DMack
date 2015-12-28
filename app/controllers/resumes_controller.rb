@@ -39,6 +39,7 @@ class ResumesController < ApplicationController
 
   def edit    
     @role = @resume.roles.build
+    @roles = @resume.roles
     @section_order=@resume.resume_sections.last(5).collect(&:section_id)
     $session_image_id =[]   
     @videos = @resume.videos
@@ -343,7 +344,7 @@ class ResumesController < ApplicationController
       photos_attributes: [:id,:position, :image, :_destroy],
       theatres_attributes: [:id, :production_id,:production,:venue,:company,:venue_id,:company_id,:role,:director_id,:directed_by,:position,:performance_date,:location, :_destroy],
       educations_attributes: [:id,:position, :school,:city,:state,:country,:degree,:year,:is_bold,:_destroy,:ecolumns=>[]],
-      representations_attributes: [:id,:position, :company,:contact_name,:address,:title,:phone, :is_bold,:_destroy,:rcolumns=>[]],
+      representations_attributes: [:id,:position,:_destroy,:rcolumns],
       skills_attributes: [:id, :category_id,:skills,:position, :_destroy],
       resume_attribute_attributes: [:id,:position, :height,:weighr,:gender,:age,:hair_color,:hair_lenght,:street_address2,:weight,:eye_color,:vocal_range,:ethnicity, :_destroy],
       customs_attributes: [:id, :custom1, :custom2, :custom3, :custom4, :custom5, :custom6, :position, :resume_id,:is_bold, :_destroy,:ccolumns=>[]], 

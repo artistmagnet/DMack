@@ -1,4 +1,9 @@
 <div class="container-fluid m-top-20">
+  <div class="col-md-2">
+    <%= link_to edit_resume_path(@resume),:class=>"form-control btn btn-primary" do%>
+       <i class="fa fa-edit">Edit Resume</i>
+    <%end%>
+  </div>
   <div class="row">
     <div class="col-md-12">
       <div class="panel panel-default">
@@ -6,7 +11,7 @@
           <section class="list-resumes">            
             <div class="row">
                 
-              <div class="col-md-3 resume_attribute">
+              <div class="col-md-4 resume_attribute">
                <%= show_attribute(@resume)%>
                
                </div>
@@ -32,7 +37,7 @@
                 
                </div>
 
-                <div class="col-md-4">
+                <div class="col-md-4 image_section">
                  <%=show_image(@resume)%>
                </div>
               
@@ -48,9 +53,9 @@
               
                      <% @resume.representations.each do |representation|%>
                      
-                       <% representation.rcolumns.each do |col|%>
-                      <div class="col-md-2"><%= col.capitalize %></div>
-                      <%end%>
+                      
+                      <div class="col-md-2"><%= raw(representation.rcolumns.html_safe) %></div>
+                      
               </div>
                       <%end%>                 
               </section><br />
@@ -58,7 +63,7 @@
 
 
             <section class="list-resumes">
-              <strong>THEATRE</strong>
+              <strong>Theatre</strong>
               <%=render 'resumes/nested/theatre_fields'%>
                 <% @resume.roles.each do |theatre|%>
                 <div class="row">

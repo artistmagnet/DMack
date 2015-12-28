@@ -49,6 +49,7 @@ $(document).ready(function(){
   });
   
 });
+
 // function tags(){
 // 	$('.tag-input').tagsinput('add', 'some tag');
 // }
