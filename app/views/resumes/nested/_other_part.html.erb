@@ -1,6 +1,10 @@
 <div id="container">
 <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="Other" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
-
+<%#=f.fields_for :resume_sections do |o|%> 
+  <%#= o.text_field :section_name,:value=>"Other",:class=>"resume_section section_heading"%>
+  <%#= o.hidden_field :position,:class=>"resume_section section_heading"%>
+  <%#= o.hidden_field :section_id,:value=>5,:class=>"resume_section section_heading"%>
+<%#end%> 
 <input class="resume_section section_heading" id="resume_resume_sections_attributes_4_name" name="resume[resume_sections_attributes][4][section_name]" type="" value="Other">
 </div>
   <input class="resume_section" id="resume_resume_sections_attributes_4_position" name="resume[resume_sections_attributes][4][position]" type="hidden">

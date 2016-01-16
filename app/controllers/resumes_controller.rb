@@ -100,7 +100,8 @@ class ResumesController < ApplicationController
         update_photo(@resume)
         update_video(@resume)
         # format.html { redirect_to edit_resume_path(@resume), notice: 'Updated' }
-        format.html { render "/resumes/page_view.html.erb", notice: 'Resume was succesfully Updated'}
+        @action = params[:commit] == 'Save' ? 'edit' : 'show'
+        format.html { render @action, notice: 'Resume was succesfully Updated'}
         format.json { render json: @resume }
       else
         format.html { render :edit }

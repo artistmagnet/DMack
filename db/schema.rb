@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151226120452) do
+ActiveRecord::Schema.define(version: 20160104120613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -206,7 +206,7 @@ ActiveRecord::Schema.define(version: 20151226120452) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
-    t.text     "rcolumns",   default: "{}"
+    t.text     "rcolumns",   default: ""
   end
 
   create_table "resume_sections", force: true do |t|

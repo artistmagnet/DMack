@@ -11,13 +11,13 @@
           <section class="list-resumes">            
             <div class="row">
                 
-              <div class="col-md-4 resume_attribute">
+              <div class="col-md-3 resume_attribute">
                <%= show_attribute(@resume)%>
                
                </div>
 
                
-              <div class="col-md-4 contact_block">
+              <div class="col-md-5 contact_block">
                  <h2><%=@resume.contact_info.nick_name.upcase%></h2>
                  <% if @resume.try(:performer_type).present?%>
                   <h4><%=@resume.try(:performer_type).upcase%></h4>
@@ -54,7 +54,7 @@
                      <% @resume.representations.each do |representation|%>
                      
                       
-                      <div class="col-md-2"><%= raw(representation.rcolumns.html_safe) %></div>
+                      <div class="col-md-10"><%= raw(representation.rcolumns.html_safe) %></div>
                       
               </div>
                       <%end%>                 
@@ -79,10 +79,10 @@
             <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>2).first.try(:section_name)%></strong>
               
-                   <% @resume.educations.each do |education|%>
-                    <div class="row">
+                   <% @resume.educations.each_with_index do |education,index|%>
+                    <div class="row" id="<%=get_bold_row_id(education)%>">
                       <% education.ecolumns.each do |col|%>
-                      <div class="col-md-2" id="<%=education.is_bold.present? ? "bold_col" : ""%>"><%= col.capitalize %></div>
+                      <div class="<%=get_title_row_class(index)%>"><%= col.capitalize %></div>
                       <%end%>
                     </div> 
                     <%end%>                 
@@ -191,9 +191,9 @@
              
                   <%#=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>"custom"%>
                    <% @resume.customs.each do |custom|%>
-                    <div class="row">
+                    <div class="row" id="<%=get_bold_row_id(custom)%>">
                      <% custom.ccolumns.each do |col|%>
-                      <div class="col-md-2" id="<%=custom.is_bold.present? ? "bold_col" : ""%>"><%= col.capitalize %></div>
+                      <div class="col-md-2"><%= col.capitalize %></div>
                       <%end%>
                     </div> 
                     <%end%>

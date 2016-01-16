@@ -1,7 +1,11 @@
 <div id="container">
 <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="Education/Training" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
 <a class="btn btn-default add_bold pull-right" data-association="Education/Training" href="javascript:void(0)" title="Toogle Bold/Unbold the Title Row">B</a>
-                   
+<%#=f.fields_for :resume_sections do |s|%> 
+  <%#= s.text_field :section_name,:value=>"Education/Training",:class=>"resume_section section_heading"%>
+  <%#= s.hidden_field :position,:class=>"resume_section section_heading"%>
+  <%#= s.hidden_field :section_id,:value=>2,:class=>"resume_section section_heading"%>
+<%#end%>                  
                    <input class="resume_section section_heading" id="resume_resume_sections_attributes_1_name" name="resume[resume_sections_attributes][1][section_name]" type="" value="Education/Training"> 
                   </div>
                     
@@ -11,7 +15,7 @@
                      <thead> 
                     <%=render 'resumes/nested/education_cols_remove', :section => "educations"%>
                     </thead>
-                    <tbody class="sortable render_education_table">
+                    <tbody class="moveable render_education_table">
                     <!-- <li class="sortable"> -->
                     
                       <!-- <div class="rtable_cols"></div> -->

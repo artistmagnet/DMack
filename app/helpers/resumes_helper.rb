@@ -115,4 +115,12 @@ module ResumesHelper
 	end	
 
 
+    def get_title_row_class(index)
+    	index == 0 ? "col-md-2 diminished-font" : "col-md-2"
+    end	
+
+    def get_bold_row_id(service)
+    	service.is_bold.present? ? "bold_col" : ""
+    end	
+
 end

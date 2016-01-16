@@ -437,7 +437,10 @@
     $( ".sortable" ).sortable({
       revert: true
     });
-
+    $( ".moveable" ).sortable({
+      revert: true,
+      items: 'tr:not(.ui-state-disabled)'
+    });
     $( ".sortable12" ).sortable({
       revert: true,
       handle: '#container'
@@ -494,7 +497,7 @@ $(document).on('click','li a.additional_headshot',function(){
   $(".video").hide();
   $("#myModal").modal('show');  
 });
-
+<% unless params[:action] == 'edit' %>
 $(document).on('click','.save',function(e){
   e.preventDefault();
   var value = $(this).val();
@@ -504,27 +507,31 @@ $(document).on('click','.save',function(e){
   else{
     $(".save_option").val("Save & View!");
   }
-  $("#new_resume").validate({
-    focusInvalid: false,
-    messages: {
-      "resume[resume_type]": "You are required to select a Resume Type"
-    },
-    invalidHandler: function(form, validator) {
-        
-        if (!validator.numberOfInvalids())
-            return;
-        
-        $('html, body').animate({
-            scrollTop: $(validator.errorList[0].element).offset().top
-        }, 1000);
-        
-    }
-  });  
+  
+    $("#new_resume").validate({
+      focusInvalid: false,
+      messages: {
+        "resume[resume_type]": "You are required to select a Resume Type"
+      },
+      invalidHandler: function(form, validator) {
+          
+          if (!validator.numberOfInvalids())
+              return;
+          
+          $('html, body').animate({
+              scrollTop: $(validator.errorList[0].element).offset().top
+          }, 1000);
+          
+      }
+    });  
 
-  if($("#new_resume").valid()){
-    $("#saveModal").modal('show');
-  } 
+    if($("#new_resume").valid()){
+      $("#saveModal").modal('show');
+    } 
+  
+ 
 });
+ <%end%>
 $(document).on('click','.resume_save',function(){
   var toReturn = true;
    if (!$(".resume_name").val()) {
@@ -805,6 +812,7 @@ $(document).on('click','#add_more_images',function(){
     new_tr.find('td').each(function(i,el){
         var tr_input = $(el).find('input');
         tr_input.attr('placeholder','').val('');
+        tr_input.attr('value','');
         var id_val = tr_input.attr('id');
         if(i<6){
           if(id_val=="1"||id_val=="2"||id_val=="3"||id_val=="4"||id_val=="5"||id_val=="6"){
@@ -830,17 +838,14 @@ $(document).on('click','#add_more_images',function(){
   }
   else{
     var in_val = $(link).closest('table').attr('class').split(" ")[0];
-    if(in_val =='representation'){
-      $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/representation_cols_remove',:section=>'representations')%>");
+   
+    if(in_val =='customs'){
+      $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/custom_cols_remove',:section=>'customs')%>");
     }
-    else{
-      if(in_val =='customs'){
-        $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/custom_cols_remove',:section=>'customs')%>");
-      }
-      else{  
-        $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/education_cols_remove',:section=>'educations')%>");
-      }
+    else{  
+      $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/education_cols_remove',:section=>'educations')%>");
     }
+    
     var table = $('table#demo');
       $(table).dragtable('destroy').dragtable({
                           revert: true,               // smooth revert
@@ -923,29 +928,29 @@ $(document).on('click','#add_more_images',function(){
       $(this).closest('tr').remove();
   }) ;
 
-  $(window).on('load',function(){
-    var col5=$(".custom.col5").map(function(){if (this.value!=''){return this.value}})
-    var col6=$(".custom.col6").map(function(){if (this.value!=''){return this.value}})
-    if (col5.length!=0){$(".custom.col5").map(function(){return $(this).css("display","block")})}else{$('.custom.col5').hide();}
-    if (col6.length!=0){$(".custom.col6").map(function(){return $(this).css("display","block")})}else{$('.custom.col6').hide();}
+  // $(window).on('load',function(){
+  //   var col5=$(".custom.col5").map(function(){if (this.value!=''){return this.value}})
+  //   var col6=$(".custom.col6").map(function(){if (this.value!=''){return this.value}})
+  //   if (col5.length!=0){$(".custom.col5").map(function(){return $(this).css("display","block")})}else{$('.custom.col5').hide();}
+  //   if (col6.length!=0){$(".custom.col6").map(function(){return $(this).css("display","block")})}else{$('.custom.col6').hide();}
    
-    var $modules = $('#sort-section .ui-state-default');
-    var order = "<%=@section_order if @section_order.present? %>"
+  //   var $modules = $('#sort-section .ui-state-default');
+  //   var order = "<%=@section_order if @section_order.present? %>"
 
-    var wrapper = document.getElementById('sort-section');
-    for (var i = 0, l = order.length; i < l; i++) {
-        wrapper.appendChild($modules.get(order[i]-1));
-    }
+  //   var wrapper = document.getElementById('sort-section');
+  //   for (var i = 0, l = order.length; i < l; i++) {
+  //       wrapper.appendChild($modules.get(order[i]-1));
+  //   }
 
-    // $('.custom').slice(0,2).map(function(){
-    //   that=this
-    //   $('.custom').map(function(){
-    //     var df+that.id=$(".custom.col"+that.id).map(function(){return this.value})
-    //     return false
-    //   })
-    // })
+  //   // $('.custom').slice(0,2).map(function(){
+  //   //   that=this
+  //   //   $('.custom').map(function(){
+  //   //     var df+that.id=$(".custom.col"+that.id).map(function(){return this.value})
+  //   //     return false
+  //   //   })
+  //   // })
     
-  }); 
+  // }); 
 
   $("body").on("change","#files-input",function(){
     // debugger
