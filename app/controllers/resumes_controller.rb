@@ -41,6 +41,7 @@ class ResumesController < ApplicationController
     @role = @resume.roles.build
     @roles = @resume.roles
     @section_order=@resume.resume_sections.last(5).collect(&:section_id)
+    @sections = @resume.resume_sections
     $session_image_id =[]   
     @videos = @resume.videos
   end
@@ -264,6 +265,7 @@ class ResumesController < ApplicationController
     @role = @resume.roles.build
     @resume.build_contact_info
     @resume.build_resume_attribute
+    
     @resume.photos.build
     @resume.theatres.build
     @resume.educations.build

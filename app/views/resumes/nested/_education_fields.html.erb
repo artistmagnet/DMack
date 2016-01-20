@@ -4,7 +4,7 @@
     <!-- <div class="col-sm-1"> 
         <img width="30px;" alt="Icon" src="/assets/drag.jpg">
       </div> -->
-  <tr class="ui-state-disabled">    
+  <tr class="ui-state-disabled" id="bold_col">    
     <td class="col-sm-2 drag-enable">      
       <input class="form-control diminished-font educations education col1" name="resume[educations_attributes][0][ecolumns][]" value="Institution" placeholder="Institution" type="text" id="1">
       <%#= education(e).present? ? !education(e)[1].blank? ? education(e)[1] : "" : ""%>
@@ -32,7 +32,7 @@
     </td>
     <td class="col-sm-1 drag-enable">
       <!-- <a class="btn btn-default remove_row" title="Remove Row" data-association="educations" data-success="true" href="javascript:void(0)" data-confirm='Are you sure?'>-</a> -->
-      <%=hidden_field_tag 'resume[educations_attributes][0][is_bold]',"",:class=>"tr_bold"%>
+      <%=hidden_field_tag 'resume[educations_attributes][0][is_bold]',true,{:class=>"tr_bold"}%>
     </td>
    </tr> 
     

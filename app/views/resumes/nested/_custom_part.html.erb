@@ -1,11 +1,12 @@
  <div id="container">
  <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="Custom" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
- <a class="btn btn-default add_bold pull-right" data-association="Custom" href="javascript:void(0)" title="Toogle Bold/Unbold the Title Row">B</a>
-  <%#=f.fields_for :resume_sections do |c|%> 
-  <%#= c.text_field :section_name,:value=>"Custom",:class=>"resume_section section_heading"%>
+ <%#section = ResumeSection.new %>
+<%#=f.fields_for :resume_sections,section, child_index: section.object_id do |c|%> 
+  <%#= c.text_field :section_name,:class=>"resume_section section_heading"%>
   <%#= c.hidden_field :position,:class=>"resume_section section_heading"%>
   <%#= c.hidden_field :section_id,:value=>4,:class=>"resume_section section_heading"%>
-<%#end%>                  
+<%#end%> 
+<!-- </div>                  -->
                     <input class="resume_section section_heading" id="resume_resume_sections_attributes_3_name" name="resume[resume_sections_attributes][3][section_name]" type="" value="Custom"> 
                      </div>
                     <input class="resume_section" id="resume_resume_sections_attributes_3_position" name="resume[resume_sections_attributes][3][position]" type="hidden">
@@ -14,7 +15,7 @@
                      <thead> 
                       <%=render 'resumes/nested/custom_cols_remove', :section=>"customs"%>
                     </thead>
-                    <tbody class="sortable render_education_table">
+                    <tbody class="moveable render_education_table">
                     <!-- <li class="sortable"> -->
                       <!-- <div class="rtable_cols"></div> -->
                       <%=render 'resumes/nested/custom_fields',:cust=>f%>

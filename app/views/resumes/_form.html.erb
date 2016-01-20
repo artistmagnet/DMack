@@ -433,183 +433,183 @@
   </style>
   
   <script>
-  $(function() {
-    $( ".sortable" ).sortable({
-      revert: true
+    $(function() {
+      $( ".sortable" ).sortable({
+        revert: true
+      });
+      $( ".moveable" ).sortable({
+        revert: true,
+        items: 'tr:not(.ui-state-disabled)'
+      });
+      $( ".sortable12" ).sortable({
+        revert: true,
+        handle: '#container'
+      });
+    
     });
-    $( ".moveable" ).sortable({
-      revert: true,
-      items: 'tr:not(.ui-state-disabled)'
-    });
-    $( ".sortable12" ).sortable({
-      revert: true,
-      handle: '#container'
-    });
-  
-  });
 
   </script>
 
   <script>
-  //File upload
-  function getSize(obj,reader){
-    var file = obj.files[0];
-    if(file.size/1024 > 250){
-      alert("The image you are attempting to upload is over 250kb. Please select an image less than 250kb.");
-    }
-    else{
-      reader.readAsDataURL(file);
-    }
-  }
-//File upload
-$(function(){
-  Test = {
-  UpdatePreviewMain: function(obj,data){
-  // if IE < 10 doesn't support FileReader
-  if(!window.FileReader){
-  // don't know how to proceed to assign src to image tag
-    } else {
-    var reader = new FileReader();
-    var target = null;
-    reader.onload = function(e) {
-      target = e.target || e.srcElement;
-      if(data == 'media_image')
-        $(".main-image").prop("src", target.result);
-      else
-        $(".additional_media_"+data).prop("src", target.result);
-        $(".additional_media_"+data).parent().prepend("<a href='javascript:void(0)' class='close_button'>X</a>");
-    };
-    getSize(obj,reader);
-    }
-
-  }
-  };
-});
-
-
-
-$(document).on('click','#holder > ul.preview-area > li a.close_button',function(){
-   $(this).closest('li').remove();
-
-});
-$(document).on('click','li a.additional_headshot',function(){
-  $(".headshot").show();
-  $(".video").hide();
-  $("#myModal").modal('show');  
-});
-<% unless params[:action] == 'edit' %>
-$(document).on('click','.save',function(e){
-  e.preventDefault();
-  var value = $(this).val();
-  if(value == 'Save'){
-    $(".save_option").val("Save");
-  }
-  else{
-    $(".save_option").val("Save & View!");
-  }
-  
-    $("#new_resume").validate({
-      focusInvalid: false,
-      messages: {
-        "resume[resume_type]": "You are required to select a Resume Type"
-      },
-      invalidHandler: function(form, validator) {
-          
-          if (!validator.numberOfInvalids())
-              return;
-          
-          $('html, body').animate({
-              scrollTop: $(validator.errorList[0].element).offset().top
-          }, 1000);
-          
+    //File upload
+    function getSize(obj,reader){
+      var file = obj.files[0];
+      if(file.size/1024 > 250){
+        alert("The image you are attempting to upload is over 250kb. Please select an image less than 250kb.");
       }
-    });  
-
-    if($("#new_resume").valid()){
-      $("#saveModal").modal('show');
-    } 
-  
- 
-});
- <%end%>
-$(document).on('click','.resume_save',function(){
-  var toReturn = true;
-   if (!$(".resume_name").val()) {
-       $("#err_name").show();    
-       toReturn = false;
-   }
-
-  else{  
-    if($.isEmptyObject($.find(".threatr-section .roles-table.h-movable"))){
-      alert("You must add at least 1 Theatre Credit on order to save your Resume");
+      else{
+        reader.readAsDataURL(file);
+      }
     }
-    else{ 
-      $("#new_resume").valid();
-      var name = $(".resume_name").val();
-      $("#resume_resume_name").val(name);
-      $("#new_resume").submit();
-    }
-  }
-  return toReturn;
-});
+    //File upload
+    $(function(){
+      Test = {
+      UpdatePreviewMain: function(obj,data){
+      // if IE < 10 doesn't support FileReader
+      if(!window.FileReader){
+      // don't know how to proceed to assign src to image tag
+        } else {
+        var reader = new FileReader();
+        var target = null;
+        reader.onload = function(e) {
+          target = e.target || e.srcElement;
+          if(data == 'media_image')
+            $(".main-image").prop("src", target.result);
+          else
+            $(".additional_media_"+data).prop("src", target.result);
+            $(".additional_media_"+data).parent().prepend("<a href='javascript:void(0)' class='close_button'>X</a>");
+        };
+        getSize(obj,reader);
+        }
 
-$(document).on('click','a.additional_video',function(){
-  $(".video").show();
-  $(".headshot").hide();
-  $("#myModal").modal('show');  
-});
-$('.photo-section').tooltip();
-$(document).on('click','#holder > ul.preview-area > li > img',function(){
-  var data_val = $(this).closest('li').find('input[type="file"]').attr('data');
-  $("#file-input-"+data_val).trigger('click');
-});
-// $(document).on('click','.additional_media_2',function(){
-//   $("#file-input-2").trigger('click');
-// });
-$(document).on('click','a.additional_video_url,a.add_video',function(){
-  $("#myVideoModal").modal('show');  
-});
+      }
+      };
+    });
 
-$(document).on('click','.continue_button',function(){
-  $('.stage_name').focus();  
-});
-$(document).on('click','button.submit_button',function(){
-  var url = $("#resume_video").val();
-  $.ajax({
-    type: "POST",
-    url: "<%= add_videos_url %>",
-    dataType: "script",
-    data: {"video":{"video_url" : url}}
-  });
-});
 
-$(document).on('click','#add_more_images',function(){
-  
-  var img1 = $(".additional_media_1").attr('src') || undefined;
-  var img2 = $(".additional_media_2").attr('src') || undefined;
-  var img3 = $(".main-image").attr('src');
 
-  if((img1 == undefined || img2 == undefined || (img1 == undefined && img2 == undefined)) || img1.search("data:image") != -1 && img2.search("data:image") != -1 && img3.search("data:image") != -1){
+    $(document).on('click','#holder > ul.preview-area > li a.close_button',function(){
+       $(this).closest('li').remove();
+
+    });
+    $(document).on('click','li a.additional_headshot',function(){
+      $(".headshot").show();
+      $(".video").hide();
+      $("#myModal").modal('show');  
+    });
+    <% unless params[:action] == 'edit' %>
+      $(document).on('click','.save',function(e){
+        e.preventDefault();
+        var value = $(this).val();
+        if(value == 'Save'){
+          $(".save_option").val("Save");
+        }
+        else{
+          $(".save_option").val("Save & View!");
+        }
+        
+          $("#new_resume").validate({
+            focusInvalid: false,
+            messages: {
+              "resume[resume_type]": "You are required to select a Resume Type"
+            },
+            invalidHandler: function(form, validator) {
+                
+                if (!validator.numberOfInvalids())
+                    return;
+                
+                $('html, body').animate({
+                    scrollTop: $(validator.errorList[0].element).offset().top
+                }, 1000);
+                
+            }
+          });  
+
+          if($("#new_resume").valid()){
+            $("#saveModal").modal('show');
+          } 
+        
+       
+      });
+    <%end%>
     
-    if(img3.search("blankUser")==-1){
-    
-      var li_data = parseInt($("#holder > ul.preview-area > li:last-child > input").attr('data'));
+    $(document).on('click','.resume_save',function(){
+      var toReturn = true;
+       if (!$(".resume_name").val()) {
+           $("#err_name").show();    
+           toReturn = false;
+       }
+
+      else{  
+        if($.isEmptyObject($.find(".threatr-section .roles-table.h-movable"))){
+          alert("You must add at least 1 Theatre Credit on order to save your Resume");
+        }
+        else{ 
+          $("#new_resume").valid();
+          var name = $(".resume_name").val();
+          $("#resume_resume_name").val(name);
+          $("#new_resume").submit();
+        }
+      }
+      return toReturn;
+    });
+
+    $(document).on('click','a.additional_video',function(){
+      $(".video").show();
+      $(".headshot").hide();
+      $("#myModal").modal('show');  
+    });
+    $('.photo-section').tooltip();
+
+    $(document).on('click','#holder > ul.preview-area > li > img',function(){
+      var data_val = $(this).closest('li').find('input[type="file"]').attr('data');
+      $("#file-input-"+data_val).trigger('click');
+    });
+
+    $(document).on('click','a.additional_video_url,a.add_video',function(){
+      $("#myVideoModal").modal('show');  
+    });
+
+    $(document).on('click','.continue_button',function(){
+      $('.stage_name').focus();  
+    });
+    $(document).on('click','button.submit_button',function(){
+      var url = $("#resume_video").val();
+      $.ajax({
+        type: "POST",
+        url: "<%= add_videos_url %>",
+        dataType: "script",
+        data: {"video":{"video_url" : url}}
+      });
+    });
+
+    $(document).on('click','#add_more_images',function(){
       
-      if (isNaN(li_data)) 
-        li_data = 1;
-      else
-        li_data++; 
-      $("#holder > ul.preview-area").append('<li><img src="<%= asset_path('blankUser.png')%>" width="60" class="additional additional_media_'+li_data+'"/><input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'+li_data+')" name="resume[image]" id="file-input-'+li_data+'" class="form-control" data="'+li_data+'" accept="image/*"></li>');
-   }
-    else{
-      alert("Please use the available media first");
-    }
-  }
-  else{
-    alert("Please use the available media first");
-  } 
-  
-});
+      var img1 = $(".additional_media_1").attr('src') || undefined;
+      var img2 = $(".additional_media_2").attr('src') || undefined;
+      var img3 = $(".main-image").attr('src');
+
+      if((img1 == undefined || img2 == undefined || (img1 == undefined && img2 == undefined)) || img1.search("data:image") != -1 && img2.search("data:image") != -1 && img3.search("data:image") != -1){
+        
+        if(img3.search("blankUser")==-1){
+        
+          var li_data = parseInt($("#holder > ul.preview-area > li:last-child > input").attr('data'));
+          
+          if (isNaN(li_data)) 
+            li_data = 1;
+          else
+            li_data++; 
+          $("#holder > ul.preview-area").append('<li><img src="<%= asset_path('blankUser.png')%>" width="60" class="additional additional_media_'+li_data+'"/><input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'+li_data+')" name="resume[image]" id="file-input-'+li_data+'" class="form-control" data="'+li_data+'" accept="image/*"></li>');
+       }
+        else{
+          alert("Please use the available media first");
+        }
+      }
+      else{
+        alert("Please use the available media first");
+      } 
+      
+    });
 
     $(document).on('click',"#select_resume_type",function(){
       if($("#select_resume_type:checked").val()=="Production Member")  
@@ -632,68 +632,85 @@ $(document).on('click','#add_more_images',function(){
     
     });
     
-  $(".attributes-info-add").click(function(){
-    $(this).hide();
-  });
+    $(".attributes-info-add").click(function(){
+      $(this).hide();
+    });
 
-  //Remove Confirmation
-  
-  $("body").on("click",".remove_nested_field",function(){
-    if (confirm("Are you sure? This will delete the entire Section and all your changes will be lost.")) {      
-      if (($(this).data("success")) || ($(this).data("association")=="skills") || ($(this).data("association")=="others")){
-
-        if (($(this).hasClass("remove_columns")) || ($($(this).parents().eq(3)).find(".fields").filter(function() { return $(this).css("display") == "block" }).length==1)){
-          $($(this).parents().eq(4).hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Undo '+$(this).data("association")+'</a></li>');
+    $("body").on("click",".remove_title_row",function(){
+      if (confirm("Are you sure? This will delete the title row and all your changes will be lost.")) {      
+        if (($(this).data("success"))) {
+          $($(this).closest('tr').hide()).after('<tr class="ui-state-default undo_row"><td class="col-sm-2"><a class="btn btn-default add_section">Undo Title Row</a></td></tr>');
         }
         else{
-          if($(this).hasClass("remove_education")){
-            $($(this).parent().parent().hide()).after('<li class="ui-state-default sections" section='+$(this).data("association")+'><a class="btn btn-default add_section">Add New '+$(this).data("association")+' Section</a></li>');
-            
+          $(this).trigger();
+        }
+      }
+        return false;
+    });
+
+    $("body").on("click",".undo_row",function(){
+      $(this).closest('tr').remove();
+      $('tr.custom_row').show();
+    });
+
+    //Remove Confirmation
+    
+    $("body").on("click",".remove_nested_field",function(){
+      if (confirm("Are you sure? This will delete the entire Section and all your changes will be lost.")) {      
+        if (($(this).data("success")) || ($(this).data("association")=="skills") || ($(this).data("association")=="others")){
+
+          if (($(this).hasClass("remove_columns")) || ($($(this).parents().eq(3)).find(".fields").filter(function() { return $(this).css("display") == "block" }).length==1)){
+            $($(this).parents().eq(4).hide()).after('<li class="ui-state-default sections"><a class="btn btn-default add_section">Undo '+$(this).data("association")+'</a></li>');
           }
           else{
-            $(this).trigger();
+            if($(this).hasClass("remove_education")){
+              $($(this).parent().parent().hide()).after('<li class="ui-state-default sections" section='+$(this).data("association")+'><a class="btn btn-default add_section">Add New '+$(this).data("association")+' Section</a></li>');
+              
+            }
+            else{
+              $(this).trigger();
+            }
           }
+        }else{
+          $(this).trigger();
         }
-      }else{
-        $(this).trigger();
       }
-    }
-      return false;
-  });
+        return false;
+    });
  
 
-  $(document).on('click','.get_columns',function(){
-    // debugger
-    $($(this).parents().eq(2).find('.nested_skill_attr')).each(function(index){return this.value=index})
-    $($(this).parents().eq(2).find('.nested_theatre_attr')).each(function(index){return this.value=index})  
-    $($(this).parents().eq(2).find('.nested_education_attr')).each(function(index){return this.value=index})
-    $($(this).parents().eq(2).find('.nested_repr_attr')).each(function(index){return this.value=index})
-    $($(this).parents().eq(2).find('.nested_custom_attr')).each(function(index){return this.value=index})    
-    $($(this).parents().eq(2).find('.nested_other_attr')).each(function(index){return this.value=index})
+    $(document).on('click','.get_columns',function(){
+      // debugger
+      $($(this).parents().eq(2).find('.nested_skill_attr')).each(function(index){return this.value=index})
+      $($(this).parents().eq(2).find('.nested_theatre_attr')).each(function(index){return this.value=index})  
+      $($(this).parents().eq(2).find('.nested_education_attr')).each(function(index){return this.value=index})
+      $($(this).parents().eq(2).find('.nested_repr_attr')).each(function(index){return this.value=index})
+      $($(this).parents().eq(2).find('.nested_custom_attr')).each(function(index){return this.value=index})    
+      $($(this).parents().eq(2).find('.nested_other_attr')).each(function(index){return this.value=index})
 
-    var columns=$('.education').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.value}}).get();
-    var positions=$('.education').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.id}}).get();
-    var custom_cols=$('.custom_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.value}}).get();
-    var custom_pos=$('.custom_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.id}}).get();
-    var repr_cols=$('.repr_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.value}}).get();
-    var repr_pos=$('.repr_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.id}}).get();
-    
-    $('.rtable_cols').html("<input type='hidden' name='column' value='"+columns+"'><input type='hidden' name='positions' value='"+positions+"'>").append("<input type='hidden' name='custom_cols' value='"+custom_cols+"'><input type='hidden' name='custom_pos' value='"+custom_pos+"'><input type='hidden' name='repr_cols' value='"+repr_cols+"'><input type='hidden' name='repr_pos' value='"+repr_pos+"'>")
-    // debugger
-    $($(this).parents().eq(2)).find(".sections.education .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
-    $($(this).parents().eq(2)).find(".sections.customs .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
-    $($(this).parents().eq(2)).find(".sections.representation .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
-    // return false
-    $($(this).parents().eq(2)).find(".sections.others .fields").filter(function() { 
-      if ($(this).css("display") == "none"){
-        $(this).find('.form-control').val('')
-      }
-    })    
-    // $('.ui-state-default').find('input.resume_section').map(function(index){return this.value=index})
-    // get_status()
-    // return get_status()
-  });
-   $(document).on('keydown','#container > input,table#demo td > input[type=text],.form-group input[type=text]',function(e) {
+      var columns=$('.education').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.value}}).get();
+      var positions=$('.education').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.id}}).get();
+      var custom_cols=$('.custom_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.value}}).get();
+      var custom_pos=$('.custom_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.id}}).get();
+      var repr_cols=$('.repr_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.value}}).get();
+      var repr_pos=$('.repr_cols').filter(function() { return $(this).css("display") == "block" }).map(function(){if (this.value!=''){return this.id}}).get();
+      
+      $('.rtable_cols').html("<input type='hidden' name='column' value='"+columns+"'><input type='hidden' name='positions' value='"+positions+"'>").append("<input type='hidden' name='custom_cols' value='"+custom_cols+"'><input type='hidden' name='custom_pos' value='"+custom_pos+"'><input type='hidden' name='repr_cols' value='"+repr_cols+"'><input type='hidden' name='repr_pos' value='"+repr_pos+"'>")
+      // debugger
+      $($(this).parents().eq(2)).find(".sections.education .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
+      $($(this).parents().eq(2)).find(".sections.customs .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
+      $($(this).parents().eq(2)).find(".sections.representation .form-control").filter(function() { return $(this).css("display") == "none" }).map(function(){return this.value=''})
+      // return false
+      $($(this).parents().eq(2)).find(".sections.others .fields").filter(function() { 
+        if ($(this).css("display") == "none"){
+          $(this).find('.form-control').val('')
+        }
+      })    
+      // $('.ui-state-default').find('input.resume_section').map(function(index){return this.value=index})
+      // get_status()
+      // return get_status()
+    });
+    $(document).on('keydown','#container > input,table#demo td > input[type=text],.form-group input[type=text]',function(e) {
         var key = e.charCode ? e.charCode : e.keyCode ? e.keyCode : 0;
         if(key == 13) {
             e.preventDefault();
@@ -710,13 +727,13 @@ $(document).on('click','#add_more_images',function(){
     });
 
 
-  $(document).on("click",".remove_others",function(){
-    $(this).parents().eq(2).hide().after( "<div align='right'><input type='button' name='undo' value='Undo' class='show_others'></div>" );
-  });
+    $(document).on("click",".remove_others",function(){
+      $(this).parents().eq(2).hide().after( "<div align='right'><input type='button' name='undo' value='Undo' class='show_others'></div>" );
+    });
 
-  $(document).on("click",".show_others",function(){
-    $(this).parent().hide().prev().show();
-  });
+    $(document).on("click",".show_others",function(){
+      $(this).parent().hide().prev().show();
+    });
 
   // $(document).on("click",'.tag',function(){
   //   if ($('.sections.others').find('.tag').length==0){
@@ -751,41 +768,41 @@ $(document).on('click','#add_more_images',function(){
   //   return stats
   // }
 
-  function auto_grow(element) {
-            element.style.height = "5px";
-            element.style.height = (element.scrollHeight)+"px";
-        }
+    function auto_grow(element) {
+      element.style.height = "5px";
+      element.style.height = (element.scrollHeight)+"px";
+    }
 
-  $("body").on("click",".cross_icon1",function(){
-    // $(this).parents().eq(1).remove()
-  })
+    $("body").on("click",".cross_icon1",function(){
+      // $(this).parents().eq(1).remove()
+    })
   // var edu_clone = [];
   // $(document).ready(function(){
   //    edu_clone.push($("#resume_section_1").clone());
   // });  
   
 
-  $(document).on("click",".add_other_section",function(){
-    $(this).parent().hide()
-    $('.sections.others').show().find(".fields").map(function(index){ if (index!=0) {return $(this).hide()}})
-  })
+    $(document).on("click",".add_other_section",function(){
+      $(this).parent().hide()
+      $('.sections.others').show().find(".fields").map(function(index){ if (index!=0) {return $(this).hide()}})
+    })
 
-  $(document).on("click",".add_nested_fields",function(){
+    $(document).on("click",".add_nested_fields",function(){
+      // debugger
+      // var obj = {};
+      // obj=["education","custom_cols"]
+      // $.each(obj, function(key, value)
+      // {
+
+      //     // document.writeln('<li>[' + key + ']: ' + value + "</li>\n");
+      // });
     // debugger
-    // var obj = {};
-    // obj=["education","custom_cols"]
-    // $.each(obj, function(key, value)
-    // {
-
-    //     // document.writeln('<li>[' + key + ']: ' + value + "</li>\n");
-    // });
-  // debugger
-    $( ".datepicker" ).datepicker();
-    $($($(this).parent().find(".education")).filter(function() { return $(this).css("display") == "none" })).map(function(){return $(this).parents().eq(3).find(".col"+this.id).hide()});
-    $($($(this).parent().find(".custom_cols")).filter(function() { return $(this).css("display") == "none" })).map(function(){return $(this).parents().eq(3).find(".col"+this.id).hide()});
-    $($($(this).parent().find(".repr_cols")).filter(function() { return $(this).css("display") == "none" })).map(function(){return $(this).parents().eq(3).find(".col"+this.id).hide()});
-    // tags()
-  })
+      $( ".datepicker" ).datepicker();
+      $($($(this).parent().find(".education")).filter(function() { return $(this).css("display") == "none" })).map(function(){return $(this).parents().eq(3).find(".col"+this.id).hide()});
+      $($($(this).parent().find(".custom_cols")).filter(function() { return $(this).css("display") == "none" })).map(function(){return $(this).parents().eq(3).find(".col"+this.id).hide()});
+      $($($(this).parent().find(".repr_cols")).filter(function() { return $(this).css("display") == "none" })).map(function(){return $(this).parents().eq(3).find(".col"+this.id).hide()});
+      // tags()
+    })
 
   // $(document).on("click",".remove_cols",function(){    
   //   ($(this).text()=="Remove") ? ($(this).text("Undo")) : ($(this).text("Remove"))
@@ -799,183 +816,183 @@ $(document).on('click','#add_more_images',function(){
   //   }
   // });
   
-  $(function () {
-    window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
-    var $tr = $(link).closest('table').find('tbody tr:last');
-    var one_day = 24 * 3600 * 1000;
-    var d = new Date();
-    var new_id = d.getTime() % one_day + 10000;
-    // var new_id = new Date().getTime();
-    var new_tr = $($tr).clone();
-    var count = new_tr.find('td').length;
-    if(count>1){
-    new_tr.find('td').each(function(i,el){
-        var tr_input = $(el).find('input');
-        tr_input.attr('placeholder','').val('');
-        tr_input.attr('value','');
-        var id_val = tr_input.attr('id');
-        if(i<6){
-          if(id_val=="1"||id_val=="2"||id_val=="3"||id_val=="4"||id_val=="5"||id_val=="6"){
-            var name = tr_input.attr('name');
-            var new_name = "resume[educations_attributes]["+new_id+"]["+name+"][]";
-            tr_input.attr('name',new_name);
-            tr_input.attr('id',"resume_educations_attributes_"+new_id+"_"+name);
-            
-          }
-          else{
-            if(id_val){
-              var id_arr = id_val.split("_");
-              id_arr[3] = new_id; 
-              var new_name = id_arr[0]+"["+id_arr[1]+"_"+id_arr[2]+"]"+"["+id_arr[3]+"]"+"["+id_arr[4]+"][]";
+    $(function () {
+      window.NestedFormEvents.prototype.insertFields = function(content, assoc, link) {
+      var $tr = $(link).closest('table').find('tbody tr:last');
+      var one_day = 24 * 3600 * 1000;
+      var d = new Date();
+      var new_id = d.getTime() % one_day + 10000;
+      // var new_id = new Date().getTime();
+      var new_tr = $($tr).clone();
+      var count = new_tr.find('td').length;
+      if(count>1){
+      new_tr.find('td').each(function(i,el){
+          var tr_input = $(el).find('input');
+          tr_input.attr('placeholder','').val('');
+          tr_input.attr('value','');
+          var id_val = tr_input.attr('id');
+          if(i<6){
+            if(id_val=="1"||id_val=="2"||id_val=="3"||id_val=="4"||id_val=="5"||id_val=="6"){
+              var name = tr_input.attr('name');
+              var new_name = "resume[educations_attributes]["+new_id+"]["+name+"][]";
               tr_input.attr('name',new_name);
-              $(el).find('input').attr('id',id_arr.join("_"));
+              tr_input.attr('id',"resume_educations_attributes_"+new_id+"_"+name);
+              
             }
+            else{
+              if(id_val){
+                var id_arr = id_val.split("_");
+                id_arr[3] = new_id; 
+                var new_name = id_arr[0]+"["+id_arr[1]+"_"+id_arr[2]+"]"+"["+id_arr[3]+"]"+"["+id_arr[4]+"][]";
+                tr_input.attr('name',new_name);
+                $(el).find('input').attr('id',id_arr.join("_"));
+              }
+            } 
           } 
-        } 
-    });
-    new_tr = "<tr class='fields'>"+new_tr.html()+"</tr>";
-    return $(new_tr).insertAfter($tr);
-  }
-  else{
-    var in_val = $(link).closest('table').attr('class').split(" ")[0];
-   
-    if(in_val =='customs'){
-      $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/custom_cols_remove',:section=>'customs')%>");
-    }
-    else{  
-      $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/education_cols_remove',:section=>'educations')%>");
-    }
-    
-    var table = $('table#demo');
-      $(table).dragtable('destroy').dragtable({
-                          revert: true,               // smooth revert
-                          dragHandle: '.table-handle',
-                          cursor: 'move',
-                          dragaccept: '.drag-enable',
-                          excludeFooter: true
-                        });
-    // content = content.replace("fields","title_row fields");
-    return $(link).closest('table').find("tbody").html(content);
-
-    // return $(content).insertAfter(tbody);
-  }
-   }
-  });
- 
-
-  $(document).on("click",".add_cols",function(){
-    var table  = $(this).closest('table');
-    var count = table.find('tbody tr:last').find('td.drag-enable').length;
-    var new_id = new Date().getTime();
-    if(count==0){
-      $(table).find('tr').each(function (i,el) {
-        if(i==0){
-          $(el).find("th:nth-last-child(1)").before("<th class='col-sm-2 drag-enable'><div class='table-handle'></div><a class='btn btn-default remove_cols' id='col"+new_id+"' title='Remove Column' data-association='educations'>-</a></th>");
-        }
-        else{
-          $(el).find("td:nth-last-child(1)").before("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' id='resume_educations_attributes_"+new_id+"_x' name='' value='' placeholder='' type='text'/></td>");
-        }
-      }); 
-      var table = $('table#demo');
-      $(table).dragtable('destroy').dragtable({
-                          revert: true,               // smooth revert
-                          dragHandle: '.table-handle',
-                          cursor: 'move',
-                          dragaccept: '.drag-enable',
-                          excludeFooter: true
-                        });
-      
+      });
+      new_tr = "<tr class='fields'>"+new_tr.html()+"</tr>";
+      return $(new_tr).insertAfter($tr);
     }
     else{
-      if(count<6 && count>0)
-      {
+      var in_val = $(link).closest('table').attr('class').split(" ")[0];
+     
+      if(in_val =='customs'){
+        $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/custom_cols_remove',:section=>'customs')%>");
+      }
+      else{  
+        $(link).closest('table').find("thead").html("<%=escape_javascript render('resumes/nested/education_cols_remove',:section=>'educations')%>");
+      }
+      
+      var table = $('table#demo');
+        $(table).dragtable('destroy').dragtable({
+                            revert: true,               // smooth revert
+                            dragHandle: '.table-handle',
+                            cursor: 'move',
+                            dragaccept: '.drag-enable',
+                            excludeFooter: true
+                          });
+      // content = content.replace("fields","title_row fields");
+      return $(link).closest('table').find("tbody").html(content);
+
+      // return $(content).insertAfter(tbody);
+      }
+    }
+    });
+ 
+
+    $(document).on("click",".add_cols",function(){
+      var table  = $(this).closest('table');
+      var count = table.find('tbody tr:last').find('td.drag-enable').length;
+      var new_id = new Date().getTime();
+      if(count==0){
         $(table).find('tr').each(function (i,el) {
           if(i==0){
-            $(el).find("th:nth-last-child(2)").after("<th class='col-sm-2 drag-enable'><div class='table-handle'></div><a class='btn btn-default remove_cols' id='col"+new_id+"' title='Remove Column' data-association='educations'>-</a></th>");
+            $(el).find("th:nth-last-child(1)").before("<th class='col-sm-2 drag-enable'><div class='table-handle'></div><a class='btn btn-default remove_cols' id='col"+new_id+"' title='Remove Column' data-association='educations'>-</a></th>");
           }
           else{
-            $(el).find("td:nth-last-child(2)").after("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' id='resume_educations_attributes_"+new_id+"_x' name='' value='' placeholder='' type='text'/></td>");
-          }  
-        });
+            $(el).find("td:nth-last-child(1)").before("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' id='resume_educations_attributes_"+new_id+"_x' name='' value='' placeholder='' type='text'/></td>");
+          }
+        }); 
         var table = $('table#demo');
         $(table).dragtable('destroy').dragtable({
-                          revert: true,               // smooth revert
-                          dragHandle: '.table-handle',
-                          cursor: 'move',
-                          dragaccept: '.drag-enable',
-                          excludeFooter: true
-                        });
+                            revert: true,               // smooth revert
+                            dragHandle: '.table-handle',
+                            cursor: 'move',
+                            dragaccept: '.drag-enable',
+                            excludeFooter: true
+                          });
+        
       }
       else{
-        if(count==6){
-          alert('You cannot add more columns');
+        if(count<6 && count>0)
+        {
+          $(table).find('tr').each(function (i,el) {
+            if(i==0){
+              $(el).find("th:nth-last-child(2)").after("<th class='col-sm-2 drag-enable'><div class='table-handle'></div><a class='btn btn-default remove_cols' id='col"+new_id+"' title='Remove Column' data-association='educations'>-</a></th>");
+            }
+            else{
+              $(el).find("td:nth-last-child(2)").after("<td class='col-sm-2 drag-enable'><input class='form-control diminished-font educations col"+new_id+"' id='resume_educations_attributes_"+new_id+"_x' name='' value='' placeholder='' type='text'/></td>");
+            }  
+          });
+          var table = $('table#demo');
+          $(table).dragtable('destroy').dragtable({
+                            revert: true,               // smooth revert
+                            dragHandle: '.table-handle',
+                            cursor: 'move',
+                            dragaccept: '.drag-enable',
+                            excludeFooter: true
+                          });
         }
+        else{
+          if(count==6){
+            alert('You cannot add more columns');
+          }
+        }  
+      }
+    });
+
+    $(document).on("click",".remove_cols",function(){    
+      // ($(this).text()=="-") ? ($(this).text("X")) : ($(this).text("-"))
+      if (confirm("Are you sure?")) {      
+        var id = $(this).attr('id');
+        var assoc = $(this).data("association");
+        var my_attr = "."+ assoc +"."+ id;
+        $(my_attr).parent().remove();
+        $(this).parent().remove();
       }  
-    }
-  });
+    }); 
+    $(document).on("click",".remove_row",function(){
+        $(this).closest('tr').remove();
+    }) ;
 
-  $(document).on("click",".remove_cols",function(){    
-    // ($(this).text()=="-") ? ($(this).text("X")) : ($(this).text("-"))
-    if (confirm("Are you sure?")) {      
-      var id = $(this).attr('id');
-      var assoc = $(this).data("association");
-      var my_attr = "."+ assoc +"."+ id;
-      $(my_attr).parent().remove();
-      $(this).parent().remove();
-    }  
-  }); 
-  $(document).on("click",".remove_row",function(){
-      $(this).closest('tr').remove();
-  }) ;
+    // $(window).on('load',function(){
+    //   var col5=$(".custom.col5").map(function(){if (this.value!=''){return this.value}})
+    //   var col6=$(".custom.col6").map(function(){if (this.value!=''){return this.value}})
+    //   if (col5.length!=0){$(".custom.col5").map(function(){return $(this).css("display","block")})}else{$('.custom.col5').hide();}
+    //   if (col6.length!=0){$(".custom.col6").map(function(){return $(this).css("display","block")})}else{$('.custom.col6').hide();}
+     
+    //   var $modules = $('#sort-section .ui-state-default');
+    //   var order = "<%=@section_order if @section_order.present? %>"
 
-  // $(window).on('load',function(){
-  //   var col5=$(".custom.col5").map(function(){if (this.value!=''){return this.value}})
-  //   var col6=$(".custom.col6").map(function(){if (this.value!=''){return this.value}})
-  //   if (col5.length!=0){$(".custom.col5").map(function(){return $(this).css("display","block")})}else{$('.custom.col5').hide();}
-  //   if (col6.length!=0){$(".custom.col6").map(function(){return $(this).css("display","block")})}else{$('.custom.col6').hide();}
-   
-  //   var $modules = $('#sort-section .ui-state-default');
-  //   var order = "<%=@section_order if @section_order.present? %>"
+    //   var wrapper = document.getElementById('sort-section');
+    //   for (var i = 0, l = order.length; i < l; i++) {
+    //       wrapper.appendChild($modules.get(order[i]-1));
+    //   }
 
-  //   var wrapper = document.getElementById('sort-section');
-  //   for (var i = 0, l = order.length; i < l; i++) {
-  //       wrapper.appendChild($modules.get(order[i]-1));
-  //   }
+    //   // $('.custom').slice(0,2).map(function(){
+    //   //   that=this
+    //   //   $('.custom').map(function(){
+    //   //     var df+that.id=$(".custom.col"+that.id).map(function(){return this.value})
+    //   //     return false
+    //   //   })
+    //   // })
+      
+    // }); 
 
-  //   // $('.custom').slice(0,2).map(function(){
-  //   //   that=this
-  //   //   $('.custom').map(function(){
-  //   //     var df+that.id=$(".custom.col"+that.id).map(function(){return this.value})
-  //   //     return false
-  //   //   })
-  //   // })
-    
-  // }); 
+    $("body").on("change","#files-input",function(){
+      // debugger
+      get_status();
+    });
 
-  $("body").on("change","#files-input",function(){
-    // debugger
-    get_status();
-  });
+    $("body").on("click",".new_theatre",function(){
+      // debugger
+      // var inputs=$(".theatre_inputs").map(function(){return this.value})
+      var id=$.now()
+      $(".theatre_id").val(id)
+      $(".new_theatre_resumes").submit()
+      return false;
 
-  $("body").on("click",".new_theatre",function(){
-    // debugger
-    // var inputs=$(".theatre_inputs").map(function(){return this.value})
-    var id=$.now()
-    $(".theatre_id").val(id)
-    $(".new_theatre_resumes").submit()
-    return false;
+      // $.ajax({
+      //   method: "GET",
+      //   url: "<%=new_theatre_resumes_path%>",
+      //   data: {id: id,production: inputs[0], role: inputs[1] , venue: inputs[2],company: inputs[3],directed_by: inputs[4],performance_date: inputs[5].replace(/\//g,'-'), location: inputs[6]}
+      // });
+    });
 
-    // $.ajax({
-    //   method: "GET",
-    //   url: "<%=new_theatre_resumes_path%>",
-    //   data: {id: id,production: inputs[0], role: inputs[1] , venue: inputs[2],company: inputs[3],directed_by: inputs[4],performance_date: inputs[5].replace(/\//g,'-'), location: inputs[6]}
-    // });
-  });
-
-  $("body").on("click",".add-threatre-section",function(){
-    var theatre="<%= escape_javascript (render 'resumes/nested/theatre') %>"    
-    $(".photo-popover1").show().html(theatre)
-  });
+    $("body").on("click",".add-threatre-section",function(){
+      var theatre="<%= escape_javascript (render 'resumes/nested/theatre') %>"    
+      $(".photo-popover1").show().html(theatre)
+    });
   </script>
   <script type="text/javascript">
     $(document).on("click",".add-new-production",function(){  
