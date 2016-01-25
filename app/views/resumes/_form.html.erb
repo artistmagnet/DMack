@@ -639,7 +639,7 @@
     $("body").on("click",".remove_title_row",function(){
       if (confirm("Are you sure? This will delete the title row and all your changes will be lost.")) {      
         if (($(this).data("success"))) {
-          $($(this).closest('tr').hide()).after('<tr class="ui-state-default undo_row"><td class="col-sm-2"><a class="btn btn-default add_section">Undo Title Row</a></td></tr>');
+          $($(this).closest('tr').hide()).after('<tr class="ui-state-default undo_row"><td class="col-sm-2"><a class="btn btn-default add_section">Add New Title Row</a></td></tr>');
         }
         else{
           $(this).trigger();
@@ -650,6 +650,7 @@
 
     $("body").on("click",".undo_row",function(){
       $(this).closest('tr').remove();
+      $('tr.custom_row').find('input').val('');
       $('tr.custom_row').show();
     });
 
