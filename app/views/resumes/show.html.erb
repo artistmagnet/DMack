@@ -47,6 +47,7 @@
             </section>
           
             <!-- <hr/> -->
+             <% if @resume.representations.present? %>
              <section class="list-resumes">
               <div class="row">
                 <strong><div class="col-md-2"><%=@resume.resume_sections.where(:section_id=>1).first.try(:section_name)%>:</div></strong>
@@ -58,7 +59,11 @@
                       
               </div>
                       <%end%>                 
-              </section><br />
+              </section>
+
+              <br />
+              <%end%>
+              
 
 
 
@@ -76,6 +81,8 @@
               
             </section ><br/>
             
+            
+            <% if @resume.educations.present? %>
             <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>2).first.try(:section_name)%></strong>
               
@@ -88,8 +95,9 @@
                     <%end%>                 
             </section>
             <br/>
-     
+          <%end%>
             
+            <% if @resume.skills.present? %>
               <section class="list-resumes">
                 <strong><%=@resume.resume_sections.where(:section_id=>3).first.try(:section_name)%></strong>
                 <div class="area_text">
@@ -97,7 +105,9 @@
                       
                  </div>
               </section><br />
+            <%end%>  
 
+              <% if @resume.customs.present? %>
               <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>4).first.try(:section_name)%></strong>
              
@@ -110,7 +120,9 @@
                     </div> 
                     <%end%>
             </section><br/>
+            <%end%>
 
+            <% if @resume.others.present? %>
             <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>5).first.try(:section_name)%></strong>
                 <div class="area_text">
@@ -118,6 +130,7 @@
                 </div>
            
             </section><br />
+            <%end%>
 
             </div>
             

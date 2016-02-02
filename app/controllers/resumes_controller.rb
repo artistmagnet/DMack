@@ -39,6 +39,11 @@ class ResumesController < ApplicationController
 
   def edit    
     @role = @resume.roles.build
+    @resume.representations.build unless @resume.representations.present?
+    @resume.skills.build unless @resume.skills.present?
+    @resume.others.build unless @resume.others.present?
+    @resume.build_resume_attribute unless @resume.resume_attribute.present?
+    @sections = Array.new(5)  { @resume.resume_sections.build } unless @resume.resume_sections.present? 
     @roles = @resume.roles
     @section_order=@resume.resume_sections.last(5).collect(&:section_id)
     @sections = @resume.resume_sections
@@ -265,7 +270,12 @@ class ResumesController < ApplicationController
     @role = @resume.roles.build
     @resume.build_contact_info
     @resume.build_resume_attribute
-    
+    @sections = []
+    ['Representation','Education/Traning','Skills','Custom','Other'].each do |s|
+      @section = ResumeSection.new
+      @section.section_name = s
+      @sections << @section
+    end  
     @resume.photos.build
     @resume.theatres.build
     @resume.educations.build
