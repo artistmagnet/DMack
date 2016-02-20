@@ -6,14 +6,10 @@
   <%= s.hidden_field :section_id,:value=>3,:class=>"resume_section section_heading"%>
 <%end%> 
 </div>
- <!--  <input class="resume_section section_heading" id="resume_resume_sections_attributes_2_name" name="resume[resume_sections_attributes][2][section_name]" type="" value="Skills">
-   </div>
-  <input class="resume_section" id="resume_resume_sections_attributes_2_position" name="resume[resume_sections_attributes][2][position]" type="hidden">
-  <input id="resume_resume_sections_attributes_2_section_id" name="resume[resume_sections_attributes][2][section_id]" value="3" type="hidden"> -->
-
-  <!-- <li class="sortable">                     -->
-    <%=f.fields_for :skills do |s|%>                 
-       <%= render "resumes/nested/skill" ,:s=>s%>
-    <%end%>                
-    <%#= f.link_to_add "+", :skills ,:class=>"btn btn-default add_edu_row",:title=>"Add Row"%> 
-  <!-- </li><br/> -->
+ 
+<!-- <li class="sortable">                     -->
+  <%=f.fields_for :skills do |s|%>                 
+     <%= render "resumes/nested/skill" ,:s=>s%>
+  <%end%>                
+  <%#= f.link_to_add "+", :skills ,:class=>"btn btn-default add_edu_row",:title=>"Add Row"%> 
+<!-- </li><br/> -->

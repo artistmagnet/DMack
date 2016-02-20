@@ -22,9 +22,11 @@
                      <span>e-mail: <%=@resume.contact_info.email%>  </span><br/>
                      <span><%=@resume.contact_info.try(:facebook)%> , <%=@resume.contact_info.try(:twitter)%>, <%=@resume.contact_info.try(:linkedin)%> </span><br/>
                    </div>
-                   <div class="col-md-4">
-                     <%= image_tag @resume.image.try(:url),:style=>"width: 250px;"%>
-                   </div>
+                    <% if @resume.image.file? %>
+                     <div class="col-md-4">
+                       <%= image_tag @resume.image.try(:url),:style=>"width: 250px;"%>
+                     </div>
+                   <%end%>
                   </div>       
                 </section>
                 <br/> <hr/>
@@ -33,16 +35,13 @@
                   <div data-example-id="striped-table" >
                     <table class="table table-striped">
                       <tbody>
-                       <% @resume.theatres.each do |theatre|%>
+                       <% @resume.roles.each do |theatre|%>
                         <tr>
-                          <td><%= theatre.production%></td>
-                          <td><%=theatre.venue %></td>
-                          <td><%= theatre.role  %></td>
-                          <td><%=theatre.company%></td>
-                          <td><%= theatre.directed_by  %></td>
-                          <td><%= theatre.performance_date  %></td>
-                          <td><%= theatre.location  %></td>
-                        </tr> 
+                          <td><%= theatre.production_name%></td>
+                          <td><%=theatre.production_current_venue_name %></td>
+                          <td><%= theatre.name  %></td>
+                          <td><%=theatre.production_company_name%></td>
+                          <td><%= theatre.director_name  %></td>                      </tr> 
                         <%end%>                 
                       </tbody>
                     </table>
@@ -54,15 +53,12 @@
                   <div data-example-id="striped-table" class="bs-example">
                     <table class="table table-striped">            
                       <tbody>
-                      <%=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>""%>
+                      <%#=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>""%>
                        <% @resume.educations.each do |education|%>
                         <tr>
-                          <td><%= education.school %></td>
-                          <td><%= education.city %></td>
-                          <td><%= education.state  %></td>
-                          <td><%= education.country  %></td>
-                          <td><%= education.degree  %></td>
-                          <td><%= education.year  %></td>
+                         <% education.ecolumns.each do |e| %>
+                         <td><%=e%></td>
+                         <%end%>
                         </tr> 
                         <%end%>                 
                       </tbody>
@@ -77,7 +73,6 @@
                         <table class="table table-striped">
                           <thead>
                             <tr>
-                              <th>Gender</th>
                               <th>Age</th>
                               <th>Height</th>
                               <th>Weight</th>
@@ -91,7 +86,6 @@
                           </thead>
                           <tbody>
                             <tr>
-                              <td><%= @resume.try(:resume_attribute).try(:gender) %></td>
                               <td><%= @resume.try(:resume_attribute).try(:age) %></td>
                               <td><%= @resume.try(:resume_attribute).try(:height) %></td>
                               <td><%= @resume.try(:resume_attribute).try(:weight) %></td>
@@ -160,21 +154,13 @@
                       <table class="table table-striped">
                         <thead>
                           <tr>
-                            <th>Company</th>
-                            <th>Contact_name</th>
-                            <th>Title</th>
-                            <th>Phone</th>
-                            <th>Adrress</th>
+                           
                           </tr>
                         </thead>
                         <tbody>
                          <% @resume.representations.each do |representation|%>
                           <tr>
-                            <td><%= representation.company %></td>
-                            <td><%= representation.contact_name %></td>
-                            <td><%= representation.title  %></td>
-                            <td><%= representation.phone  %></td>
-                            <td><%= representation.address  %></td>
+                            <td><%=representation.rcolumns %></td>
                           </tr> 
                           <%end%>                 
                         </tbody>
@@ -186,16 +172,9 @@
                     <h3>Skills:</h3>
                     <div data-example-id="striped-table" class="bs-example">
                       <table class="table table-striped">
-                        <thead>
-                          <tr>
-                            <th>Category</th>
-                            <th>Skills</th>
-                          </tr>
-                        </thead>
                         <tbody>
                          <% @resume.skills.each do |skill|%>
                           <tr>
-                            <td><%= skill.category.try(:name) %></td>
                             <td><li style="list-style-type: none;"><%= skill.skills  if !skill.skills.blank?%></li></td>
                           </tr> 
                           <%end%>                 
@@ -209,16 +188,13 @@
                   <div data-example-id="striped-table" class="bs-example">
                     <table class="table table-striped">            
                       <tbody>
-                      <%=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>"custom"%>
+                      <%#=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>"custom"%>
                        <% @resume.customs.each do |custom|%>
                         <tr>
-                          <td><%= custom.custom1 %></td>
-                          <td><%= custom.custom2 %></td>
-                          <td><%= custom.custom3  %></td>
-                          <td><%= custom.custom4  %></td>
-                          <td><%= custom.custom5  %></td>
-                          <td><%= custom.custom6  %></td>
-                        </tr> 
+                         <% custom.ccolumns.each do |e| %>
+                         <td><%=e%></td>
+                         <%end%>
+                         </tr>
                         <%end%>                 
                       </tbody>
                     </table>

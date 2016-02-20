@@ -4,9 +4,9 @@
       <div class="panel panel-default">
         <div class="panel-body" id="show-resume">
           <section class="list-resumes">
-           <h3>Performing Artist</h3><br/>
+       
          <% @resumes.performing_artist.each_with_index do |resume,index| %>             
-              <h4>Resume <%=index +1 %></h4>
+              <h4><%=resume.try(:resume_name).titleize%></h4>
               <div class="row">
                  <div class="col-md-4">
                    <%= link_to "Email Resume", email_resume_resumes_path(:id=>resume.id),:class=>"btn btn-primary"%>
@@ -19,7 +19,7 @@
               </div><br/>
               <div class="row">
                  <div class="col-md-12">                 
-                   <%= link_to "Print Resume",view_resume_pdf_path(resume),:class=>"btn btn-primary"%>
+                   <%= link_to "Print Resume","javascript:void(0)",:class=>"print btn btn-primary"%>
                  </div>
               </div>
               <br/>
@@ -39,9 +39,9 @@
           </section><br/><br/>
 
           <section class="list-resumes">
-           <h3>Production Member</h3><br/>
+        
          <% @resumes.production_member.each_with_index do |resume,index| %>            
-               <h4>Resume <%=index +1 %></h4>
+               <h4><%=resume.try(:resume_name).titleize%></h4>
               <div class="row">
                  <div class="col-md-4">
                    <%= link_to "Email Resume", email_resume_resumes_path(:id=>resume.id),:class=>"btn btn-primary"%>
@@ -54,7 +54,7 @@
               </div><br/>
               <div class="row">
                  <div class="col-md-12">                 
-                   <%= link_to "Print Resume",view_resume_pdf_path(resume),:class=>"btn btn-primary"%>
+                   <%= link_to "Print Resume",view_resume_pdf_path(resume),:class=>"print btn btn-primary"%>
                  </div>
               </div>
               <br/>
@@ -71,6 +71,9 @@
            
            <br/><hr/>
          <%end%>
+         </section>
+
+         <%= render :partial=>'print_popup'%>
         </div>
       </div>
     </div>
