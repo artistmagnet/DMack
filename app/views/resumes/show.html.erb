@@ -74,7 +74,7 @@
                 <div class="row">
                   <div class="col-md-3"><%= link_to theatre.production_name.upcase,theatre.production ,:target=>"_blank" if !theatre.production.blank?%></div>
                   <div class="col-md-2"><%= theatre.name.capitalize%></div>
-                  <div class="col-md-2"><%= theatre.director_name.capitalize%></div>
+		  <% if @resume.resume_type != "Director" %><div class="col-md-2"><%= theatre.director_name.capitalize%></div><% end %>
                   <div class="col-md-4"><%= get_venue_and_company(theatre) %></div>
                 </div>
                 <%end%>

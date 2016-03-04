@@ -45,6 +45,7 @@ class ResumesController < ApplicationController
     @resume.build_resume_attribute unless @resume.resume_attribute.present?
     @sections = Array.new(5)  { @resume.resume_sections.build } unless @resume.resume_sections.present? 
     @roles = @resume.roles
+    @custom = Custom.find_by(:resume_id => params[:id])
     @section_order=@resume.resume_sections.last(5).collect(&:section_id)
     @sections = @resume.resume_sections
     $session_image_id =[]   
@@ -98,16 +99,24 @@ class ResumesController < ApplicationController
     @resume.custom_pos = params[:custom_pos]
     @resume.repr_cols = params[:repr_cols]
     @resume.repr_pos = params[:repr_pos]
+        
 
     respond_to do |format|
       if @resume.update(resume_params)
         # @resume.education_columns = params[:columns]
-        update_role(@resume)
+   	# delete Attributes and Skills for this resume if saved as Director or Production Member
+	if @resume.resume_type === "Production Member" || @resume.resume_type === "Director"	
+	      	Attribute.destroy_all(:resume_id => @resume.id)
+		Skill.destroy_all(:resume_id => @resume.id)
+	end
+	update_role(@resume)
         update_photo(@resume)
         update_video(@resume)
-        # format.html { redirect_to edit_resume_path(@resume), notice: 'Updated' }
-        @action = params[:commit] == 'Save' ? 'edit' : 'show'
-        format.html { render @action, notice: 'Resume was succesfully Updated'}
+        if params[:commit] == 'Save' 
+  		format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully Updated'}
+	else
+		format.html { redirect_to resume_path(@resume), notice: 'Resume was succesfully Updated'}
+	end
         format.json { render json: @resume }
       else
         format.html { render :edit }
@@ -271,7 +280,7 @@ class ResumesController < ApplicationController
     @resume.build_contact_info
     @resume.build_resume_attribute
     @sections = []
-    ['Representation','Education/Traning','Skills','Custom','Other'].each do |s|
+    ['Representation','Education/Training','Skills','Custom','Other'].each do |s|
       @section = ResumeSection.new
       @section.section_name = s
       @sections << @section

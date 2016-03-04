@@ -9,7 +9,7 @@
         <div class="col-md-12">
           <div class="panel panel-default">
             <div class="panel-body">
-               <div class="form-group">
+               <div class="form-group" >
                 <div class="col-sm-2">
                   <label for="inputEmail3" class="" title="Selecting 'Performing Artist' reveals the Demographics and Skills Sections and selecting 'Production Member' removes those Sections">Resume Type</label>
                   <span class='astrick' style="top:-5px;">*</span>
@@ -17,7 +17,7 @@
 
                   <%#= f.select(:resume_type,options_for_select([['Performing Artist', 'Performing Artist'], ['Production Member', 'Production Member']],:selected=>@resume.resume_type ),{},:class=>"form-control",:id=>"select_resume_type") %>
                   <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Performing Artist',:class=>"",:id=>"select_resume_type",:required => true%> 
+			  <%= f.radio_button :resume_type,'Performing Artist',:class=>"",:id=>"select_resume_type",:required => true %> 
                   <%= f.label :resume_type,'Performing Artist',class: '',:title=>"Actor, Dancer, Musician, Singer, etc." %>
                   </div>
                   <div class="col-sm-3">
@@ -248,9 +248,16 @@
                     </div>
                     <div class="col-sm-3">
                     <%= f.submit 'Save',:class=>"form-control btn btn-primary save get_columns" %>
+	   	    </div>
+		    <div class="col-sm-3">
+			    <%= link_to 'Save As', 'javascript:void(0)', {:class=>"form-control btn btn-primary save-as", :id =>"save-as"} %>
                     </div>
-                    <div class="col-sm-3">
-                    <%=link_to 'Cancel',root_path,:class=>"form-control btn btn-primary","data-confirm"=>"Are you sure? This will delete the entire Resume and all your changes will be lost"%>
+		    <div class="col-sm-3">
+			    <% if params[:action] == 'edit' %> 
+				    <%=link_to 'Go Back', resume_path(:id => params[:id]),:class=>"form-control btn btn-primary","data-confirm"=>"Are you sure? If you go back all your changes will be lost."%>
+			    <% else %>
+				<%=link_to 'Go Back', root_path, :class=>"form-control btn btn-primary","data-confirm"=>"Are you sure? If you go back all your changes will be lost."%>
+				    <% end %>
                   </div>
                   </div>
                 </div>
@@ -342,7 +349,9 @@
   <div id="add-resume-role" class="overlay overlay-1" data-reload-url="<%#= edit_resume_url(@resume) %>" style="display: <%= role_visibility ||= 'none' %>">
   <%= render 'roles/form' %>
 </div>
+
  <div class="fade fade-1" style="display: <%= role_visibility ||= 'none' %>"></div>
+
 
 <div id="add-resume-production" class="overlay overlay-2">
   <%= render 'productions/form', :remoteForm => true, :queryFormat => 'json', :html_class => 'production_form' %>
@@ -363,7 +372,10 @@
   <%= render 'venues/form' %>
 </div>
 <div class="fade fade-3"></div> 
-  
+ <div id="save-as" class="overlay overlay-4" data-reload-url="<%#= edit_resume_url(@resume) %>" style="display: <%= role_visibility || 'none' %>;">
+  <%= render 'roles/form' %>
+</div> 
+<div class="fade fade-4"></div>
   <style type="text/css">
     .theatre-fields{
       background-color: #DDD !important;
@@ -429,6 +441,19 @@
   </style>
   
   <script>
+    resume_type = $("#select_resume_type:checked").val();
+    if (resume_type === "Director")
+    {
+  	$(".attributes-info,#resume_section_3").hide();
+        $("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").hide();	
+    }
+    else if (resume_type === "Production Member")
+    {
+	$(".attributes-info,#resume_section_3").hide();
+        $("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").show();
+    }
+
+
     $(function() {
       $( ".sortable" ).sortable({
         revert: true
@@ -609,19 +634,55 @@
 
     $(document).on('click',"#select_resume_type",function(){
       if($("#select_resume_type:checked").val()=="Production Member")  
-        {          
-          $(".attributes-info,#resume_section_3").hide();
-          $("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").show();
-          // $('.sections >.photo-section').text("Photos");
+      {    
+	      if (confirm("Note: If you save this change your Resume will be reformatted and you may lose some of your data."))      
+	  {
+	    $(".attributes-info,#resume_section_3").hide();
+            $("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").show();
+	    // $('.sections >.photo-section').text("Photos");
+   	    resume_type = "Production Member";
+    	  }
+	  else
+	  {
+		if (resume_type === "Performing Artist")
+		  $("#select_resume_type[value='Performing Artist']").prop('checked', true);
+		else if (resume_type === "Director")
+		  $("#select_resume_type[value='Director']").prop('checked', true);
+		else if (!resume_type)
+		  $("#select_resume_type[value='Production Member']").prop('checked', false);
+	  } 
         }
         else{
           if($("#select_resume_type:checked").val()=='Director'){
-            $(".attributes-info,#resume_section_3").hide();
-            $("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").hide();
-          }
-          else{
-           $(".attributes-info,#resume_section_3").show();
-           $("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").show();
+		if (confirm("Note: If you save this change your Resume will be reformatted and you may lose some of your data."))      
+	    	{	
+	 		$(".attributes-info,#resume_section_3").hide();
+            		$("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").hide();
+			resume_type = "Director";
+   	   	}
+		else{
+			if (resume_type === "Performing Artist")
+			  $("#select_resume_type[value='Performing Artist']").prop('checked', true);	
+		       	else if (resume_type === "Production Member")
+			  $("#select_resume_type[value='Production Member']").prop('checked', true);
+			  else if (!resume_type)
+			                    $("#select_resume_type[value='Director']").prop('checked', false);
+		}
+    	  }
+	  else{
+		if (confirm("Note: If you save this change your Resume will be reformatted and you may lose some of your data.")){
+           		$(".attributes-info,#resume_section_3").show();
+	   		$("div.roles-table > div.col-md-2.director_col,.role-form >.form-group.director_col").show();
+	   		resume_type = "Performing Artist";
+   		}
+   		else{
+	 		if (resume_type === "Production Member")
+                              $("#select_resume_type[value='Production Member']").prop('checked', true);
+		        else if (resume_type === "Director")
+			$("#select_resume_type[value='Director']").prop('checked', true);		    
+			else if (!resume_type)
+			                  $("#select_resume_type[value='Performing Artist']").prop('checked', false);
+   		}
           }
         }
         
