@@ -1,7 +1,7 @@
 <div id="container">
 <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="Skill" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
- <%=f.fields_for :resume_sections,@sections[2] do |s|%> 
-  <%= s.text_field :section_name,:value=>@sections[2].section_name,:class=>"resume_section section_heading"%>
+ <%=f.fields_for :resume_sections,sec do |s|%> 
+  <%= s.text_field :section_name,:value=>sec.section_name,:class=>"resume_section section_heading"%>
   <%= s.hidden_field :position,:class=>"resume_section section_heading"%>
   <%= s.hidden_field :section_id,:value=>3,:class=>"resume_section section_heading"%>
 <%end%> 

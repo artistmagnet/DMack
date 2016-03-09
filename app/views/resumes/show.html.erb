@@ -45,9 +45,21 @@
              </div>
                    
             </section>
-          
-            <!-- <hr/> -->
-             <% if @resume.representations.present? %>
+	    <section class="list-resumes">
+              <strong>Theatre</strong>
+              <%=render 'resumes/nested/theatre_fields'%>
+                <% @resume.roles.each do |theatre|%>
+                <div class="row">
+                  <div class="col-md-3"><%= link_to theatre.production_name.upcase,theatre.production ,:target=>"_blank" if !theatre.production.blank?%></div>
+                  <div class="col-md-2"><%= theatre.name.capitalize%></div>
+		  <% if @resume.resume_type != "Director" %><div class="col-md-2"><%= theatre.director_name.capitalize%></div><% end %>
+                  <div class="col-md-4"><%= get_venue_and_company(theatre) %></div>
+                </div>
+                <%end%>
+              
+            </section ><br/>
+	    <% @sections.each do |sec| %>
+		<% if sec.section_id == 1 %>
              <section class="list-resumes">
               <div class="row">
                 <strong><div class="col-md-2"><%=@resume.resume_sections.where(:section_id=>1).first.try(:section_name)%>:</div></strong>
@@ -67,22 +79,10 @@
 
 
 
-            <section class="list-resumes">
-              <strong>Theatre</strong>
-              <%=render 'resumes/nested/theatre_fields'%>
-                <% @resume.roles.each do |theatre|%>
-                <div class="row">
-                  <div class="col-md-3"><%= link_to theatre.production_name.upcase,theatre.production ,:target=>"_blank" if !theatre.production.blank?%></div>
-                  <div class="col-md-2"><%= theatre.name.capitalize%></div>
-		  <% if @resume.resume_type != "Director" %><div class="col-md-2"><%= theatre.director_name.capitalize%></div><% end %>
-                  <div class="col-md-4"><%= get_venue_and_company(theatre) %></div>
-                </div>
-                <%end%>
-              
-            </section ><br/>
             
             
-            <% if @resume.educations.present? %>
+            
+            <% if sec.section_id == 2 %>
             <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>2).first.try(:section_name)%></strong>
               
@@ -97,7 +97,7 @@
             <br/>
           <%end%>
             
-            <% if @resume.skills.present? %>
+            <% if sec.section_id == 3 %>
               <section class="list-resumes">
                 <strong><%=@resume.resume_sections.where(:section_id=>3).first.try(:section_name)%></strong>
                 <div class="area_text">
@@ -107,7 +107,7 @@
               </section><br />
             <%end%>  
 
-              <% if @resume.customs.present? %>
+              <% if sec.section_id == 4 %>
               <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>4).first.try(:section_name)%></strong>
              
@@ -122,7 +122,7 @@
             </section><br/>
             <%end%>
 
-            <% if @resume.others.present? %>
+            <% if sec.section_id == 5 %>
             <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>5).first.try(:section_name)%></strong>
                 <div class="area_text">
@@ -131,6 +131,9 @@
            
             </section><br />
             <%end%>
+    
+	    <% end %>
+
 
             </div>
             

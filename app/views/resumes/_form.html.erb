@@ -1,8 +1,7 @@
 <%#if (((current_user.role!="premium")) &&  (!current_user.resumes.blank?)) && params[:action]!="edit" %>
   <!-- <div class='photo-popover'><%#= render('/resumes/nested/payment_form') %></div> -->
 <%#else%>
-
-  <div id="add-resume">
+<div id="add-resume">
     <%= nested_form_for(@resume, html: {class: 'form-horizontal'}) do |f| %>
     <div class="container-fluid m-top-20">
       <div class="row">
@@ -129,14 +128,7 @@
                 <div class="more-video">
                   <%= render 'resumes/more_videos',:@videos => @videos %>
                 </div>
-                <!-- <br/> -->
-                <ul class="resume_sec">
-                 <div class="ui-state-default sections" id="resume_section_2">
-                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                    <%=render 'resumes/nested/representation_part',:f=>f%>
-                  </div>
-                  <!-- <br/> -->
-                  <div class="ui-state-default sections threatr-section ">                      
+	<div class="ui-state-default sections threatr-section">                      
                     <h3> Theatre</h3>
                     <li >
                       <%=render 'resumes/nested/theatre_fields'%>
@@ -158,14 +150,25 @@
                     </li><br/>
                   </div>
 
-                  <!-- <br/> -->
+	<!-- <br/> -->
 
-                <!-- <div id="sort-section" class="sortable12"> -->
+		<input type=hidden id="serialized" name="serialized" value="">
+
+		<ul class="resume_sec">
+			
                 <div id="sort-section" class="sortable12">
-                  <div class="ui-state-default sections education" id="resume_section_1">
+			<% if params[:action] === 'new' %>
+	<div class="ui-state-default sections" id="resume_section_1">
+                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
+	  	 
+		    <%=render :partial => 'resumes/nested/representation_part', :locals => {:f=>f, :sec => @sections[0] }%>
+	      </div>
+		 
+                <!-- <div id="sort-section" class="sortable12"> -->
+                  <div class="ui-state-default sections education" id="resume_section_2">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
                    
-                    <%=render 'resumes/nested/education_part',:f=>f%>
+		    <%=render :partial => 'resumes/nested/education_part', :locals => {:f=>f, :sec => @sections[1] }%>
 
                   </div>
                   <script type="text/javascript">
@@ -185,22 +188,22 @@
                           $(this).parent().prev().show();
                           var section = $(this).parent().attr('section');
                           if(section=='Representation'){
-                            $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/representation_part',:f=>f)%>");
+                            $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/representation_part',:f=>f)%>");
                           }
                           else
                             if(section=='Skill'){
-                              $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/skill_part',:f=>f)%>");
+                              $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/skill_part',:f=>f)%>");
                             }
                             else{
                               if(section=='Other'){
-                                $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/other_part',:f=>f)%>");
+                                $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/other_part',:f=>f)%>");
                               }
                               else{
                                 if(section=='Custom'){
-                                  $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/custom_part',:f=>f)%>");
+                                  $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/custom_part',:f=>f)%>");
                                 }
                                 else{
-                                  $(this).parent().prev().html("<%=escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
+                                  $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
                                 }
                               }
                               
@@ -212,26 +215,108 @@
                         $('.section-customs').map(function(){return $(this).text("Undo")});
                       });
                   </script>
-                 
                   <div class="ui-state-default sections" id="resume_section_3">
                   
-                    <%=render 'resumes/nested/skill_part',:f=>f%>
+			  <%=render :partial => 'resumes/nested/skill_part', :locals => {:f=>f, :sec => @sections[2] }%>
                   </div>
-              
                   <div class="ui-state-default sections customs duplicatable_nested_custom_form" id="resume_section_4">
                  
-                    <%=render 'resumes/nested/custom_part',:f=>f%>
+			  <%=render :partial => 'resumes/nested/custom_part', :locals => {:f=>f, :sec => @sections[3] }%>
                   </div>
-         
                     
                   <div class="ui-state-default sections others duplicatable_nested_other_form" id="resume_section_5">
                     <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
-                      <%=render 'resumes/nested/other_part',:f=>f%>
+		    <%=render :partial => 'resumes/nested/other_part', :locals => {:f=>f, :sec => @sections[4] } %>
                       
                     </div>
                   
+	    </div>
+
+
+
+		<% elsif params[:action] === 'edit' %>
+			<% @sections.each do |sec| %>
+				<% if sec.section_id == 1 %>	
+		  <div class="ui-state-default sections" id="resume_section_1">
+			  <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
+		    <%=render :partial => 'resumes/nested/representation_part', :locals => {:f=>f, :sec => sec }%>
+	    	  </div>
+		  <!-- <br/> -->
+                                    <!-- <br/> -->
+	  <% elsif sec.section_id == 2 %>
+                <!-- <div id="sort-section" class="sortable12"> -->
+                  <div class="ui-state-default sections education" id="resume_section_2">
+                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
+                   
+		    <%=render :partial => 'resumes/nested/education_part', :locals => {:f=>f, :sec => sec} %>
+
                   </div>
-                </ul>
+                  <script type="text/javascript">
+                    $(document).on("click",'.add_section',function(){
+                       
+                        $(this).parent().hide();
+                        if (this.text=="Undo others"){       
+                          $(this).parent().prev().css("display","block").find('.fields').slice(1,100).css("display","none").slice(0,1).css("display","block").find('.bootstrap-tagsinput').css("display","block")
+                        }
+                        $(this).parent().prev().find('.remove_cols').map(function(){return $(this).text("-")})
+                        if (this.text=="Undo skills") {
+                          $(this).parent().prev().css("display","block").find('.fields').slice(1,100).css("display","none").slice(0,1).css("display","block").find('.form-control').css("display","block")
+                        }else{ 
+                          // $(this).parent().prev().show();
+                          // $('tbody.render_table tr.fields:not(:first)').remove();
+                          // $('tbody.render_table tr.fields input').val('');
+                          $(this).parent().prev().show();
+                          var section = $(this).parent().attr('section');
+                          if(section=='Representation'){
+                            $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/representation_part',:f=>f)%>");
+                          }
+                          else
+                            if(section=='Skill'){
+                              $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/skill_part',:f=>f)%>");
+                            }
+                            else{
+                              if(section=='Other'){
+                                $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/other_part',:f=>f)%>");
+                              }
+                              else{
+                                if(section=='Custom'){
+                                  $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/custom_part',:f=>f)%>");
+                                }
+                                else{
+                                  $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
+                                }
+                              }
+                              
+                            }
+                            
+                          $( ".sortable" ).sortable({revert: true});
+                        }
+                        $(this).parents().eq(1).find('.custom').hide();
+                        $('.section-customs').map(function(){return $(this).text("Undo")});
+                      });
+                  </script>
+	  <% elsif sec.section_id == 3 %> 
+                  <div class="ui-state-default sections" id="resume_section_3">
+                  
+			  <%= render :partial => 'resumes/nested/skill_part', :locals => {:f=>f, :sec => sec} %>
+                  </div>
+            <% elsif sec.section_id == 4 %> 
+                  <div class="ui-state-default sections customs duplicatable_nested_custom_form" id="resume_section_4">
+			  <%=render :partial => 'resumes/nested/custom_part', :locals => {:sec => sec, :f => f} %>
+                  </div>
+	  <% elsif sec.section_id == 5 %> 
+                    
+                  <div class="ui-state-default sections others duplicatable_nested_other_form" id="resume_section_5">
+                    <!-- <img alt="Icon" src="/assets/drag.jpg" width="30px;"> -->
+		    <%=render :partial => 'resumes/nested/other_part', :locals => {:f=>f, :sec => sec}  %>
+                      
+                    </div>
+                  
+	    <% end %>
+    <% end %><% end %>
+	    
+	    </div>
+	</ul>
                 <div class="form-group">
                   <div class="row">
                     <div class="col-sm-3">
@@ -250,7 +335,7 @@
                     <%= f.submit 'Save',:class=>"form-control btn btn-primary save get_columns" %>
 	   	    </div>
 		    <div class="col-sm-3">
-			    <%= link_to 'Save As', 'javascript:void(0)', {:class=>"form-control btn btn-primary save-as", :id =>"save-as"} %>
+			    <%= link_to 'Save As', 'javascript:void(0)', {:class=>"form-control btn btn-primary save-as", :id =>"save-as-link"} %>
                     </div>
 		    <div class="col-sm-3">
 			    <% if params[:action] == 'edit' %> 
@@ -372,9 +457,10 @@
   <%= render 'venues/form' %>
 </div>
 <div class="fade fade-3"></div> 
- <div id="save-as" class="overlay overlay-4" data-reload-url="<%#= edit_resume_url(@resume) %>" style="display: <%= role_visibility || 'none' %>;">
-  <%= render 'roles/form' %>
-</div> 
+ <div id="save-as" class="overlay overlay-4" data-reload-url="<%#= edit_resume_url(@resume) %>" style="display: none;">
+  <%= render 'resumes/saveas' %>
+</div>
+
 <div class="fade fade-4"></div>
   <style type="text/css">
     .theatre-fields{
@@ -464,9 +550,12 @@
       });
       $( ".sortable12" ).sortable({
         revert: true,
-        handle: '#container'
+	handle: '#container',
+	 stop: function (event, ui) {
+		 	        var data = $(this).sortable('serialize');
+				$('#serialized').val(data);
+			}
       });
-    
     });
 
   </script>
