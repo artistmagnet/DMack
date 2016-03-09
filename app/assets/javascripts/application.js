@@ -29,6 +29,7 @@
 //= require live_validation
 //= require jquery.dragtable
 //= require nested_forms
+//= require resume
 
 $(document).ready(function(){
 	$(function () {
@@ -49,7 +50,3 @@ $(document).ready(function(){
   });
   
 });
-
-// function tags(){
-// 	$('.tag-input').tagsinput('add', 'some tag');
-// }

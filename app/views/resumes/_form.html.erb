@@ -186,25 +186,41 @@
                           // $('tbody.render_table tr.fields:not(:first)').remove();
                           // $('tbody.render_table tr.fields input').val('');
                           $(this).parent().prev().show();
-                          var section = $(this).parent().attr('section');
-                          if(section=='Representation'){
-                            $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/representation_part',:f=>f)%>");
+			  var section = $(this).parent().attr('section');
+			  <% v = 0 %>
+			  if(section=='Representation'){
+			  	<% @sections.each do |s| %>
+				  <% if s.section_id == 1  then  v = s end  %>
+			  	<% end %>
+			  	$(this).parent().prev().html("<%= escape_javascript(render :partial => 'resumes/nested/representation_part', :locals => {:f=>f, :sec => v} )%>");
                           }
                           else
                             if(section=='Skill'){
-                              $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/skill_part',:f=>f)%>");
+				    <% @sections.each do |s| %>
+						    <% if s.section_id == 3  then  v = s end  %>
+					<% end %>
+					$(this).parent().prev().html("<%= escape_javascript(render :partial => 'resumes/nested/skill_part', :locals => {:f=>f, :sec => v})%>");
                             }
                             else{
                               if(section=='Other'){
-                                $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/other_part',:f=>f)%>");
-                              }
+				      <% @sections.each do |s| %>
+					<% if s.section_id == 4  then  v = s end  %>
+				      <% end %>
+				      $(this).parent().prev().html("<%= escape_javascript(render :partial => 'resumes/nested/other_part',:locals => {:f=>f, :sec => v})%>");
+			      }
                               else{
-                                if(section=='Custom'){
-                                  $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/custom_part',:f=>f)%>");
-                                }
-                                else{
-                                  $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
-                                }
+				      if(section=='Custom'){
+					      <% @sections.each do |s| %>
+						<% if s.section_id == 5  then  v = s end  %>
+					 <% end %>
+					 $(this).parent().prev().html("<%= escape_javascript(render :partial => 'resumes/nested/custom_part', :locals => {:f=>f, :sec => v})%>");
+                                	}
+				      else{
+					      <% @sections.each do |s| %>
+						<% if s.section_id == 2  then  v = s end  %>
+					      <% end %>
+					 	$(this).parent().prev().html("<%= escape_javascript(render :partial => 'resumes/nested/education_part',:locals => {:f=>f, :sec => v})%>");
+                                	}
                               }
                               
                             }
@@ -266,25 +282,41 @@
                           // $('tbody.render_table tr.fields:not(:first)').remove();
                           // $('tbody.render_table tr.fields input').val('');
                           $(this).parent().prev().show();
-                          var section = $(this).parent().attr('section');
-                          if(section=='Representation'){
-                            $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/representation_part',:f=>f)%>");
+			  var section = $(this).parent().attr('section');
+			  <% v = 0 %>
+			  if(section=='Representation'){
+			  	<% @sections.each do |s| %>
+				  <% if s.section_id == 1  then  v = s end  %>
+			  	<% end %>
+			  	$(this).parent().prev().html("<%= escape_javascript(render :partial => 'resumes/nested/representation_part', :locals => {:f=>f, :sec => v} )%>");
                           }
                           else
                             if(section=='Skill'){
-                              $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/skill_part',:f=>f)%>");
+				    <% @sections.each do |s| %>
+						    <% if s.section_id == 3  then  v = s end  %>
+					<% end %>
+					$(this).parent().prev().html("<%= escape_javascript(render :partial => 'resumes/nested/skill_part', :locals => {:f=>f, :sec => v})%>");
                             }
                             else{
                               if(section=='Other'){
-                                $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/other_part',:f=>f)%>");
-                              }
+				      <% @sections.each do |s| %>
+					<% if s.section_id == 4  then  v = s end  %>
+				      <% end %>
+				      $(this).parent().prev().html("<%= escape_javascript(render :partial => 'resumes/nested/other_part',:locals => {:f=>f, :sec => v})%>");
+			      }
                               else{
-                                if(section=='Custom'){
-                                  $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/custom_part',:f=>f)%>");
-                                }
-                                else{
-                                  $(this).parent().prev().html("<%#escape_javascript(render 'resumes/nested/education_part',:f=>f)%>");
-                                }
+				      if(section=='Custom'){
+					      <% @sections.each do |s| %>
+						<% if s.section_id == 5  then  v = s end  %>
+					 <% end %>
+					 $(this).parent().prev().html("<%= escape_javascript(render :partial => 'resumes/nested/custom_part', :locals => {:f=>f, :sec => v})%>");
+                                	}
+				      else{
+					      <% @sections.each do |s| %>
+						<% if s.section_id == 2  then  v = s end  %>
+					      <% end %>
+					 	$(this).parent().prev().html("<%= escape_javascript(render :partial => 'resumes/nested/education_part',:locals => {:f=>f, :sec => v})%>");
+                                	}
                               }
                               
                             }
