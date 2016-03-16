@@ -271,7 +271,7 @@ class ResumesController < ApplicationController
     @resume.build_contact_info
     @resume.build_resume_attribute
     @sections = []
-    ['Representation','Education/Traning','Skills','Custom','Other'].each do |s|
+    ['Representation','Education/Training','Skills','Custom','Other'].each do |s|
       @section = ResumeSection.new
       @section.section_name = s
       @sections << @section
