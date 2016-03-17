@@ -3,10 +3,9 @@
     <!-- <div class="col-sm-1"> 
       <img width="30px;" alt="Icon" src="/assets/drag.jpg">
     </div> -->
-
-  <% cust.object.ccolumns.each_with_index do |column_value, index| %>
+  <% 4.times do |index| %>
     <td class="col-sm-2 drag-enable" >
-      <%= text_field_tag "#{cust.object_name}[ccolumns][]",column_value||"",:class=>"form-control customs custom_cols diminished-font col#{index+1}",:placeholder=>"" %>   
+      <%= text_field_tag "#{cust.object_name}[ccolumns][]",cust.object.ccolumns[index]||"",:class=>"form-control customs custom_cols diminished-font col#{index+1}",:placeholder=>"" %>   
     </td>
   <% end -%>
    

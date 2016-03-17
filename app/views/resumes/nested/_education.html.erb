@@ -1,7 +1,7 @@
 <tr class="fields">
-  <% e.object.ecolumns.each_with_index do |column_value, index| %>
+  <% 6.times do |index| %>
     <td class="col-sm-<%= index >=5 ? 1 : 2 %> drag-enable">
-      <%= text_field_tag "#{e.object_name}[ecolumns][]", column_value||"", :class=>"form-control diminished-font col#{index+1} educations educations",:placeholder=>"" %>
+      <%= text_field_tag "#{e.object_name}[ecolumns][]", e.object.ecolumns[index]||"", :class=>"form-control diminished-font col#{index+1} educations educations",:placeholder=>"" %>
     </td>
   <% end -%>
      
