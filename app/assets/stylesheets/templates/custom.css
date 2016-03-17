@@ -27,6 +27,12 @@
     top: 38%;
     z-index: 300; /* makes the div the top layer, so it’ll lay on top of the other content */
 }
+.overlay-4{
+	    left: 3%;
+	        /*top: 3%;*/
+	        top: 86%;
+		    z-index: 100; /* makes the div the top layer, so it’ll lay on top of the other content */
+	    }
 
 .fade {
   display: none;  /* ensures it’s invisible until it’s called */
@@ -52,6 +58,10 @@
     z-index: 290;
     height: 91%;
 }
+.fade-4{
+	    z-index: 90;
+	        height: 97%;
+	}
 .btn-block-large {
     display: block;
     font-size: 27px;

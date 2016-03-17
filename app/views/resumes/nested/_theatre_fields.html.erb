@@ -5,9 +5,11 @@
                 <div class="col-md-2">
                   <strong>Role</strong> 
               </div>
-              <div class="col-md-2 director_col">
+		<% if @resume.resume_type != "Director" %>
+	      <div class="col-md-2 director_col">
                 <strong>Director</strong> 
-              </div>
+		</div>
+		<% end %>
                 <div class="col-md-4">
                   <strong>Venue/Company</strong> 
 
