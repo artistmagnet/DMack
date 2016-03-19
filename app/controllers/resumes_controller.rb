@@ -322,6 +322,7 @@ class ResumesController < ApplicationController
     end  
     @resume.photos.build
     @resume.theatres.build
+    @resume.educations.build(ecolumns: ["Institution", "City", "State/Region", "Country", "Degree/Concentration", "Year"], is_bold: true)
     @resume.educations.build
     @resume.rtables.build
     @resume.representations.build
