@@ -23,12 +23,13 @@
     
     <ul style="display: none;width: 273px;  padding: 12px;" tabindex="0" id="add-new-company" class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all"><li class="ui-menu-item add-new-organisation"><a tabindex="-1" class="ui-corner-all" id="ui-id-2" data-remote="true" href="#"><h4>Add <strong><span class="add-new-company" id="add-company-text"></span></strong> as a new Company</h4></a></li></ul>
   </div>
+<% if @resume.resume_type !== "Director"  %>
   <div class="col-sm-2">
-    <label for="resume_theatres_attributes_Director:"><%=@theatre.directed_by%></label>
+	  <label for="resume_theatres_attributes_Director:"><%=@theatre.directed_by%></label>
     <input type="hidden" style="width:82px;" placeholder="Director" name="resume[theatres_attributes][<%=@id%>][directed_by]" value="<%=@theatre.directed_by%>" id="resume_theatres_attributes_<%=@id%>_directed_by" class="form-control director_name ui-autocomplete-input" autocomplete="off">
     <ul style="display: none;width: 273px;  padding: 12px;" tabindex="0" id="add-new-director" class="ui-front ui-menu ui-widget ui-widget-content ui-corner-all"><li class="ui-menu-item add-new-organisation"><a tabindex="-1" class="ui-corner-all" id="ui-id-2" data-remote="true" href="#"><h4>Add <strong><span class="add-new-director" id="add-director-text"></span></strong> as a new Director</h4></a></li></ul>
   </div>
-
+<% end %>
   <div class="col-sm-1">
     <label for="resume_theatres_attributes_Performance Date:"><%=@theatre.performance_date%></label>
     <input type="hidden" style="margin-left: -42px; width: 101px;" placeholder="Dates" name="resume[theatres_attributes][<%=@id%>][performance_date]" value="<%=@theatre.performance_date%>" class="form-control datepicker" id="<%=@id%>" >

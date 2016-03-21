@@ -1,8 +1,8 @@
 <div id="container">
   <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="Education/Training" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
 
-  <%=f.fields_for :resume_sections,@sections[1] do |s|%>  
-    <%= s.text_field :section_name,:value=>@sections[1].section_name,:class=>"resume_section section_heading"%>
+  <%=f.fields_for :resume_sections,sec do |s|%>  
+    <%= s.text_field :section_name,:value=>sec.section_name,:class=>"resume_section section_heading"%>
     <%= s.hidden_field :position,:class=>"resume_section section_heading"%>
     <%= s.hidden_field :section_id,:value=>2,:class=>"resume_section section_heading"%>
   <%end%>    
@@ -17,14 +17,19 @@
 
   <!-- <div class="rtable_cols"></div> -->
   
-  <%=render 'resumes/nested/education_fields'%>
   
    <!-- <tr> -->
-    <%=f.fields_for :educations,:wrapper => false do |e|%>
-     
-      <%= render "resumes/nested/education",:e=>e%>
-     
-    <%end%>
+  
+  <% @resume_educations_rows.each_with_index do |education, index| %>
+      <%=f.fields_for :educations, education, wrapper: :false do |e|%>
+        <% if index == 0 %>
+          <%= render "resumes/nested/education_fields", e: e %>
+        <% else %>
+          <%= render "resumes/nested/education", e: e %>
+        <% end -%>
+      <% end -%>
+  <% end -%>
+
    <!-- </tr> -->
   <tfoot>
 

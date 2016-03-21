@@ -302,7 +302,7 @@ jQuery ->
             $('#venue_country').trigger('chosen:updated')
             $('#production_company_id').trigger('chosen:updated')
             $('#production_shows_attributes_0_venue_id').trigger('chosen:updated')
-    
+  
     $form.trigger('reset')
     $form.find('div.error_explanation').hide()
     if selectChain[selectChain.length-1] == '#add-resume-production' || selectChain[selectChain.length-1] == '#add-venue' || selectChain[selectChain.length-1] == '#add-company' 

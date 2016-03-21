@@ -35,7 +35,12 @@ class ResumesController < ApplicationController
     $session_image_id,$session_video_id,$session_role = [],[],[] 
     @videos = current_user.videos
     @roles = current_user.roles.where(:resume_id=>nil)
+    @resume_educations_rows = @resume.educations
+    @resume_educations_header_size = @resume_educations_rows.first.ecolumns.size
+    @resume_customs_rows = @resume.customs
+    @resume_customs_header_size = @resume_customs_rows.first.ccolumns.size
   end
+
 
   def edit    
     @role = @resume.roles.build
@@ -45,10 +50,16 @@ class ResumesController < ApplicationController
     @resume.build_resume_attribute unless @resume.resume_attribute.present?
     @sections = Array.new(5)  { @resume.resume_sections.build } unless @resume.resume_sections.present? 
     @roles = @resume.roles
+    @custom = Custom.find_by(:resume_id => params[:id])
     @section_order=@resume.resume_sections.last(5).collect(&:section_id)
     @sections = @resume.resume_sections
+    @sections = @sections.order(:position)
     $session_image_id =[]   
     @videos = @resume.videos
+    @resume_educations_rows = @resume.educations.ordered
+    @resume_educations_header_size = @resume.educations.header.ecolumns.size
+    @resume_customs_rows = @resume.customs.ordered
+    @resume_customs_header_size = @resume.customs.header.ccolumns.size
   end
 
   def edit_with_role
@@ -56,6 +67,7 @@ class ResumesController < ApplicationController
 
   def show
     @section_slots = SectionSlot.order(:position)
+    @sections = @resume.resume_sections.order(:position)
   end
 
   def create
@@ -77,7 +89,22 @@ class ResumesController < ApplicationController
         # add_education_table(@resume)  #moved to model
         # format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully created'}
         # format.html { render "/resumes/page_view.html.erb", notice: 'Resume was succesfully created'}
-        @render = params[:resume][:save_option].eql?('Save') ? edit_resume_path(@resume) : resume_path(@resume)
+
+	if params[:serialized]
+        	str = params[:serialized].scan(/\d/).join(',')
+        	new_order=str.split(",").map(&:to_i)
+        	old_order = ResumeSection.where(:resume_id => params[:id])
+        	new_order.each.with_index do |nu, i|
+			old_order.each do |oo|
+				if oo.section_id == nu
+					oo.position = i + 1
+					oo.save
+					break;
+				end
+			end
+		end	
+  	end
+	@render = params[:resume][:save_option].eql?('Save') ? edit_resume_path(@resume) : resume_path(@resume)
         format.html { redirect_to @render, notice: 'Resume was succesfully created'}
         format.json { render json: @resume}
       else
@@ -98,16 +125,41 @@ class ResumesController < ApplicationController
     @resume.custom_pos = params[:custom_pos]
     @resume.repr_cols = params[:repr_cols]
     @resume.repr_pos = params[:repr_pos]
+        
+    
 
     respond_to do |format|
       if @resume.update(resume_params)
         # @resume.education_columns = params[:columns]
-        update_role(@resume)
+   	# delete Attributes and Skills for this resume if saved as Director or Production Member
+	if @resume.resume_type === "Production Member" || @resume.resume_type === "Director"	
+	      	Attribute.destroy_all(:resume_id => @resume.id)
+		Skill.destroy_all(:resume_id => @resume.id)
+	end
+	update_role(@resume)
         update_photo(@resume)
         update_video(@resume)
-        # format.html { redirect_to edit_resume_path(@resume), notice: 'Updated' }
-        @action = params[:commit] == 'Save' ? 'edit' : 'show'
-        format.html { render @action, notice: 'Resume was succesfully Updated'}
+   
+	if params[:serialized]
+		str = params[:serialized].scan(/\d/).join(',')
+    		new_order=str.split(",").map(&:to_i)
+    		old_order = ResumeSection.where(:resume_id => params[:id])
+    		new_order.each.with_index do |nu, i|
+        		old_order.each do |oo|
+				if oo.section_id == nu
+					oo.position = i + 1
+					oo.save
+					break;		
+				end
+ 			end
+    		end
+	end
+
+   	if params[:commit] == 'Save' || params[:commit] == 'Continue'
+  		format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully Updated'}
+	else
+		format.html { redirect_to resume_path(@resume), notice: 'Resume was succesfully Updated'}
+	end
         format.json { render json: @resume }
       else
         format.html { render :edit }
@@ -271,18 +323,20 @@ class ResumesController < ApplicationController
     @resume.build_contact_info
     @resume.build_resume_attribute
     @sections = []
-    ['Representation','Education/Traning','Skills','Custom','Other'].each do |s|
+    ['Representation','Education/Training','Skills','Custom','Other'].each do |s|
       @section = ResumeSection.new
       @section.section_name = s
       @sections << @section
     end  
     @resume.photos.build
     @resume.theatres.build
+    @resume.educations.build(ecolumns: ["Institution", "City", "State/Region", "Country", "Degree/Concentration", "Year"], is_bold: true)
     @resume.educations.build
     @resume.rtables.build
     @resume.representations.build
     @resume.skills.build
     @resume.others.build
+    @resume.customs.build(ccolumns: Array.new(4, "Enter Custom Title"), is_bold: true)
     @resume.customs.build
     @resume.videos.build
   end

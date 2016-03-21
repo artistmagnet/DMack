@@ -1,0 +1,22 @@
+<div>
+	<h1> Save As </h1>
+	<br>
+	<div class="form-group" >
+	<%= form_for @resume do |f| %>
+		<%= f.text_field :resume_name, :class => "form-control", :required => true %><br>
+		<%= f.submit 'Continue', {:class => 'btn btn-primary form-control'} %><br><br>
+		<div id="goback" class="btn btn-primary form-control">Go Back</div>
+	<% end %>
+	</div>
+
+</div>
+
+<script>
+	$('#goback').on("click", function(){
+		$('#save-as').hide();
+	});
+	$('#save-as-link').on("click", function(){
+		                $('#save-as').show();
+				     });
+
+</script>

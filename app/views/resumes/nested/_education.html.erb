@@ -1,17 +1,17 @@
 <tr class="fields">
-  <% e.object.ecolumns.each_with_index do |column_value, index| %>
-    <td class="col-sm-<%= index >=5 ? 1 : 2 %> drag-enable">
-      <%= text_field_tag "#{e.object_name}[ecolumns][]", column_value||"", :class=>"form-control diminished-font col#{index+1} educations educations",:placeholder=>"" %>
-    </td>
+  <%= e.hidden_field :id %>  
+  <%= e.fields_for "ecolumns", e.object.ecolumns, :wrapper => false do |column| %>
+    <% column_name = column.object_name+'[]' %>
+    <% @resume_educations_header_size.times do |index|  %>
+      <td class="col-sm-<%= index >=5 ? 1 : 2 %> drag-enable">
+        <%= column.text_field_tag column_name, column.object[index]||"",
+                    class: "form-control diminished-font educations col#{index+1}" %>
+      </td>
+    <% end -%>
   <% end -%>
-     
-  <td class="col-sm-1">
+
+  <td class="col-sm-1 drag-enable">
     <%= e.link_to_remove "-",:class=>"btn btn-default remove_row",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
-    <%=hidden_field_tag "#{e.object_name}[is_bold]",e.object.is_bold||"",:class=>"tr_bold"%>
-  </td> 
+    <%= e.hidden_field :is_bold, class: "tr_bold", value: :false %>
+  </td>
 </tr>
-<%#= e.hidden_field :position, :class => 'bar' %>
-  <%#= e.hidden_field :position,:class=>"nested_education_attr"%>
-
-<!-- <input name="columns" type="hidden" class="add_column" value="" />  -->
-

@@ -1,8 +1,8 @@
  <div id="container">
    <a class="btn btn-default remove_nested_field remove_education pull-right" data-association="Custom" data-success="true" href="javascript:void(0)" title="Remove Section">X</a>
 
-  <%=f.fields_for :resume_sections,@sections[3] do |c|%> 
-    <%= c.text_field :section_name,:value=>@sections[3].section_name,:class=>"resume_section section_heading"%>
+  <%=f.fields_for :resume_sections, sec do |c|%> 
+    <%= c.text_field :section_name,:value=>sec.section_name,:class=>"resume_section section_heading"%>
     <%= c.hidden_field :position,:class=>"resume_section section_heading"%>
     <%= c.hidden_field :section_id,:value=>4,:class=>"resume_section section_heading"%>
   <%end%> 
@@ -15,10 +15,17 @@
   <tbody class="moveable render_education_table">
   <!-- <li class="sortable"> -->
     <!-- <div class="rtable_cols"></div> -->
-    <%=render 'resumes/nested/custom_fields',:cust=>f%>
-    <%=f.fields_for :customs,:wrapper => false do |cust|%>
-      <%= render "resumes/nested/custom",:cust=>cust%>
-    <%end%>   
+
+    <% @resume_customs_rows.each_with_index do |custom, index| %>
+      <%=f.fields_for :customs, custom, wrapper: :false do |c|%>
+        <% if index == 0 %>
+          <%= render 'resumes/nested/custom_fields', c: c %>
+        <% else %>
+          <%= render "resumes/nested/custom", c: c %>
+        <% end -%>
+      <% end -%>
+    <% end -%>
+
      <tfoot>
 
     <tr> 
