@@ -35,6 +35,10 @@ class ResumesController < ApplicationController
     $session_image_id,$session_video_id,$session_role = [],[],[] 
     @videos = current_user.videos
     @roles = current_user.roles.where(:resume_id=>nil)
+    @resume_educations_rows = @resume.educations
+    @resume_educations_header_size = @resume_educations_rows.first.ecolumns.size
+    @resume_customs_rows = @resume.customs
+    @resume_customs_header_size = @resume_customs_rows.first.ccolumns.size
   end
 
 
@@ -52,6 +56,10 @@ class ResumesController < ApplicationController
     @sections = @sections.order(:position)
     $session_image_id =[]   
     @videos = @resume.videos
+    @resume_educations_rows = @resume.educations.ordered
+    @resume_educations_header_size = @resume.educations.header.ecolumns.size
+    @resume_customs_rows = @resume.customs.ordered
+    @resume_customs_header_size = @resume.customs.header.ccolumns.size
   end
 
   def edit_with_role
@@ -328,6 +336,7 @@ class ResumesController < ApplicationController
     @resume.representations.build
     @resume.skills.build
     @resume.others.build
+    @resume.customs.build(ccolumns: Array.new(4, "Enter Custom Title"), is_bold: true)
     @resume.customs.build
     @resume.videos.build
   end

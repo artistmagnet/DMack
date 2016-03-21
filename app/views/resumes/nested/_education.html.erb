@@ -1,10 +1,8 @@
-<% education_header = @resume.educations.first.ecolumns %>
-      
 <tr class="fields">
   <%= e.hidden_field :id %>  
   <%= e.fields_for "ecolumns", e.object.ecolumns, :wrapper => false do |column| %>
     <% column_name = column.object_name+'[]' %>
-    <% education_header.size.times do |index|  %>
+    <% @resume_educations_header_size.times do |index|  %>
       <td class="col-sm-<%= index >=5 ? 1 : 2 %> drag-enable">
         <%= column.text_field_tag column_name, column.object[index]||"",
                     class: "form-control diminished-font educations col#{index+1}" %>

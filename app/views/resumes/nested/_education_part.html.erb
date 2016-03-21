@@ -19,11 +19,11 @@
   
   
    <!-- <tr> -->
-
-  <% @resume.educations.each_with_index do |education, index| %>
+  
+  <% @resume_educations_rows.each_with_index do |education, index| %>
       <%=f.fields_for :educations, education, wrapper: :false do |e|%>
         <% if index == 0 %>
-          <%= render 'resumes/nested/education_fields', e: e %>
+          <%= render "resumes/nested/education_fields", e: e %>
         <% else %>
           <%= render "resumes/nested/education", e: e %>
         <% end -%>
