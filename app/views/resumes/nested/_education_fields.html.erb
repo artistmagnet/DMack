@@ -1,40 +1,20 @@
-<%#education(e)%>
- <!-- <div class="form-group"> -->
-
-    <!-- <div class="col-sm-1"> 
-        <img width="30px;" alt="Icon" src="/assets/drag.jpg">
-      </div> -->
-  <tr class="ui-state-disabled" id="bold_col">    
-    <td class="col-sm-2 drag-enable">      
-      <input class="form-control diminished-font educations education col1" name="resume[educations_attributes][0][ecolumns][]" value="Institution" placeholder="Institution" type="text" id="1">
-      <%#= education(e).present? ? !education(e)[1].blank? ? education(e)[1] : "" : ""%>
-      <%#=hidden_field_tag 'resume[rtables_attributes][0][positions][]'%>   
-    </td>
-    <td class="col-sm-2 drag-enable">
-      <input class="form-control diminished-font educations education col2" name="resume[educations_attributes][0][ecolumns][]" value="City" placeholder="City" type="text" id="2">
-      <%#=hidden_field_tag 'resume[rtables_attributes][0][positions][]'%>
-    </td>
-    <td class="col-sm-2 drag-enable">
-      <input class="form-control diminished-font educations education col3" name="resume[educations_attributes][0][ecolumns][]" value="State/Region" placeholder="State/Region" type="text" id="3">
-      <%#=hidden_field_tag 'resume[rtables_attributes][0][positions][]'%>
-    </td>
-    <td class="col-sm-2 drag-enable">
-      <input class="form-control diminished-font educations education col4" name="resume[educations_attributes][0][ecolumns][]" value="Country" placeholder="Country" type="text" id="4">
-      <%#=hidden_field_tag 'resume[rtables_attributes][0][positions][]'%>
-    </td>
-    <td class="col-sm-2 drag-enable">
-      <input class="form-control diminished-font educations education col5" name="resume[educations_attributes][0][ecolumns][]" value="Degree/Concentration" placeholder="Degree/Concentration" type="text" id="5">
-      <%#=hidden_field_tag 'resume[rtables_attributes][0][positions][]'%>
-    </td>
-    <td class="col-sm-1 drag-enable">
-      <input class="form-control diminished-font educations education col6" name="resume[educations_attributes][0][ecolumns][]" value="Year" placeholder="Year" type="text" id="6">
+<% education_header = @resume.educations.first.ecolumns %>
       
-    </td>
-    <td class="col-sm-1 drag-enable">
-      <!-- <a class="btn btn-default remove_row" title="Remove Row" data-association="educations" data-success="true" href="javascript:void(0)" data-confirm='Are you sure?'>-</a> -->
-      <%=hidden_field_tag 'resume[educations_attributes][0][is_bold]',true,{:class=>"tr_bold"}%>
-    </td>
-   </tr> 
-    
-    
-<!-- </div> -->
+<tr class="ui-state-disabled" id="bold_col">
+  <%= e.hidden_field :id %>  
+  <%= e.fields_for "ecolumns", e.object.ecolumns, :wrapper => false do |column| %>
+    <% column_name = column.object_name+'[]' %>
+    <% education_header.size.times do |index|  %>
+      <td class="col-sm-<%= index >=5 ? 1 : 2 %> drag-enable">
+        <%= column.text_field_tag column_name, column.object[index]||"",
+                    placeholder: column.object[index],
+                    class: "form-control diminished-font educations education col#{index+1}",
+                    id: index+1 %>
+      </td>
+    <% end -%>
+  <% end -%>
+
+  <td class="col-sm-1 drag-enable">
+    <%= e.hidden_field :is_bold, class: "tr_bold", value: :true %>
+  </td>
+</tr>
