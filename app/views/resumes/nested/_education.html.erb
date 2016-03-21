@@ -1,15 +1,41 @@
-<tr class="fields">
-  <% 6.times do |index| %>
-    <td class="col-sm-<%= index >=5 ? 1 : 2 %> drag-enable">
-      <%= text_field_tag "#{e.object_name}[ecolumns][]", e.object.ecolumns[index]||"", :class=>"form-control diminished-font col#{index+1} educations educations",:placeholder=>"" %>
+<!-- <tr class="fields">
+  <%# 6.times do |index| %>
+    <td class="col-sm-<%#= index >=5 ? 1 : 2 %> drag-enable">
+      <%#= text_field_tag "#{e.object_name}[ecolumns][]", e.object.ecolumns[index]||"", :class=>"form-control diminished-font col#{index+1} educations educations",:placeholder=>"" %>
     </td>
-  <% end -%>
+  <%# end -%>
      
   <td class="col-sm-1">
-    <%= e.link_to_remove "-",:class=>"btn btn-default remove_row",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
-    <%=hidden_field_tag "#{e.object_name}[is_bold]",e.object.is_bold||"",:class=>"tr_bold"%>
+    <%#= e.link_to_remove "-",:class=>"btn btn-default remove_row",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
+    <%#=hidden_field_tag "#{e.object_name}[is_bold]",e.object.is_bold||"",:class=>"tr_bold"%>
   </td> 
+</tr> -->
+
+<% education_header = @resume.educations.first.ecolumns %>
+      
+<% if e.index == 0 %>
+  <tr class="ui-state-disabled" id="bold_col">
+<% else %>
+  <tr class="fields">
+<% end -%>
+  <%= e.hidden_field :id %>  
+  <%= e.fields_for "ecolumns", e.object.ecolumns, :wrapper => false do |column| %>
+    <% column_name = column.object_name+'[]' %>
+    <% education_header.size.times do |index|  %>
+      <td class="col-sm-<%= index >=5 ? 1 : 2 %> drag-enable">
+        <%= column.text_field_tag column_name, column.object[index]||"", placeholder: e.index == 0 ? column.object[index] : "", class: "form-control diminished-font educations col#{index+1}" %>
+      </td>
+    <% end -%>
+  <% end -%>
+
+  <td class="col-sm-1 drag-enable">
+    <% unless e.index == 0 %>
+      <%= e.link_to_remove "-",:class=>"btn btn-default remove_row",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
+    <% end -%>
+    <%= e.hidden_field :is_bold, class: "tr_bold", value: e.index == 0 ? :true : :false %>
+  </td>
 </tr>
+
 <%#= e.hidden_field :position, :class => 'bar' %>
   <%#= e.hidden_field :position,:class=>"nested_education_attr"%>
 
