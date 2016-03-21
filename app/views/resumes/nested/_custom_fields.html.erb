@@ -1,25 +1,18 @@
-<tr class="ui-state-disabled custom_row" id="bold_col">
-  <td class="col-sm-2 drag-enable">
-    <input class="form-control diminished-font custom_cols customs col1" name="resume[customs_attributes][0][ccolumns][]" value="<%=   %>" placeholder="Enter Custom Title" type="text", id="1">
-  </td>
-  <td class="col-sm-2 drag-enable">
-    <input class="form-control diminished-font custom_cols customs col2" name="resume[customs_attributes][0][ccolumns][]" value="<%=   %>" placeholder="Enter Custom Title" type="text", id="2">
-  </td>
-  <td class="col-sm-2 drag-enable">
-    <input class="form-control diminished-font custom_cols customs col3" name="resume[customs_attributes][0][ccolumns][]" value="<%=   %>" placeholder="Enter Custom Title" type="text", id="3">
-  </td>
-  <td class="col-sm-2 drag-enable">
-    <input class="form-control diminished-font custom_cols customs col4" name="resume[customs_attributes][0][ccolumns][]" value="<%=   %>" placeholder="Enter Custom Title" type="text", id="4">
-  </td>
+<tr class="ui-state-disabled" id="bold_col">
+  <%= c.hidden_field :id %>  
+  <%= c.fields_for "ccolumns", c.object.ccolumns, :wrapper => false do |column| %>
+    <% column_name = column.object_name+'[]' %>
+    <% @resume_customs_header_size.times do |index|  %>
+      <td class="col-sm-<%= index >=5 ? 1 : 2 %> drag-enable">
+        <%= column.text_field_tag column_name, c.object.new_record? ? "" : column.object[index],
+                    placeholder: column.object[index],
+                    class: "form-control diminished-font custom_cols customs col#{index+1}",
+                    id: index+1 %>
+      </td>
+    <% end -%>
+  <% end -%>
 
-  <td class="col-sm-1">
-    <a class="btn btn-default remove_title_row" title="Remove Title Row" data-association="customs" data-success="true" data-confirm='Are you sure?' href="javascript:void(0)">-</a>
-    <%=hidden_field_tag 'resume[customs_attributes][0][is_bold]',true,{:class=>"tr_bold"}%>
+  <td class="col-sm-1 drag-enable">
+    <%= c.hidden_field :is_bold, class: "tr_bold", value: :true %>
   </td>
 </tr>
-  <!-- <td class="col-sm-1 drag-enable">
-      <input class="form-control diminished-font custom_cols col5 custom" name="custom5" value="<%#= education(cust,"custom").present? ? !education(cust,"custom")[5].blank? ? education(cust,"custom")[5] : "" : ""%>"  placeholder="Enter Custom Title" type="text" id="5">
-    </td>
-    <td class="col-sm-1 drag-enable">
-      <input class="form-control diminished-font custom_cols col6 custom" name="custom6" value="<#%= education(cust,"custom").present? ? !education(cust,"custom")[6].blank? ? education(cust,"custom")[6] : "" : ""%>" placeholder="Enter Custom Title" style="width: 59px;" type="text" id="6" data-association="customs">
-    </td> -->
