@@ -1,32 +1,21 @@
-<tr class="fields">   
-   
-    <!-- <div class="col-sm-1"> 
-      <img width="30px;" alt="Icon" src="/assets/drag.jpg">
-    </div> -->
-    <td class="col-sm-2 drag-enable" >
-      
-      <%= text_field_tag 'resume[customs_attributes][1][ccolumns][]',"",:class=>"form-control customs custom_cols diminished-font col1",:placeholder=>"" %>   
-    </td>
-    <td class="col-sm-2 drag-enable" >
-      <%= text_field_tag 'resume[customs_attributes][1][ccolumns][]',"",:class=>"form-control customs custom_cols diminished-font col1",:placeholder=>"" %>
-    </td>
-    <td class="col-sm-2 drag-enable" >
-      <%= text_field_tag 'resume[customs_attributes][1][ccolumns][]',"",:class=>"form-control customs custom_cols diminished-font col3",:placeholder=>"" %>
-    </td>
-    <td class="col-sm-2 drag-enable" >
-      <%= text_field_tag 'resume[customs_attributes][1][ccolumns][]',"",:class=>"form-control customs custom_cols diminished-font col4",:placeholder=>"" %>
-    </td>
-   <!--  <td class="col-sm-1 drag-enable" >
-      <%#= cust.text_field :custom5,:class=>"form-control diminished-font col5 custom",:placeholder=>"" %>
-    </td>
-    <td class="col-sm-1 drag-enable">
-      <%#= cust.text_field :custom6,:class=>"form-control diminished-font col6 custom",:placeholder=>"" ,:style=>"width: 59px;"%>
-    </td> -->
-    
-    <td class="col-sm-1">
-      <%= cust.link_to_remove "-",:class=>"btn btn-default remove_row",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
-      <%=hidden_field_tag 'resume[customs_attributes][1][is_bold]',"",:class=>"tr_bold"%>
-    </td>
-</tr> 
+<tr class="fields">
+  <%= c.hidden_field :id %>  
+  <%= c.fields_for "ccolumns", c.object.ccolumns, :wrapper => false do |column| %>
+    <% column_name = column.object_name+'[]' %>
+    <% @resume_customs_header_size.times do |index|  %>
+      <td class="col-sm-<%= index >=5 ? 1 : 2 %> drag-enable">
+        <%= column.text_field_tag column_name, column.object[index]||"",
+                    class: "form-control diminished-font customs custom_cols col#{index+1}" %>
+      </td>
+    <% end -%>
+  <% end -%>
+
+  <td class="col-sm-1 drag-enable">
+    <%= c.link_to_remove "-",:class=>"btn btn-default remove_row",:title=>"Remove Row",data: {confirm: 'Are you sure?'}%>
+    <%= c.hidden_field :is_bold, class: "tr_bold", value: :false %>
+  </td>
+</tr>
+
+
 <%#= cust.hidden_field :position,:class=>"nested_custom_attr"%>
 <!-- <input name="columns" type="hidden" class="add_column" value="" /> -->

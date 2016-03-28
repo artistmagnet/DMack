@@ -15,10 +15,17 @@
   <tbody class="moveable render_education_table">
   <!-- <li class="sortable"> -->
     <!-- <div class="rtable_cols"></div> -->
-    <%=render 'resumes/nested/custom_fields',:cust=>f%>
-    <%=f.fields_for :customs,:wrapper => false do |cust|%>
-      <%= render "resumes/nested/custom",:cust=>cust%>
-    <%end%>   
+
+    <% @resume_customs_rows.each_with_index do |custom, index| %>
+      <%=f.fields_for :customs, custom, wrapper: :false do |c|%>
+        <% if index == 0 %>
+          <%= render 'resumes/nested/custom_fields', c: c %>
+        <% else %>
+          <%= render "resumes/nested/custom", c: c %>
+        <% end -%>
+      <% end -%>
+    <% end -%>
+
      <tfoot>
 
     <tr> 
