@@ -254,10 +254,19 @@ class ResumesController < ApplicationController
   end
   def download_pdf
     @resume = Resume.find(params[:id])
-    html = render_to_string(:action => '../resumes/view_resume_pdf.pdf.erb',:layout=>false)
+    # html = render_to_string(:action => '../resumes/view_resume_pdf.pdf.erb',:layout=>false)
+    # html = render_to_string(:action => '../resumes/show_resume_pdf.pdf.erb',:layout=>false)
     #pdf = PDFKit.new(html,:page_size => 'Letter', :orientation => 'Landscape')
-    pdf = WickedPdf.new.pdf_from_string(html)
-    send_data(pdf,:filename => "#{current_user.name}.pdf", :type => 'application/pdf')  
+    #pdf = WickedPdf.new.pdf_from_string(html)
+    # html = render_to_string(action: "show_resume_pdf.pdf.erb", layout: 'application',:format=>)
+    # @pdf = PDFKit.new(html,:page_size => 'Letter', :orientation => 'Landscape')
+    @pdf  = PDFKit.new(render_to_string handlers: [:erb], formats: [:html], template: "/resumes/show_resume_pdf.pdf.erb")
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/resumes.css"
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/layouts.css"
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/main.css"
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/custom.css"
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/bootstrap.min.css"
+    send_data(@pdf.to_pdf,:filename => "#{@resume.resume_name}.pdf", :type => 'application/pdf')  
     #file = pdf.to_file('/public')
   end
 

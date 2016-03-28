@@ -13,7 +13,7 @@
                  </div>
                  <div class="col-md-4">
                  <%#= link_to "View As PDF", view_resume_pdf_path(resume),:class=>"btn btn-primary",:target=>'_blank'%>
-                   <%= link_to "Save As PDF",download_pdf_resumes_path(:format=>"pdf",:id=>resume.id),:class=>"btn btn-primary",:target=>'_blank'%>
+                   <%= link_to "Save As PDF",download_pdf_resume_path(resume.id,:format=>"pdf"),:class=>"btn btn-primary",:target=>'_blank'%>
                  </div>
                  <div class="col-md-4"></div>
               </div><br/>
@@ -35,6 +35,7 @@
               </div>
            
            <br/><hr/>
+           <%= render :partial=>'print_popup',:locals=>{:@resume=>resume}%>
          <%end%>
           </section><br/><br/>
 
@@ -73,7 +74,7 @@
          <%end%>
          </section>
 
-         <%= render :partial=>'print_popup'%>
+         
         </div>
       </div>
     </div>

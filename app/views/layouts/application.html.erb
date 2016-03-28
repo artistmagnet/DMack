@@ -20,11 +20,14 @@
   <p class="alert" style="display: none"><%= alert %></p>
 
   <!-- Page container -->
-  <div class="page-container" id="main-container">
-    <% if user_signed_in? %>
-    <%= render 'layouts/includes/sidebar' %>
-    <%else%>
-    <%= render 'layouts/includes/sidebar' %>
+  <%@style = params[:print] ? "padding-left:0;" : "" %>
+  <div class="page-container" id="main-container" style="<%=@style%>">
+    <% unless params[:print] %>
+      <% if user_signed_in? %>
+        <%= render 'layouts/includes/sidebar' %>
+      <%else%>
+        <%= render 'layouts/includes/sidebar' %>
+      <%end%>
     <%end%>
     <!-- Content -->
     <div id="content" style="min-height: 873px;">
@@ -42,7 +45,9 @@
 
   </div>
   <!-- /Page container -->
- <%= render "layouts/footer"%>
+  <% unless params[:print] %>
+    <%= render "layouts/footer"%>
+  <%end%>  
 
 </body>
 </html>

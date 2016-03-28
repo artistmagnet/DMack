@@ -28,6 +28,7 @@ module Artmag
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.middleware.use PDFKit::Middleware, :print_media_type => true 
+
     config.assets.paths << Rails.root.join("app", "assets", "fonts")
     config.assets.paths << Rails.root.join("vendor", "assets", "chosen.io", "1.2.0")
 

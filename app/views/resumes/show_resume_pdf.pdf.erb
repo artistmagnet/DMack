@@ -1,11 +1,12 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <meta name="pdfkit-orientation" content="Landscape"/>
+  </head>
+    <body>
 <div class="container-fluid m-top-20">
-  <% unless params[:print] %>
-    <div class="col-xs-2">
-      <%= link_to edit_resume_path(@resume),:class=>"form-control btn btn-primary" do%>
-         <i class="fa fa-edit">Edit Resume</i>
-      <%end%>
-    </div>
-  <%end%>
+  
   <div class="row">
     <div class="col-xs-12">
       <div class="panel panel-default">
@@ -47,22 +48,9 @@
              </div>
                    
             </section>
-	    <section class="list-resumes">
-              <strong>Theatre</strong>
-              <%=render 'resumes/nested/theatre_fields'%>
-                <% @resume.roles.each do |theatre|%>
-                <div class="row">
-                  <div class="col-xs-3"><%= link_to theatre.production_name.upcase,theatre.production ,:target=>"_blank" if !theatre.production.blank?%></div>
-                  <div class="col-xs-2"><%= theatre.name.capitalize%></div>
-		  <% if @resume.resume_type != "Director" %><div class="col-xs-2"><%= theatre.director_name.capitalize%></div><% end %>
-                  <div class="col-xs-4"><%= get_venue_and_company(theatre) %></div>
-                </div>
-                <%end%>
-              
-            </section ><br/>
-	    <% if @sections.present? %>
-      <% @sections.each do |sec| %>
-		<% if sec.section_id == 1 %>
+          
+            <!-- <hr/> -->
+             <% if @resume.representations.present? %>
              <section class="list-resumes">
               <div class="row">
                 <strong><div class="col-xs-2"><%=@resume.resume_sections.where(:section_id=>1).first.try(:section_name)%>:</div></strong>
@@ -70,7 +58,7 @@
                      <% @resume.representations.each do |representation|%>
                      
                       
-                      <div class="col-xs-10 area_text" style="padding-right:0px;"><%= h representation.rcolumns %></div>
+                      <div class="col-xs-10 area_text"><%= h representation.rcolumns %></div>
                       
               </div>
                       <%end%>                 
@@ -79,15 +67,32 @@
               <br />
               <%end%>
               
+
+
+
+            <section class="list-resumes">
+              <strong>Theatre</strong>
+              <%=render 'resumes/nested/theatre_fields'%>
+                <% @resume.roles.each do |theatre|%>
+                <div class="row">
+                  <div class="col-xs-3"><%= link_to theatre.production_name.upcase,theatre.production ,:target=>"_blank" if !theatre.production.blank?%></div>
+                  <div class="col-xs-2"><%= theatre.name.capitalize%></div>
+                  <div class="col-xs-2"><%= theatre.director_name.capitalize%></div>
+                  <div class="col-xs-4"><%= get_venue_and_company(theatre) %></div>
+                </div>
+                <%end%>
+              
+            </section ><br/>
             
-            <% if sec.section_id == 2 %>
+            
+            <% if @resume.educations.present? %>
             <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>2).first.try(:section_name)%></strong>
               
                    <% @resume.educations.each_with_index do |education,index|%>
                     <div class="row">
                       <% education.ecolumns.each do |col|%>
-                      <div class="<%=get_title_row_class(index)%>" id="<%=get_title_row_bold(index)%>" style="padding-right:0px;"><%= col %></div>
+                      <div class="<%=get_title_row_class(index)%>" id="<%=get_title_row_bold(index)%>"><%= col %></div>
                       <%end%>
                     </div> 
                     <%end%>                 
@@ -95,7 +100,7 @@
             <br/>
           <%end%>
             
-            <% if sec.section_id == 3 %>
+            <% if @resume.skills.present? %>
               <section class="list-resumes">
                 <strong><%=@resume.resume_sections.where(:section_id=>3).first.try(:section_name)%></strong>
                 <div class="area_text">
@@ -105,7 +110,7 @@
               </section><br />
             <%end%>  
 
-              <% if sec.section_id == 4 %>
+              <% if @resume.customs.present? %>
               <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>4).first.try(:section_name)%></strong>
              
@@ -120,7 +125,7 @@
             </section><br/>
             <%end%>
 
-            <% if sec.section_id == 5 %>
+            <% if @resume.others.present? %>
             <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>5).first.try(:section_name)%></strong>
                 <div class="area_text">
@@ -129,9 +134,6 @@
            
             </section><br />
             <%end%>
-    
-	    <% end %>
-    <%end%>
 
             </div>
             
@@ -158,8 +160,5 @@
     </div>
   </div>
 </div>
-<style type="text/css">
-  .table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th{
-     background-color: white ;
-  }
-</style>
+</body>
+</html>
