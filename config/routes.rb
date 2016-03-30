@@ -14,7 +14,14 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   devise_for :users, :controllers => {:registrations => "registrations",:invitations => 'users/invitations' }
 
-  root 'home#index'
+  # root 'home#index'
+  
+  authenticated do
+    root :to => 'home#index', as: :authenticated_root
+  end
+
+  root to: redirect('/users/sign_up')
+  
   get "users/express"
 
   put   'productions/:production_id/update_director'   =>  'productions#update_director',    as: :update_production_director

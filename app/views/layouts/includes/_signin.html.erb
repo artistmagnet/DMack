@@ -1,15 +1,23 @@
- <%= form_for(resource, as: resource_name, url: session_path(resource_name),:html=>{:class=>"form-inline"}) do |f| %>
-    <div class="form-group">
-      <label for="exampleInputName2">Name</label>
-      <%= f.email_field :email, autofocus: true,:class=>"form-control" ,:id=>"exampleInputName2" ,:placeholder=>"example@example.com" %>
-      <label for="exampleInputEmail2">Password</label>
-       <%= f.password_field :password, autocomplete: "off",:class=>"form-control" ,:id=>"exampleInputEmail2" ,:placeholder=>"******"%><br/>
-      <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-        <%= link_to "Forgot your password?", new_password_path(resource_name) %>
-      <% end -%>
-      <% if devise_mapping.rememberable? -%>
-        <%= f.check_box :remember_me %> <%= f.label :remember_me %>
-      <% end -%>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name),:html=>{:class=>"form-inline"}) do |f| %>
+  <div class="row">
+    <div class="form-group col-md-10">
+      <div class="row">
+        <div class="col-md-6">
+          <%= f.email_field :email, autofocus: true,:class=>"form-control only-bottom-border slategrey-border" ,:id=>"exampleInputName2" ,:placeholder=>"email" %>
+        </div>
+        <div class="col-md-6">
+          <%= f.password_field :password, autocomplete: "off",:class=>"form-control only-bottom-border slategrey-border" ,:id=>"exampleInputEmail2" ,:placeholder=>"password"%><br/>
+        </div>
+      </div>
     </div>
-    <%= f.submit "Log in",:class=>"btn btn-primary",:style=>"margin-top: -30px;" %>
-  <%end%>
+    <%= f.submit "Log in", id: 'login-btn', :class=>"btn slategrey col-md-2" %>
+  </div>
+  <%# if devise_mapping.rememberable? -%>
+    <%#= f.check_box :remember_me %> <%#= f.label :remember_me %>
+  <%# end -%>
+  <div class="row" style="text-align: right;">
+    <%- if devise_mapping.recoverable? && controller_name != 'passwords' %>
+      <%= link_to "forgot password?", new_password_path(resource_name), class: 'small-text' %>
+    <% end -%>
+  </div>
+<%end%>
