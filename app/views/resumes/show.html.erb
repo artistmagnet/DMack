@@ -86,7 +86,7 @@
             <section class="list-resumes">
               <strong><%=@resume.resume_sections.where(:section_id=>2).first.try(:section_name)%></strong>
               
-                   <% @resume.educations.each_with_index do |education,index|%>
+                   <% @resume.educations.ordered.each_with_index do |education,index|%>
                     <div class="row">
                       <% education.ecolumns.each do |col|%>
                       <div class="<%=get_title_row_class(index)%>" id="<%=get_title_row_bold(index)%>"><%= col %></div>
@@ -112,7 +112,7 @@
               <strong><%=@resume.resume_sections.where(:section_id=>4).first.try(:section_name)%></strong>
              
                   <%#=render 'resumes/nested/final_education_fields',:e=>@resume,:cust=>"custom"%>
-                   <% @resume.customs.each_with_index do |custom,index|%>
+                   <% @resume.customs.ordered.each_with_index do |custom,index|%>
                     <div class="row">
                      <% custom.ccolumns.each do |col|%>
                       <div class="<%=get_title_row_class(index)%>" id="<%=get_title_row_bold(index)%>"><%= col %></div>

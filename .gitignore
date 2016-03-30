@@ -19,6 +19,7 @@
 # Ignore IDE
 .idea/
 
+
 # Ignore evironments
 .env
 *.codekit
@@ -29,3 +30,5 @@
 *.sassc
 /public/system
 
+#my improvements
+.ruby-gemset
