@@ -1,9 +1,9 @@
 class HomeController < ApplicationController
 
   def index
-   @invitation =Invitation.new
+    @invitation =Invitation.new
     if current_user
-      @fb_friends = User.get_facebook_friends(current_user) if !current_user.authentications.blank?
+      @fb_friends = User.get_facebook_friends(current_user) unless current_user.authentications.blank?
     end
 
     greetings = ["Hello", "Welcome back", "Hi", "Hey"]
