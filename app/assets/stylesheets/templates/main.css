@@ -1394,13 +1394,40 @@ label {
   color: white;
 }
 
-#background-top .reddish{
+#background-top .reddish-text {
   color: #f04e50
 }
 
+#background-top .reddish-background {
+  background: #f04e50;
+  color: white;
+}
 
-#background-top input {
-  background: rgba(255, 255, 255, 0.7)
+#background-top input[type="text"] {
+  width: 100%
+}
+#background-top input[type="email"] {
+  width: 100%
+}
+#background-top input[type="password"] {
+  width: 100%
+}
+#background-top input[type="submit"] {
+  width: 100%
+}
+
+#background-top label {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-size: 1em;
+}
+
+#sign-in-header .only-bottom-border {
+  background: none !important;
+  border-top-width: 0;
+  border-left-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 2px;
 }
 
 #sign-up-body {
@@ -1409,12 +1436,19 @@ label {
   font-size: 1em;
 }
 
+#sign-up-body input {
+  background: rgba(255, 255, 255, 0.7)
+}
+
 #sign-up-body .title{
   font-weight: 400;
   /*font-size: 30px;*/
   font-size: 2em;
 }
 
+#sign-up-body input{
+  box-shadow: 0 0 10px black;
+}
 
 #bottom-section {
   /*background-image: url("/assets/background_btm.jpg");*/
@@ -1423,7 +1457,7 @@ label {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   /*font-size: 19px;*/
-  font-size: 1.5em;
+  font-size: 120%;
   text-align: center;
   /*height: 272px;*/
   position: relative;
@@ -1443,7 +1477,7 @@ label {
 
 #bottom-section .title {
   /*font-size: 40px;*/
-  font-size: 2em;
+  font-size: 150%;
 }
 
 #bottom-section .bold {
@@ -1455,13 +1489,7 @@ label {
   background-color: #456162 !important;
 }
 
-.only-bottom-border {
-  background: none !important;
-  border-top-width: 0;
-  border-left-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 2px;
-}
+
 
 .slategrey-border {
   border-color: #456162 !important;
@@ -1469,4 +1497,9 @@ label {
 
 .small-text {
   font-size: 0.85em;
+}
+
+#logo {
+  width: 100%;
+  margin-bottom: 10px;
 }
