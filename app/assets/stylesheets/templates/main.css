@@ -1446,7 +1446,7 @@ label {
   font-size: 2em;
 }
 
-#sign-up-body input{
+.black-shadow {
   box-shadow: 0 0 10px black;
 }
 

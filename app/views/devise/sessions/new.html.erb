@@ -1,17 +1,184 @@
-<h2>Log in</h2>
+<div id="background-top" class="row">
+  
+  <br>
+  <div class="col-xs-12 col-sm-10 col-sm-offset-1">
+    <div id="sign-in-header" class="row">
+      <div class="col-xs-12 col-sm-6 col-md-5 col-lg-4">
+        <%= image_tag 'new_logo.png', id: 'logo' %>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-offset-1 col-lg-offset-2">
+        <%= render 'layouts/includes/signin' %>
+      </div>
+    </div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div><%= f.label :email %><br />
-  <%= f.email_field :email, autofocus: true %></div>
+    <br>
+    
+    <div id="sign-up-body" class='row'>
+      <div class="col-md-5 col-md-offset-1">
+        <p class='title'>Connecting Artists through Shows and Venues <span class='reddish-text'>EVERYWHERE...</span></p>
+        <p>Quickly build, print, share and save your own perfectly professional Resumes</p>
+        <p>Instantly link your Resumes to your favorite Directors, Productions, Companies and Venues</p>
+        <p>Connect with your fellow Artists from your latest Show or around the world</p>
+      </div>
+      <div class='col-md-5'>
+        <a href="/auth/facebook"><img src="/assets/bigfacebook.png" class="img-responsive" alt="" /></a>
+        
+        <p>or</p>
+          
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name),:html=>{:id=>"signupForm",:class=>""}) do |f| %>             
+          <%= devise_error_messages! %>
+          <%= flash[:error]%>
+            
+          <div class='row'>
+            <div class='col-xs-6 form-group'>
+              <label class='control-label'>First Name*</label><br>
+                <%= f.text_field :first_name, autofocus: true,:class=>'form-control black-shadow',:id=>"first_name" %>
+            </div>
+            <div class='col-xs-6 form-group '>
+              <label class='control-label'>Last Name*</label><br>
+              <%= f.text_field :last_name,:class=>'form-control black-shadow',:id=>"last_name" %>
+            </div>             
+          </div>
 
-  <div><%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %></div>
+          <div class='row'>
+            <div class='col-xs-12 form-group '>
+              <label class='control-label'>Email*</label><br>
+              <%= f.text_field :email,:class=>'form-control black-shadow',:id=>"email" %>
+            </div>
+          </div>
+          <div class='row'>
+            <div class='col-xs-12 col-sm-6 col-md-12 col-lg-6 form-group'>
+              <label class='control-label'>Gender*</label><br>
+              <div class="row">
+                <div id="more-gender-checkbox" class="col-xs-12">
+                  <label class="radio-inline">
+                    <%= f.radio_button :gender, "Male" %>male
+                  </label>
+                  <label class="radio-inline">				 
+                    <%= f.radio_button :gender, "Female" %>female
+                  </label>
+                  <label class="radio-inline">				 
+                    <%= f.radio_button :gender, "more" %>more
+                  </label>
+                </div>
+                <div id="more-gender-edit" class="col-xs-12" style="display: none;">
+                  <div class="input-group black-shadow">
+                    <%= f.text_field :gender, class: 'form-control', id: 'user_gender_more', placeholder: 'Please enter your gender identification here' %>
+                    <span class="input-group-btn">
+                      <button id= 'reset-gender' class="btn btn-danger" type="button">X</button>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class='col-xs-12 col-sm-6 col-md-12 col-lg-6 form-group required'>
+              <label class='control-label'>Birth Date*</label><br>
+              <%= f.text_field :dob,:class=>'form-control black-shadow',:id=>"datepicker" %>
+            </div>
+          </div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div><%= f.check_box :remember_me %> <%= f.label :remember_me %></div>
-  <% end -%>
+          <!-- <div class='row'>
+            <div class='col-xs-12 form-group required'>
+              <label class='control-label'>Email Confirmation</label>
+              <%#= f.text_field :email,:class=>'form-control ' ,:placeholder=>'Email' ,:id=>"confirm_email"%>
+            </div>
+          </div> -->
 
-  <div><%= f.submit "Log in" %></div>
-<% end %>
+          <div class='row'>
+            <div class='col-xs-6 form-group '>
+              <label class='control-label'>Password*</label>
+              <%= f.password_field :password, autocomplete: "off",:class=>'form-control black-shadow',:id=>"password" %>
+            </div>
+            <div class='col-xs-6 form-group '>
+              <label class='control-label'>Confirm Password*</label>
+              <%= f.password_field :password_confirmation, autocomplete: "off",:class=>'form-control black-shadow',:id=>"password_confirmation" %>
+            </div>             
+          </div>
 
-<%= render "devise/shared/links" %>
+          <!-- <div class='row'>
+            <div class='col-xs-12 form-group '>
+              <label class='control-label'>Member Type</label><br/>
+              <label class="radio-inline">
+              <%= f.radio_button :member_type,"Artist" %>Artist<span data-toggle="popover" data-placement="top" title="Tooltip on top">(?)</span>
+              </label>
+              <label class="radio-inline">				 
+              <%= f.radio_button :member_type,"Company" %>Company<span data-toggle="popover" data-placement="top" title="Tooltip on top">(?)</span>
+              </label>
+            </div>
+          </div> -->
+
+          <div class='row'>
+            <div class='col-xs-12 form-group'>  
+              <%#= show_simple_captcha %>    
+              <%= recaptcha_tags %>        
+            </div>
+          </div> 
+          
+          <div class='row'>
+            <div class='col-md-4 form-group'>  
+              <%= f.submit "Sign up",:class=>'form-control btn submit-button reddish-background black-shadow' %>           
+            </div>
+            <div class='col-md-8 form-group'> 
+              By clicking register, you agree to Artist Magnet’s<a href="/terms_and_conditions" target="_blank"> Terms and Conditions</a>
+            </div>
+          </div>    
+        <%end%>
+      </div>      
+    </div>
+  </div>
+  <br>
+  <%#= render "devise/shared/links" %>
+</div>
+
+<div id="bottom-section" class="row">
+  <%= image_tag 'background_btm.jpg' %>
+  <div class="text">
+    <p class='title'><span class='bold'>“artist Magnet”</span> Is For</p>
+    <div>Live Performance Actors, Directors, Dancers, Singers, Musicians, Playwrights, Composers,</div>
+    <div>Librettists, Dramaturgs, Stage Managers, Production Managers, Producers, Designers, Stage</div>
+    <div>Crew, Technicians, Conductors, Choreographers, Performance Artists, and more...</div>
+  </div>
+</div>
+  
+<script>  
+  $(document).ready(function() {
+    var field1 = new LiveValidation( 'first_name', {onlyOnSubmit: false } );
+    field1.add( Validate.Presence );
+
+    var field2 = new LiveValidation( 'last_name', {onlyOnSubmit: false } );
+    field2.add( Validate.Presence );
+    
+    var field3 = new LiveValidation( 'email', {onlyOnSubmit: false } );
+    field3.add( Validate.Email );
+    
+    var field4 = new LiveValidation( 'datepicker', {onlyOnSubmit: false } );
+    field4.add( Validate.Presence );
+    
+    var field5 = new LiveValidation( 'password', {onlyOnSubmit: false } );
+    field5.add( Validate.Presence );
+    field5.add( Validate.Length, {minimum: 8, maximum: 128} );
+    
+    var field6 = new LiveValidation( 'password_confirmation', {onlyOnSubmit: false } );
+    field6.add( Validate.Presence );
+    field6.add( Validate.Confirmation, { match: 'password' } );
+    
+    $("input[name='user[gender]']:radio").change(function() {
+      if (this.value == 'more') {
+        $("#more-gender-checkbox").hide();
+        $("#more-gender-edit").show();
+        $("#more-gender-edit").find("input#user_gender_more").focus();
+      }
+    });
+    
+    $("#reset-gender").click(function() {
+      $("#more-gender-edit").hide();
+      $("#more-gender-edit").find("input#user_gender_more").val('');
+      $("input[name='user[gender]']:radio").attr("checked", false);
+      $("#more-gender-checkbox").show();
+      $("#more-gender-checkbox").find("input#user_gender_male").focus();
+    });
+    
+    // var f19 = new LiveValidation('confirm_email');
+    // f19.add( Validate.Confirmation, { match: 'email' } );
+  });
+</script>
