@@ -39,10 +39,10 @@
           <div class="field">
             <%= f.label :production_id, {class: "col-sm-2 control-label"} %>
             <div class="col-sm-10">
-              <%= f.collection_select :production_id, Production.all.order(:name), :id, :key_info, {prompt: 'Select production'},
-                                      {class: "form-control chosen-select m-left-m8",
+              <%= f.collection_select :production_id, Production.all.order(:name), :id, :key_info,
+                                      {class: "form-control chosen-select m-left-m8", multiple: true, :prompt => '', :placeholder => 'Start typing to find your entry or create a new one.',
                                        data: {
-                                           add_as_new_label:  'To add it as a new Production, click here' #,
+                                           add_as_new_label:  'To add it as a new Production, click here'
                                            # add_as_text_label: 'To leave as text only, click here.'
                                        }
                                       }  %>
@@ -62,8 +62,8 @@
                                            add_as_text_label: 'To leave as text only, click here.'
                                        }
                                       }  %>
-              <%= f.collection_select :director_id, [], :id,:name,{prompt: 'Select director'},
-                                      {class: "form-control chosen-select m-left-m8",
+              <%= f.collection_select :director_id, Director.all.order(:name), :id, :name,
+                                      {class: "form-control chosen-select m-left-m8", :multiple => true, :prompt => '', :placeholder => 'Start typing to find your entry or create a new one.',
                                        disabled: f.object.production.nil?,
                                        data: {
                                            add_as_text_label: 'To leave as text only, click here.'
