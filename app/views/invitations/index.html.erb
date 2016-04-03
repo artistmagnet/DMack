@@ -1,4 +1,4 @@
-<h1>Listing invitations</h1>
+<h1>My Sent Invitations</h1>
 
 <table class="table">
   <thead>
@@ -6,8 +6,8 @@
       <th>First name</th>
       <th>Last name</th>
       <th>Email</th>
-      <th>State</th>
-      <th>Text</th>
+      <th>Date</th>
+      <th>Custom Message</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -18,7 +18,7 @@
         <td><%= invitation.first_name %></td>
         <td><%= invitation.last_name %></td>
         <td><%= invitation.email %></td>
-        <td><%= invitation.state %></td>
+        <td><%= invitation.created_at %></td>
         <td><%= invitation.text %></td>
         <td><%#= link_to 'Show', invitation %></td>
         <td><%#= link_to 'Edit', edit_invitation_path(invitation) %></td>
@@ -30,7 +30,7 @@
 
 <br>
 
-<%= link_to 'New Invitation', invitations_new_path %>
+<%= link_to 'Invite an Artist to Artist Magnet', invitations_new_path %>
 <a href="/auth/facebook"><img src="/assets/bigfacebook.png" class="img-responsive" alt="" /></a>
 <%if $fb_friends.present?%>
   <h2> Facebook Friends:</h2>
