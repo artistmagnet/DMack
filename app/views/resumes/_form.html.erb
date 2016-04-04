@@ -682,11 +682,11 @@
            toReturn = false;
        }
 
-      else{  
+      else{
         if($.isEmptyObject($.find(".threatr-section .roles-table.h-movable"))){
           alert("You must add at least 1 Theatre Credit on order to save your Resume");
         }
-        else{ 
+        else{
           $("#new_resume").valid();
           var name = $(".resume_name").val();
           $("#resume_resume_name").val(name);

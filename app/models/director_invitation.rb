@@ -1,5 +1,6 @@
 class DirectorInvitation < Invitation
   belongs_to :to, :polymorphic => true
+  validates :email, :presence => true
 
   def initialize(attributes={})
     super(attributes)

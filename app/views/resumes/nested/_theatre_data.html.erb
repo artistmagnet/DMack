@@ -11,8 +11,14 @@
                 </div>
               <!-- </div> -->
               <div class="col-md-2 director_col"> 
-                <%= role.director_name %>
-              </div>
+               	  <% d= Director.find(role.director_id) %>
+                                <% if !d.resume_id.nil? %>
+                                        <%= link_to d.name, resume_path(d.resume_id) %>
+                                <% else %>
+                                        <%= d.name %>
+                                <% end %>
+ 	
+	      </div>
               <!-- <div class="col-md-5"> -->
               <div class="col-md-4">
                 <%= get_venue_and_company(role) %>

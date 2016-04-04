@@ -30,7 +30,11 @@
 
 <br>
 
-<%= link_to 'Invite an Artist to Artist Magnet', invitations_new_path %>
+<%= link_to user_artist_invitations_path current_user do %>
+  <button class="btn btn-primary pull-right m-top-m6" type="button">Invite an Artist to Artist Magnet</button>
+<% end %>
+ 
+
 <a href="/auth/facebook"><img src="/assets/bigfacebook.png" class="img-responsive" alt="" /></a>
 <%if $fb_friends.present?%>
   <h2> Facebook Friends:</h2>

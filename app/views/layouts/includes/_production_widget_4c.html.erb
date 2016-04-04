@@ -11,5 +11,6 @@
     <% else %>
       <% company = Company.find_by(:id => production.company_id) %>
       <%= link_to company.name, company_path(company.id) %>
+      <br />
     <% end %>
 </div>

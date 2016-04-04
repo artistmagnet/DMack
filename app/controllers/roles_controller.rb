@@ -41,8 +41,6 @@ class RolesController < ApplicationController
   def create
     @role = current_user.roles.build(role_params)
     @session_roles = $session_role << @role
-    # @role = Role.new(role_params)
-    # @resume = @role.resume
     respond_to do |format|
       if @role.save
         @roles = current_user.roles.where(:resume_id=>nil)

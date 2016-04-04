@@ -28,9 +28,9 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   $select = $(selectSel)
   $add_as_new = $select.data("add-as-new-label")
   $add_as_text= $select.data("add-as-text-label")
-  $no_res_links = [{"text":"To add a new item", "classes": "add_new", "href": "#"}]
+  $no_res_links = [{"text":"To add a new item, click here", "classes": "add_new", "href": "#"}]
   if $add_as_text
-    $no_res_links.push( {"text":'abcd', "classes": "add_text", "href": "#"})
+    $no_res_links.push( {"text":$add_as_text, "classes": "add_text", "href": "#"})
   $select.chosen
     allow_single_deselect: true
     inherit_select_classes: true
@@ -253,8 +253,8 @@ syncGet = (url) ->
   alert('calling ' + url)
   window.location.replace(url)
 
-jQuery ->
-  addAlertTo('#new_director_invitation>div>div>span>input.btn', "Your invitation is being processed")
+#jQuery ->
+#  addAlertTo('#new_director_invitation>div>div>span>input.btn', "Congratulations, your message has been sent!")
 
 addAlertTo = (selector, message) ->
   $(selector).click () ->

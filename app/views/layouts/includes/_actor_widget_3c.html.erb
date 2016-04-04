@@ -1,7 +1,10 @@
+<% c = ContactInfo.find_by(:resume_id => role.resume_id)  %>
+<% if !c.nil? %>
 <div class="col-md-3 m-bottom-20">
   <div class="" style="width: 180px; height: 180px; background-image: url('/images/fallback/silhouette-180.jpg')"></div>
   <!-- <h5><%#= link_to role.user_name, '#' %></h5>
   <p> <em><%#= role.name %></em> </p> -->
-  <h5><%= link_to ContactInfo.find_by(:resume_id => role.resume_id).nick_name, resume_path(role.resume_id) %></h5>
+  <h5><%= link_to c.nick_name, resume_path(role.resume_id) %></h5>
   <p> <em><%= role.name %></em> </p>
 </div>
+<% end %>
