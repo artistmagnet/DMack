@@ -31,8 +31,8 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   $add_as_new = $select.data("add-as-new-label")
   $add_as_text= $select.data("add-as-text-label")
   $no_res_links = [{"text":"To add as a new item, click here", "classes": "add_new", "href": "#"}]
-  if $add_as_text
-    $no_res_links.push( {"text":$add_as_text, "classes": "add_text", "href": "#"})
+  #if $add_as_text
+  #  $no_res_links.push( {"text":$add_as_text, "classes": "add_text", "href": "#"})
   $select.chosen
     allow_single_deselect: true
     inherit_select_classes: true
