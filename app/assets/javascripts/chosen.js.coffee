@@ -27,7 +27,7 @@ $ ->
     $('#role_director_id').chosen(
       disable_search : false
     )
-
+    alert("EFOIJEOFIJ")
 
 
 enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
