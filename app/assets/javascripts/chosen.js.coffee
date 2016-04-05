@@ -15,6 +15,9 @@ $ ->
   enrichSelect('#production_shows_attributes_0_venue_id', '#add-venue',             '#venue_name')
  
   $('#role_director_id').attr('disabled','true');
+  $('#role_director_id').chosen(
+    disable_search : false
+  )
 
   #enable Director selection if Production has been chosen
   $('#role_production_id').change ->
