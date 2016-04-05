@@ -11,7 +11,8 @@
       </h3>
     </div>
 
-    <%= form_for([@production, @invitation], remote: true, format: 'json', html: {class: 'form-horizontal'}) do |f| %>
+
+    <%= form_for([@production, @invitation], remote: true, html: {class: 'form-horizontal'}) do |f| %>
       <%= render 'layouts/includes/error_explanation', entity: @invitation, offset: 2, span: 10 %>
 
       <div class="form-group">

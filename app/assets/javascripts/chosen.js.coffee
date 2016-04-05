@@ -13,6 +13,8 @@ $ ->
   enrichSelect('#role_production_id',                     '#add-resume-production', '#production_name')
   enrichSelect('#production_company_id',                  '#add-company',           '#company_name')
   enrichSelect('#production_shows_attributes_0_venue_id', '#add-venue',             '#venue_name')
+ 
+  $('#role_director_id').attr('disabled','true');
 
   #enable Director selection if Production has been chosen
   $('#role_production_id').change ->
@@ -20,7 +22,7 @@ $ ->
     # enable Director selection
     $('#role_director_id').attr('disabled', ($prodId == ''))
     # reference the production
-    $('#new_director_invitation', '#add-role-director').attr('action', '/productions/'.concat($prodId).concat('/director_invitations.json'))
+    $('#new_director_invitation', '#add-role-director').attr('action', '/productions/'.concat($prodId).concat('/director_invitations'))
     $('#role_director_id').trigger('chosen:updated')
 
 enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
@@ -28,7 +30,7 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   $select = $(selectSel)
   $add_as_new = $select.data("add-as-new-label")
   $add_as_text= $select.data("add-as-text-label")
-  $no_res_links = [{"text":"To add a new item, click here", "classes": "add_new", "href": "#"}]
+  $no_res_links = [{"text":"To add as a new item, click here", "classes": "add_new", "href": "#"}]
   if $add_as_text
     $no_res_links.push( {"text":$add_as_text, "classes": "add_text", "href": "#"})
   $select.chosen
@@ -36,8 +38,8 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
     inherit_select_classes: true
     no_results_text: ' not found.'
     no_results_links: $no_res_links
+    some_results_links: [{"text":"To add as a new item, click here", "classes": "add_new", "href": "#"}]
     placeholder_text_single: $select.data("single_prompt") || "Start typing to find your entry or create a new one."
-    #some_results_links: [{"text":$add_as_new, "classes": "add_new", "href": "#"}, {"text":$add_as_text, "classes": "add_text", "href": "#"}]
     width: '382px'
 
 
@@ -252,9 +254,6 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 syncGet = (url) ->
   alert('calling ' + url)
   window.location.replace(url)
-
-#jQuery ->
-#  addAlertTo('#new_director_invitation>div>div>span>input.btn', "Congratulations, your message has been sent!")
 
 addAlertTo = (selector, message) ->
   $(selector).click () ->

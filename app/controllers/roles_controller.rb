@@ -40,17 +40,17 @@ class RolesController < ApplicationController
 
   def create
     @role = current_user.roles.build(role_params)
-    @session_roles = $session_role << @role
+    #@session_roles = $session_role << @role
     respond_to do |format|
       if @role.save
-        @roles = current_user.roles.where(:resume_id=>nil)
-        format.html { redirect_to after_create_path(request, @role), notice: 'Role was successfully created.' }
-        format.json { render json: @role }
+         @roles = current_user.roles.where(:resume_id=>nil)
+      #  format.html { redirect_to after_create_path(request, @role), notice: 'Role was successfully created.' }
+      #  format.json { render json: @role }
         format.js
       else
-        format.html { render :new }
-        format.json { render json: @role.errors.full_messages, status: :unprocessable_entity }
-        format.js{ render json: @role.errors.full_messages, status: :unprocessable_entity }
+      #  format.html { render :new }
+      #  format.json { render json: @role.errors.full_messages, status: :unprocessable_entity }
+      #  format.js{ render json: @role.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end
@@ -103,7 +103,6 @@ class RolesController < ApplicationController
   end
 
 end
-
 
 
 
