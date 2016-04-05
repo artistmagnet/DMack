@@ -1,7 +1,7 @@
 <div class="error_explanation" style="display: <%= display || 'none' %>">
   <div class="row">
     <div class="col-md-offset-<%= offset %> col-md-<%= span %>">
-      <ul style="list-style-type: none; padding-left: 13px; color: #fe4748">
+      <ul id="error_list" style="list-style-type: none; padding-left: 13px; color: #fe4748">
         <% if entity.errors.any? %>
           <% entity.errors.full_messages.each do |message| %>
             <li><%= message %></li>

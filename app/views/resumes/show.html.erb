@@ -76,7 +76,16 @@
                 <div class="row">
                   <div class="col-xs-3"><%= link_to theatre.production_name.upcase,theatre.production ,:target=>"_blank" if !theatre.production.blank?%></div>
                   <div class="col-xs-2"><%= theatre.name.capitalize%></div>
-		  <% if @resume.resume_type != "Director" %><div class="col-xs-2"><%= theatre.director_name.capitalize%></div><% end %>
+		  <% if @resume.resume_type != "Director" %>
+			<div class="col-xs-2">
+				<% d= Director.find(theatre.director_id) %>
+				<% if !d.resume_id.nil? %>
+					<%= link_to d.name, resume_path(d.resume_id) %>
+				<% else %>
+					<%= d.name %>
+				<% end %>
+			</div>
+		  <% end %>
                   <div class="col-xs-4"><%= get_venue_and_company(theatre) %></div>
                 </div>
                 <%end%>

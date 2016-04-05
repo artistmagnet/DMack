@@ -121,6 +121,10 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users do
+    resources :artist_invitations
+  end
+
   resources :rtables do
     resources :rtable_items
   end

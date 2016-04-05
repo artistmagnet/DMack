@@ -7,19 +7,19 @@
         <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
           <span>Credit</span>
           <!-- <a class="pull-right" href="<%#= edit_resume_path(@resume) %>" > -->
-          <% if params[:action].eql?("new") %>
-          <a class="pull-right back-link" href="javascript:void(0)" >
+          <%# if params[:action].eql?("new") %>
+          <a class="pull-right back-link" href="javascript:void(0)" onclick="$('#role_director_id').attr('disabled','true');">
             <i class="fa fa-undo"></i>
           </a>
-          <%else%>
-           <%= link_to edit_resume_path(@resume),:class=>"pull-right" do%>
-              <i class="fa fa-undo"></i>
-           <%end%>
-          <%end%>
+          <%#else%>
+           <%# link_to edit_resume_path(@resume),:class=>"pull-right" do%>
+              <!--i class="fa fa-undo"></i-->
+           <%#end%>
+          <%#end%>
         </h3>
       </div>
       <%# path,format,url_method,url_type = get_values(params[:action],@role)%>
-      <%= form_for(@role, :remote=>true,:format=>'js',html: {class: 'role-form form-horizontal'}) do |f| %>
+      <%= form_for(@role, :remote=>true, :format => :js, html: {class: 'role-form form-horizontal'}) do |f| %>
     
       <%= render 'layouts/includes/error_explanation', entity: @role, offset: 2, span: 10 %>
 
@@ -39,32 +39,22 @@
           <div class="field">
             <%= f.label :production_id, {class: "col-sm-2 control-label"} %>
             <div class="col-sm-10">
-              <%= f.collection_select :production_id, Production.all.order(:name), :id, :key_info, {prompt: 'Select production'},
-                                      {class: "form-control chosen-select m-left-m8",
+              <%= f.collection_select :production_id, Production.all.order(:name), :id, :key_info,
+                                      {class: "form-control chosen-select m-left-m8", 
                                        data: {
-                                           add_as_new_label:  'To add it as a new Production, click here' #,
-                                           # add_as_text_label: 'To leave as text only, click here.'
+                                           add_as_new_label:  'To add it as a new Production, click here'
                                        }
                                       }  %>
             </div>
           </div>
         </div>
 
-        <div class="form-group director_col">
+        <div class="form-group">
           <div class="field">
             <%= f.label :director_id, {class: "col-sm-2 control-label"} %>
             <div class="col-sm-10">
-              <%#= f.collection_select :director_id, Resume.directors.order(:user_id), :id, :name, {prompt: 'Select director'},
-                                      {class: "form-control chosen-select m-left-m8",
-                                       disabled: f.object.production.nil?,
-                                       data: {
-                                           add_as_new_label:  'To invite a new Director to Artist Magnet, click here',
-                                           add_as_text_label: 'To leave as text only, click here.'
-                                       }
-                                      }  %>
-              <%= f.collection_select :director_id, [], :id,:name,{prompt: 'Select director'},
-                                      {class: "form-control chosen-select m-left-m8",
-                                       disabled: f.object.production.nil?,
+              <%= f.collection_select :director_id, Director.all.order(:name), :id, :name_with_email,
+                                      {class: "form-control chosen-select m-left-m8", 
                                        data: {
                                            add_as_text_label: 'To leave as text only, click here.'
                                        }

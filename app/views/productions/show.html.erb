@@ -57,7 +57,7 @@
               <%# puts roles.to_json %>
               <%= render partial: 'layouts/includes/actor_widgets_row', locals: {roles: roles} %>
             </div>
-            <% ((roles.length+3)/4).times do |row| %>
+            <% ((roles.length+3)/4).times do |row| %> 
             <div class="row">
               <%= render partial: 'layouts/includes/actor_widgets_row', locals: {roles: roles}  %>
             </div>

@@ -11,28 +11,51 @@
         </ul>
       </div>
     <% end %>
+    
+<div class="form-group">
 
     <div class="field">
-      <%= f.label :first_name %><br>
-      <%= f.text_field :first_name %>
+      <label class="col-sm-2 control-label">Friend's First Name</label>
+      
+      <div class="col-sm-10">
+  
+	<%= f.text_field :first_name %>
     </div>
+</div>
+<div class="form-group">
     <div class="field">
-      <%= f.label :last_name %><br>
-      <%= f.text_field :last_name %>
+      <label class="col-sm-2 control-label">Friend's Last Name</label>
+      <div class="col-sm-10">
+	<%= f.text_field :last_name %>
+      </div>
     </div>
+</div>
+<div class="form-group">
     <div class="field">
-      <%= f.label :email %><br>
-      <%= f.email_field :email %>
+      <label class="col-sm-2 control-label">Friend's Email</label>
+      
+       <div class="col-sm-10"> 
+	<%= f.email_field :email %>
+       </div>
     </div>
+</div>
+<div class="form-group">
     <div class="field">
-      <%= f.label :state %><br>
-      <%= f.text_field :state %>
+      <label class="col-sm-2 control-label">Custom Message for your Friend</label>
+      <div class="col-sm-10"
+        <%= f.text_area :text %>
+      </div>
     </div>
-    <div class="field">
-      <%= f.label :text %><br>
-      <%= f.text_area :text %>
-    </div>
-    <div class="actions">
-      <%= f.submit %>
-    </div>
-  <%end%>
+</div>
+<div class="actions form-group">
+                  <div class="actions">
+                    <span class="col-sm-2">
+                    </span>
+                    <span class="col-sm-2">
+                      <%= f.submit 'Send invitation', {class: "btn btn-primary"} %>
+                    </span>
+                  </div>
+                </div>
+  
+
+<%end%>
