@@ -40,10 +40,18 @@ $(document).ready(function(){
 	  $('[data-toggle="popover"]').popover({ trigger: "hover" });
 	})
 	$(function() {
-		$( "#datepicker" ).datepicker();
+		$( "#datepicker" ).datepicker({
+      onClose: function(){
+        this.focus();
+      }
+    });
 	});
 	$(function() {
-		$( ".datepicker" ).datepicker();
+		$( ".datepicker" ).datepicker({
+      onClose: function(){
+        this.focus();
+      }
+    });
 	});
   $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
