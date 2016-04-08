@@ -89,7 +89,12 @@ class ResumesController < ApplicationController
         # add_education_table(@resume)  #moved to model
         # format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully created'}
         # format.html { render "/resumes/page_view.html.erb", notice: 'Resume was succesfully created'}
-
+ 
+	if params[:resume][:resume_type] === "Director"
+		d= Director.new(:resume_id => @resume.id, :email => params[:resume][:contact_info_attributes][:email], :name => params[:resume][:contact_info_attributes][:nick_name])
+		d.save
+	end
+ 
 	if params[:serialized]
         	str = params[:serialized].scan(/\d/).join(',')
         	new_order=str.split(",").map(&:to_i)
@@ -126,8 +131,6 @@ class ResumesController < ApplicationController
     @resume.repr_cols = params[:repr_cols]
     @resume.repr_pos = params[:repr_pos]
         
-    
-
     respond_to do |format|
       if @resume.update(resume_params)
         # @resume.education_columns = params[:columns]
@@ -136,6 +139,9 @@ class ResumesController < ApplicationController
 	      	Attribute.destroy_all(:resume_id => @resume.id)
 		Skill.destroy_all(:resume_id => @resume.id)
 	end
+	if @resume.resume_type != "Director"
+		Director.find_by(:resume_id => @resume.id).update_attributes(:resume_id => nil)
+	end 
 	update_role(@resume)
         update_photo(@resume)
         update_video(@resume)
@@ -262,10 +268,20 @@ class ResumesController < ApplicationController
   end
   def download_pdf
     @resume = Resume.find(params[:id])
-    html = render_to_string(:action => '../resumes/view_resume_pdf.pdf.erb',:layout=>false)
+    # html = render_to_string(:action => '../resumes/view_resume_pdf.pdf.erb',:layout=>false)
+    # html = render_to_string(:action => '../resumes/show_resume_pdf.pdf.erb',:layout=>false)
     #pdf = PDFKit.new(html,:page_size => 'Letter', :orientation => 'Landscape')
-    pdf = WickedPdf.new.pdf_from_string(html)
-    send_data(pdf,:filename => "#{current_user.name}.pdf", :type => 'application/pdf')  
+    #pdf = WickedPdf.new.pdf_from_string(html)
+    # html = render_to_string(action: "show_resume_pdf.pdf.erb", layout: 'application',:format=>)
+    # @pdf = PDFKit.new(html,:page_size => 'Letter', :orientation => 'Landscape')
+    @pdf  = PDFKit.new(render_to_string handlers: [:erb], formats: [:html], template: "/resumes/show_resume_pdf.pdf.erb")
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/layouts.css"
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/main.css"
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/custom.css"
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/bootstrap.min.css"
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/resumes.css"
+
+    send_data(@pdf.to_pdf,:filename => "#{@resume.resume_name}.pdf", :type => 'application/pdf')  
     #file = pdf.to_file('/public')
   end
 

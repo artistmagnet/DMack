@@ -14,7 +14,7 @@ class ArtistInvitationsController < InvitationsController
       if @invitation.save
         # invite_artist
         send_artist_invitation @invitation
-        format.html {redirect_to :back, notice: "Invitation has been sent to #{@invitation.first_name} #{@invitation.last_name}"}
+        format.html {redirect_to :back, notice: "Congratulations, your message has been sent to #{@invitation.first_name} #{@invitation.last_name}"}
         format.json {render json: @invitation}
       else
         format.html {render :index}
@@ -30,6 +30,7 @@ class ArtistInvitationsController < InvitationsController
     @to ||= Production.find(params[:production_id]) unless params[:production_id].blank?
     @to ||= Company.find(params[:company_id]) unless params[:company_id].blank?
     @to ||= Venue.find(params[:venue_id]) unless params[:venue_id].blank?
+    @to ||= User.find(params[:user_id]) unless params[:user_id].blank?
   end
 
   def set_invitations

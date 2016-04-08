@@ -11,14 +11,44 @@
        </div>
        <div class="modal-body">
         <h5>
-          NOTE: Your printed Resume will only show the text that fits on 1 sheet of paper (8 x 10 for Performing Artists and 8 1/2 x 11 for Production Members) so if your current Resume is longer than 1 page and you do not have a premium account, Artist Magnet recommends you upgrade and create an additional Resume that fits into the 1 page printable format. <%=link_to "Click here to upgrade.","#"%>
+          NOTE: Your printed Resume will only show the text that fits on 1 sheet of paper (8 x 10 for Performing Artists and 8 1/2 x 11 for Production Members or Directors) so if your current Resume is longer than 1 page and you do not have a premium account, Artist Magnet recommends you upgrade and create an additional Resume that fits into the 1 page printable format, or upgrade to print all of your pages. <%=link_to "Click here to upgrade.","#"%>
         </h5>
        </div>
        <div class="modal-footer">
-          <%= link_to "Print", '#', onclick: "printpage()",:class=>"btn btn-default "%>
-          <button data-dismiss="modal" class="btn btn-default continue_button" type="button">Print Preview</button>
+          <div class="hide" style="width:100%;height:100%"><iframe src="<%=resume_path(@resume,:print=>true)%>" name="frame" id="resume_frame"></iframe>
+          <iframe name="myFrame" width="100%" height="400" id="my_frame"></iframe>
+
+          </div>
+          <%#= link_to "Print", '#', onclick: "frames['frame'].print()",:class=>"btn btn-default "%>
+          <%= link_to "Print", '#', onclick: "PrintDoc()",:class=>"btn btn-default "%>
+          <%= link_to "Print Preview", download_pdf_resume_path(@resume.id,:format=>"pdf"),:class=>"btn btn-default "%>
           <%= link_to "Go Back", resumes_path,:class=>"btn btn-default "%>
        </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
+<script type="text/javascript">
+   function PrintDoc() {
+    var data = document.getElementById("resume_frame").contentWindow.document.body.innerHTML;
+     // var mywindow = window.open('', 'printMe', 'left=50000,top=50000,width=0,height=0');
+     var mywindow = window.frames["myFrame"];
+     var layout_path = "<%= asset_path 'templates/layouts' %>";
+     var main_path = "<%= asset_path 'templates/main' %>";
+     var custom_path = "<%= asset_path 'templates/custom'%>";
+     var bootstrap_path = "<%= asset_path 'templates/bootstrap.min'%>";
+     var resumes_path = "<%= asset_path 'resumes'%>";
+
+     mywindow.document.write('<html><head><link href="'+layout_path+'" rel="stylesheet" type="text/css" media="all"/><link href="'+main_path+'" rel="stylesheet" type="text/css" media="all"/><link href="'+custom_path+'" rel="stylesheet" type="text/css" media="all"/><link href="'+bootstrap_path+'" rel="stylesheet" type="text/css" media="all"/><link href="'+resumes_path+'" rel="stylesheet" type="text/css" media="all"/><title>Print Me</title>');
+     mywindow.document.write('</head><body >');
+     mywindow.document.write(data);
+     mywindow.document.write('</body></html>');
+     mywindow.document.close();
+
+     mywindow.focus();
+     mywindow.print();
+     mywindow.close();
+
+     return true;
+
+    }
+</script>

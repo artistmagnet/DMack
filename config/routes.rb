@@ -84,13 +84,17 @@ Rails.application.routes.draw do
   resources :resumes do
     collection do
       get :email_resume
-      get :download_pdf
+      
       get :find_user_role
       get :account_tier
       get :new_theatre
       post :new_theatre
       get :page_view
     end
+    member do
+      get :download_pdf
+      get :show_resume_pdf
+    end  
     resources :roles
 
   end
@@ -121,6 +125,10 @@ Rails.application.routes.draw do
     collection do
       get :find_company
     end
+  end
+
+  resources :users do
+    resources :artist_invitations
   end
 
   resources :rtables do

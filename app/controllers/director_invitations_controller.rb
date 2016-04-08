@@ -10,18 +10,17 @@ class DirectorInvitationsController < InvitationsController
     @invitation    = DirectorInvitation.new(invitation_params)
     @invitation.to = @production
     @invitation.by = current_user
+    
     respond_to do |format|
-      puts format
       if @invitation.save
-        # invite_director
         send_director_invitation @invitation
-        format.html {redirect_to production_director_invitations_path(@production), notice: "Invitation has been sent"}
+	format.html {redirect_to production_director_invitations_path(@production), notice: "Invitation has been sent"}
         format.json {render json: @invitation}
+        format.js
       else
         format.html {render :index}
         format.json {render json: @invitation.errors.full_messages, status: :unprocessable_entity}
       end
-      puts 'format: ' + format.to_json
     end
   end
 

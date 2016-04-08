@@ -24,14 +24,16 @@
     <p class="alert" style="display: none"><%= alert %></p>
 
     <!-- Page container -->
-    
+    <% unless params[:print] %>  
       <% if user_signed_in? %>
-        <div id="main-container" class="page-container">
+        <%@style = params[:print] ? "padding-left:0;" : "" %>
+        <div id="main-container" class="page-container" style="<%=@style%>">
           <%= render 'layouts/includes/sidebar' %>
       
       <%# else %>
       <%#= render 'layouts/includes/sidebar' %>
       <% end %>
+    <% end %>
       <!-- Content -->
       <div id="content">
         <div class="container-fluid p-top-20">
@@ -45,12 +47,12 @@
           </div>
         </div>
       </div>
-    
     <% if user_signed_in? %>
       </div>
     <% end %>
-    <!-- /Page container -->
+  <!-- /Page container -->
+  <% unless params[:print] %>
     <%= render "layouts/footer"%>
-
+  <%end%>  
   </body>
 </html>

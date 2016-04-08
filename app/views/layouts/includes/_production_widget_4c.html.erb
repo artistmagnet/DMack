@@ -2,10 +2,15 @@
   <%= link_to(production) do %>
     <div class="" style="width: 180px; height: 180px; background-image: url('/images/fallback/curtain-180.jpg')"></div>
     <h5 class="text-primary"><%= production.name %></h5>
-    <% if venue = production.current_venue %>
-      <%= venue.name %>
+  <% end %>
+    <p> <em><%= Show.find_by(:production_id => production.id).date.strftime("%b %-d, %Y") %></em> </p>
+    <% if params[:controller] != 'venues'  %>
+      <% venue = production.current_venue %>
+      <%= link_to venue.name, venue_path(venue.id) %>
+      <br />
+    <% else %>
+      <% company = Company.find_by(:id => production.company_id) %>
+      <%= link_to company.name, company_path(company.id) %>
       <br />
     <% end %>
-    <p> <em><%= production.staging_period_at venue %></em> </p>
-  <% end %>
 </div>

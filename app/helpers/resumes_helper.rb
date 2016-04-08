@@ -116,7 +116,7 @@ module ResumesHelper
 
 
     def get_title_row_class(index)
-    	index == 0 ? "col-md-2 diminished-font m-bottom-20" : "col-md-2"
+    	index == 0 ? "col-xs-2 diminished-font m-bottom-20" : "col-xs-2"
     end
 
     def get_title_row_bold(index)

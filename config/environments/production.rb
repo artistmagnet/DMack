@@ -112,8 +112,8 @@ Rails.application.configure do
     domain: "gmail.com",
     authentication: "plain",
     enable_starttls_auto: true,
-    :user_name => 'nagdewanimanish@gmail.com',
-    :password => 'hyphen@1'
+    :user_name => 'artist.magnet.test',
+    :password => 'fnie0z793nfk30x30aa948e'
   }
   
 end

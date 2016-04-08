@@ -5,47 +5,57 @@
     <div class="form-group">
       <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
         <span>Invite a Director to Artist Magnet</span>
-        <a class="pull-right" href="javascript:void(0)" onclick="$('.overlay-2').hide();$('.fade-2').hide();$('#new_director_invitation').trigger('reset');">
+        <a class="pull-right" href="javascript:void(0)" onclick="$('#error_list li').remove();$('.overlay-2').hide();$('.fade-2').hide();$('#new_director_invitation').trigger('reset');">
           <i class="fa fa-undo"></i>
         </a>
       </h3>
     </div>
 
-    <%= form_for([@production, @invitation], remote: true, format: 'json', html: {class: 'form-horizontal'}) do |f| %>
+
+    <%= form_for([@production, @invitation], remote: true, html: {class: 'form-horizontal'}) do |f| %>
       <%= render 'layouts/includes/error_explanation', entity: @invitation, offset: 2, span: 10 %>
 
       <div class="form-group">
         <div class="field">
-          <%= f.label :first_name, {class: "col-sm-2 control-label"} %>
+          <label class="col-sm-2 control-label">Director's First Name</label>
           <div class="col-sm-10">
-            <%= f.text_field :first_name, {class: 'form-control', placeholder: 'Enter First Name'} %>
+            <%= f.text_field :first_name, {class: 'form-control', placeholder: 'Director\'s First Name'} %>
           </div>
         </div>
       </div>
       <div class="form-group">
         <div class="field">
-          <%= f.label :last_name, {class: "col-sm-2 control-label"} %>
+          <label class="col-sm-2 control-label">Director's Last Name</label>
+	  <div class="col-sm-10">
+            <%= f.text_field :last_name, {class: 'form-control', placeholder: 'Director\'s Last Name'} %>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="mandatory field">
+	  <label class="col-sm-2 control-label">Director's Email</label>
           <div class="col-sm-10">
-            <%= f.text_field :last_name, {class: 'form-control', placeholder: 'Enter Last Name'} %>
+            <%= f.text_field :email, {class: 'form-control', placeholder: 'Director\'s Email'} %>
           </div>
         </div>
       </div>
       <div class="form-group">
         <div class="field">
-          <%= f.label :email, {class: "col-sm-2 control-label"} %>
-          <div class="col-sm-10">
-            <%= f.text_field :email, {class: 'form-control', placeholder: 'Enter Email'} %>
+          <label class="col-sm-2 control-label">Custom Message to the Director</label>
+	  <div class="col-sm-10 m-bottom-5">
+            <%= f.text_area :text, {class: 'form-control', placeholder: 'Custom Message to the Director'}  %>
+  		<br>    
+		<p>
+		The following automatic message will be added to your email: <i> I
+am building a new Resume on Artist Magnet - a new social network for
+Theatre people connecting Artists through Shows and Venues everywhere
+- to help me complete my Resume, please build your own Resume and link
+to mine.  You can do it here: <a href="http://www.ArtistMagnet.com">http://www.ArtistMagnet.com</a></i>	
+	</p>
           </div>
         </div>
       </div>
-      <div class="form-group">
-        <div class="field">
-          <%= f.label :text, {class: "col-sm-2 control-label"} %>
-          <div class="col-sm-10 m-bottom-5">
-            <%= f.text_area :text, {class: 'form-control', placeholder: 'Enter custom text (optional)'}  %>
-          </div>
-        </div>
-      </div>
+ 
       <div class="actions form-group">
         <div class="actions">
           <span class="col-sm-2"></span>
@@ -55,6 +65,6 @@
         </div>
       </div>
     <% end %>
-
+	
   </div>
 </div>
