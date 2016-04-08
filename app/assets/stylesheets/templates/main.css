@@ -1489,8 +1489,6 @@ label {
   background-color: #456162 !important;
 }
 
-
-
 .slategrey-border {
   border-color: #456162 !important;
 }
@@ -1502,4 +1500,30 @@ label {
 #logo {
   width: 100%;
   margin-bottom: 10px;
+}
+
+#facebook {
+  color: white;
+  background-color: #425caf;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#facebook i {
+  margin-right: 10px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+div #sign-up-body > #description > i {
+  float: left; margin-top: 5px; margin-right: 15px;  
+}
+
+div #sign-up-body > #description > div {
+  overflow:hidden;
+  margin-bottom: 3%;
 }

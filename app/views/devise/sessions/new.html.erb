@@ -14,14 +14,24 @@
     <br>
     
     <div id="sign-up-body" class='row'>
-      <div class="col-md-5 col-md-offset-1">
+      <div id="description" class="col-md-5 col-md-offset-1 vcenter">
         <p class='title'>Connecting Artists through Shows and Venues <span class='reddish-text'>EVERYWHERE...</span></p>
-        <p>Quickly build, print, share and save your own perfectly professional Resumes</p>
-        <p>Instantly link your Resumes to your favorite Directors, Productions, Companies and Venues</p>
-        <p>Connect with your fellow Artists from your latest Show or around the world</p>
+        <i class="fa fa-wrench"></i>
+        <div>Quickly build, print, share and save your own perfectly professional Resumes</div>
+        <i class="fa fa-link"></i>
+        <div>Instantly link your Resumes to your favorite Directors, Productions, Companies and Venues</div>
+        <i class="fa fa-connectdevelop"></i>
+        <div>Connect with your fellow Artists from your latest Show or around the world</div>
       </div>
-      <div class='col-md-5'>
-        <a href="/auth/facebook"><img src="/assets/bigfacebook.png" class="img-responsive" alt="" /></a>
+      <div class='col-md-5 vcenter'>
+        <!-- <a href="/auth/facebook"><img src="/assets/bigfacebook.png" class="img-responsive" alt="" /></a> -->
+        <div class="row">
+          <div class="col-md-8">
+            <%= link_to("/auth/facebook", id: 'facebook', class: 'btn black-shadow') do %>
+              <i class="fa fa-facebook-official"></i>Sign Up Through Facebook
+            <% end %>
+          </div>
+        </div>
         
         <p>or</p>
           
@@ -115,11 +125,11 @@
           </div> 
           
           <div class='row'>
-            <div class='col-md-4 form-group'>  
-              <%= f.submit "Sign up",:class=>'form-control btn submit-button reddish-background black-shadow' %>           
+            <div class='col-xs-3 form-group'>  
+              <%= f.submit "Sign Up",:class=>'form-control btn submit-button reddish-background black-shadow' %>           
             </div>
-            <div class='col-md-8 form-group'> 
-              By clicking register, you agree to Artist Magnet’s<a href="/terms_and_conditions" target="_blank"> Terms and Conditions</a>
+            <div class='col-xs-12 form-group'> 
+              By clicking the Sign Up button, you agree to Artist Magnet’s<a href="/terms_and_conditions" target="_blank"> Terms and Conditions</a>
             </div>
           </div>    
         <%end%>

@@ -3,13 +3,13 @@ $(function() {
   "use strict";
 
   // Fix height
-  var winHeight = $(window).height();
+  var winHeight = $(window).innerHeight();
   var docHeight = $(document).height();
   if(winHeight > docHeight) {
     docHeight = winHeight;
   }
-  $("#sidebar").css('min-height', docHeight);
-  $("#content").css('min-height', docHeight);
+  $("#sidebar").css('min-height', docHeight-80);
+  $("#content").css('min-height', docHeight-80);
 
   // Show sidebar submenu
   $(".has-submenu").click(function(e) {

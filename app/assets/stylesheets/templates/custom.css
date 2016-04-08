@@ -77,28 +77,44 @@
   position: relative;
   height: 80px;
   clear:both;
-  padding-top:20px;
-  background: grey;
+  padding: 20px 5% 0px;
+  /*background: grey;*/
+  background: #282624;
+  color: white;
 } 
 
 /**Makes the items appear in a line. But you can't define the width of an inline element.**/
-.footer li{
+/*.footer li{
     display:inline;
     float:left;
     color: #25B5D0;
     padding: 12px 30px;
     cursor: pointer;
+}*/
+
+.footer div{
+    display:inline;
 }
 
-.footer ul{
+.footer #footer-content {
+  margin: 0px 5%;
+  
+}
+
+.footer #links {
+  float: right;
+}
+
+/*.footer ul{
       text-align: center;
-
-}
+}*/
 
 .footer a{
-    display:block; /**Allows you to define a width.*/
+    /*display:block; *Allows you to define a width.*/
+    /*display:block;*/
     text-align:center;
-    color: #25B5D0
+    /*color: #25B5D0*/
+    color: white;
 }
 
 #notice{
