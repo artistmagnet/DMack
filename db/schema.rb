@@ -114,8 +114,9 @@ ActiveRecord::Schema.define(version: 20160404002806) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "ccolumns",   default: [],    array: true
-    t.boolean  "is_bold",    default: false
+    t.string   "ccolumns",          default: [],    array: true
+    t.boolean  "is_bold",           default: false
+    t.integer  "resume_section_id"
   end
 
   create_table "directors", force: true do |t|
