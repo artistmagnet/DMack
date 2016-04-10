@@ -88,3 +88,4 @@ gem "wkhtmltopdf-binary"
 gem 'activemerchant'
 gem "addressable"
 gem 'puma', group: :production
+gem 'wkhtmltopdf-heroku', group: :production
