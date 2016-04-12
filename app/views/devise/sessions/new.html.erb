@@ -152,16 +152,16 @@
   
 <script>  
   $(document).ready(function() {
-    var field1 = new LiveValidation( 'first_name', {onlyOnSubmit: false } );
+    var field1 = new LiveValidation( 'first_name', {onlyOnSubmit: true } );
     field1.add( Validate.Presence );
 
-    var field2 = new LiveValidation( 'last_name', {onlyOnSubmit: false } );
+    var field2 = new LiveValidation( 'last_name', {onlyOnSubmit: true } );
     field2.add( Validate.Presence );
     
-    var field3 = new LiveValidation( 'email', {onlyOnSubmit: false } );
+    var field3 = new LiveValidation( 'email', {onlyOnSubmit: true } );
     field3.add( Validate.Email );
     
-    var field4 = new LiveValidation( 'datepicker', {onlyOnSubmit: false } );
+    var field4 = new LiveValidation( 'datepicker', {onlyOnSubmit: true } );
     field4.add( Validate.Presence );
     
     var field5 = new LiveValidation( 'password', {onlyOnSubmit: false } );
