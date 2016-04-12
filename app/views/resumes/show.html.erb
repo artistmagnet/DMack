@@ -1,3 +1,25 @@
+<style type="text/css" media="print">
+      <% if @resume.resume_type == 'Performing Artist' %>
+        @page {
+          size: landscape ;
+          
+        }
+        body{
+          margin: .25in .75in 1.25in .25in;
+          /*writing-mode: tb-rl;*/
+        }
+      <%else%>
+        @page {
+          size: landscape ; 
+          
+        }
+        body{
+          margin: 1in 1in 1in 1in;
+          /*writing-mode: tb-rl;*/
+        }
+      <%end%>
+  
+</style>
 <div class="container-fluid m-top-20">
   <% unless params[:print] %>
     <div class="col-xs-2">
@@ -79,7 +101,7 @@
                      <% @resume.representations.each do |representation|%>
                      
                       
-                      <div class="col-xs-10 area_text" style="padding-right:0px;"><%= h representation.rcolumns %></div>
+                      <div class="col-xs-10 area_text"><%= h representation.rcolumns %></div>
                       
               </div>
                       <%end%>                 
@@ -96,7 +118,7 @@
                    <% @resume.educations.ordered.each_with_index do |education,index|%>
                     <div class="row">
                       <% education.ecolumns.each do |col|%>
-                      <div class="<%=get_title_row_class(index)%>" id="<%=get_title_row_bold(index)%>" style="padding-right:0px;"><%= col %></div>
+                      <div class="<%=get_title_row_class(index)%>" id="<%=get_title_row_bold(index)%>"><%= col %></div>
                       <%end%>
                     </div> 
                     <%end%>                 

@@ -15,11 +15,40 @@
         </h5>
        </div>
        <div class="modal-footer">
-          <div class="hide" style="width:100%;height:100%"><iframe src="<%=resume_path(@resume,:print=>true)%>" name="frame" id="resume_frame"></iframe></div>
-          <%= link_to "Print", '#', onclick: "frames['frame'].print()",:class=>"btn btn-default "%>
+          <div class="hide" style="width:100%;height:100%"><iframe src="<%=resume_path(@resume,:print=>true)%>" name="frame" id="resume_frame"></iframe>
+          <iframe name="myFrame" width="100%" height="400" id="my_frame"></iframe>
+
+          </div>
+          <%#= link_to "Print", '#', onclick: "frames['frame'].print()",:class=>"btn btn-default "%>
+          <%= link_to "Print", '#', onclick: "PrintDoc()",:class=>"btn btn-default "%>
           <%= link_to "Print Preview", download_pdf_resume_path(@resume.id,:format=>"pdf"),:class=>"btn btn-default "%>
           <%= link_to "Go Back", resumes_path,:class=>"btn btn-default "%>
        </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal -->
 </div>
+<script type="text/javascript">
+   function PrintDoc() {
+    var data = document.getElementById("resume_frame").contentWindow.document.body.innerHTML;
+     // var mywindow = window.open('', 'printMe', 'left=50000,top=50000,width=0,height=0');
+     var mywindow = window.frames["myFrame"];
+     var layout_path = "<%= asset_path 'templates/layouts' %>";
+     var main_path = "<%= asset_path 'templates/main' %>";
+     var custom_path = "<%= asset_path 'templates/custom'%>";
+     var bootstrap_path = "<%= asset_path 'templates/bootstrap.min'%>";
+     var resumes_path = "<%= asset_path 'resumes'%>";
+
+     mywindow.document.write('<html><head><link href="'+layout_path+'" rel="stylesheet" type="text/css" media="all"/><link href="'+main_path+'" rel="stylesheet" type="text/css" media="all"/><link href="'+custom_path+'" rel="stylesheet" type="text/css" media="all"/><link href="'+bootstrap_path+'" rel="stylesheet" type="text/css" media="all"/><link href="'+resumes_path+'" rel="stylesheet" type="text/css" media="all"/><title>Print Me</title>');
+     mywindow.document.write('</head><body >');
+     mywindow.document.write(data);
+     mywindow.document.write('</body></html>');
+     mywindow.document.close();
+
+     mywindow.focus();
+     mywindow.print();
+     mywindow.close();
+
+     return true;
+
+    }
+</script>

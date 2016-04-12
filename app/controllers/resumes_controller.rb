@@ -275,11 +275,12 @@ class ResumesController < ApplicationController
     # html = render_to_string(action: "show_resume_pdf.pdf.erb", layout: 'application',:format=>)
     # @pdf = PDFKit.new(html,:page_size => 'Letter', :orientation => 'Landscape')
     @pdf  = PDFKit.new(render_to_string handlers: [:erb], formats: [:html], template: "/resumes/show_resume_pdf.pdf.erb")
-    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/resumes.css"
     @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/layouts.css"
     @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/main.css"
     @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/custom.css"
     @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/templates/bootstrap.min.css"
+    @pdf.stylesheets << "#{Rails.root}/app/assets/stylesheets/resumes.css"
+
     send_data(@pdf.to_pdf,:filename => "#{@resume.resume_name}.pdf", :type => 'application/pdf')  
     #file = pdf.to_file('/public')
   end
