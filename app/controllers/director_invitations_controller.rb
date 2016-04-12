@@ -45,7 +45,7 @@ class DirectorInvitationsController < InvitationsController
     #   puts production.director_invitations.where(email: inv.email, by: inv.by).to_json
     # else
       puts "Sending director invitation"
-      AmMailer.invite_director(invitation, production, 'An Artist Magnet user').deliver
+      AmMailer.invite_director(invitation, production, current_user.name).deliver
     # end
   end
 end
