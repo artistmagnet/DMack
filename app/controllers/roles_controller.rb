@@ -50,7 +50,7 @@ class RolesController < ApplicationController
       else
       #  format.html { render :new }
       #  format.json { render json: @role.errors.full_messages, status: :unprocessable_entity }
-      #  format.js{ render json: @role.errors.full_messages, status: :unprocessable_entity }
+        format.js{ render json: @role.errors.full_messages, status: :unprocessable_entity }
       end
     end
   end

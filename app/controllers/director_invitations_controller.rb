@@ -16,7 +16,6 @@ class DirectorInvitationsController < InvitationsController
         send_director_invitation @invitation
 	format.html {redirect_to production_director_invitations_path(@production), notice: "Invitation has been sent"}
         format.json {render json: @invitation}
-        format.js
       else
         format.html {render :index}
         format.json {render json: @invitation.errors.full_messages, status: :unprocessable_entity}

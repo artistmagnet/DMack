@@ -34,15 +34,21 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   $select = $(selectSel)
   $add_as_new = $select.data("add-as-new-label")
   $add_as_text= $select.data("add-as-text-label")
-  $no_res_links = [{"text":"To add as a new item, click here", "classes": "add_new", "href": "#"}]
-  #if $add_as_text
-  #  $no_res_links.push( {"text":$add_as_text, "classes": "add_text", "href": "#"})
+  $str = "To add a new " + selectSel.split("_")[1] + ", click here"
+  $some_results_links = [{"text": $str, "classes": "add_new", "href": "#"}] 
+  $no_res_links = [{"text": $str, "classes": "add_new", "href": "#"}]
+  if selectSel == '#role_director_id'
+    $str = "To invite a new " + selectSel.split("_")[1] + ", click here"
+    $some_results_links[0].text = $str
+    $no_res_links[0].text = $str
+    $some_results_links.push({"text":'To leave as text only, click here', "classes": "add_text", "href": "#"}) 
+    $no_res_links.push({"text":'To leave as text only, click here', "classes": "add_text", "href": "#"})
   $select.chosen
     allow_single_deselect: true
     inherit_select_classes: true
     no_results_text: ' not found.'
     no_results_links: $no_res_links
-    some_results_links: [{"text":"To add as a new item, click here", "classes": "add_new", "href": "#"}]
+    some_results_links: $some_results_links
     placeholder_text_single: $select.data("single_prompt") || "Start typing to find your entry or create a new one."
     width: '382px'
 

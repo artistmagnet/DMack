@@ -11,12 +11,11 @@
       </h3>
     </div>
 
-
-    <%= form_for([@production, @invitation], remote: true, html: {class: 'form-horizontal'}) do |f| %>
+    <%= form_for([@production, @invitation],  remote: true, html: {:'data-type' => 'json', class: 'form-horizontal'}) do |f| %>
       <%= render 'layouts/includes/error_explanation', entity: @invitation, offset: 2, span: 10 %>
 
       <div class="form-group">
-        <div class="field">
+        <div class="mandatory field">
           <label class="col-sm-2 control-label">Director's First Name</label>
           <div class="col-sm-10">
             <%= f.text_field :first_name, {class: 'form-control', placeholder: 'Director\'s First Name'} %>
@@ -24,7 +23,7 @@
         </div>
       </div>
       <div class="form-group">
-        <div class="field">
+        <div class="mandatory field">
           <label class="col-sm-2 control-label">Director's Last Name</label>
 	  <div class="col-sm-10">
             <%= f.text_field :last_name, {class: 'form-control', placeholder: 'Director\'s Last Name'} %>
@@ -46,12 +45,20 @@
             <%= f.text_area :text, {class: 'form-control', placeholder: 'Custom Message to the Director'}  %>
   		<br>    
 		<p>
-		The following automatic message will be added to your email: <i> I
-am building a new Resume on Artist Magnet - a new social network for
-Theatre people connecting Artists through Shows and Venues everywhere
-- to help me complete my Resume, please build your own Resume and link
-to mine.  You can do it here: <a href="http://www.ArtistMagnet.com">http://www.ArtistMagnet.com</a></i>	
-	</p>
+		The following automatic message will be added to your email: 
+		  <i>
+		    <br><br>
+		    Dear [Director's Name]:
+                    <br><br>
+		    I am building a new hyperlinking Resume on Artist Magnet - a new social network for Theatre people connecting Artists through Shows and Venues everywhere.
+		    <br><br>
+		    In order to complete my Resume, I would like to add you as my Director for <%= @production.name %>, and hyperlink my Resume to yours. To help me do this, please build your own Resume and link it to mine. You can do it here: <a href="http://www.ArtistMagnet.com">www.ArtistMagnet.com</a>
+		    <br><br>
+Thanks for your help, and see you soon on Artist Magnet,
+		    <br><br>
+- <%= link_to current_user.name, user_path(current_user.id) %>	
+		  </i>
+		</p>
           </div>
         </div>
       </div>
@@ -68,3 +75,4 @@ to mine.  You can do it here: <a href="http://www.ArtistMagnet.com">http://www.A
 	
   </div>
 </div>
+
