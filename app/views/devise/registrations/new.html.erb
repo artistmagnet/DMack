@@ -14,14 +14,24 @@
     <br>
     
     <div id="sign-up-body" class='row'>
-      <div class="col-md-5 col-md-offset-1">
+      <div id="description" class="col-md-5 col-md-offset-1 vcenter">
         <p class='title'>Connecting Artists through Shows and Venues <span class='reddish-text'>EVERYWHERE...</span></p>
-        <p>Quickly build, print, share and save your own perfectly professional Resumes</p>
-        <p>Instantly link your Resumes to your favorite Directors, Productions, Companies and Venues</p>
-        <p>Connect with your fellow Artists from your latest Show or around the world</p>
+        <i class="fa fa-wrench"></i>
+        <div>Quickly build, print, share and save your own perfectly professional Resumes</div>
+        <i class="fa fa-link"></i>
+        <div>Instantly link your Resumes to your favorite Directors, Productions, Companies and Venues</div>
+        <i class="fa fa-connectdevelop"></i>
+        <div>Connect with your fellow Artists from your latest Show or around the world</div>
       </div>
-      <div class='col-md-5'>
-        <a href="/auth/facebook"><img src="/assets/bigfacebook.png" class="img-responsive" alt="" /></a>
+      <div class='col-md-5 vcenter'>
+        <!-- <a href="/auth/facebook"><img src="/assets/bigfacebook.png" class="img-responsive" alt="" /></a> -->
+        <div class="row">
+          <div class="col-md-8">
+            <%= link_to("/auth/facebook", id: 'facebook', class: 'btn black-shadow') do %>
+              <i class="fa fa-facebook-official"></i>Sign Up Through Facebook
+            <% end %>
+          </div>
+        </div>
         
         <p>or</p>
           
@@ -49,8 +59,8 @@
           <div class='row'>
             <div class='col-xs-12 col-sm-6 col-md-12 col-lg-6 form-group'>
               <label class='control-label'>Gender*</label><br>
-              <div class="row">
-                <div id="more-gender-checkbox" class="col-xs-12">
+              <div id='gender' class="row">
+                <div id="gender-checkboxes" class="col-xs-12" style="<%= ['Male', 'Female', nil].include?(f.object.gender) ? '' : 'display: none;' %>">
                   <label class="radio-inline">
                     <%= f.radio_button :gender, "Male" %>male
                   </label>
@@ -61,9 +71,9 @@
                     <%= f.radio_button :gender, "more" %>more
                   </label>
                 </div>
-                <div id="more-gender-edit" class="col-xs-12" style="display: none;">
+                <div id="gender-edit" class="col-xs-12" style="<%= ['Male', 'Female', nil].include?(f.object.gender) ? 'display: none;' : '' %>">
                   <div class="input-group black-shadow">
-                    <%= f.text_field :gender, class: 'form-control', id: 'user_gender_more', placeholder: 'Please enter your gender identification here' %>
+                    <%= f.text_field :gender, class: 'form-control', id: 'user_gender_more_edit', placeholder: 'Please enter your gender identification here' %>
                     <span class="input-group-btn">
                       <button id= 'reset-gender' class="btn btn-danger" type="button">X</button>
                     </span>
@@ -115,11 +125,11 @@
           </div> 
           
           <div class='row'>
-            <div class='col-md-4 form-group'>  
-              <%= f.submit "Sign up",:class=>'form-control btn submit-button reddish-background black-shadow' %>           
+            <div class='col-xs-3 form-group'>  
+              <%= f.submit "Sign Up",:class=>'form-control btn submit-button reddish-background black-shadow' %>           
             </div>
-            <div class='col-md-8 form-group'> 
-              By clicking register, you agree to Artist Magnet’s<a href="/terms_and_conditions" target="_blank"> Terms and Conditions</a>
+            <div class='col-xs-12 form-group'> 
+              By clicking the Sign Up button, you agree to Artist Magnet’s<a href="/terms_and_conditions" target="_blank"> Terms and Conditions</a>
             </div>
           </div>    
         <%end%>
@@ -142,40 +152,48 @@
   
 <script>  
   $(document).ready(function() {
-    var field1 = new LiveValidation( 'first_name', {onlyOnSubmit: false } );
+    var field1 = new LiveValidation( 'first_name', {onlyOnSubmit: true } );
     field1.add( Validate.Presence );
 
-    var field2 = new LiveValidation( 'last_name', {onlyOnSubmit: false } );
+    var field2 = new LiveValidation( 'last_name', {onlyOnSubmit: true } );
     field2.add( Validate.Presence );
     
-    var field3 = new LiveValidation( 'email', {onlyOnSubmit: false } );
+    var field3 = new LiveValidation( 'email', {onlyOnSubmit: true } );
     field3.add( Validate.Email );
     
-    var field4 = new LiveValidation( 'datepicker', {onlyOnSubmit: false } );
+    var field4 = new LiveValidation( 'user_gender_more_edit', {onlyOnSubmit: true,
+    insertAfterWhatNode : 'gender'});
     field4.add( Validate.Presence );
     
-    var field5 = new LiveValidation( 'password', {onlyOnSubmit: false } );
+    var field5 = new LiveValidation( 'datepicker', {onlyOnSubmit: true } );
     field5.add( Validate.Presence );
-    field5.add( Validate.Length, {minimum: 8, maximum: 128} );
     
-    var field6 = new LiveValidation( 'password_confirmation', {onlyOnSubmit: false } );
+    var field6 = new LiveValidation( 'password', {onlyOnSubmit: false } );
     field6.add( Validate.Presence );
-    field6.add( Validate.Confirmation, { match: 'password' } );
+    field6.add( Validate.Length, {minimum: 8, maximum: 128} );
+    
+    var field7 = new LiveValidation( 'password_confirmation', {onlyOnSubmit: false } );
+    field7.add( Validate.Presence );
+    field7.add( Validate.Confirmation, { match: 'password' } );
     
     $("input[name='user[gender]']:radio").change(function() {
       if (this.value == 'more') {
-        $("#more-gender-checkbox").hide();
-        $("#more-gender-edit").show();
-        $("#more-gender-edit").find("input#user_gender_more").focus();
+        $("input#user_gender_more_edit").val('');
+        $("#gender-checkboxes").hide();
+        $("#gender-edit").show();
+        $("#gender-edit").find("input#user_gender_more_edit").focus();
+      } else {
+        $("input#user_gender_more_edit").val(this.value);
       }
+      
     });
     
     $("#reset-gender").click(function() {
-      $("#more-gender-edit").hide();
-      $("#more-gender-edit").find("input#user_gender_more").val('');
+      $("#gender-edit").hide();
+      $("#gender-edit").find("input#user_gender_more").val('');
       $("input[name='user[gender]']:radio").attr("checked", false);
-      $("#more-gender-checkbox").show();
-      $("#more-gender-checkbox").find("input#user_gender_male").focus();
+      $("#gender-checkboxes").show();
+      $("#gender-checkboxes").find("input#user_gender_male").focus();
     });
     
     // var f19 = new LiveValidation('confirm_email');
