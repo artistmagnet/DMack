@@ -40,20 +40,23 @@ $(document).ready(function(){
 	$(function () {
 	  $('[data-toggle="popover"]').popover({ trigger: "hover" });
 	})
+  
 	$(function() {
-		$( "#datepicker" ).datepicker({
-      onClose: function(){
-        this.focus();
-      }
+    $( ".datepicker" ).datepicker();
+	});
+  
+  var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
+  $.fn.bootstrapDP = datepicker;
+  
+  $(function() {
+    $( "#datepicker" ).bootstrapDP({
+      format: "MM, d yyyy",
+      endDate: "0d",
+      startView: 2,
+      autoclose: true
     });
 	});
-	$(function() {
-		$( ".datepicker" ).datepicker({
-      onClose: function(){
-        this.focus();
-      }
-    });
-	});
+  
   $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
   });
