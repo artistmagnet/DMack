@@ -3,7 +3,7 @@ class Director < ActiveRecord::Base
 	validates :name,:presence => true
 
 	def name_with_email
-    		if !email.empty?
+    		if !email.nil? && !email.empty?
 			return "#{name} - #{email}"
 		else
 			return "#{name}"

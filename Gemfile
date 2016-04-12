@@ -84,7 +84,8 @@ gem "koala", "~> 2.0"
 gem 'oauth2'
 
 #image or file  uplaod
-gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+# gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem 'paperclip', '~> 4.3', '>= 4.3.6'
 gem "nested_form"
 
 gem 'remotipart', '~> 1.2'
@@ -95,3 +96,5 @@ gem 'wicked_pdf'
 gem "wkhtmltopdf-binary"
 gem 'activemerchant'
 gem "addressable"
+gem 'puma', group: :production
+gem 'wkhtmltopdf-heroku', group: :production

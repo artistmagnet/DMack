@@ -16,7 +16,6 @@ class DirectorInvitationsController < InvitationsController
         send_director_invitation @invitation
 	format.html {redirect_to production_director_invitations_path(@production), notice: "Invitation has been sent"}
         format.json {render json: @invitation}
-        format.js
       else
         format.html {render :index}
         format.json {render json: @invitation.errors.full_messages, status: :unprocessable_entity}
@@ -46,7 +45,7 @@ class DirectorInvitationsController < InvitationsController
     #   puts production.director_invitations.where(email: inv.email, by: inv.by).to_json
     # else
       puts "Sending director invitation"
-      AmMailer.invite_director(invitation, production, 'An Artist Magnet user').deliver
+      AmMailer.invite_director(invitation, production, current_user.name).deliver
     # end
   end
 end
