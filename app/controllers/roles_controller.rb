@@ -40,6 +40,11 @@ class RolesController < ApplicationController
 
   def create
     @role = current_user.roles.build(role_params)
+    d = Director.find_by(:id => @role.director_id)
+    if d.nil?
+      d = Director.new(:name => @role.dirname)
+      d.save
+    end 
     #@session_roles = $session_role << @role
     respond_to do |format|
       if @role.save

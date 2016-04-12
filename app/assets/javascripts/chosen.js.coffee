@@ -79,6 +79,17 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
   $add_link = $(selectSel + "_chosen").find(".add_new>a")
   $add_link.click ->
+    
+    size=0
+    $("select" + selectSel + " option").each (i, elem) ->
+      this.selected = false
+      size += 1
+    size+=1
+
+    $("select"+selectSel).append($("<option></option>").val(size).html(new_name).attr('selected', 'selected'));
+
+  
+   
     el = $(selectSel + '_chosen')
 #    console.log($(selectSel + '_chosen'))
 #    console.log($(selectSel + '_chosen>a.chosen-single'))
@@ -127,12 +138,14 @@ setAddTextLink = (selectSel, hiddenSel) ->
   new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
   $text_link = $(selectSel + "_chosen").find(".add_text>a")
   $text_link.click ->
+    size=0
     $("select" + selectSel + " option").each (i, elem) ->
-      if (i == 0)
-        this.selected = true
-        this.text = new_name
-      else
-        this.selected = false
+      this.selected = false
+      size += 1
+    size+=1
+    
+    $("select"+selectSel).append($("<option></option>").val(size).html(new_name).attr('selected', 'selected'));
+ 
 
     $(hiddenSel).val(new_name)
     $(selectSel).trigger("chosen:updated")
