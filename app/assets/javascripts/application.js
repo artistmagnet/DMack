@@ -30,6 +30,7 @@
 //= require jquery.dragtable
 //= require nested_forms
 //= require resume
+//= require bootstrap-datepicker
 
 $(document).ready(function(){
 	$(function () {

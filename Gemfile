@@ -68,8 +68,15 @@ gem 'devise'
 gem 'devise_invitable', '~> 1.3.4'
 # gem 'chosen-rails', '1.2.0.j', :git => 'https://github.com/gior/chosen-rails.git', :branch => 'feature/vanilla-search'
 gem 'chosen-rails', '1.2.0.j', :git => 'https://github.com/gior/chosen-rails.git', :branch => 'master'
+
+# captcha
 gem 'simple_captcha2', require: 'simple_captcha'
 gem 'recaptcha', '~> 1.2', require: "recaptcha/rails"
+
+# datepicker
+gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.0.1'
+
+# omniauth
 gem 'omniauth'
 gem 'omniauth-facebook'
 # gem "fb_graph"
