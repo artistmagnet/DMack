@@ -1362,7 +1362,12 @@ label {
   /* line 66, ../scss/_responsive.scss */
   .login-page .login-buttons strong {
     display: block;
-    margin: 15px 0; } }
+    margin: 15px 0; }
+    
+  #bottom-section {
+    font-size: 120%;
+  }
+}
 @media screen and (max-width: 480px) {
   /* line 75, ../scss/_responsive.scss */
   .page-title h4 span {
@@ -1437,7 +1442,12 @@ label {
 }
 
 #sign-up-body input {
-  background: rgba(255, 255, 255, 0.7)
+  background: rgba(255, 255, 255, 0.7);
+  color: #333;
+}
+
+#sign-up-body .form-control:focus{
+  box-shadow: 0 0 10px #425caf;
 }
 
 #sign-up-body .title{
@@ -1457,7 +1467,7 @@ label {
   font-family: 'Lato', sans-serif;
   font-weight: 300;
   /*font-size: 19px;*/
-  font-size: 120%;
+  font-size: 150%;
   text-align: center;
   /*height: 272px;*/
   position: relative;
@@ -1471,18 +1481,18 @@ label {
 
 #bottom-section .text {
   position: absolute;
-  top: 20%;
+  top: 15%;
   width: 100%;
 }
 
 #bottom-section .title {
   /*font-size: 40px;*/
   font-size: 150%;
+  font-variant: small-caps;
 }
 
 #bottom-section .bold {
   font-weight: 700;
-  font-variant: small-caps;
 }
 
 .slategrey {
@@ -1526,4 +1536,8 @@ div #sign-up-body > #description > i {
 div #sign-up-body > #description > div {
   overflow:hidden;
   margin-bottom: 3%;
+}
+
+.datepicker.dropdown-menu {
+  background: white;
 }

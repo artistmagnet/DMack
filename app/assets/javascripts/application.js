@@ -45,7 +45,7 @@ $(document).ready(function(){
     $( ".datepicker" ).datepicker();
 	});
   
-  var datepicker = $.fn.datepicker.noConflict(); // return $.fn.datepicker to previously assigned value
+  var datepicker = $.fn.datepicker.noConflict();
   $.fn.bootstrapDP = datepicker;
   
   $(function() {

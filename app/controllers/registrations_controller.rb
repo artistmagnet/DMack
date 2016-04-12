@@ -19,7 +19,7 @@ class RegistrationsController < Devise::RegistrationsController
     else
       clean_up_passwords resource
       set_minimum_password_length
-      respond_with resource
+      respond_with resource, location: new_user_session_path(resource)
     end
     
     
@@ -51,7 +51,7 @@ class RegistrationsController < Devise::RegistrationsController
       if verify_recaptcha
         true
       else
-      # byebug
+        sign_up_params = params["user"].permit(:first_name, :last_name, :dob, :gender, :email, :password, :password_confirmation, :member_role)
         self.resource = resource_class.new sign_up_params
         respond_with_navigational(resource) { render :new }
       end 
