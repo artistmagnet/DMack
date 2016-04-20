@@ -24,17 +24,32 @@
               <div class='form-row'>
                 <div class='col-xs-6 form-group '>
                   <label class='control-label'>Date Of Birth</label>
-                   <%= f.text_field :dob,:class=>'form-control ' ,:placeholder=>'Date of Birth',:id=>"datepicker" %>
+                   <%= f.text_field :dob, value: (f.object.dob.strftime('%B, %e %Y') if f.object.dob), :class=>'form-control ' ,:placeholder=>'Date of Birth',:id=>"datepicker" %>
                 </div>
                 <div class='col-xs-6 form-group '>
                   <label class='control-label'>Gender</label>
-                   <label class="radio-inline">
-                     <%= f.radio_button :gender,"Male" %>Male
-                  </label>
-                  <label class="radio-inline">         
-                    <%= f.radio_button :gender,"Femele" %>Femele
-                  </label>        
-                </div>             
+                  <div class="row">
+                    <div id="gender-checkboxes" class="col-xs-12" style="<%= ['Male', 'Female', nil].include?(f.object.gender) ? '' : 'display: none;' %>">
+                      <label class="radio-inline">
+                        <%= f.radio_button :gender, "Male" %>male
+                      </label>
+                      <label class="radio-inline">         
+                        <%= f.radio_button :gender, "Female" %>female
+                      </label>
+                      <label class="radio-inline">				 
+                        <%= f.radio_button :gender, "more" %>more
+                      </label> 
+                    </div>  
+                    <div id="gender-edit" class="col-xs-12" style="<%= ['Male', 'Female', nil].include?(f.object.gender) ? 'display: none;' : '' %>">
+                      <div class="input-group">
+                        <%= f.text_field :gender, class: 'form-control', id: 'user_gender_more_edit', placeholder: 'Please enter your gender identification here' %>
+                        <span class="input-group-btn">
+                          <button id= 'reset-gender' class="btn btn-danger" type="button">X</button>
+                        </span>
+                      </div>
+                    </div>  
+                  </div>   
+                </div>
               </div>
             <div class='form-row'>
             <div class='col-md-2 form-group'>  
@@ -104,5 +119,25 @@
   $(document).ready(function() {
     var f19 = new LiveValidation('confirm_email');
     f19.add( Validate.Confirmation, { match: 'email' } );
+    
+    $("input[name='user[gender]']:radio").change(function() {
+      if (this.value == 'more') {
+        $("input#user_gender_more_edit").val('');
+        $("#gender-checkboxes").hide();
+        $("#gender-edit").show();
+        $("#gender-edit").find("input#user_gender_more_edit").focus();
+      } else {
+        $("input#user_gender_more_edit").val(this.value);
+      }
+      
+    });
+    
+    $("#reset-gender").click(function() {
+      $("#gender-edit").hide();
+      $("#gender-edit").find("input#user_gender_more").val('');
+      $("input[name='user[gender]']:radio").attr("checked", false);
+      $("#gender-checkboxes").show();
+      $("#gender-checkboxes").find("input#user_gender_male").focus();
+    });
       });
   </script>

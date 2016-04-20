@@ -12,9 +12,15 @@ Rails.application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   # You can have the root of your site routed with "root"
-  devise_for :users, :controllers => {:registrations => "registrations",:invitations => 'users/invitations' }
+  devise_for :users, :controllers => {:registrations => "registrations", :invitations => 'users/invitations' }
+  # root 'home#index'
+  
+  authenticated do
+    root :to => 'home#index', as: :authenticated_root
+  end
 
-  root 'home#index'
+  root to: redirect('/users/sign_in')
+  
   get "users/express"
 
   put   'productions/:production_id/update_director'   =>  'productions#update_director',    as: :update_production_director

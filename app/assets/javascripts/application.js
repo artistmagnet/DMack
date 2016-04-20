@@ -30,6 +30,7 @@
 //= require jquery.dragtable
 //= require nested_forms
 //= require resume
+//= require bootstrap-datepicker
 
 $(document).ready(function(){
 	$(function () {
@@ -39,12 +40,23 @@ $(document).ready(function(){
 	$(function () {
 	  $('[data-toggle="popover"]').popover({ trigger: "hover" });
 	})
+  
 	$(function() {
-		$( "#datepicker" ).datepicker();
+    $( ".datepicker" ).datepicker();
 	});
-	$(function() {
-		$( ".datepicker" ).datepicker();
+  
+  var datepicker = $.fn.datepicker.noConflict();
+  $.fn.bootstrapDP = datepicker;
+  
+  $(function() {
+    $( "#datepicker" ).bootstrapDP({
+      format: "MM, d yyyy",
+      endDate: "0d",
+      startView: 2,
+      autoclose: true
+    });
 	});
+  
   $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
   });

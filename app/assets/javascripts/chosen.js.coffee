@@ -34,15 +34,21 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   $select = $(selectSel)
   $add_as_new = $select.data("add-as-new-label")
   $add_as_text= $select.data("add-as-text-label")
-  $no_res_links = [{"text":"To add as a new item, click here", "classes": "add_new", "href": "#"}]
-  #if $add_as_text
-  #  $no_res_links.push( {"text":$add_as_text, "classes": "add_text", "href": "#"})
+  $str = "To add a new " + selectSel.split("_")[1] + ", click here"
+  $some_results_links = [{"text": $str, "classes": "add_new", "href": "#"}] 
+  $no_res_links = [{"text": $str, "classes": "add_new", "href": "#"}]
+  if selectSel == '#role_director_id'
+    $str = "To invite a new " + selectSel.split("_")[1] + ", click here"
+    $some_results_links[0].text = $str
+    $no_res_links[0].text = $str
+    $some_results_links.push({"text":'To leave as text only, click here', "classes": "add_text", "href": "#"}) 
+    $no_res_links.push({"text":'To leave as text only, click here', "classes": "add_text", "href": "#"})
   $select.chosen
     allow_single_deselect: true
     inherit_select_classes: true
     no_results_text: ' not found.'
     no_results_links: $no_res_links
-    some_results_links: [{"text":"To add as a new item, click here", "classes": "add_new", "href": "#"}]
+    some_results_links: $some_results_links
     placeholder_text_single: $select.data("single_prompt") || "Start typing to find your entry or create a new one."
     width: '382px'
 
@@ -73,6 +79,17 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
   $add_link = $(selectSel + "_chosen").find(".add_new>a")
   $add_link.click ->
+    
+    size=0
+    $("select" + selectSel + " option").each (i, elem) ->
+      this.selected = false
+      size += 1
+    size+=1
+
+    $("select"+selectSel).append($("<option></option>").val(size).html(new_name).attr('selected', 'selected'));
+
+  
+   
     el = $(selectSel + '_chosen')
 #    console.log($(selectSel + '_chosen'))
 #    console.log($(selectSel + '_chosen>a.chosen-single'))
@@ -121,12 +138,14 @@ setAddTextLink = (selectSel, hiddenSel) ->
   new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
   $text_link = $(selectSel + "_chosen").find(".add_text>a")
   $text_link.click ->
+    size=0
     $("select" + selectSel + " option").each (i, elem) ->
-      if (i == 0)
-        this.selected = true
-        this.text = new_name
-      else
-        this.selected = false
+      this.selected = false
+      size += 1
+    size+=1
+    
+    $("select"+selectSel).append($("<option></option>").val(size).html(new_name).attr('selected', 'selected'));
+ 
 
     $(hiddenSel).val(new_name)
     $(selectSel).trigger("chosen:updated")

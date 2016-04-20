@@ -1,28 +1,23 @@
 Dear <%= @invitation.first_name %>:
-<p>
-  I am in the process of completing my professional hyperlinking Resume on <%= link_to "Artist Magnet", root_url %>, the theatre revolution, and I would like to add you as my Director for <%= @production.name %>, and hyperlink my Resume to yours.
-</p>
-<p>
-  Will you consider joining <%= link_to "Artist Magnet", root_url %> and building your own professional hyperlinking Resume to help me complete this process?  It's very easy, fun and there's no cost to you.
-</p>
-<p>
-  Thanks for your help, and see you soon on <%= link_to "Artist Magnet", root_url %>,
-</p>
-<p>
-<%= @referrer_name %><br />
-http://www.artistmagnet.com   <br />
-</p>
+
+<br><br>
+		    I am building a new hyperlinking Resume on Artist Magnet - a new social network for Theatre people connecting Artists through Shows and Venues everywhere.
+		    <br><br>
+		    In order to complete my Resume, I would like to add you as my Director for <%= @production.name %>, and hyperlink my Resume to yours. To help me do this, please build your own Resume and link it to mine. You can do it here: <a href="http://www.ArtistMagnet.com">www.ArtistMagnet.com</a>
+		    <br><br>
+Thanks for your help, and see you soon on Artist Magnet,
+		    <br><br>
+
+
+
+<%= @referrer_name %>
+
 <br />
+
+<br />
+---
 <p>
   <%= @invitation.text %>
 </p>
----
-<p>
-<i> I
-am building a new Resume on Artist Magnet - a new social network for
-Theatre people connecting Artists through Shows and Venues everywhere
-- to help me complete my Resume, please build your own Resume and link
-to mine.  You can do it here: <a href="http://www.ArtistMagnet.com">http://www.ArtistMagnet.com</a></i>
-        </p>
 
 
