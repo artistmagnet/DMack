@@ -5,6 +5,8 @@ class Invitation < ActiveRecord::Base
   # validates :text, :presence => true
   validate :other_validations
 
+  belongs_to :resume
+
   belongs_to :to, :polymorphic => true
   belongs_to :by, :class_name => "User"
 

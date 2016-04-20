@@ -10,7 +10,8 @@ class DirectorInvitationsController < InvitationsController
     @invitation    = DirectorInvitation.new(invitation_params)
     @invitation.to = @production
     @invitation.by = current_user
-    
+   
+    @invitation.resume_id = params[:resume_id] 
     respond_to do |format|
       if @invitation.save
         send_director_invitation @invitation
@@ -45,7 +46,7 @@ class DirectorInvitationsController < InvitationsController
     #   puts production.director_invitations.where(email: inv.email, by: inv.by).to_json
     # else
       puts "Sending director invitation"
-      AmMailer.invite_director(invitation, production, current_user.name).deliver
+      AmMailer.invite_director(invitation, production, ContactInfo.find_by(:resume_id => invitation.resume_id).nick_name).deliver
     # end
   end
 end

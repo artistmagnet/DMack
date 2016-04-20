@@ -1,9 +1,14 @@
 class DirectorInvitation < Invitation
   belongs_to :to, :polymorphic => true
 
-  validates :first_name, :presence => true
-  validates :last_name, :presence => true
-  
+  validate :first_or_last
+
+  def first_or_last
+    if self.first_name.empty? && self.last_name.empty?
+      errors.add(:base, "You must enter at least a First or Last Name")
+    end
+  end
+ 
 
   def initialize(attributes={})
     super(attributes)
