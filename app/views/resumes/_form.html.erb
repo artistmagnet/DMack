@@ -1,7 +1,7 @@
 <%#if (((current_user.role!="premium")) &&  (!current_user.resumes.blank?)) && params[:action]!="edit" %>
   <!-- <div class='photo-popover'><%#= render('/resumes/nested/payment_form') %></div> -->
 <%#else%>
-<div id="add-resume">
+<div id="add-resume" >
     <%= nested_form_for(@resume, html: {class: 'form-horizontal'}) do |f| %>
     <div class="container-fluid m-top-20">
       <div class="row">
@@ -559,6 +559,9 @@
   </style>
   
   <script>
+   
+  
+	$('#user_name_invite').html($('.stage_name').val());
     resume_type = $("#select_resume_type:checked").val();
     if (resume_type === "Director")
     {
