@@ -93,7 +93,7 @@ gem 'remotipart', '~> 1.2'
 #Export pdf
 gem "pdfkit"
 gem 'wicked_pdf'
-gem "wkhtmltopdf-binary"
+# gem "wkhtmltopdf-binary"
 gem 'activemerchant'
 gem "addressable"
 gem 'puma', group: :production
