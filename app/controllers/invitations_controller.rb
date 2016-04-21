@@ -20,6 +20,7 @@ class InvitationsController < ApplicationController
          redirect_to :back
     else
        @invitation = current_user.invitations.new(invitation_params)
+       @invitation.resume_id = params[:resume_id]
        respond_to do |format|
          #@invitation.to = @user.id
         if @invitation.save

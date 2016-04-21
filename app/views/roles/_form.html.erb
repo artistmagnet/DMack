@@ -53,7 +53,7 @@
           <div class="field">
             <%= f.label :director_id, {class: "col-sm-2 control-label"} %>
             <div class="col-sm-10">
-              <%= f.collection_select :director_id, Director.all.order(:name), :id, :name_with_email,
+              <%= f.collection_select :director_id, Director.where("email <> ''").order(:name), :id, :name_with_email,
                                       {class: "form-control chosen-select m-left-m8", 
                                        data: {
                                            add_as_text_label: 'To leave as text only, click here.'

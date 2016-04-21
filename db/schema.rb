@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404002806) do
+ActiveRecord::Schema.define(version: 20160420174126) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -114,9 +114,8 @@ ActiveRecord::Schema.define(version: 20160404002806) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "ccolumns",          default: [],    array: true
-    t.boolean  "is_bold",           default: false
-    t.integer  "resume_section_id"
+    t.string   "ccolumns",   default: [],    array: true
+    t.boolean  "is_bold",    default: false
   end
 
   create_table "directors", force: true do |t|
@@ -128,6 +127,7 @@ ActiveRecord::Schema.define(version: 20160404002806) do
     t.datetime "updated_at"
     t.string   "name"
     t.integer  "resume_id"
+    t.boolean  "text_only"
   end
 
   create_table "educations", force: true do |t|
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 20160404002806) do
     t.datetime "updated_at"
     t.string   "role"
     t.string   "to_type"
+    t.integer  "resume_id"
   end
 
   create_table "orders", force: true do |t|
