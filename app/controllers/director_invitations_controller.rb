@@ -14,6 +14,10 @@ class DirectorInvitationsController < InvitationsController
     @invitation.resume_id = params[:resume_id] 
     respond_to do |format|
       if @invitation.save
+        name="#{params[:director_invitation][:first_name]} #{params[:director_invitation][:last_name]}"
+	d=Director.new(:first_name => params[:director_invitation][:first_name], :last_name => params[:director_invitation][:last_name], :email => params[:director_invitation][:email], :name => name)
+	d.save	
+
         send_director_invitation @invitation
 	format.html {redirect_to production_director_invitations_path(@production), notice: "Invitation has been sent"}
         format.json {render json: @invitation}

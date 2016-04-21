@@ -5,8 +5,8 @@
     <div class="form-group">
       <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
         <span>Invite a Director to Artist Magnet</span>
-        <a class="pull-right" href="javascript:void(0)" onclick="$('#error_list li').remove();$('.overlay-2').hide();$('.fade-2').hide();$('#new_director_invitation').trigger('reset');">
-          <i class="fa fa-undo"></i>
+        <a class="pull-right" href="javascript:void(0)">
+          <i class="fa fa-undo back-link"></i>
         </a>
       </h3>
     </div>
@@ -19,7 +19,7 @@
         <div class="mandatory field">
           <label class="col-sm-2 control-label">Director's First Name</label>
           <div class="col-sm-10" >
-            <%= f.text_field :first_name, {id: 'first_name', title: 'You Must Enter a First or Last Name', class: 'form-control', placeholder: 'Director\'s First Name' } %>
+            <%= f.text_field :first_name, {id: 'director_first_name', title: 'You Must Enter a First or Last Name', class: 'form-control', placeholder: 'Director\'s First Name' } %>
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
         <div class="mandatory field">
           <label class="col-sm-2 control-label">Director's Last Name</label>
 	  <div class="col-sm-10">
-            <%= f.text_field :last_name, {id: 'last_name', title: 'You Must Enter a First or Last Name', class: 'form-control', placeholder: 'Director\'s Last Name'} %>
+            <%= f.text_field :last_name, {id: 'director_last_name', title: 'You Must Enter a First or Last Name', class: 'form-control', placeholder: 'Director\'s Last Name'} %>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@
         <div class="mandatory field">
 	  <label class="col-sm-2 control-label">Director's Email</label>
           <div class="col-sm-10">
-            <%= f.text_field :email, {class: 'form-control', placeholder: 'Director\'s Email'} %>
+            <%= f.text_field :email, {id: 'director_email', class: 'form-control', placeholder: 'Director\'s Email'} %>
           </div>
         </div>
       </div>
@@ -78,7 +78,7 @@ Thanks for your help, and see you soon on Artist Magnet,
 </div>
 <script>
 $(function(){
-      $('#first_name, #last_name').tooltip({
+      $('#director_first_name, #director_last_name').tooltip({
         content: function(){
           var element = $( this );
           return element.attr('title')
