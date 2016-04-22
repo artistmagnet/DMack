@@ -45,7 +45,7 @@ class RolesController < ApplicationController
       d = Director.new(:name => @role.dirname)
       d.save
     end 
-    #@session_roles = $session_role << @role
+    @session_roles = $session_role << @role
     respond_to do |format|
       if @role.save
          @roles = current_user.roles.where(:resume_id=>nil)
