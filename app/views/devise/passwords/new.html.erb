@@ -21,7 +21,8 @@
 
    <div class='form-row'>
           <div class='col-md-12 form-group'>  
-          <%= show_simple_captcha %>            
+          <%#= show_simple_captcha %>   
+          <%= recaptcha_tags %>          
           </div>
     </div>
   <div class='form-row'>
@@ -34,8 +35,17 @@
 <%#= render "devise/shared/links" %>
 </div>
 <script>  
-  $(document).ready(function() {
-    var f19 = new LiveValidation('confirm_email');
-    f19.add( Validate.Confirmation, { match: 'email' } );
-      });
-  </script>
+  window.onload = function() {
+    var field3 = new LiveValidation( 'email', {onlyOnSubmit: true } );
+    field3.add( Validate.Presence );
+    field3.add( Validate.Email );
+    
+    var field7 = new LiveValidation( 'confirm_email', {onlyOnSubmit: false, wait: 500 } );
+    field7.add( Validate.Presence );
+    field7.add( Validate.Confirmation, { match: 'email' } );
+    
+    var field8 = new LiveValidation( 'g-recaptcha-response', {onlyOnSubmit: true } );
+    field8.add( Validate.Presence, 
+              { failureMessage: "Need to be checked!" } );
+  };
+</script>
