@@ -1391,10 +1391,11 @@ label {
     right: 25px; } }
 
 #background-top {
+  background-color: #333333;
   background-image: url("/assets/background_top.jpg");
   background-repeat: no-repeat;
   /*background-attachment: fixed;*/
-  background-size: cover;
+  background-size: auto 100%;
   font-family: 'Lato', sans-serif;
   color: white;
 }

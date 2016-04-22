@@ -3,10 +3,10 @@
   <br>
   <div class="col-xs-12 col-sm-10 col-sm-offset-1">
     <div id="sign-in-header" class="row">
-      <div class="col-xs-12 col-sm-6 col-lg-5">
+      <div class="col-xs-12 col-sm-6">
         <%= image_tag 'logo.svg', id: 'logo' %>
       </div>
-      <div class="col-xs-12 col-sm-6 col-lg-offset-1">
+      <div class="col-xs-12 col-sm-6">
         <%= render 'layouts/includes/signin' %>
       </div>
     </div>
@@ -14,7 +14,7 @@
     <br>
     
     <div id="sign-up-body" class='row'>
-      <div id="description" class="col-md-5 col-md-offset-1 vcenter">
+      <div id="description" class="col-xs-12 col-md-5 col-md-offset-1 vcenter">
         <p class='title'>Connecting Artists through Shows and Venues <span class='reddish-text'>EVERYWHERE...</span></p>
         <i class="fa fa-wrench"></i>
         <div>Quickly build, print, share and save your own perfectly professional Resumes</div>
@@ -23,7 +23,7 @@
         <i class="fa fa-connectdevelop"></i>
         <div>Connect with your fellow Artists from your latest Show or around the world</div>
       </div>
-      <div class='col-md-5 vcenter'>
+      <div class='col-xs-12 col-md-5 vcenter'>
         <!-- <a href="/auth/facebook"><img src="/assets/bigfacebook.png" class="img-responsive" alt="" /></a> -->
         <div class="row">
           <div class="col-md-8">
@@ -125,7 +125,7 @@
           </div> 
           
           <div class='row'>
-            <div class='col-xs-3 form-group'>  
+            <div class='col-xs-12 col-sm-3 form-group'>  
               <%= f.submit "Sign Up",:class=>'form-control btn submit-button reddish-background black-shadow' %>           
             </div>
             <div class='col-xs-12 form-group'> 
@@ -151,7 +151,30 @@
 </div>
   
 <script>  
-  $(document).ready(function() {
+  function genderHandler() {
+    $("input[name='user[gender]']:radio").change(function() {
+      if (this.value == 'more') {
+        $("input#user_gender_more_edit").val('');
+        $("#gender-checkboxes").hide();
+        $("#gender-edit").show();
+        $("#gender-edit").find("input#user_gender_more_edit").focus();
+      } else {
+        $("input#user_gender_more_edit").val(this.value);
+      }
+    });
+    
+    $("#reset-gender").click(function() {
+      $("#gender-edit").hide();
+      $("#gender-edit").find("input#user_gender_more").val('');
+      $("input[name='user[gender]']:radio").attr("checked", false);
+      $("#gender-checkboxes").show();
+      $("#gender-checkboxes").find("input#user_gender_male").focus();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", genderHandler);
+  
+  window.onload = function() {
     var field1 = new LiveValidation( 'first_name', {onlyOnSubmit: true } );
     field1.add( Validate.Presence );
 
@@ -169,35 +192,16 @@
     var field5 = new LiveValidation( 'datepicker', {onlyOnSubmit: true } );
     field5.add( Validate.Presence );
     
-    var field6 = new LiveValidation( 'password', {onlyOnSubmit: false } );
+    var field6 = new LiveValidation( 'password', {onlyOnSubmit: false, wait: 500 } );
     field6.add( Validate.Presence );
     field6.add( Validate.Length, {minimum: 8, maximum: 128} );
     
-    var field7 = new LiveValidation( 'password_confirmation', {onlyOnSubmit: false } );
+    var field7 = new LiveValidation( 'password_confirmation', {onlyOnSubmit: false, wait: 500 } );
     field7.add( Validate.Presence );
     field7.add( Validate.Confirmation, { match: 'password' } );
     
-    $("input[name='user[gender]']:radio").change(function() {
-      if (this.value == 'more') {
-        $("input#user_gender_more_edit").val('');
-        $("#gender-checkboxes").hide();
-        $("#gender-edit").show();
-        $("#gender-edit").find("input#user_gender_more_edit").focus();
-      } else {
-        $("input#user_gender_more_edit").val(this.value);
-      }
-      
-    });
-    
-    $("#reset-gender").click(function() {
-      $("#gender-edit").hide();
-      $("#gender-edit").find("input#user_gender_more").val('');
-      $("input[name='user[gender]']:radio").attr("checked", false);
-      $("#gender-checkboxes").show();
-      $("#gender-checkboxes").find("input#user_gender_male").focus();
-    });
-    
-    // var f19 = new LiveValidation('confirm_email');
-    // f19.add( Validate.Confirmation, { match: 'email' } );
-  });
+    var field8 = new LiveValidation( 'g-recaptcha-response', {onlyOnSubmit: true } );
+    field8.add( Validate.Presence, 
+              { failureMessage: "Need to be checked!" } );
+  };
 </script>
