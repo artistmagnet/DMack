@@ -1,6 +1,6 @@
 PDFKit.configure do |config|  
   if Rails.env == 'production' then
-    config.wkhtmltopdf = "app/bin/wkhtmltopdf"
+    config.wkhtmltopdf = Rails.root.to_s + "/bin/wkhtmltopdf-amd64"
   else
     # config.exe_path = '/usr/bin/wkhtmltopdf'
     config.wkhtmltopdf = Rails.root.to_s + "/bin/wkhtmltopdf"
