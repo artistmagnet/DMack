@@ -288,6 +288,7 @@ class ResumesController < ApplicationController
   def sort_sections
     # debugger
   end
+  
   def add_videos
     # @resume = Resume.find(params[:video][:resume_id])
     # @resume.videos.create(video_params)
