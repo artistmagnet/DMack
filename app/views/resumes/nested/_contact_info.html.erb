@@ -4,10 +4,17 @@
                   <span class='astrick' style="top:-5px;">*</span>
                   </div>
     <div class="col-sm-3">
-      <%= c.text_field :nick_name,:required => true,:class=>"stage_name form-control"%>
-      
+      <%= c.text_field :nick_name, :required => true,:class=>"stage_name form-control"%>
     </div>
   </div>
+
+  <script>
+	$('.stage_name').on('change', function(){
+	  $('#user_name_invite').html(this.value);
+	});
+
+
+  </script>
   <!-- <div class="form-group">
   <label for="inputEmail3" class="col-sm-2 control-label"></label> -->
    <!-- div class="col-sm-3">

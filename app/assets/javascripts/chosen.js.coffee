@@ -80,16 +80,6 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   $add_link = $(selectSel + "_chosen").find(".add_new>a")
   $add_link.click ->
     
-    size=0
-    $("select" + selectSel + " option").each (i, elem) ->
-      this.selected = false
-      size += 1
-    size+=1
-
-    $("select"+selectSel).append($("<option></option>").val(size).html(new_name).attr('selected', 'selected'));
-
-  
-   
     el = $(selectSel + '_chosen')
 #    console.log($(selectSel + '_chosen'))
 #    console.log($(selectSel + '_chosen>a.chosen-single'))
@@ -138,14 +128,14 @@ setAddTextLink = (selectSel, hiddenSel) ->
   new_name = $(selectSel + "_chosen").find(".chosen-search>input").val()
   $text_link = $(selectSel + "_chosen").find(".add_text>a")
   $text_link.click ->
+
     size=0
     $("select" + selectSel + " option").each (i, elem) ->
       this.selected = false
       size += 1
     size+=1
-    
-    $("select"+selectSel).append($("<option></option>").val(size).html(new_name).attr('selected', 'selected'));
- 
+   
+    $("select"+selectSel).append($("<option></option>").val(size).html(new_name).attr('selected', 'selected')); 
 
     $(hiddenSel).val(new_name)
     $(selectSel).trigger("chosen:updated")
@@ -251,12 +241,11 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
       entName = xhr.responseJSON.name
 #      console.log( "entid: " +entId + ", entName: " + entName)
       $select = $(select_selector, $(origin_scope_selector))
-      if $select.length
-        $select.append("<option value=" + entId + " selected='selected'>" + entName + "</option>");
-        # rerender
-        $select.trigger("change");
-        $select.trigger("chosen:updated");
-        selectChain.pop()
+#     if $select.length
+      $select.append("<option value=" + entId + " selected='selected'>" + entName  + "</option>");
+      $select.trigger("change");
+      $select.trigger("chosen:updated");
+      selectChain.pop()
       scrollElementToLocation('html, body', selectChain[selectChain.length-1])  
 
   $(document).bind "ajaxError", create_scope_selector, (event, jqxhr, settings, exception) ->
@@ -324,10 +313,18 @@ jQuery ->
             $('#venue_country').trigger('chosen:updated')
             $('#production_company_id').trigger('chosen:updated')
             $('#production_shows_attributes_0_venue_id').trigger('chosen:updated')
-  
+          else
+            if selectChain[selectChain.length-1] == "#add-role-director"
+              $('.overlay-2').hide()
+              $('.fade-2').hide()
+              $('#new_director_invitation').trigger('reset');
+              $('#role_production_id').trigger('chosen:updated')
+              $('#role_director_id').trigger('chosen:updated')
+              $('#error_list li').remove(); 
+
     $form.trigger('reset')
     $form.find('div.error_explanation').hide()
-    if selectChain[selectChain.length-1] == '#add-resume-production' || selectChain[selectChain.length-1] == '#add-venue' || selectChain[selectChain.length-1] == '#add-company' 
+    if selectChain[selectChain.length-1] == '#add-resume-production' || selectChain[selectChain.length-1] == '#add-venue' || selectChain[selectChain.length-1] == '#add-company' || selectChain[selectChain.length-1] == "#add-role-director" 
       selectChain.pop()
       scrollElementToLocation('html,body',selectChain[selectChain.length-1])
 

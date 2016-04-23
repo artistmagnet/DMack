@@ -1,89 +1,89 @@
 <%#if (((current_user.role!="premium")) &&  (!current_user.resumes.blank?)) && params[:action]!="edit" %>
-  <!-- <div class='photo-popover'><%#= render('/resumes/nested/payment_form') %></div> -->
+<!-- <div class='photo-popover'><%#= render('/resumes/nested/payment_form') %></div> -->
 <%#else%>
-<div id="add-resume">
-    <%= nested_form_for(@resume, html: {class: 'form-horizontal'}) do |f| %>
-    <div class="container-fluid m-top-20">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-            <div class="panel-body">
-               <div class="form-group" >
-                <div class="col-sm-2">
-                  <label for="inputEmail3" class="" title="Selecting 'Performing Artist' reveals the Demographics and Skills Sections and selecting 'Production Member' removes those Sections">Resume Type</label>
-                  <span class='astrick' style="top:-5px;">*</span>
-                  </div>
+<div id="add-resume" >
+<%= nested_form_for(@resume, html: {class: 'form-horizontal'}) do |f| %>
+<div class="container-fluid m-top-20">
+<div class="row">
+<div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-body">
+       <div class="form-group" >
+	<div class="col-sm-2">
+	  <label for="inputEmail3" class="" title="Selecting 'Performing Artist' reveals the Demographics and Skills Sections and selecting 'Production Member' removes those Sections">Resume Type</label>
+	  <span class='astrick' style="top:-5px;">*</span>
+	  </div>
 
-                  <%#= f.select(:resume_type,options_for_select([['Performing Artist', 'Performing Artist'], ['Production Member', 'Production Member']],:selected=>@resume.resume_type ),{},:class=>"form-control",:id=>"select_resume_type") %>
-                  <div class="col-sm-3">
-			  <%= f.radio_button :resume_type,'Performing Artist',:class=>"",:id=>"select_resume_type",:required => true %> 
-                  <%= f.label :resume_type,'Performing Artist',class: '',:title=>"Actor, Dancer, Musician, Singer, etc." %>
-                  </div>
-                  <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Production Member',:class=>"",:id=>"select_resume_type",:required => true%> 
-                  <%= f.label :resume_type,'Production Member',class: '',:title=>"Choreographer, Designer, Dramaturg, Playwright, Stage Manager, etc." %>
-                  </div>
-                  <div class="col-sm-3">
-                  <%= f.radio_button :resume_type,'Director',:class=>"",:id=>"select_resume_type",:required => true%> 
-                  <%= f.label :resume_type,'Director',class: '',:title=>"" %>
-                  </div>
-                </div>
-                <label class="error" for="resume[resume_type]"></label>
-                <hr/>
+	  <%#= f.select(:resume_type,options_for_select([['Performing Artist', 'Performing Artist'], ['Production Member', 'Production Member']],:selected=>@resume.resume_type ),{},:class=>"form-control",:id=>"select_resume_type") %>
+	  <div class="col-sm-3">
+		  <%= f.radio_button :resume_type,'Performing Artist',:class=>"",:id=>"select_resume_type",:required => true %> 
+	  <%= f.label :resume_type,'Performing Artist',class: '',:title=>"Actor, Dancer, Musician, Singer, etc." %>
+	  </div>
+	  <div class="col-sm-3">
+	  <%= f.radio_button :resume_type,'Production Member',:class=>"",:id=>"select_resume_type",:required => true%> 
+	  <%= f.label :resume_type,'Production Member',class: '',:title=>"Choreographer, Designer, Dramaturg, Playwright, Stage Manager, etc." %>
+	  </div>
+	  <div class="col-sm-3">
+	  <%= f.radio_button :resume_type,'Director',:class=>"",:id=>"select_resume_type",:required => true%> 
+	  <%= f.label :resume_type,'Director',class: '',:title=>"" %>
+	  </div>
+	</div>
+	<label class="error" for="resume[resume_type]"></label>
+	<hr/>
 
-                <div class="form-group">
-                  <div class="col-sm-2"><label for="inputEmail3" class="control-label" title="This name will appear on your Resume below your Stage Name and Union/Guild Affiliation.  Examples of common Resume Titles include: Actor, Music Director, Production Stage Manager, Sound Designer, etc.">Resume Title</label></div>
-                  <div class="col-sm-5">
+	<div class="form-group">
+	  <div class="col-sm-2"><label for="inputEmail3" class="control-label" title="This name will appear on your Resume below your Stage Name and Union/Guild Affiliation.  Examples of common Resume Titles include: Actor, Music Director, Production Stage Manager, Sound Designer, etc.">Resume Title</label></div>
+	  <div class="col-sm-5">
 
-                  <%= f.text_field :performer_type,:class=>"form-control"%>
-                  </div>
-                  <div class="col-sm-5">
-                  <%= f.text_field :union_guild,:class=>"form-control", :placeholder =>"Union/Guild Affiliations" %>
-                  </div>
-                </div>
-                <%= f.hidden_field :resume_name,:class=>"form-control"%>
-                <div class="attributes-info">
-                  <%= f.fields_for :resume_attribute do |a|%>                 
-                      <%= render "resumes/nested/attributes_info" ,:a=>a%>
-                  <%end%>
-                 
-                </div>
-                <%= f.fields_for :contact_info do |c|%>
-                <h3>Contact Info</h3>
-                  <%= render "resumes/nested/contact_info" ,:c=>c%>
-                <%end%>
-                <div class='photo-popover' style="display:none;"></div>
-                <%= hidden_field_tag "removed_images" %>
-                <%= hidden_field_tag "removed_drag_images" %>
-                 <%= hidden_field_tag "save_option","",:class=>"save_option",:name=>"resume[save_option]" %>
-                <!-- Media Section --> 
-                <section class="sections">              
-                  <h3 class="photo-section" data-toggle="tooltip" data-placement="top" title="Your image must be less than 250kb"> Media</h3>
-                  <div class="form-group">
-                    <div class="col-sm-12">
-                      <div class="form-group">
-                        <div class="col-sm-4">
-                          <label for="file-input">
-                           
-                            <%= image_tag "blankUser.png",:width=>"128",:class=>"main-image",:height=>"128"%>
-                            </label>
-                          <input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'media_image')" name="resume[image]" id="file-input" class="form-control" accept="image/*">
-                        </div>
-                        <div style="margin-top: -45px;" class="col-sm-8">
-                          <section id="wrapper">
-                              <article>
-                                <div id="holder">
-                                    <ul class="preview-area">
-                                    <li>
-                                    <%= image_tag "blankUser.png",:width=>"80",:class=>"additional_media_1 additional"%>
-                                    <input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'1')" name="resume[image]" id="file-input-1" data=1 class="form-control" accept="image/*">
-                                    </li>
-                                     <li>
-                                    <%= image_tag "blankUser.png",:width=>"80",:class=>"additional_media_2 additional"%>
-                                    <input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'2')" name="resume[image]" id="file-input-2" data=2 class="form-control" accept="image/*">
-                                    </li>
-                                    </ul> 
-                                    <%= link_to "Add More Images","javascript:void(0)",:id=>"add_more_images"%>
+	  <%= f.text_field :performer_type,:class=>"form-control"%>
+	  </div>
+	  <div class="col-sm-5">
+	  <%= f.text_field :union_guild,:class=>"form-control", :placeholder =>"Union/Guild Affiliations" %>
+	  </div>
+	</div>
+	<%= f.hidden_field :resume_name,:class=>"form-control"%>
+	<div class="attributes-info">
+	  <%= f.fields_for :resume_attribute do |a|%>                 
+	      <%= render "resumes/nested/attributes_info" ,:a=>a%>
+	  <%end%>
+	 
+	</div>
+	<%= f.fields_for :contact_info do |c|%>
+	<h3>Contact Info</h3>
+	  <%= render "resumes/nested/contact_info" ,:c=>c%>
+	<%end%>
+	<div class='photo-popover' style="display:none;"></div>
+	<%= hidden_field_tag "removed_images" %>
+	<%= hidden_field_tag "removed_drag_images" %>
+	 <%= hidden_field_tag "save_option","",:class=>"save_option",:name=>"resume[save_option]" %>
+	<!-- Media Section --> 
+	<section class="sections">              
+	  <h3 class="photo-section" data-toggle="tooltip" data-placement="top" title="Your image must be less than 250kb"> Media</h3>
+	  <div class="form-group">
+	    <div class="col-sm-12">
+	      <div class="form-group">
+		<div class="col-sm-4">
+		  <label for="file-input">
+		   
+		    <%= image_tag "blankUser.png",:width=>"128",:class=>"main-image",:height=>"128"%>
+		    </label>
+		  <input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'media_image')" name="resume[image]" id="file-input" class="form-control" accept="image/*">
+		</div>
+		<div style="margin-top: -45px;" class="col-sm-8">
+		  <section id="wrapper">
+		      <article>
+			<div id="holder">
+			    <ul class="preview-area">
+			    <li>
+			    <%= image_tag "blankUser.png",:width=>"80",:class=>"additional_media_1 additional"%>
+			    <input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'1')" name="resume[image]" id="file-input-1" data=1 class="form-control" accept="image/*">
+			    </li>
+			     <li>
+			    <%= image_tag "blankUser.png",:width=>"80",:class=>"additional_media_2 additional"%>
+			    <input type="file" style="display: none" onchange="Test.UpdatePreviewMain(this,'2')" name="resume[image]" id="file-input-2" data=2 class="form-control" accept="image/*">
+			    </li>
+			    </ul> 
+			    <%= link_to "Add More Images","javascript:void(0)",:id=>"add_more_images"%>
                                  
                                    <div style="clear:both"></div>
                                    <ul class="preview-video">
@@ -559,6 +559,9 @@
   </style>
   
   <script>
+   
+  
+	$('#user_name_invite').html($('.stage_name').val());
     resume_type = $("#select_resume_type:checked").val();
     if (resume_type === "Director")
     {

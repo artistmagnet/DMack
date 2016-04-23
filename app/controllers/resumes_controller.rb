@@ -86,12 +86,9 @@ class ResumesController < ApplicationController
         update_role(@resume)
         update_photo(@resume)
         update_video(@resume)
-        # add_education_table(@resume)  #moved to model
-        # format.html { redirect_to edit_resume_path(@resume), notice: 'Resume was succesfully created'}
-        # format.html { render "/resumes/page_view.html.erb", notice: 'Resume was succesfully created'}
  
 	if params[:resume][:resume_type] === "Director"
-		d= Director.new(:resume_id => @resume.id, :email => params[:resume][:contact_info_attributes][:email], :name => params[:resume][:contact_info_attributes][:nick_name])
+		d= Director.new(:resume_id => @resume.id, :email => params[:resume][:contact_info_attributes][:email], :name => params[:resume][:contact_info_attributes][:nick_name], :text_only => false)
 		d.save
 	end
  
@@ -139,8 +136,17 @@ class ResumesController < ApplicationController
 	      	Attribute.destroy_all(:resume_id => @resume.id)
 		Skill.destroy_all(:resume_id => @resume.id)
 	end
+	director = Director.find_by(:resume_id => @resume.id)
 	if @resume.resume_type != "Director"
-		Director.find_by(:resume_id => @resume.id).update_attributes(:resume_id => nil)
+		director.update_attributes(:text_only => true)
+	else
+		if director.nil?
+			contact_info = ContactInfo.find_by(:resume_id => @resume.id)
+			director = Director.new(:resume_id => @resume.id, :email => current_user.email, :first_name => contact_info.first_name, :last_name => contact_info.last_name, :name => "#{contact_info.first_name} #{contact_info.last_name}", :text_only => false)
+			director.save
+		else
+			director.update_attributes(:text_only => false)
+		end
 	end 
 	update_role(@resume)
         update_photo(@resume)
