@@ -1,94 +1,84 @@
-
-<!-- Content -->
-<div id="content" style="min-height: 873px;">
-  <div class="container-fluid m-top-20">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-12">
-
-                <div class="page-title" style="margin-left: 0px; display: block">
-                  <a href="#" id="toggle-menu"><i class="typcn typcn-th-menu"></i></a>
-                </div>
-                
-                <%if @company.photo && @company.photo.try(:image).present? %>
-                  <span class="pull-right m-left-15"><%=image_tag @company.photo.image(:medium),:style=>"width: 180px; height: 180px; "%></span>
-                <%else%>
-                  <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/theindustry-180.png')"></span>
-                <%end%>
-                <h3><%= @company.name %></h3>
+<div class="box">
+  <!-- HEADER -->     
+  <div class="line">
+    <section>
+      <div class="line">
+        <div class="line">
+          <div class="margin">
+            <div class="s-12 l-8">
+              <div class="box_text_container">
+                <h4><%= @company.name %></h4>
                 <% unless @company.year_founded.blank? %>
-                  <%= "<div>Founded: #{@company.year_founded}</div>".html_safe %>
+                  <div>
+                    Founded: <%= @company.year_founded %>
+                  </div>
                 <% end %>
-
-                <p>
-                <div class="socialicons">
-                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_fb, css_class: "typcn typcn-social-facebook"} %>
-                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_tw, css_class: "typcn typcn-social-twitter"} %>
-                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_ins, css_class: "typcn typcn-social-instagram"} %>
-                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @company.addr_lin, css_class: "typcn typcn-social-linkedin"} %>
-                </div>
-                </p>
-
-                <p class="m-top-20">
-                  <% unless @company.primary_contact_name.blank? && @company.primary_contact_email.blank? && @company.primary_contact_phone.blank? %>
-                    <%= "<div><b>Contact</b></div>".html_safe %>
-                    <% unless @company.primary_contact_name.blank? %>
-                      <%= @company.primary_contact_name %> <br />
-                    <% end %>
-                    <% unless @company.primary_contact_email.blank? %>
-                      <%= @company.primary_contact_email %> <br />
-                    <% end %>
-                    <% unless @company.primary_contact_phone.blank? %>
-                      <%= @company.primary_contact_phone %> <br />
-                    <% end %>
-                  <% end %>
-                </p>
-                <p>
-                  <%= @company.description unless @company.description.blank? %>
-                </p>
+                <% unless @company.website.blank? %>
+                  <%= link_to @company.website %>
+                  <br><br>
+                <% end %>
+                <% unless @company.primary_contact_phone.blank? %>
+                  <%= @company.primary_contact_phone %> <br />
+                <% end %>
+                <% unless @company.primary_contact_email.blank? %>
+                  <a href="mailto:<%= @company.primary_contact_email %>"><%= @company.primary_contact_email %></a>
+                  <br><br>
+                <% end %>
+                
               </div>
+										
+              <%= link_to  company_artist_invitations_path @company do %>
+                <button class="btn_auk" type="button">Add Artists</button>
+              <% end %><br>
+
+
+              <a onClick="PopupCenterDual('<%= @company.addr_fb %>','Facebook','750','550'); " href="javascript:void(0);"><i class="icon-facebook_circle"></i></a>
+              <a onClick="PopupCenterDual('<%= @company.addr_tw %>','Twitter','750','550'); " href="javascript:void(0);"><i class="icon-twitter_circle"></i></a>
+              <a onClick="PopupCenterDual('<%= @company.addr_ins %>','Instagram','750','550'); " href="javascript:void(0);"><i class="icon-instagram_circle"></i></a>
+              <a onClick="PopupCenterDual('<%= @company.addr_lin %>','LinkedIn','750','550'); " href="javascript:void(0);"><i class="icon-linked_in_circle"></i></a>
+
 
             </div>
+            <div class="s-12 l-4 rocket_block_container">
+              <%if @company.photo && @company.photo.try(:image).present? %>
+                <%=image_tag @company.photo.image(:medium), class: "rocket_bock_a" %>
+              <%else%>
+                <%=image_tag 'company_md.jpg', class: "rocket_bock_a" %>
+              <%end%>
+            </div>
+            
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row row--productions">
-              <% productions = Production.includes(:shows).where(company_id: @company.id).order('shows.date desc').uniq.to_a %>
-              <div class="col-md-12">
-                <h4>
-                  <span>
-                    Productions
-                  </span>
-                  <%= link_to  company_artist_invitations_path @company do %>
-                    <button class="btn btn-primary pull-right m-top-m6" type="button">Add Artists</button>
-                  <% end %>
-                </h4>
-                <br />
-              </div>
-              <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>
-            </div>
-
-            <% ((productions.length+2)/3).times do |row| %>
-              <div class="row row--productions">
-                <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>
-              </div>
-            <% end %>
-
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   </div>
-
 </div>
-
-<%## link_to 'Edit', edit_company_path(@company) %> |
-<%## link_to 'Company list', companies_path %>
+		
+			   
+<div class="box last_box">
+  <!-- HEADER -->     
+  <div class="line">
+    <section>
+      <h3>Productions</h3>
+      <div class="line">
+        <div class="line">
+          <div class="margin">                               
+            <center>
+              <% productions = @company.productions.select('productions.*, shows.date').joins(:shows).order('shows.date desc').uniq %>
+              <% productions.each do |production| %>
+                <%= link_to(production) do %>
+                  <div class="s-12 l-3">
+                    <%=image_tag 'company_md.jpg', class: 'img_crew'%>
+                    <h4 class="title_production"><%= production.name %></h4>
+                    <p><%= link_to production.shows.last.venue.name, production.shows.last.venue %></p>
+                    <p class="p_box_a"><%= production.shows.last.date.strftime("%b %-d, %Y") %></p>
+                  </div>	
+                <% end %>
+              <% end %>				
+            </center>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
