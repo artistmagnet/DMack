@@ -34,7 +34,10 @@ enrichSelect = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
   $select = $(selectSel)
   $add_as_new = $select.data("add-as-new-label")
   $add_as_text= $select.data("add-as-text-label")
-  $str = "To add a new " + selectSel.split("_")[1] + ", click here"
+  if selectSel == '#production_shows_attributes_0_venue_id'
+    $str = "To add a new " + selectSel.split("_")[4] + ", click here"
+  else
+    $str = "To add a new " + selectSel.split("_")[1] + ", click here"
   $some_results_links = [{"text": $str, "classes": "add_new", "href": "#"}] 
   $no_res_links = [{"text": $str, "classes": "add_new", "href": "#"}]
   if selectSel == '#role_director_id'
@@ -97,30 +100,30 @@ setAddNewLink = (selectSel, targetScopeSel, targetFieldSel, hiddenSel) ->
       $('#production_shows_attributes_0_date_1i').val('').trigger('chosen:updated')
       $('#production_shows_attributes_0_date_2i').val('').trigger('chosen:updated')
       $('#production_shows_attributes_0_date_3i').val('').trigger('chosen:updated')
-    else
-      if targetScopeSel == '#add-company'
-        clearForm('#add-company','company[name]')
-        $('.company_form').find('div.error_explanation').hide();
-        $('#company_state').val('').trigger('chosen:updated')
-        $('#company_country').val('').trigger('chosen:updated')
-      else
-        if targetScopeSel == '#add-venue'
-          clearForm('#add-venue','venue[name]')
-          $('.venue_form').find('div.error_explanation').hide();
-          $('#venue_state').val('').trigger('chosen:updated')
-          $('#venue_country').val('').trigger('chosen:updated')  
+    else if targetScopeSel == '#add-company'
+      clearForm('#add-company','company[name]')
+      $('.company_form').find('div.error_explanation').hide();
+      $('#company_state').val('').trigger('chosen:updated')
+      $('#company_country').val('').trigger('chosen:updated')
+    else if targetScopeSel == '#add-venue'
+      clearForm('#add-venue','venue[name]')
+      $('.venue_form').find('div.error_explanation').hide();
+      $('#venue_state').val('').trigger('chosen:updated')
+      $('#venue_country').val('').trigger('chosen:updated')
+    else if targetScopeSel == '#add-role-director'
+      $('#director_stage_name').val($('#resume_contact_info_attributes_nick_name').val())
+      $('#director_first_name').val($('#role_director_id_chosen ul.chosen-results li.no-results span').text())    
 
     selectChain.push(targetScopeSel)
     popupModal(targetScopeSel)
     if targetScopeSel == '#add-resume-production'
       scrollElementToLocation('html, body', '#add-resume-production')
-    else
-      if targetScopeSel == '#add-company'
-        scrollElementToLocation('html, body', '#add-company')
-      else
-        if targetScopeSel == '#add-venue'
-          scrollElementToLocation('html, body', '#add-venue')
-
+    else if targetScopeSel == '#add-company'
+      scrollElementToLocation('html, body', '#add-company')
+    else if targetScopeSel == '#add-venue'
+      scrollElementToLocation('html, body', '#add-venue')
+    else if targetScopeSel == '#add-role-director'
+      scrollElementToLocation('html, body', '#add-role-director')
 
 #tells the 'add text' link of the select to populate target hidden field
 setAddTextLink = (selectSel, hiddenSel) ->

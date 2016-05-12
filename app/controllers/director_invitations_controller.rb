@@ -18,7 +18,7 @@ class DirectorInvitationsController < InvitationsController
 	d=Director.new(:first_name => params[:director_invitation][:first_name], :last_name => params[:director_invitation][:last_name], :email => params[:director_invitation][:email], :name => name)
 	d.save	
 
-        send_director_invitation @invitation
+        send_director_invitation @invitation, params[:stage_name]
 	format.html {redirect_to production_director_invitations_path(@production), notice: "Invitation has been sent"}
         format.json {render json: @invitation}
       else
@@ -43,14 +43,14 @@ class DirectorInvitationsController < InvitationsController
     params.require(:director_invitation).permit(:first_name, :last_name, :email, :text)
   end
 
-  def send_director_invitation(invitation)
+  def send_director_invitation(invitation, stage_name)
     production = invitation.to
     # if production.director_invitations.where(email: inv.email, by: inv.by).count > 1
     #   puts "Duplicate director invitation - INGORING"
     #   puts production.director_invitations.where(email: inv.email, by: inv.by).to_json
     # else
       puts "Sending director invitation"
-      AmMailer.invite_director(invitation, production, current_user.name).deliver
+      AmMailer.invite_director(invitation, production, current_user.name, stage_name).deliver
     # end
   end
 end
