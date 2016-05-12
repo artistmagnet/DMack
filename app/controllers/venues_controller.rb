@@ -1,4 +1,5 @@
 class VenuesController < ApplicationController
+  layout "inner"
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
