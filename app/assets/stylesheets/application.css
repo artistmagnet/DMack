@@ -16,6 +16,9 @@
  *= require bootstrap-datepicker3
  */
 
+body{
+  font-size: 16px;
+}
  .previewed_avatar {
     height: 100px;
     width: 150px;

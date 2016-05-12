@@ -12,51 +12,37 @@
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800,400italic%7cMontserrat:400,700" type="text/css">
     <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Lato:400,300,700' type='text/css'>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
     <!-- <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.0.js"></script> -->
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="assets/modernizr.js"></script>
-    <script type="text/javascript" src="assets/responsee.js"></script>
-	  <script type="text/javascript" src="assets/popup.js"></script>
+    <script type="text/javascript" src="/assets/modernizr.js"></script>
+    <script type="text/javascript" src="/assets/responsee.js"></script>
+	  <script type="text/javascript" src="/assets/popup.js"></script>
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body class="size-1140 align-content-left">
+    <div class="line">
+      <div id="content-wrapper">
+        <p class="notice" style="display: none"><%= notice %></p>
+        <p class="alert" style="display: none"><%= alert %></p>
 
-    <p class="notice" style="display: none"><%= notice %></p>
-    <p class="alert" style="display: none"><%= alert %></p>
-
-    <!-- Page container -->
-    <% unless params[:print] %>  
-      <% if user_signed_in? %>
-        <%@style = params[:print] ? "padding-left:0;" : "" %>
-        <div id="main-container" class="page-container" style="<%=@style%>">
-          <div class="s-12 m-4 l-3 lhs-wrapper">
+        <!-- Page container -->
+        <% unless params[:print] %> 
+          <div class="s-12 m-4 l-3 lhs-wrapper"> 
             <%= render 'layouts/includes/sidebar' %>
           </div>
-      <%# else %>
-      <%#= render 'layouts/includes/sidebar' %>
-      <% end %>
-    <% end %>
-      <!-- Content -->
-      <div id="content">
-        <div class="container-fluid p-top-20">
-          <div class="row">
-            <div class="col-md-12">
-              <div class="flash-message">
-                <%= render 'layouts/includes/notice' %>
-              </div>
-              <%= yield %>
+        <% end %>
+          <!-- Content -->
+          <div class="s-12 m-8 l-9 container_2a" >
+            <div class="flash-message">
+              <%= render 'layouts/includes/notice' %>
             </div>
+            <%= yield %>
           </div>
-        </div>
-      </div>
-    <% if user_signed_in? %>
-      </div>
-    <% end %>
-  <!-- /Page container -->
-  <% unless params[:print] %>
-    <%= render "layouts/footer"%>
-  <%end%>  
+      <!-- /Page container -->
+      <% unless params[:print] %>
+        <%= render "layouts/footer"%>
+      <%end%> 
+    </div> 
   </body>
 </html>
