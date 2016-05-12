@@ -1,5 +1,6 @@
 class ProductionsController < ApplicationController
-    before_filter :authenticate_user!
+  layout "inner"
+  before_filter :authenticate_user!
 
   before_action :set_date_params, only: [:create, :update]
   before_action :set_production, only: [:show, :edit, :update, :destroy]
