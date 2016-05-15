@@ -68,7 +68,7 @@
               <% productions.each do |production| %>
                 <%= link_to(production) do %>
                   <div class="s-12 l-3">
-                    <%=image_tag 'company_md.jpg', class: 'img_crew'%>
+                    <%=image_tag 'Production_md.jpg', class: 'img_crew'%>
                     <h4 class="title_production"><%= production.name %></h4>
                     <p><%= link_to production.shows.last.venue.name, production.shows.last.venue %></p>
                     <p class="p_box_a"><%= production.shows.last.date.strftime("%b %-d, %Y") %></p>

@@ -30,7 +30,7 @@
               <% if @venue.photo && @venue.photo.try(:image).present? %>
                 <%=image_tag @venue.photo.image(:medium), class: 'rocket_bock_a'%>
               <%else%>
-                <%=image_tag 'company_md.jpg', class: 'rocket_bock_a'%>
+                <%=image_tag 'Venue_md.jpg', class: 'rocket_bock_a'%>
               <%end%>
             </div>
           </div>
@@ -54,7 +54,7 @@
               <% productions.each do |production| %>
                 <%= link_to(production) do %>
                   <div class="s-12 l-4">
-                    <%=image_tag 'company_md.jpg', class: 'img_crew'%>
+                    <%=image_tag 'Production_md.jpg', class: 'img_crew'%>
                     <h4 class="title_production"><%= production.name %></h4>
                     <p class="p_box_a"><%= production.shows.last.date.strftime("%b %-d, %Y") %></p>
                   </div>	
