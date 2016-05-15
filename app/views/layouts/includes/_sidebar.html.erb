@@ -4,7 +4,11 @@
 </div>
 <div class="artist_box">
   <div align="center">
-    <img src="/assets/blankUser.png"  class="simg_atist" alt="Actor">
+    <% if current_user.gender.downcase == 'male' %>
+      <img src="/assets/cast and crew - male.jpg"  class="simg_atist" alt="Actor">
+    <% else %>
+      <img src="/assets/cast and crew - female.jpg"  class="simg_atist" alt="Actor">
+    <% end %>
   </div>
 </div>
 <div class="aside-nav">
