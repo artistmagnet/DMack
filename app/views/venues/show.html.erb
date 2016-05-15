@@ -1,94 +1,69 @@
-<!-- Content -->
-<div id="content" style="min-height: 873px;">
-  <div class="container-fluid m-top-20">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-12">
-
-                <div class="page-title" style="margin-left: 0px; display: block">
-                  <a href="#" id="toggle-menu"><i class="typcn typcn-th-menu"></i></a>
-                </div>
-                <% if @venue.photo && @venue.photo.try(:image).present? %>
-                  <span class="pull-right m-left-15"><%=image_tag @venue.photo.image(:medium),:style=>"width: 180px; height: 180px; "%></span>
-                <%else%>
-                  <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/union_station-180.png')"></span>
-                <%end%>
-                <h3><%= @venue.name %></h3>
-                <% unless @venue.year_founded.blank? %>
-                  <%= "<div>Founded: #{@venue.year_founded}</div>".html_safe %>
-                <% end %>
-                <p><%= @venue.full_address %></p>
-                <p>
-
-                <div class="socialicons">
-                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_fb, css_class: "typcn typcn-social-facebook"} %>
-                  <%= render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_tw, css_class: "typcn typcn-social-twitter"} %>
-                  <%# render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_ins, css_class: "typcn typcn-social-instagram"} %>
-                  <%# render partial: 'layouts/includes/socialicon', locals: {address: @venue.addr_lin, css_class: "typcn typcn-social-linkedin"} %>
-                </div>
-                </p>
-                <p class="m-top-20">
-                  <% unless @venue.primary_contact_name.blank? && @venue.primary_contact_email.blank? && @venue.primary_contact_phone.blank? %>
-                    <%= "<div><b>Contact</b></div>".html_safe %>
-                    <% unless @venue.primary_contact_name.blank? %>
-                      <%= @venue.primary_contact_name %> <br />
-                    <% end %>
-                    <% unless @venue.primary_contact_phone.blank? %>
-                      <%= @venue.primary_contact_phone %> <br />
-                    <% end %>
-                    <% unless @venue.primary_contact_email.blank? %>
-                      <%= mail_to @venue.primary_contact_email %> <br />
-                    <% end %>
-                  <% end %>
-                </p>
-                <p>
-                  <%= @venue.description unless @venue.description.blank? %>
-                </p>
+<!-- RIGHT COLUMN --> 
+<div class="box">
+  <!-- HEADER -->     
+  <div class="line">
+    <section>
+      <div class="line">
+        <div class="line">
+          <div class="margin">
+            <div class="s-12 l-8">
+              <div class="box_text_container">
+                <h4><%= @venue.name %></h4>
+                <%= @venue.full_address %>
+                <br><br>
+                <%= @venue.phone %>
+                <br>
+                <a href="mailto:<%= @venue.email %>"><%= @venue.email %></a>
+                <br><br>
               </div>
+              <%= link_to venue_artist_invitations_path @venue do %>
+                <button class="btn_auk" type="button">Add Artists</button>
+              <% end %>
+              <br>
 
+              <a onClick="PopupCenterDual('<%= @venue.addr_fb %>','Facebook','750','550'); " href="javascript:void(0);"><i class="icon-facebook_circle"></i></a>
+              <a onClick="PopupCenterDual('<%= @venue.addr_tw %>','Twitter','750','550'); " href="javascript:void(0);"><i class="icon-twitter_circle"></i></a>
+              <a onClick="PopupCenterDual('<%= @venue.addr_ins %>','Instagram','750','550'); " href="javascript:void(0);"><i class="icon-instagram_circle"></i></a>
+              <a onClick="PopupCenterDual('<%= @venue.addr_lin %>','LinkedIn','750','550'); " href="javascript:void(0);"><i class="icon-linked_in_circle"></i></a>
+            </div>
+            <div class="s-12 l-4 rocket_block_container">
+              <% if @venue.photo && @venue.photo.try(:image).present? %>
+                <%=image_tag @venue.photo.image(:medium), class: 'rocket_bock_a'%>
+              <%else%>
+                <%=image_tag 'company_md.jpg', class: 'rocket_bock_a'%>
+              <%end%>
             </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row row--productions">
-              <% productions = Production.includes(:shows).where(shows: {venue_id: @venue.id}).order('shows.date desc').uniq.to_a %>
-              <div class="col-md-12">
-                <h4>
-                  <span>
-                    Productions
-                  </span>
-                  <%= link_to  venue_artist_invitations_path @venue do %>
-                    <button class="btn btn-primary pull-right m-top-m6" type="button">Add Artists</button>
-                  <% end %>
-                </h4>
-                <br />
-              </div>
-
-              <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>
-            </div>
-
-
-            <% ((productions.length+2)/3).times do |row| %>
-              <div class="row row--productions">
-                <%= render partial: 'layouts/includes/production_widgets_row', locals: {productions: productions} %>
-              </div>
-            <% end %>
-
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   </div>
-
 </div>
-
-<%## link_to 'Edit', edit_venue_path(@venue) %> |
-<%## link_to 'Venue list', venues_path %>
+		
+			   
+<div class="box last_box">
+<!-- HEADER -->     
+  <div class="line">
+    <section>
+      <h3>Productions</h3>
+      <div class="line">
+        <div class="line">
+          <div class="margin">                               
+            <center>
+              <% productions = Production.includes(:shows).where(shows: {venue_id: @venue.id}).order('shows.date desc').uniq.to_a %>
+              <% productions.each do |production| %>
+                <%= link_to(production) do %>
+                  <div class="s-12 l-4">
+                    <%=image_tag 'company_md.jpg', class: 'img_crew'%>
+                    <h4 class="title_production"><%= production.name %></h4>
+                    <p class="p_box_a"><%= production.shows.last.date.strftime("%b %-d, %Y") %></p>
+                  </div>	
+                <% end %>
+              <% end %>				
+            </center>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

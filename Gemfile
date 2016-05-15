@@ -65,7 +65,8 @@ gem 'thin'
 # gem 'activeadmin', github: 'activeadmin'
 
 gem 'devise'
-gem 'devise_invitable', '~> 1.3.4'
+# gem 'devise_invitable', '~> 1.3.4'
+gem 'devise_invitable', '~> 1.5'
 # gem 'chosen-rails', '1.2.0.j', :git => 'https://github.com/gior/chosen-rails.git', :branch => 'feature/vanilla-search'
 gem 'chosen-rails', '1.2.0.j', :git => 'https://github.com/gior/chosen-rails.git', :branch => 'master'
 

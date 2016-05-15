@@ -1,72 +1,77 @@
-<div id="content" style="min-height: 873px;">
-  <div class="container-fluid m-top-20">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-12">
-                <div class="page-title" style="margin-left: 0px; display: block">
-                  <a href="#" id="toggle-menu"><i class="typcn typcn-th-menu"></i></a>
-                </div>
-               
-                <%if @production.photo && @production.photo.try(:image).present? %>
-                <span class="pull-right m-left-15"><%=image_tag @production.photo.image(:medium),:style=>"width: 180px; height: 180px; "%></span>
-                <%else%>
-                   <span class="pull-right m-left-15" style="width: 180px; height: 180px; background-image: url('/images/fallback/curtain-180.jpg')"></span>
-                <%end%>
-                <h3>
-                  <%= @production.name %>
-                </h3>
+<div class="box">
+  <!-- HEADER -->     
+  <div class="line">
+    <section>
+      <div class="line">
+        <div class="line">
+          <div class="margin">
+            <div class="s-12 l-8">
+              <div class="box_text_container">
+                <h4><%= @production.name %></h4>
                 <p>
-                  <% unless @production.current_venue_name.blank? %>
-                    at <%= link_to @production.current_venue_name, @production.current_venue %></a> <br />
-                  <% end %>
-                  <% unless @production.company_name.blank? %>
-                    by <%= link_to @production.company_name, @production.company %></a> <br />
-                  <% end %>
-                  <%= "Opening #{@production.opening_date}" unless @production.opening_date.nil?  %>
+                <% unless @production.current_venue_name.blank? %>
+                  Performed at <%= link_to @production.current_venue_name, @production.current_venue %>
+                  <br>
+                <% end %>
+                <% unless @production.company_name.blank? %>
+                  by <%= link_to @production.company_name, @production.company %>
+                  <br>
+                <% end %>
+                <%= "Opening #{@production.opening_date}" unless @production.opening_date.nil? %>
                 </p>
-                <p><%= @production.description %> </p>
+                <p><%= @production.description unless @production.description.blank? %> </p> 
               </div>
+              <%= link_to  production_artist_invitations_path @production do %>
+                <button class="btn_auk" type="button">Add Artists</button>
+              <% end %>
+              <br>
 
+              <!-- <a onClick="PopupCenterDual('http://www.facebook.com','Facebook','750','550'); " href="javascript:void(0);"><i class="icon-facebook_circle"></i></a>
+              <a onClick="PopupCenterDual('http://www.twitter.com','Twitter','750','550'); " href="javascript:void(0);"><i class="icon-twitter_circle"></i></a>
+              <a onClick="PopupCenterDual('http://www.instagram.com','Instagram','750','550'); " href="javascript:void(0);"><i class="icon-instagram_circle"></i></a>
+              <a onClick="PopupCenterDual('http://www.linkedin.com','LinkedIn','750','550'); " href="javascript:void(0);"><i class="icon-linked_in_circle"></i></a> -->
             </div>
+            <div class="s-12 l-4 rocket_block_container">
+              <%if @production.photo && @production.photo.try(:image).present? %>
+              <%=image_tag @production.photo.image(:medium), class: "rocket_bock_a"%>
+            <%else%>
+              <%=image_tag 'company_md.jpg', class: "rocket_bock_a"%>
+            <%end%>
+            </div>
+            
           </div>
         </div>
       </div>
-    </div>
-
-    <%# render 'layouts/includes/production_director', production: @production %>
-
-
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-12">
-                <h4>
-                  <span>Cast & Crew</span>
-                  <%= link_to  production_artist_invitations_path @production do %>
-                    <button class="btn btn-primary pull-right m-top-m6" type="button">Add Artists to this Production</button>
-                  <% end %>
-                </h4>
-                <br />
-              </div>
-              <% roles = @production.roles.confirmed.to_a %>
-              <%# puts roles.to_json %>
-              <%= render partial: 'layouts/includes/actor_widgets_row', locals: {roles: roles} %>
-            </div>
-            <% ((roles.length+3)/4).times do |row| %> 
-            <div class="row">
-              <%= render partial: 'layouts/includes/actor_widgets_row', locals: {roles: roles}  %>
-            </div>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    </div>
+    </section>
   </div>
-
 </div>
 
+<div class="box last_box">
+  <!-- HEADER -->     
+  <div class="line">
+    <section>
+      <h3>Cast & Crew</h3>
+      <div class="line">
+        <div class="line">
+          <div class="margin">                               
+            <center>
+              <% roles = @production.roles.confirmed.to_a %>
+              <% roles.each do |role| %>
+                <% c = role.resume.contact_info unless role.resume.blank? %>
+                <% unless c.blank? %>
+                  <%= link_to resume_path(role.resume) do %>
+                    <div class="s-12 l-3 space_a">
+                      <%=image_tag 'blankUser.png', class: "img_crew"%>											
+                      <p><%= c.nick_name %></p>
+                      <p class="p_box_a"><%= role.name %></p>
+                    </div>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </center>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

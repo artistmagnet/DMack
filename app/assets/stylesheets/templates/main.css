@@ -24,8 +24,9 @@
 /* ------------------ 1. STYLES ------------------ */
 /* line 31, ../scss/main.scss */
 body {
-  background: white;
-  font-family: "Open sans", sans-serif; }
+  background: #eee;
+  font-family: "Open sans", sans-serif;
+  font-size: 16px; }
 
 /* ------------------ 2. TYPOGRAPHY ------------------ */
 /* line 37, ../scss/main.scss */

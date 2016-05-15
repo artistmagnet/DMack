@@ -14,20 +14,20 @@
     <%= form_for([@production, @invitation],  remote: true, html: {:'data-type' => 'json', class: 'form-horizontal'}) do |f| %>
       <%= render 'layouts/includes/error_explanation', entity: @invitation, offset: 2, span: 10 %>
       <input type=hidden name="resume_id" value="<%= @resume.id %>">
-
+      <input type=hidden name="stage_name" id="director_stage_name"/>
       <div class="form-group">
         <div class="mandatory field">
-          <label class="col-sm-2 control-label">Director's First Name</label>
+          <label class="col-sm-2 control-label" title= 'You Must Enter a First or Last Name'>Director's First Name</label>
           <div class="col-sm-10" >
-            <%= f.text_field :first_name, {id: 'director_first_name', title: 'You Must Enter a First or Last Name', class: 'form-control', placeholder: 'Director\'s First Name' } %>
+            <%= f.text_field :first_name, {id: 'director_first_name', class: 'form-control', placeholder: 'Director\'s First Name' } %>
           </div>
         </div>
       </div>
       <div class="form-group">
         <div class="mandatory field">
-          <label class="col-sm-2 control-label">Director's Last Name</label>
+          <label class="col-sm-2 control-label" title='You Must Enter a First or Last Name'>Director's Last Name</label>
 	  <div class="col-sm-10">
-            <%= f.text_field :last_name, {id: 'director_last_name', title: 'You Must Enter a First or Last Name', class: 'form-control', placeholder: 'Director\'s Last Name'} %>
+            <%= f.text_field :last_name, {id: 'director_last_name', class: 'form-control', placeholder: 'Director\'s Last Name'} %>
           </div>
         </div>
       </div>

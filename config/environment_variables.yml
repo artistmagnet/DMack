@@ -5,7 +5,7 @@ development:
 production:
   FACEBOOK_KEY: '844112285668674'
   FACEBOOK_SECRET: 6bc6e8b73370c3b6e15590fb09f0191a
-  BASE_URL: http://artistmagnet.herokuapp.com/
+  BASE_URL: http://artist-resume.herokuapp.com
 staging:
   FACEBOOK_KEY: '1568874036664703'
   FACEBOOK_SECRET: e99ceb297661deedf55ce4bd2f92fe7d

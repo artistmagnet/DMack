@@ -1,88 +1,48 @@
-<!-- Sidebar -->
-<aside id="sidebar">
-  <!-- Sidebar header - SIDEBAR MENU-->
-  <header class="sidebar-header">
-    <a href="<%=root_path%>" ><img src="/assets/logo.png"></a>
-  </header>
-  <!-- /Sidebar header -->
-  <!-- Sidebar panel UPGRADE -->
-  <% unless user_signed_in? %>
-    <div class="sidebar-panel-new">  
-      <!-- <a href="<%#= new_user_registration_path %>" class="btn btn-primary btn-block-large" > <span>Sign Up</span></a> -->
-      <%= link_to 'Sign Up', new_user_registration_path, class: "btn btn-primary btn-block-large" %>    
+<!-- LEFT COLUMN -->
+<div class="logo-box">
+  <a href="<%=root_path%>" ><img src="/assets/logo.svg"></a>
+</div>
+<div class="artist_box">
+  <div align="center">
+    <img src="/assets/blankUser.png"  class="simg_atist" alt="Actor">
+  </div>
+</div>
+<div class="aside-nav">
+  <ul class="chevron">
+    <li>
+      <a>Resumes</a>
+      <ul>
+        <% @resumes.each do |resume| %>
+          <li>
+            <%= link_to resume, id: "resume-#{resume.id}-link" do %>
+              <%= resume.resume_name %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>					
+    </li>
+    <li>
+      <%= link_to 'Build A Resume', new_resume_path %>
+    </li>
+    <li><a href="/invitations">Add Friends</a></li>
+    <li><a href="<%=account_tier_resumes_path%>">Upgrade Your Account</a></li>
+    <li><a>Other</a></li>
+    <li><a>Account Settings</a>
+      <ul>
+        <li><a href="<%=edit_user_registration_path%>">Edit Profile</a></li>
+        <li><a href="#">Update Password</a></li>
+      </ul>
+    </li>
+    <li><a href="/users/sign_out"  data-method="delete" rel="nofollow">Log out</a></li>
+
+  </ul>
+  <div id="search" class="line" >
+    <div class="search-bar">
+      <form>
+        <input class="s-11 sfield" name="" placeholder="Search" title="Search" type="text" />
+        <input type="image" class="searchbutton" name="search" src="http://www.spheretekk.com/bc/images/search-icon.gif" alt="Search">
+            <!--<a class="s-1" style="padding-left: 10px;" ><i class="icon-magnifying"></i></a>-->
+      </form>	 
     </div>
-  <%end%> 
-  <!-- /Sidebar panel -->
-
-       <div class="sidebar-panel-new">
-          <ul class="sidebar-group">
-          <% if user_signed_in? %>
-  <!--           <%if current_user.sign_in_count==1%>
-              <script type="text/javascript">
-              $(document).ready(function(){
-                $('#myModal').modal('show');
-              });
-              </script>
-            <%end%> -->
-          <li class="sidebar-group-header">Tools & Settings</li>
-          <li id="sidebar-item-artistspace" >
-            <%= link_to root_path do %>
-              <i class="fa fa-magnet"></i> <span>ArtistSpace</span>
-            <% end %>
-          </li>
-          <li id="sidebar-item-build-resume" >
-            <%= link_to new_resume_path do %>
-              <i class="fa fa-file-text"></i> <span>New Resume</span>
-            <% end %>
-          </li>
-          <li id="sidebar-item-resumes" class="has-submenu">
-            <a href="#"><i class="fa fa-files-o"></i> <span>Resumes</span></a>
-            <div class="sidebar-link-addon"><i class="fa fa-plus"></i></div>
-            <!-- Sidebar submenu -->
-            <ul class="sidebar-submenu">
-              <% @resumes.each do |resume| %>
-                <li>
-                  <%= link_to resume, id: "resume-#{resume.id}-link" do %>
-                    <%= resume.resume_name %>
-                  <% end %>
-                </li>
-              <% end %>
-            </ul>
-            <!-- /Sidebar submenu -->
-          </li>
-
-          <li id="sidebar-item-resumes" >
-            <a href="/invitations"><i class="fa fa-group"></i> <span>Add Friends</span></a>
-            <a href="<%=account_tier_resumes_path%>"><i class="fa fa-group"></i> <span>Upgrade Your Account</span></a>
-            <!-- /Sidebar submenu -->
-          </li>
-          <li id="sidebar-item-resumes" >
-            <a href="/resumes"><i class="fa fa-group"></i> <span>Manage Resumes</span></a>
-            <!-- /Sidebar submenu -->
-          </li>
-          <li class="sidebar-group-header">Other</li>
-          <li>
-            <a href="<%=edit_user_registration_path%>"><i class="fa fa-cog"></i> <span>Account Settings / Edit Profile</span></a>
-          </li>
-          <li>
-            <a href="<%= profile_path(current_user)%>"><i class="fa fa-cog"></i> <span>View Profile</span></a>
-          </li>
-          <li>
-            <a href="/users/sign_out" data-method="delete" rel="nofollow"><i class="fa fa-sign-out"></i> <span>Log Out</span></a>
-          </li>
-          <%else%>
-          <li><a href="<%= new_user_session_path %>" ><i class="fa fa-sign-out"></i> <span>Sign In</span></a></li>
-     
-          <%end%>
-        </ul>
-      </div>
-      <!-- Sidebar panel SEARCH FORM -->
-      <div class="sidebar-panel">
-        <form role="form">
-          <div class="form-group">
-            <input type="text" class="form-control" id="sidebarSearch" placeholder="Search">
-          </div>
-        </form>
-      </div>
-</aside>
-<!-- /Sidebar -->
+  </div>
+</div>
