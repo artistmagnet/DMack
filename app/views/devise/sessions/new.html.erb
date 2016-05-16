@@ -41,11 +41,11 @@
             
           <div class='row'>
             <div class='col-xs-6 form-group'>
-              <label class='control-label'>First Name*</label><br>
+              <label class='control-label' title="Please enter your legal name; you will have the opportunity to enter your Stage Name or Nickname later">First Name*</label><br>
                 <%= f.text_field :first_name, autofocus: true,:class=>'form-control black-shadow',:id=>"first_name" %>
             </div>
             <div class='col-xs-6 form-group '>
-              <label class='control-label'>Last Name*</label><br>
+              <label class='control-label' title="Please enter your legal name; you will have the opportunity to enter your Stage Name or Nickname later">Last Name*</label><br>
               <%= f.text_field :last_name,:class=>'form-control black-shadow',:id=>"last_name" %>
             </div>             
           </div>
@@ -129,7 +129,7 @@
               <%= f.submit "Sign Up",:class=>'form-control btn submit-button reddish-background black-shadow' %>           
             </div>
             <div class='col-xs-12 form-group'> 
-              By clicking the Sign Up button, you agree to Artist Magnet’s<a href="/terms_and_conditions" target="_blank"> Terms and Conditions</a>
+              By clicking the Facebook or Sign Up button, you agree to Artist Magnet’s<a href="/terms_and_conditions" target="_blank"> Terms and Conditions</a>
             </div>
           </div>    
         <%end%>

@@ -1,0 +1,241 @@
+body {
+    /*background: url(../img/bg.png) repeat ;*/
+	background: #eee ;
+}
+.logo-box {
+    background: none repeat scroll 0 0 #252D30;
+    display: block;
+    padding: 1.25em;
+    width: 100%;
+    border-bottom: 1px solid #151E1F;
+}
+h1 {
+    color: #FFFFFF;
+    font-family: impact,tahoma;
+    font-size: 1.5em;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+.aside-nav ul {
+    background: none repeat scroll 0 0 #252D30;
+}
+.aside-nav li a {
+    border-bottom: 1px solid #151E1F;
+    color: #FFFFFF;
+}
+.aside-nav li a:link, .aside-nav li a:visited {
+    color: #FFFFFF;
+}
+.aside-nav li > ul,.aside-nav li ul ul {
+    background: none repeat scroll 0 0 #151E1F;
+}
+.top-nav li a:hover, .aside-nav li a:hover,.aside-nav > ul > li.active-item > a:link, .aside-nav > ul > li.active-item > a:visited {
+    background: none repeat scroll 0 0 #181F22;
+}
+i {
+    color: #666666  ;
+    display: inline-block;
+    font-size: 2.2em;
+    width: 1.1em;
+}
+i:hover{color: #151e1f}
+.date {
+    text-align: center;
+}
+.date span {
+    font-size: 2.7em;
+}
+.date i {
+    color: #D0D0D0;
+    font-size: 1.5em;
+    width: auto;
+}
+#search,#social {
+    border-top: 1px solid #151E1F;
+    padding: 1.25em;
+    position: relative;
+}
+#search i {
+    margin-left: 0.625em;
+    width: auto;
+}
+#social i {
+    color: #B0B0B0;
+    font-size: 1.8em;
+    width: auto;
+}
+article hr {
+    color: #E0E0E0;
+    margin: 1.25em 0;
+}
+#content-wrapper:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    line-height: 0;
+    visibility: hidden;
+}
+#content-wrapper {
+    background: none repeat scroll 0 0 #fff;
+}
+
+.lhs-wrapper{
+   background: none repeat scroll 0 0 #252D30;
+}
+
+img#background {
+    height: auto;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: -10;
+}
+.footer {
+    background: none repeat scroll 0 0 #E0E0E0;
+}
+.search-bar {
+    height: 29px;
+    background-color: #e1e1e1;
+    -moz-border-radius: 100px;
+    -webkit-border-radius: 100px;
+    border-radius: 100px;
+	position:relative;
+    width:230px
+    }
+
+.search-bar .searchbutton {
+    position:absolute;
+	top:23%;
+	right:5px;
+    }
+
+.sfield {
+    float: left;
+    margin: 5px 0 0 8px;
+    font: 8pt Verdana;
+    color: #888;
+    height: 20px;
+    line-height: 18px;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    max-width: 190px
+    }
+	.simg_atist {
+	  border: 1px solid #D7D7D7;
+	  border-radius: 5px;
+	  max-width: 100%;
+	  padding: 0;
+	}
+	.container_2a{
+	padding-top:25px;
+	}
+	.artist_box{
+	text-align: center ! important; padding: 1.25em; border-bottom: 1px solid #252d30 ;
+	}
+	.rocket_block_container{
+	border:1px solid #eee; 
+	padding: 0px !important; 
+	  border-radius: 5px;
+	
+	width: 225px;
+	}
+	.rocket_bock_a{
+	height: 225px; 
+	  border-radius: 5px;
+	width: 225px;
+	}
+	
+	.last_box{
+	border-bottom:0px !important;
+	}
+	.p_box_a{
+	font-style:italic;
+	font-size:12px;
+	}
+	p{
+	font-size:14px !important;
+	}
+	
+	.img_crew{
+	border: 1px solid #D7D7D7; 
+	  border-radius: 5px;
+	padding: 0px; 
+	width: 140px; 
+	height: 140px;
+	}
+	.space_a{
+	padding-bottom:25px;
+	}
+	
+/* unvisited link */
+a:link {
+    color: #000;
+	text-decoration:none;
+}
+
+/* visited link */
+a:visited {
+    color: #000;
+	text-decoration:none;
+}
+
+/* mouse over link */
+a:hover {
+    color: #999;
+	text-decoration:underline;
+}
+
+/* selected link */
+a:active {
+    color: #000;
+}
+.box_text_container{
+height:190px;
+}
+.title_production
+{
+  font-size: 14px;
+    font-weight: 600
+}
+.btn_auk{
+background:#666666; 
+color:#FFFFFF; 
+padding:5px; 
+border:0px; 
+cursor:pointer; 
+font-weight:bold;
+  border-radius: 5px;
+}  
+.btn_auk:hover{
+background:#151e1f;
+color:#FFFFFF;
+text-decoration:underline;
+}
+.btn_r{
+float:right; 
+}
+.btn_l{
+float:left; 
+}
+.footer-container a
+{
+color:#FFFFFF !important;
+}
+.footer-container{
+background:#252d30; 
+padding: 40px 25px 60px; 
+height: 120px; 
+font-size:14px
+}	
+
+@media screen and (max-width: 768px) {
+  .aside-nav li a,#search,#social {
+      padding: 0.625em 1.25em;
+  }
+  .date {
+      text-align: left;
+  }
+}
+
