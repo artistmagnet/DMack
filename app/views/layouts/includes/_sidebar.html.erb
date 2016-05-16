@@ -53,7 +53,7 @@
 
           <li id="sidebar-item-resumes" >
             <a href="/invitations"><i class="fa fa-group"></i> <span>Add Friends</span></a>
-            <a href="<%=account_tier_resumes_path%>"><i class="fa fa-group"></i> <span>Upgrade Your Account</span></a>
+            <a href="#" onclick="$('#myModal').modal('show');"><i class="fa fa-group"></i> <span>Become a PowerMagnet</span></a>
             <!-- /Sidebar submenu -->
           </li>
           <li id="sidebar-item-resumes" >
@@ -86,3 +86,26 @@
       </div>
 </aside>
 <!-- /Sidebar -->
+
+<div class="modal " id="myModal" tabindex="-1" role="dialog" 
+     aria-labelledby="myModalLabel" aria-hidden="true">
+     <div class="modal-dialog">
+        <div class="modal-content">
+           <div class="modal-header">
+              <button type="button" class="close" 
+                 data-dismiss="modal" aria-hidden="true">
+                    &times;
+              </button>
+              <h4 class="modal-title" id="myModalLabel" title="Upgrade your account!">
+                 Upgrade Your Account
+              </h4>
+           </div>
+           <div class="modal-body">
+		<%= render :file => 'resumes/account_tier' %>
+	
+           </div>
+           <div class="modal-footer">
+           </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal -->
+    </div>

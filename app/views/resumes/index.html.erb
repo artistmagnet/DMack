@@ -33,7 +33,19 @@
                  </div>
                  <div class="col-md-4"></div>
               </div>
-           
+         
+	      <br/>
+ 
+	      <div class="row">
+                 <div class="col-md-4">
+                  <%= link_to 'Custom URL', edit_resume_path(resume),:class=>"btn btn-primary" %>
+                 </div>
+                 <div class="col-md-4">
+                 </div>
+                 <div class="col-md-4"></div>
+              </div>
+
+ 
            <br/><hr/>
            <%= render :partial=>'print_popup',:locals=>{:@resume=>resume}%>
          <%end%>

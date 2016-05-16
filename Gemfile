@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.1.8'
 
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
 # Use postgresql as the database for Active Record
@@ -26,6 +27,7 @@ gem 'jquery-ui-rails'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0',          group: :doc
+
 
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',                group: :development
@@ -81,7 +83,7 @@ gem 'bootstrap-datepicker-rails', '~> 1.6', '>= 1.6.0.1'
 gem 'omniauth'
 gem 'omniauth-facebook'
 # gem "fb_graph"
-gem "koala", "~> 2.0"
+gem "koala", "~> 2.2"
 gem 'oauth2'
 
 #image or file  uplaod

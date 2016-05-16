@@ -22,17 +22,11 @@
       <ul>
     </div>
   <%end%>
-  <h3>Invite Friends by Email</h3>
-  <div class="my-form">
-    <%= form_for(@invitation) do |f| %>
-      <p class="text-box">
-        <label for="box1">Email <span class="box-number">1</span></label>
-        <%= email_field_tag "email[]",nil,:id=>"box1" %>
-        <a class="add-box" href="#">Add More</a>
-      </p>
-      <p><input type="submit" value="Send Invitation" /></p>
-    <%end%>
-  </div>
+  <h3>Add Friends</h3>
+  <div>
+    <%= render :file => 'artist_invitations/index' %> 
+  </div> 
+
 <%end %>
 <div id="fb-root"></div>
 <script>(function(d, s, id) {

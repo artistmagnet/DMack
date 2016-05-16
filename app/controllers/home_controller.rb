@@ -1,7 +1,8 @@
 class HomeController < ApplicationController
 
   def index
-    @invitation =Invitation.new
+    @to ||= current_user
+    @invitation =ArtistInvitation.new
     if current_user
       @fb_friends = User.get_facebook_friends(current_user) unless current_user.authentications.blank?
     end
