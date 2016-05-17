@@ -1,5 +1,5 @@
 class VenuesController < ApplicationController
-  layout "inner"
+  layout :set_inner_layout
   before_action :set_venue, only: [:show, :edit, :update, :destroy]
   before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
@@ -103,5 +103,9 @@ class VenuesController < ApplicationController
 
     def company_params
       params.require(:company).permit(:name, :address1, :address2, :city, :zipcode, :state, :country, :description, :email, :addr_fb, :addr_tw, :addr_ins, :addr_lin, :website, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :phone, :year_founded)
+    end
+    
+    def set_inner_layout
+      "inner" if current_user
     end
 end

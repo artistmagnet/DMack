@@ -1,5 +1,5 @@
 class ProductionsController < ApplicationController
-  layout "inner"
+  layout :set_inner_layout
   before_filter :authenticate_user!
 
   before_action :set_date_params, only: [:create, :update]
@@ -186,6 +186,10 @@ class ProductionsController < ApplicationController
                                        # artist_invitations_attributes: [:id, :first_name, :last_name, :email, :to_id, :to_type, :type, :by],
                                        :photo_attributes=>[:image],shows_attributes: [:id, :production_id, :venue_id, :date, :opening_date_mask, :_destroy]
                                        )
+  end
+  
+  def set_inner_layout
+    "inner" if current_user
   end
 
   # def send_director_invitation(production)
