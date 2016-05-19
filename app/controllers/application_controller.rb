@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
 	    def configure_permitted_parameters
         devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:first_name, :last_name, :dob, :gender, :email, :password, :password_confirmation, :remember_me, :member_role) }
         devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:email, :password) }
-        devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name,:last_name,:dob,:gender,:email, :password,:password_confirmation,:member_role) }	       
+        devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:first_name,:last_name,:dob,:gender,:email, :password,:password_confirmation,:member_role, :subscription, :member_type ) }	       
         devise_parameter_sanitizer.for(:accept_invitation) do |u|
           u.permit(:first_name, :last_name,:dob,:gender,:member_role, :password, :password_confirmation,
             :invitation_token)
