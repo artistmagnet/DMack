@@ -21,10 +21,30 @@
               <% end %>
               <br>
 
-              <a onClick="PopupCenterDual('<%= @venue.addr_fb %>','Facebook','750','550'); " href="javascript:void(0);"><i class="icon-facebook_circle"></i></a>
-              <a onClick="PopupCenterDual('<%= @venue.addr_tw %>','Twitter','750','550'); " href="javascript:void(0);"><i class="icon-twitter_circle"></i></a>
-              <a onClick="PopupCenterDual('<%= @venue.addr_ins %>','Instagram','750','550'); " href="javascript:void(0);"><i class="icon-instagram_circle"></i></a>
-              <a onClick="PopupCenterDual('<%= @venue.addr_lin %>','LinkedIn','750','550'); " href="javascript:void(0);"><i class="icon-linked_in_circle"></i></a>
+              <a onClick="PopupCenterDual('<%= @venue.addr_fb %>','Facebook','750','550'); " href="javascript:void(0);">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a onClick="PopupCenterDual('<%= @venue.addr_tw %>','Twitter','750','550'); " href="javascript:void(0);">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a onClick="PopupCenterDual('<%= @venue.addr_ins %>','Tumblr','750','550'); " href="javascript:void(0);">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-tumblr fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a onClick="PopupCenterDual('<%= @venue.addr_lin %>','LinkedIn','750','550'); " href="javascript:void(0);">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
             </div>
             <div class="s-12 l-4 rocket_block_container">
               <% if @venue.photo && @venue.photo.try(:image).present? %>

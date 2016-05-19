@@ -230,6 +230,11 @@ height: 120px;
 font-size:14px
 }	
 
+ul.chevron .submenu > a:after, ul.chevron .sub-submenu > a:after,ul.chevron .aside-submenu > a:after, ul.chevron .aside-sub-submenu > a:after {
+  content:"\f078";
+  font-family:FontAwesome;
+}
+
 @media screen and (max-width: 768px) {
   .aside-nav li a,#search,#social {
       padding: 0.625em 1.25em;

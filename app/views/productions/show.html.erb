@@ -26,10 +26,30 @@
               <% end %>
               <br>
 
-              <!-- <a onClick="PopupCenterDual('http://www.facebook.com','Facebook','750','550'); " href="javascript:void(0);"><i class="icon-facebook_circle"></i></a>
-              <a onClick="PopupCenterDual('http://www.twitter.com','Twitter','750','550'); " href="javascript:void(0);"><i class="icon-twitter_circle"></i></a>
-              <a onClick="PopupCenterDual('http://www.instagram.com','Instagram','750','550'); " href="javascript:void(0);"><i class="icon-instagram_circle"></i></a>
-              <a onClick="PopupCenterDual('http://www.linkedin.com','LinkedIn','750','550'); " href="javascript:void(0);"><i class="icon-linked_in_circle"></i></a> -->
+              <a onClick="PopupCenterDual('','Facebook','750','550'); " href="javascript:void(0);">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a onClick="PopupCenterDual('','Twitter','750','550'); " href="javascript:void(0);">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a onClick="PopupCenterDual('','Tumblr','750','550'); " href="javascript:void(0);">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-tumblr fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
+              <a onClick="PopupCenterDual('','LinkedIn','750','550'); " href="javascript:void(0);">
+                <span class="fa-stack fa-lg">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
+                </span>
+              </a>
             </div>
             <div class="s-12 l-4 rocket_block_container">
               <%if @production.photo && @production.photo.try(:image).present? %>
