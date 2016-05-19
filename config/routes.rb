@@ -113,8 +113,6 @@ Rails.application.routes.draw do
   post   '/upload'=> 'resumes#upload', :as => 'upload'
   post   '/autosuggest'=> 'resumes#autosuggest', :as => 'autosuggest'
 
-
-  
   get 'users' => 'users#index', :as => 'users'
   get 'users/:id' => 'users#show', :as => 'profile'
   get  '/add_frineds'  => 'users#add_frineds', :as => 'add_frineds'

@@ -2,6 +2,8 @@ class ResumesController < ApplicationController
   respond_to :html, :js,:json
   before_filter :authenticate_user!  
 
+  before_action :check_if_member, only: [:new]
+
   before_action :new_resume, only: [:new]
   before_action :set_resume, only: [:email_resume,:show, :edit, :edit_with_role, :update, :destroy, :add_table, :destroy_table]
   #before_action :new_production, only: [:new, :edit, :edit_with_role, :create]
@@ -29,6 +31,15 @@ class ResumesController < ApplicationController
   def index
     #@resumes = Resume.all.order(:id)
     @resumes = current_user.resumes
+  end
+
+  def check_if_member
+
+    resumes=Resume.where(:user_id => current_user.id)
+    if current_user.subscription.nil? && resumes.count > 0
+	redirect_to '/resumes/account_tier'
+    end 
+
   end
 
   def new
@@ -137,7 +148,7 @@ class ResumesController < ApplicationController
 		Skill.destroy_all(:resume_id => @resume.id)
 	end
 	director = Director.find_by(:resume_id => @resume.id)
-	if @resume.resume_type != "Director"
+	if @resume.resume_type != "Director" && director
 		director.update_attributes(:text_only => true)
 	else
 		if director.nil?
@@ -365,7 +376,11 @@ class ResumesController < ApplicationController
   end
 
   def set_resume
-    @resume = Resume.find(params[:id])
+    if params[:id] =~ /\A[-+]?[0-9]+\z/
+      @resume = Resume.find(params[:id])
+    else
+      @resume = Resume.find_by(:custom_url => params[:id])
+    end
   end
 
   def new_theatre_params
@@ -428,7 +443,7 @@ class ResumesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def resume_params
-    params.require(:resume).permit(:performer_type,:union_guild,:image,:role_id,:resume_type,:resume_name,:other,:skills, 
+    params.require(:resume).permit(:performer_type,:union_guild,:image,:role_id,:resume_type,:resume_name,:other,:skills,:custom_url,
       roles_attributes: [:id, :production_id, :resume_id, :name, :_destroy],
       contact_info_attributes: [:id,:position,:nick_name,:first_name,:middle_name,:last_name,:suffix,:street_address1,:street_address2,:city,:state,:zip_code,:phone1,:phone2,:email,:website,:facebook,:twitter,:linkedin,:country,:_destroy],
       photos_attributes: [:id,:position, :image, :_destroy],
