@@ -712,7 +712,11 @@
     });
 
     $(document).on('click','a.additional_video_url,a.add_video',function(){
-      $("#myVideoModal").modal('show');  
+	<% if current_user.subscription.nil? %>
+		window.open("/resumes/account_tier")
+	<% else %>
+      		$("#myVideoModal").modal('show');  
+	<% end %>
     });
 
     $(document).on('click','.continue_button',function(){
@@ -729,12 +733,16 @@
     });
 
     $(document).on('click','#add_more_images',function(){
-      
-      var img1 = $(".additional_media_1").attr('src') || undefined;
+ 	
+	<% if current_user.subscription.nil?  %>     
+ 		window.open("/resumes/account_tier")	
+	<% else %>
+		var img1 = $(".additional_media_1").attr('src') || undefined;
       var img2 = $(".additional_media_2").attr('src') || undefined;
       var img3 = $(".main-image").attr('src');
 
-      if((img1 == undefined || img2 == undefined || (img1 == undefined && img2 == undefined)) || img1.search("data:image") != -1 && img2.search("data:image") != -1 && img3.search("data:image") != -1){
+
+            if((img1 == undefined || img2 == undefined || (img1 == undefined && img2 == undefined)) || img1.search("data:image") != -1 && img2.search("data:image") != -1 && img3.search("data:image") != -1){
         
         if(img3.search("blankUser")==-1){
         
@@ -753,7 +761,7 @@
       else{
         alert("Please use the available media first");
       } 
-      
+     <% end %> 
     });
 
     $(document).on('click',"#select_resume_type",function(){
