@@ -1,5 +1,4 @@
 class ProductionsController < ApplicationController
-  layout :set_inner_layout
   before_filter :authenticate_user!
 
   before_action :set_date_params, only: [:create, :update]
@@ -188,10 +187,6 @@ class ProductionsController < ApplicationController
                                        )
   end
   
-  def set_inner_layout
-    "inner" if current_user
-  end
-
   # def send_director_invitation(production)
   #   inv = production.director_invitations.last
   #   if production.director_invitations.where(email: inv.email, by: inv.by).count > 1

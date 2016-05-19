@@ -1,5 +1,4 @@
 class CompaniesController < ApplicationController
-  layout :set_inner_layout
   skip_before_filter :verify_authenticity_token
   before_action :set_company, only: [:show, :edit, :update, :destroy]
   # GET /companies
@@ -76,9 +75,5 @@ class CompaniesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def company_params
       params.require(:company).permit(:name, :address1, :address2, :city, :zipcode, :state, :country, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :year_founded, :description, :email, :addr_fb, :addr_tw, :website, :phone,:photo_attributes=>[:image])
-    end
-    
-    def set_inner_layout
-      "inner" if current_user
     end
 end
