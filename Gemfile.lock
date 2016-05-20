@@ -328,7 +328,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-ui-rails
-  koala (~> 2.0)
+  koala (~> 2.2)
   launchy
   nested_form
   oauth2

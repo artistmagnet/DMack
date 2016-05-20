@@ -1,5 +1,5 @@
 class ProductionsController < ApplicationController
-    before_filter :authenticate_user!
+  before_filter :authenticate_user!
 
   before_action :set_date_params, only: [:create, :update]
   before_action :set_production, only: [:show, :edit, :update, :destroy]
@@ -186,7 +186,7 @@ class ProductionsController < ApplicationController
                                        :photo_attributes=>[:image],shows_attributes: [:id, :production_id, :venue_id, :date, :opening_date_mask, :_destroy]
                                        )
   end
-
+  
   # def send_director_invitation(production)
   #   inv = production.director_invitations.last
   #   if production.director_invitations.where(email: inv.email, by: inv.by).count > 1

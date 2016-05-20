@@ -1,0 +1,21 @@
+<body>
+
+  <p class="notice" style="display: none"><%= notice %></p>
+  <p class="alert" style="display: none"><%= alert %></p>
+
+  <!-- Content -->
+  <div class="container-fluid p-top-20">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="flash-message">
+          <%= render 'layouts/includes/notice' %>
+        </div>
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+  <!-- /Page container -->
+  <% unless params[:print] %>
+    <%= render "layouts/includes/footer"%>
+  <%end%>  
+</body>

@@ -103,4 +103,5 @@ class VenuesController < ApplicationController
     def company_params
       params.require(:company).permit(:name, :address1, :address2, :city, :zipcode, :state, :country, :description, :email, :addr_fb, :addr_tw, :addr_ins, :addr_lin, :website, :primary_contact_name, :primary_contact_email, :primary_contact_phone, :phone, :year_founded)
     end
+    
 end

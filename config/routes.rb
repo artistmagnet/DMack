@@ -15,11 +15,15 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {:registrations => "registrations", :invitations => 'users/invitations', :passwords => 'users/passwords' }
   # root 'home#index'
   
-  authenticated do
-    root :to => 'home#index', as: :authenticated_root
-  end
+  devise_scope :user do
+    authenticated :user do
+      root 'home#index', as: :authenticated_root
+    end
 
-  root to: redirect('/users/sign_in')
+    unauthenticated do
+      root 'devise/sessions#new'
+    end
+  end
   
   get "users/express"
 
@@ -109,8 +113,6 @@ Rails.application.routes.draw do
   post   '/upload'=> 'resumes#upload', :as => 'upload'
   post   '/autosuggest'=> 'resumes#autosuggest', :as => 'autosuggest'
 
-
-  
   get 'users' => 'users#index', :as => 'users'
   get 'users/:id' => 'users#show', :as => 'profile'
   get  '/add_frineds'  => 'users#add_frineds', :as => 'add_frineds'

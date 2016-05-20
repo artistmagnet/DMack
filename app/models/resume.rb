@@ -91,4 +91,12 @@ class Resume < ActiveRecord::Base
     SectionSlot.create(section_id: table.id, section_type: 'Rtable', resume_id: id, position: max_pos + 1)
   end
 
+  def to_param
+    if !self.custom_url.nil?
+	"#{custom_url}"
+    else
+	"#{id}"	
+    end
+  end 
+
 end

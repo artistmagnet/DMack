@@ -9,7 +9,9 @@
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>             
             <%= devise_error_messages! %>
             <%= flash[:error]%>
-              
+        	Subscription
+ 	    <%= f.check_box :subscription %>   
+	   
             <div class='form-row'>
               <div class='col-xs-6 form-group '>
                 <label class='control-label'>First Name</label>
