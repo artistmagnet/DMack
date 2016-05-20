@@ -231,6 +231,8 @@ bindAjaxOption = (origin_scope_selector, select_selector, create_scope_selector)
 #    console.log([event.data, selectChain])
 #    console.log selectChain[selectChain.length-1]
     if event.data == selectChain[selectChain.length-1]
+      if selectChain[selectChain.length-1] == '#add-role-director'
+        alert 'Thank you, your message has been sent'  
       $entity_form = $(event.data)
       $entity_form_frame = $(event.data.concat(' + .fade'))
       $error_container = $(".error_explanation", $entity_form)
