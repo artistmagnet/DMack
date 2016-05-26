@@ -2,55 +2,57 @@
 <div class="logo-box">
   <a href="<%=root_path%>" ><img src="/assets/logo.svg"></a>
 </div>
-<div class="artist_box">
-  <div align="center">
-    <% if current_user.gender.downcase == 'male' %>
-      <img src="/assets/cast and crew - male.jpg"  class="simg_atist" alt="Actor">
-    <% else %>
-      <img src="/assets/cast and crew - female.jpg"  class="simg_atist" alt="Actor">
-    <% end %>
-  </div>
-</div>
-<div class="aside-nav">
-  <ul class="chevron">
-    <li>
-      <a>Resumes</a>
-      <ul>
-        <% @resumes.each do |resume| %>
-          <li>
-            <%= link_to resume, id: "resume-#{resume.id}-link" do %>
-              <%= resume.resume_name %>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>					
-    </li>
-    <li>
-      <%= link_to 'Build A Resume', new_resume_path %>
-    </li>
-    <li><a href="/invitations">Add Friends</a></li>
-    <li><a href="#" onclick="$('#upgradeModal').modal('show')">Upgrade Your Account</a></li>
-    <li><a>Other</a></li>
-    <li><a>Account Settings</a>
-      <ul>
-        <li><a href="<%=edit_user_registration_path%>">Edit Profile</a></li>
-        <li><a href="#">Update Password</a></li>
-      </ul>
-    </li>
-    <li><a href="/users/sign_out"  data-method="delete" rel="nofollow">Log out</a></li>
-
-
-  </ul>
-  <div id="search" class="line" >
-    <div class="search-bar">
-      <form>
-        <input class="s-11 sfield" name="" placeholder="Search" title="Search" type="text" />
-        <input type="image" class="searchbutton" name="search" src="http://www.spheretekk.com/bc/images/search-icon.gif" alt="Search">
-            <!--<a class="s-1" style="padding-left: 10px;" ><i class="icon-magnifying"></i></a>-->
-      </form>	 
+<% if user_signed_in? %> 
+  <div class="artist_box">
+    <div align="center">
+      <% if current_user.gender.downcase == 'male' %>
+        <img src="/assets/cast and crew - male.jpg"  class="simg_atist" alt="Actor">
+      <% else %>
+        <img src="/assets/cast and crew - female.jpg"  class="simg_atist" alt="Actor">
+      <% end %>
     </div>
   </div>
-</div>
+  <div class="aside-nav">
+    <ul class="chevron">
+      <li>
+        <a>Resumes</a>
+        <ul>
+          <% @resumes.each do |resume| %>
+            <li>
+              <%= link_to resume, id: "resume-#{resume.id}-link" do %>
+                <%= resume.resume_name %>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>					
+      </li>
+      <li>
+        <%= link_to 'Build A Resume', new_resume_path %>
+      </li>
+      <li><a href="/invitations">Add Friends</a></li>
+      <li><a href="#" onclick="$('#upgradeModal').modal('show')">Upgrade Your Account</a></li>
+      <li><a>Other</a></li>
+      <li><a>Account Settings</a>
+        <ul>
+          <li><a href="<%=edit_user_registration_path%>">Edit Profile</a></li>
+          <li><a href="#">Update Password</a></li>
+        </ul>
+      </li>
+      <li><a href="/users/sign_out"  data-method="delete" rel="nofollow">Log out</a></li>
+
+
+    </ul>
+    <div id="search" class="line" >
+      <div class="search-bar">
+        <form>
+          <input class="s-11 sfield" name="" placeholder="Search" title="Search" type="text" />
+          <input type="image" class="searchbutton" name="search" src="http://www.spheretekk.com/bc/images/search-icon.gif" alt="Search">
+              <!--<a class="s-1" style="padding-left: 10px;" ><i class="icon-magnifying"></i></a>-->
+        </form>	 
+      </div>
+    </div>
+  </div>
+<% end %>
 
 
 
