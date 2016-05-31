@@ -5,6 +5,10 @@ default: &default
   password: "postgres"
   timeout: 5000
 
+test:
+  <<: *default
+  database: artmag_test
+  host: localhost
 development:
   <<: *default
   database: artmag_development

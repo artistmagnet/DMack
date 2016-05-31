@@ -1,6 +1,7 @@
 FactoryGirl.define do
+  sequence(:name) { |n| "#{Faker::Company.name}#{n}" }
   factory :venue do
-    name "Test Venue"
+    name 
     address1 "addr1"
     address2 "addr2"
     zipcode  20100
