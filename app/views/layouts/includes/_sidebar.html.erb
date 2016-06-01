@@ -5,7 +5,7 @@
 <% if user_signed_in? %> 
   <div class="artist_box">
     <div align="center">
-      <% if current_user.gender.downcase == 'male' %>
+      <% if current_user.gender and current_user.gender.downcase == 'male' %>
         <img src="/assets/cast and crew - male.jpg"  class="simg_atist" alt="Actor">
       <% else %>
         <img src="/assets/cast and crew - female.jpg"  class="simg_atist" alt="Actor">
