@@ -243,4 +243,7 @@ ul.chevron .submenu > a:after, ul.chevron .sub-submenu > a:after,ul.chevron .asi
       text-align: left;
   }
 }
-
+p.invitation_text i{
+    display: inline;
+    font-size: 1em;
+}

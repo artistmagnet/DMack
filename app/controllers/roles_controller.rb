@@ -45,6 +45,7 @@ class RolesController < ApplicationController
       d = Director.new(:name => @role.dirname)
       d.save
     end 
+    @role.director_id = d.id
     @session_roles = $session_role << @role
     respond_to do |format|
       if @role.save
