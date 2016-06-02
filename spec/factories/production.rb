@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :production do
-    name "Test Production"
-    description "Test description"
+    name Faker::Book.title
+    description Faker::Lorem.paragraph
     company
     director
     dirname ''

@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :company do
-    name "Test Company"
+    name Faker::Company.name
     description "Test description"
     primary_contact_name "pcn"
     email                "Test@ema.il"
@@ -9,5 +9,7 @@ FactoryGirl.define do
     addr_tw              "http://test.tw"
     addr_ins             "http://test.ig"
     addr_lin             "http://test.li"
+    city                 "NY"
+    country              "US"
   end
 end

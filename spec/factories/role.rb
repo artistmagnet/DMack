@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :role do
-    name "Test Role"
+    name Faker::Superhero.name
     resume
     production
     director

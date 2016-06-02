@@ -14,6 +14,9 @@
 # users commonly want.
 
 require 'capybara/poltergeist'
+require 'rubygems'
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
 Capybara.javascript_driver = :poltergeist
 
 class ActiveRecord::Base
