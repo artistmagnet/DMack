@@ -1,5 +1,5 @@
 class Users::SessionsController < Devise::SessionsController
-  prepend_before_filter :force_reset_session, only: :destroy
+  # prepend_before_filter :force_reset_session, only: :destroy
 
   private
   
