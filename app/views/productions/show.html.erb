@@ -27,56 +27,8 @@
               <br>
 
               <div class="social-share-button" data-title="<%= @production.name %>" data-img=<%= image_url 'Production_md.jpg' %> data-url="" data-desc="<%= @production.description %>" data-popup="true" data-via="">
-                <a class="social-share-button-facebook" data-site="facebook" href="#" onclick="return SocialShareButton.share(this);" rel="nofollow " title="Share to Facebook">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-                <a class="social-share-button-twitter" data-site="twitter" href="#" onclick="return SocialShareButton.share(this);" rel="nofollow " title="Share to Twitter">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-                <a class="social-share-button-tumblr" data-site="tumblr" href="#" onclick="return SocialShareButton.share(this);" rel="nofollow " title="Share to Tumblr">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-tumblr fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
-                <a class="social-share-button-linkedin" data-site="linkedin" href="#" onclick="return SocialShareButton.share(this);" rel="nofollow " title="Share to Linkedin">
-                  <span class="fa-stack fa-lg">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>
-                  </span>
-                </a>
+                <%= render 'layouts/includes/socialicons' %>
               </div>
-
-              <!--<a onClick="PopupCenterDual('','Facebook','750','550'); " href="javascript:void(0);">-->
-                <!--<span class="fa-stack fa-lg">-->
-                  <!--<i class="fa fa-circle fa-stack-2x"></i>-->
-                  <!--<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>-->
-                <!--</span>-->
-              <!--</a>-->
-              <!--<a onClick="PopupCenterDual('','Twitter','750','550'); " href="javascript:void(0);">-->
-                <!--<span class="fa-stack fa-lg">-->
-                  <!--<i class="fa fa-circle fa-stack-2x"></i>-->
-                  <!--<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>-->
-                <!--</span>-->
-              <!--</a>-->
-              <!--<a onClick="PopupCenterDual('','Tumblr','750','550'); " href="javascript:void(0);">-->
-                <!--<span class="fa-stack fa-lg">-->
-                  <!--<i class="fa fa-circle fa-stack-2x"></i>-->
-                  <!--<i class="fa fa-tumblr fa-stack-1x fa-inverse"></i>-->
-                <!--</span>-->
-              <!--</a>-->
-              <!--<a onClick="PopupCenterDual('','LinkedIn','750','550'); " href="javascript:void(0);">-->
-                <!--<span class="fa-stack fa-lg">-->
-                  <!--<i class="fa fa-circle fa-stack-2x"></i>-->
-                  <!--<i class="fa fa-linkedin-square fa-stack-1x fa-inverse"></i>-->
-                <!--</span>-->
-              <!--</a>-->
             </div>
             <div class="s-12 l-4 rocket_block_container">
               <%if @production.photo && @production.photo.try(:image).present? %>
