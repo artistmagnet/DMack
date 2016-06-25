@@ -2,9 +2,9 @@ class UserMailer < ActionMailer::Base
   add_template_helper(ResumesHelper)
   default from: "#{ENV['EMAIL_SENDER_ADDRESS'] || 'dev@artistmagnet.com'}"
 
-  def welcome_email(user,password)
+  def welcome_email(user)
     @user = user
-    @password  = password
+    # @password  = password
     mail(to: @user.email, subject: 'Welcome to My Awesome Site')
   end
 

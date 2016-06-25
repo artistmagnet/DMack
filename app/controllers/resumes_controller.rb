@@ -2,7 +2,7 @@ class ResumesController < ApplicationController
   respond_to :html, :js,:json
   before_filter :authenticate_user!  
 
-  before_action :check_if_member, only: [:new]
+  # before_action :check_if_member, only: [:new]
 
   before_action :new_resume, only: [:new]
   before_action :set_resume, only: [:email_resume,:show, :edit, :edit_with_role, :update, :destroy, :add_table, :destroy_table]

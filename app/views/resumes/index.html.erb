@@ -35,12 +35,14 @@
               </div>
          
 	      <br/>
- 
+      
+
 	      <div class="row">
+                <div class="col-md-4">
+                   <%= link_to 'View Resume', resume_path(resume),:class=>"btn btn-primary" %>
+                </div>   
                  <div class="col-md-4">
                   <a href="#" class="btn btn-primary" <% if !current_user.subscription.nil? %> onclick="$('#customURLModal-' + <%= resume.id %> ).modal('show')" <% else %> onclick="window.open('/resumes/account_tier');"<%end%>>Custom URL</a>
-                 </div>
-                 <div class="col-md-4">
                  </div>
                  <div class="col-md-4"></div>
               </div>

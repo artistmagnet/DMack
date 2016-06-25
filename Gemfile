@@ -102,3 +102,8 @@ gem 'activemerchant'
 gem "addressable"
 gem 'puma', group: :production
 gem 'wkhtmltopdf-heroku', group: :production
+
+#Admin Panel
+gem 'activeadmin', '~> 1.0.0.pre1'
+
+gem 'nested_form_fields'

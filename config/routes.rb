@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-
-
+  ActiveAdmin.routes(self)
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  
   resources :directors
   resources :orders do 
     collection do 
@@ -166,4 +167,5 @@ Rails.application.routes.draw do
   post 'add_videos' => 'resumes#add_videos',:as=>'add_videos'
   post 'create_role' => 'resumes#create_role',:as=>'create_role'
 
+  post '/artist_invitations/add_nested_invitations' => 'artist_invitations#add_nested_invitations'
 end

@@ -6,6 +6,8 @@ class User < ActiveRecord::Base
   has_many :photos
   has_many :videos, dependent: :destroy
   has_many :roles, dependent: :destroy
+
+  accepts_nested_attributes_for :invitations
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

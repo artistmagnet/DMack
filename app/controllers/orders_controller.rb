@@ -47,7 +47,8 @@ def paypal_url(return_path)
         return: "#{Rails.application.secrets.app_host}#{return_path}",
         notify_url: "http://our_ngrok_url/hook",
         invoice: "id",
-        item_name: "Upgrade Your Account"
+        # item_name: "Upgrade Your Account"
+        item_name: "Become a PowerMagnet"
     }
     values =    values.merge(
                     cmd: "_xclick-subscriptions",

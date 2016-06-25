@@ -31,7 +31,7 @@
 //= require nested_forms
 //= require resume
 //= require bootstrap-datepicker
- 
+//= require nested_form_fields
 
 $(document).ready(function(){
 	$(function () {
