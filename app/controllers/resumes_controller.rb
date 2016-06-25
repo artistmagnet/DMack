@@ -35,9 +35,35 @@ class ResumesController < ApplicationController
 
   def check_if_member
 
-    resumes=Resume.where(:user_id => current_user.id)
-    if current_user.subscription.nil? && resumes.count > 0
-	redirect_to '/resumes/account_tier'
+    puts "Hi"
+    return_path = new_order_url
+    if current_user.subscription.nil? && current_user.resumes.count > 0
+	   # redirect_to '/resumes/account_tier'
+     values = {
+         business: "merchant@gotealeaf.com",
+         upload: 1,
+         no_shipping: 1,
+         return: "#{Rails.application.secrets.app_host}#{return_path}",
+         notify_url: "http://our_ngrok_url/hook",
+         invoice: "id",
+         item_name: "Upgrade Your Account"
+     }
+     values =    values.merge(
+                     cmd: "_xclick-subscriptions",
+                     a3: 9.99,
+                     p3: 1,
+                     srt: 2,
+                     t3: "M"
+                 )
+               # else
+               #   values.merge(
+               #       cmd: "_xclick",
+               #       amount: "course.price",
+               #       item_number: "course.id",
+               #       quantity: '1'
+               #   )
+               # end
+     redirect_to "https://www.sandbox.paypal.com/cgi-bin/webscr?" + values.to_query
     end 
 
   end
@@ -52,6 +78,33 @@ class ResumesController < ApplicationController
     @resume_customs_header_size = @resume_customs_rows.first.ccolumns.size
   end
 
+  def paypal_url(return_path)
+      values = {
+          business: "merchant@gotealeaf.com",
+          upload: 1,
+          no_shipping: 1,
+          return: "#{Rails.application.secrets.app_host}#{return_path}",
+          notify_url: "http://our_ngrok_url/hook",
+          invoice: "id",
+          item_name: "Upgrade Your Account"
+      }
+      values =    values.merge(
+                      cmd: "_xclick-subscriptions",
+                      a3: 9.99,
+                      p3: 1,
+                      srt: 2,
+                      t3: "M"
+                  )
+                # else
+                #   values.merge(
+                #       cmd: "_xclick",
+                #       amount: "course.price",
+                #       item_number: "course.id",
+                #       quantity: '1'
+                #   )
+                # end
+      "https://www.sandbox.paypal.com/cgi-bin/webscr?" + values.to_query
+    end
 
   def edit    
     @role = @resume.roles.build

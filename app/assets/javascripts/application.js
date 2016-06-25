@@ -32,6 +32,7 @@
 //= require resume
 //= require bootstrap-datepicker
 //= require nested_form_fields
+//= require social-share-button
 
 $(document).ready(function(){
 	$(function () {
