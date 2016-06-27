@@ -273,6 +273,9 @@ GEM
     simple_captcha2 (0.4.0)
       rails (>= 4.1)
     slop (3.6.0)
+    social-share-button (0.2.1)
+      coffee-rails
+      sass-rails
     spring (1.7.1)
     spring-commands-rspec (1.0.4)
       spring (>= 0.9.1)
@@ -351,6 +354,7 @@ DEPENDENCIES
   sass-rails (~> 4.0.4)
   sdoc (~> 0.4.0)
   simple_captcha2
+  social-share-button (~> 0.2.1)
   spring
   spring-commands-rspec
   therubyracer
