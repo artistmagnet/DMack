@@ -23,6 +23,8 @@
 # Ignore evironments
 .env
 *.codekit
+*.DS_Store
+
 
 # Ignore Caches
 /.sass-cache/
