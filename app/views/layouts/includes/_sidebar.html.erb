@@ -27,7 +27,11 @@
         </ul>					
       </li>
       <li>
+      <% if current_user.subscription || @resumes.count == 0 %> 
         <%= link_to 'Build A Resume', new_resume_path %>
+      <% else %>
+        <a href="#" onclick="$('#upgradeModal').modal('show')">Build A Resume</a>
+      <% end %>
       </li>
       <li><a href="/invitations">Add Friends</a></li>
       <li><a href="#" onclick="$('#upgradeModal').modal('show')">Become a PowerMagnet</a></li>

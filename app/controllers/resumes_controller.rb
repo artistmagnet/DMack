@@ -69,13 +69,17 @@ class ResumesController < ApplicationController
   end
 
   def new
-    $session_image_id,$session_video_id,$session_role = [],[],[] 
-    @videos = current_user.videos
-    @roles = current_user.roles.where(:resume_id=>nil)
-    @resume_educations_rows = @resume.educations
-    @resume_educations_header_size = @resume_educations_rows.first.ecolumns.size
-    @resume_customs_rows = @resume.customs
-    @resume_customs_header_size = @resume_customs_rows.first.ccolumns.size
+    if current_user.subscription || current_user.resumes.count < 1
+      $session_image_id,$session_video_id,$session_role = [],[],[] 
+      @videos = current_user.videos
+      @roles = current_user.roles.where(:resume_id=>nil)
+      @resume_educations_rows = @resume.educations
+      @resume_educations_header_size = @resume_educations_rows.first.ecolumns.size
+      @resume_customs_rows = @resume.customs
+      @resume_customs_header_size = @resume_customs_rows.first.ccolumns.size
+    else
+      redirect_to "/resumes/account_tier"
+    end
   end
 
   def paypal_url(return_path)

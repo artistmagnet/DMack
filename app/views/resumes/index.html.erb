@@ -13,7 +13,11 @@
                  </div>
                  <div class="col-md-4">
                  <%#= link_to "View As PDF", view_resume_pdf_path(resume),:class=>"btn btn-primary",:target=>'_blank'%>
-                   <%= link_to "Save As PDF",download_pdf_resume_path(resume.id,:format=>"pdf"),:class=>"btn btn-primary",:target=>'_blank'%>
+                   <% if current_user.subscription %>
+                     <%= link_to "Save As PDF",download_pdf_resume_path(resume.id,:format=>"pdf"),:class=>"btn btn-primary",:target=>'_blank'%>
+                   <% else %> 
+                     <a href="#" class="btn btn-primary" onclick="$('#upgradeModal').modal('show')">Save As PDF</a>
+                   <% end %> 
                  </div>
                  <div class="col-md-4"></div>
               </div><br/>
@@ -42,7 +46,7 @@
                    <%= link_to 'View Resume', resume_path(resume),:class=>"btn btn-primary" %>
                 </div>   
                  <div class="col-md-4">
-                  <a href="#" class="btn btn-primary" <% if !current_user.subscription.nil? %> onclick="$('#customURLModal-' + <%= resume.id %> ).modal('show')" <% else %> onclick="window.open('/resumes/account_tier');"<%end%>>Custom URL</a>
+                  <a href="#" class="btn btn-primary" <% if current_user.subscription %> onclick="$('#customURLModal-' + <%= resume.id %> ).modal('show')" <% else %> onclick="$('#upgradeModal').modal('show');"<%end%>>Custom URL</a>
                  </div>
                  <div class="col-md-4"></div>
               </div>
