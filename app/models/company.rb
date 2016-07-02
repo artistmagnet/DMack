@@ -8,11 +8,14 @@ class Company < ActiveRecord::Base
   validates :email, :primary_contact_email, :email => true
   validates :website, :addr_fb, :addr_tw, uri: true
   has_one :photo, as: :imageable, dependent: :destroy
+  has_many :invitations,:as => :to
+
   #has_many :photos, as: :imageable
   # has_one :photo, as: :imageable, dependent: :destroy
   accepts_nested_attributes_for :photo,:allow_destroy => true, reject_if: :all_blank
   # has_attached_file :image, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/images/fallback/union_station-180.png"
   # validates_attachment_content_type :image, :content_type => /\Aimage\/.*\Z/
+  accepts_nested_attributes_for :simple_invitations, allow_destroy: true
 
   def validate_properties
     if name.blank?

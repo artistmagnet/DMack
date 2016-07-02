@@ -12,6 +12,7 @@ class HomeController < ApplicationController
     index = Random.new(number).rand(greetings.size)
     @greeting = greetings[index]
   end
+  
   def about
   end
   def faq

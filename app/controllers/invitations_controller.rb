@@ -50,6 +50,7 @@ class InvitationsController < ApplicationController
 
   def index    
     @invitations = current_user.invitations
+    @fb_friends = User.get_facebook_friends(current_user) unless current_user.authentications.blank?
   end
 
   def destroy

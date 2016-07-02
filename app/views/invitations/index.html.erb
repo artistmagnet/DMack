@@ -1,4 +1,4 @@
-<h1>Your Sent Invitations</h1>
+<h3>Your Sent Invitations</h3>
 
 <table class="table">
   <thead>
@@ -8,7 +8,6 @@
       <th>Email</th>
       <th>Date</th>
       <th>Custom Message</th>
-      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -20,32 +19,35 @@
         <td><%= invitation.email %></td>
         <td><%= invitation.created_at %></td>
         <td><%= invitation.text %></td>
-        <td><%#= link_to 'Show', invitation %></td>
-        <td><%#= link_to 'Edit', edit_invitation_path(invitation) %></td>
-        <td><%#= link_to 'Destroy', invitation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <!-- <td><%#= link_to 'Show', invitation %></td> -->
+        <!-- <td><%#= link_to 'Edit', edit_invitation_path(invitation) %></td> -->
+        <!-- <td><%#= link_to 'Destroy', invitation, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
-<h1>Facebook Invitation</h1>
+<h3>Invite Artists to Artist Magnet with Facebook</h3>
 
 <table class="table">
   <thead>
     <tr>
-      <th>First name</th>
-      <th>Last name</th>
+      <th>Name</th>
       <th>Email</th>
-      <th>Date</th>
-      <th>Custom Message</th>
-      <th colspan="2"></th>
-    </tr>
-  </thead>
+    </tr> 
+  </thead>   
+  <tbody>
+    <% @fb_friends && @fb_friends.each do |friend|%>
+      <tr>
+       <td><%= friend["name"]%></td>
+       <td> <%= friend["email"]%></td>
+      </tr>
+    <%end%>
+  </tbody>
 </table>
 <br/>
-
-<h1>Email Invitation</h1>
+<h3>Invite Artists to Artist Magnet with Email</h3>
 
 <table class="table">
   <thead>
@@ -53,12 +55,22 @@
       <th>First name</th>
       <th>Last name</th>
       <th>Email</th>
-      <th>Date</th>
-      <th>Custom Message</th>
-      <th colspan="2"></th>
+      <th>Description</th>
     </tr>
   </thead>
-</table>    
+  <tbody>
+    <% @invitations.each do |invitation| %>
+      <tr>
+        <td><%= invitation.first_name %></td>
+        <td><%= invitation.last_name %></td>
+        <td><%= invitation.email %></td>
+        <td><%= invitation.text %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+  
 
 <%#= link_to user_artist_invitations_path current_user do %>
  <!--  <button class="btn btn-primary pull-right m-top-m6" type="button">Invite an Artist to Artist Magnet</button> -->

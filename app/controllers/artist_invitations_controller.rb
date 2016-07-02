@@ -3,8 +3,8 @@ class ArtistInvitationsController < InvitationsController
   before_action :set_invitations
   # before_action :set_role
   def index
-    # @invitation  = ArtistInvitation.new()
-    @invitation = @to.invitations.build
+    @invitation  = ArtistInvitation.new()
+    # @invitation = @to.invitations.build
   end
 
   def create
@@ -28,8 +28,9 @@ class ArtistInvitationsController < InvitationsController
     parent = params[:user] || params[:production] || params[:company] || params[:venue]
     parent[:invitations_attributes].each_with_index do |invitation, index|
       @invitation = ArtistInvitation.new(invitation[index+1])
+      byebug
       @invitation.to      = @to
-      @invitation.by      = User.first
+      @invitation.by      = current_user
       if @invitation.save
         send_artist_invitation @invitation
       end  

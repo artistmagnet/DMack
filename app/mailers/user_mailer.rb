@@ -5,7 +5,7 @@ class UserMailer < ActionMailer::Base
   def welcome_email(user)
     @user = user
     # @password  = password
-    mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+    mail(to: @user.email, subject: 'Thank you for joining Artist Magnet')
   end
 
   def email_resume(user,resume)

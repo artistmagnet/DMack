@@ -12,9 +12,9 @@
                 <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
                   <!-- <span>Invite an Artist to <%= @to.name %> on Artist Magnet</span> -->
                   <span>Invite Artists to Artist Magnet by Email</span>
-                  <%= link_to @to do %>
-                    <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button>
-                  <% end %>
+                  <%#= link_to @to do %>
+                   <!--  <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button> -->
+                  <%# end %>
                 </h3>
               </div>
 
@@ -23,7 +23,7 @@
                 <tbody class="render_education_table">
                   <%= nested_form_for @to, :url=>artist_invitations_add_nested_invitations_path,:method=>:post,html: {class: 'form-horizontal'} do |f| %>
                   <%= render 'layouts/includes/error_explanation', entity: @invitation, offset: 2, span: 10, display: (@invitation.errors.empty? ? 'none' : 'block')  %>
-                 
+                  <%=hidden_field_tag set_to_id(@to) ,@to.id%>
                   <tr class="fields">
                   <%= f.nested_fields_for :invitations, @to.invitations.build, wrapper_tag: :tr do |i| %>
                   <td class="col-sm-2" >
@@ -58,7 +58,7 @@
                   <td colspan="5">
                     <div class="actions form-group">
                   <div class="actions">
-                    <%= f.submit 'Send invitation', {class: "btn btn-primary"} %>
+                    <%= f.submit 'Send Invitations', {class: "btn btn-primary"} %>
                   </div>
                 </div>
                 </td>
@@ -68,9 +68,6 @@
                 </tbody>
               </table>   
 	
-              
-
-
             </div>
           </div>
         </div>

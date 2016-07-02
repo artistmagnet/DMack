@@ -31,7 +31,8 @@ permit_params :first_name, :last_name, :email, :dob, :gender, :subscription
     column :gender
     column 'Power Magnet' do |p| 
       p.subscription
-    end   
+    end 
+    column :created_at  
     actions
   end
 
@@ -45,7 +46,8 @@ permit_params :first_name, :last_name, :email, :dob, :gender, :subscription
       row :gender
       row 'Power Magnet' do |p| 
         p.subscription
-      end   
+      end 
+      row :created_at   
     end
   end    
 end
