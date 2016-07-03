@@ -24,6 +24,7 @@
                   <%= nested_form_for @to, :url=>artist_invitations_add_nested_invitations_path,:method=>:post,html: {class: 'form-horizontal'} do |f| %>
                   <%= render 'layouts/includes/error_explanation', entity: @invitation, offset: 2, span: 10, display: (@invitation.errors.empty? ? 'none' : 'block')  %>
                   <%=hidden_field_tag set_to_id(@to) ,@to.id%>
+                  <%#=hidden_field_tag "artist_name" %>
                   <tr class="fields">
                   <%= f.nested_fields_for :invitations, @to.invitations.build, wrapper_tag: :tr do |i| %>
                   <td class="col-sm-2" >
@@ -66,7 +67,24 @@
                  </tfoot>
                 <% end %>
                 </tbody>
-              </table>   
+              </table> 
+              <br/><br/>
+              <p class="invitation_text">
+                The following automatic message will be added to your email: 
+                <br/><br/>
+                <i> 
+                  Dear [Artist's Name]: 
+                   <br><br>
+                  I am building a new hyperlinking Resume on Artist Magnet - a new social network for Theatre people connecting Artists through Shows and Venues everywhere. 
+                   <br><br>
+                  
+                  In order to help me complete my Resume, please build your own Resume and link it to mine. You can do it here: www.ArtistMagnet.com
+                   <br><br>
+                   
+                  Thanks for your help, and see you soon on Artist Magnet, 
+                   <br><br>
+                  Enter your name here: <%=text_field_tag "name"%></i> 
+                </p>   
 	
             </div>
           </div>

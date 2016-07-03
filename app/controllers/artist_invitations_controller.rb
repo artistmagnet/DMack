@@ -28,7 +28,6 @@ class ArtistInvitationsController < InvitationsController
     parent = params[:user] || params[:production] || params[:company] || params[:venue]
     parent[:invitations_attributes].each_with_index do |invitation, index|
       @invitation = ArtistInvitation.new(invitation[index+1])
-      byebug
       @invitation.to      = @to
       @invitation.by      = current_user
       if @invitation.save
