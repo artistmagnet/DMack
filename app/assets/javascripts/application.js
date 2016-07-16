@@ -62,5 +62,11 @@ $(document).ready(function(){
   $('.alert .close').on('click', function(e) {
       $(this).parent().hide();
   });
+
+  $(".send-btn").on('click',function(e){
+    e.preventDefault();
+    $('#artist_name').val($('#name').val());
+    $('.invitations-form').submit();
+  });
   
 });

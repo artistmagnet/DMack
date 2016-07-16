@@ -1,6 +1,7 @@
 class InvitationsController < ApplicationController
   before_action :set_invitation, only: [:show, :edit, :destroy]
   #before_action :authenticate_user!
+  before_action :set_to, only: [:index]
 
   def new
     @invitation = Invitation.new
@@ -48,7 +49,9 @@ class InvitationsController < ApplicationController
     end
   end
 
-  def index    
+  def index
+    @to ||= current_user
+    @invitation  = ArtistInvitation.new()    
     @invitations = current_user.invitations
     @fb_friends = User.get_facebook_friends(current_user) unless current_user.authentications.blank?
   end
@@ -84,5 +87,12 @@ class InvitationsController < ApplicationController
       end
     end
     return @invitation
+  end
+
+  def set_to
+    @to ||= Production.find(params[:production_id]) unless params[:production_id].blank?
+    @to ||= Company.find(params[:company_id]) unless params[:company_id].blank?
+    @to ||= Venue.find(params[:venue_id]) unless params[:venue_id].blank?
+    @to ||= User.find(params[:user_id]) unless params[:user_id].blank?
   end
 end

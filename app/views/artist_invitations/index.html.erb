@@ -1,96 +1,30 @@
-    <div class="container-fluid m-top-20">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-            <div class="panel-body">
-	      <%= render partial: 'layouts/includes/facebook' %>
+<div class="container-fluid m-top-20">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%= render partial: 'layouts/includes/facebook' %>
 
 
-              <%= render partial: 'layouts/includes/notice' %>
+          <%= render partial: 'layouts/includes/notice' %>
 
-              <div class="form-group">
-                <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
-                  <!-- <span>Invite an Artist to <%= @to.name %> on Artist Magnet</span> -->
-                  <span>Invite Artists to Artist Magnet by Email</span>
-                  <%#= link_to @to do %>
-                   <!--  <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button> -->
-                  <%# end %>
-                </h3>
-              </div>
+          <div class="form-group">
+            <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
+              <!-- <span>Invite an Artist to <%= @to.name %> on Artist Magnet</span> -->
+              <span>Invite Artists to Artist Magnet by Email</span>
+              <%#= link_to @to do %>
+               <!--  <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button> -->
+              <%# end %>
+            </h3>
+          </div>
 
               
-              <table id="demo" class="artists">
-                <tbody class="render_education_table">
-                  <%= nested_form_for @to, :url=>artist_invitations_add_nested_invitations_path,:method=>:post,html: {class: 'form-horizontal'} do |f| %>
-                  <%= render 'layouts/includes/error_explanation', entity: @invitation, offset: 2, span: 10, display: (@invitation.errors.empty? ? 'none' : 'block')  %>
-                  <%=hidden_field_tag set_to_id(@to) ,@to.id%>
-                  <%#=hidden_field_tag "artist_name" %>
-                  <tr class="fields">
-                  <%= f.nested_fields_for :invitations, @to.invitations.build, wrapper_tag: :tr do |i| %>
-                  <td class="col-sm-2" >
-
-                  <%= i.text_field :first_name, {class: 'form-control', placeholder: 'Artist\'s First Name'} %>
-                  </td>
-                  <td class="col-sm-2" >
-
-                  <%= i.text_field :last_name, {class: 'form-control', placeholder: 'Artist\'s Last Name'} %>
-                  </td>
-                  <td class="col-sm-2" >
-
-                    <%= i.text_field :email, {class: 'form-control', placeholder: 'Artist\'s Email'} %>
-                  </td>
-                  <td class="col-sm-2" >
-
-                    <%= i.text_area :text, {class: 'form-control', placeholder: 'Custom Message to the Artist'}  %>
-                  </td>
-                  <td class="col-sm-1">
-                  <%= i.remove_nested_fields_link '-', data: { confirm: 'Are you sure?' }%>
-                  </td>
-                 
-                </tr> 
-               <%end%>  
-                <tfoot>
-
-                  <tr> 
-                 
-                    <th colspan="8"><%= f.add_nested_fields_link :invitations ,'+',:class=>"btn btn-default insert_in_table",:title=>"Add Row"%></th>
-                  </tr>
-                  <tr>
-                  <td colspan="5">
-                    <div class="actions form-group">
-                  <div class="actions">
-                    <%= f.submit 'Send Invitations', {class: "btn btn-primary"} %>
-                  </div>
-                </div>
-                </td>
-                  </tr>
-                 </tfoot>
-                <% end %>
-                </tbody>
-              </table> 
-              <br/><br/>
-              <p class="invitation_text">
-                The following automatic message will be added to your email: 
-                <br/><br/>
-                <i> 
-                  Dear [Artist's Name]: 
-                   <br><br>
-                  I am building a new hyperlinking Resume on Artist Magnet - a new social network for Theatre people connecting Artists through Shows and Venues everywhere. 
-                   <br><br>
-                  
-                  In order to help me complete my Resume, please build your own Resume and link it to mine. You can do it here: www.ArtistMagnet.com
-                   <br><br>
-                   
-                  Thanks for your help, and see you soon on Artist Magnet, 
-                   <br><br>
-                  Enter your name here: <%=text_field_tag "name"%></i> 
-                </p>   
+                <%=render 'artist_invitations/form',:@to => @to, :@invitation => @invitation %>
 	
-            </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-  <!--< % end %>-->
 </div>

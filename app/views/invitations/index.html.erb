@@ -28,47 +28,25 @@
 </table>
 
 <br>
-<h3>Invite Artists to Artist Magnet with Facebook</h3>
+ <%= render partial: 'layouts/includes/facebook' %>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Email</th>
-    </tr> 
-  </thead>   
-  <tbody>
-    <% @fb_friends && @fb_friends.each do |friend|%>
-      <tr>
-       <td><%= friend["name"]%></td>
-       <td> <%= friend["email"]%></td>
-      </tr>
-    <%end%>
-  </tbody>
-</table>
-<br/>
-<h3>Invite Artists to Artist Magnet with Email</h3>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @invitations.each do |invitation| %>
-      <tr>
-        <td><%= invitation.first_name %></td>
-        <td><%= invitation.last_name %></td>
-        <td><%= invitation.email %></td>
-        <td><%= invitation.text %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+              <%= render partial: 'layouts/includes/notice' %>
+
+              <div class="form-group">
+                <h3 class="col-md-offset-2 col-md-10 m-bottom-20">
+                  <!-- <span>Invite an Artist to <%= @to.name %> on Artist Magnet</span> -->
+                  <span>Invite Artists to Artist Magnet by Email</span>
+                  <%#= link_to @to do %>
+                   <!--  <button class="btn btn-primary pull-right m-top-m6" type="button">Done</button> -->
+                  <%# end %>
+                </h3>
+              </div>
+
+              
+ <%=render 'artist_invitations/form',:@to => @to, :@invitation => @invitation %>
+
+
 
   
 

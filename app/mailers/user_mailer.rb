@@ -1,6 +1,6 @@
 class UserMailer < ActionMailer::Base
   add_template_helper(ResumesHelper)
-  default from: "#{ENV['EMAIL_SENDER_ADDRESS'] || 'dev@artistmagnet.com'}"
+  default from: "#{ENV['EMAIL_SENDER_ADDRESS'] || 'manish@artistmagnet.com'}"
 
   def welcome_email(user)
     @user = user

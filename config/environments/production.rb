@@ -106,14 +106,23 @@ Rails.application.configure do
   config.action_mailer.default :charset => "utf-8"
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { :host => 'http://artist-resume.herokuapp.com' }  
+  # config.action_mailer.smtp_settings = {
+  #   address: "smtp.gmail.com",
+  #   port: 587,
+  #   domain: "gmail.com",
+  #   authentication: "plain",
+  #   enable_starttls_auto: true,
+  #   :user_name => 'artist.magnet.test',
+  #   :password => 'fnie0z793nfk30x30aa948e'
+  # }
   config.action_mailer.smtp_settings = {
     address: "smtp.gmail.com",
     port: 587,
-    domain: "gmail.com",
-    authentication: "plain",
+    domain: "artistmagnet.com",
+    authentication: "login",
     enable_starttls_auto: true,
-    :user_name => 'artist.magnet.test',
-    :password => 'fnie0z793nfk30x30aa948e'
+    :user_name => 'manish@artistmagnet.com',
+    :password => 'osi12345'
   }
   
 end

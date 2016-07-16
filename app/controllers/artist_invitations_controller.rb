@@ -3,7 +3,7 @@ class ArtistInvitationsController < InvitationsController
   before_action :set_invitations
   # before_action :set_role
   def index
-    @invitation  = ArtistInvitation.new()
+    @invitation  = ArtistInvitation.new
     # @invitation = @to.invitations.build
   end
 
@@ -26,12 +26,14 @@ class ArtistInvitationsController < InvitationsController
 
   def add_nested_invitations
     parent = params[:user] || params[:production] || params[:company] || params[:venue]
+     
     parent[:invitations_attributes].each_with_index do |invitation, index|
       @invitation = ArtistInvitation.new(invitation[index+1])
       @invitation.to      = @to
       @invitation.by      = current_user
+      @artist_name = params[:artist_name].present? ? params[:artist_name] : @invitation.first_name
       if @invitation.save
-        send_artist_invitation @invitation
+        send_artist_invitation @invitation, @artist_name
       end  
     end 
     if @invitation.errors.present?
@@ -67,9 +69,9 @@ class ArtistInvitationsController < InvitationsController
     params.require(:artist_invitation).permit(:first_name, :last_name, :email, :text)
   end
 
-  def send_artist_invitation(invitation)
+  def send_artist_invitation(invitation, artist_name)
     production = invitation.to
     puts "Sending artist invitation"
-    AmMailer.invite_artist(invitation, production, current_user.name).deliver
+    AmMailer.invite_artist(invitation, production, current_user.name, artist_name).deliver
   end
 end
