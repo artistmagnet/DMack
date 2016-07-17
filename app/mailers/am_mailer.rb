@@ -14,6 +14,6 @@ class AmMailer < ActionMailer::Base
     @related_entity = related_entity
     @referrer_name = referrer_name
     @artist_name = artist_name
-    mail(to: @invitation.email, subject: "#{referrer_name}\'s Résumé on Artist Magnet")
+    mail(to: @invitation.email, subject: "#{@artist_name}\'s Résumé on Artist Magnet")
   end
 end
