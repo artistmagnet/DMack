@@ -31,7 +31,7 @@ class ArtistInvitationsController < InvitationsController
       @invitation = ArtistInvitation.new(invitation[index+1])
       @invitation.to      = @to
       @invitation.by      = current_user
-      @artist_name = params[:artist_name].present? ? params[:artist_name] : @invitation.first_name
+      @artist_name = params[:artist_name].present? ? params[:artist_name] : current_user.first_name
       if @invitation.save
         send_artist_invitation @invitation, @artist_name
       end  
