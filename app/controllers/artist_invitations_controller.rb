@@ -27,8 +27,9 @@ class ArtistInvitationsController < InvitationsController
   def add_nested_invitations
     parent = params[:user] || params[:production] || params[:company] || params[:venue]
      
-    parent[:invitations_attributes].each_with_index do |invitation, index|
-      @invitation = ArtistInvitation.new(invitation[index+1])
+    parent[:invitations_attributes].each do |invitation|
+      
+      @invitation = ArtistInvitation.new(invitation[1])
       @invitation.to      = @to
       @invitation.by      = current_user
       @artist_name = params[:artist_name].present? ? params[:artist_name] : current_user.first_name
